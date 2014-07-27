@@ -5,25 +5,25 @@
         <div class="form-group">
             <label translate="quickAdd.registerMessage"></label>
 
-            <input type="text" name="tournamentName" id="tournamentName" class="form-control input-center" placeholder="Tournament name" ng-model="tournamentName" ng-required="required"/>
+            <input type="text" name="tournamentName" id="tournamentName" class="form-control input-center" placeholder="{{'quickAdd.tournamentNamePlaceholder' | translate }}" ng-model="tournamentName" ng-required="required"/>
             <!--<select>-->
                 <!--<option>Single elimination Bracket</option>-->
                 <!--<option>Group stages</option>-->
             <!--</select>-->
-            <button class="form-control" type="submit">Go !</button>
+            <button class="form-control" type="submit" translate="quickAdd.go"></button>
         </div>
     </form>
 </div>
 <div id="tourneyCreationOk" class="alert alert-success alert-dismissible" role="alert" hidden>
     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-    The tournament has been created! You can administer it using <a href="/admin/{{adminURL}}" class="alert-link">this link</a>
-    , and you can send <a href="/signup/{{signupURL}}" class="alert-link">this link</a> to allow your users to enroll.
+    {{ 'quickAdd.success.pre' | translate}} <a href='/admin/{{adminURL}}' class='alert-link' translate="quickAdd.success.thisLink"></a> {{ 'quickAdd.success.mid' | translate}} <a href='/signup/{{signupURL}}' class='alert-link'>this link</a> {{ 'quickAdd.success.post' | translate}}
 
+    <span translate="quickAdd.success"></span>
     </div>
 <div id="tourneyCreationKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-    Something bad happened, the tournament was not created (Reason : {{errorMessage}}). Please try again.
+    {{ 'quickAdd.fail' | translate }} (Reason : {{errorMessage}})
     </div>
 <div class="footer">
-  <p>♥ from the Toodle team</p>
+  <p translate="footer.love"></p>
 </div>
