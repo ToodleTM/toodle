@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ezBracketApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth) {
+  .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
@@ -9,13 +9,6 @@ angular.module('ezBracketApp')
       'title': 'Settings',
       'link': '/settings'
     }];
-    
-    $scope.logout = function() {
-      Auth.logout()
-      .then(function() {
-        $location.path('/login');
-      });
-    };
     
     $scope.isActive = function(route) {
       return route === $location.path();
