@@ -15,7 +15,7 @@ This is an app based on a MEAN stack, so you'll need a machine with: NodeJS and 
 
 Then, once the app is configured to access your mongodb instance (via _/lib/config/env/<your environments>_) you should be able to install everything by running :
 
-1 npm i
-2 bower i
+* npm i
+* bower i
 
 although most cloud based platforms like heroku / nodejitsu should do this for you when you deploy, if you choose to use such a platform.
