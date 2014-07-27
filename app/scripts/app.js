@@ -4,9 +4,10 @@ angular.module('ezBracketApp', [
     'ngCookies',
     'ngResource',
     'ngSanitize',
-    'ngRoute'
+    'ngRoute',
+    'pascalprecht.translate'
 ])
-    .config(function ($routeProvider, $locationProvider, $httpProvider) {
+    .config(function ($routeProvider, $locationProvider, $httpProvider, $translateProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'partials/main',
@@ -25,6 +26,14 @@ angular.module('ezBracketApp', [
             });
 
         $locationProvider.html5Mode(true);
+
+        // Initialize angular-translate
+        $translateProvider.useStaticFilesLoader({
+            prefix: 'i18n/',
+            suffix: '.json'
+        });
+
+        $translateProvider.preferredLanguage('en');
 
         // Intercept 401s and redirect you to login
         $httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {

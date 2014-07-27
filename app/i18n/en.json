@@ -1,0 +1,9 @@
+{
+    "quickAdd":{
+        "registerMessage":"Register a new tournament !",
+        "success":"Yay \\o/",
+        "fail":"Eeek !",
+        "tournamentNamePlaceholder":"Your tournament name here",
+        "formButtonText":"Go !"
+    }
+}
