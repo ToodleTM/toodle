@@ -1,9 +1,15 @@
 {
     "quickAdd":{
         "registerMessage":"Register a new tournament !",
-        "success":"Yay \\o/",
-        "fail":"Eeek !",
+        "success":"The tournament has been created! You can administer it using <a href='/admin/{{adminURL}}' class='alert-link'>this link</a>, and you can send <a href='/signup/{{signupURL}}' class='alert-link'>this link</a> to allow your users to enroll.",
+        "fail":"Something bad happened, the tournament was not created (Reason : {{errorMessage}}). Please try again.",
         "tournamentNamePlaceholder":"Your tournament name here",
-        "formButtonText":"Go !"
+        "go":"Go !"
+    },
+    "footer":{
+        "love":"♥ from the Toodle team"
+    },
+    "header":{
+        "title":"Toodle"
     }
 }
