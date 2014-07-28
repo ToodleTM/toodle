@@ -4,7 +4,7 @@
         "success":{
             "pre":"The tournament has been created! You can administer it using",
             "mid":", and you can send",
-            "post":"to allow your users to enroll.",
+            "end":"to allow your users to enroll.",
             "thisLink":"this link"
         },
         "fail":"Something bad happened, the tournament was not created. Please try again.",
