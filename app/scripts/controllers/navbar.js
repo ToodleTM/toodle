@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ezBracketApp')
+angular.module('toodleApp')
   .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
       'title': 'Home',

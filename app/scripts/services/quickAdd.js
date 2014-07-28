@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ezBracketApp')
+angular.module('toodleApp')
   .factory('QuickAdd', function QuickAdd($location, $rootScope, Tournament) {
 
     return {

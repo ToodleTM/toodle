@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ezBracketApp')
+angular.module('toodleApp')
   .controller('MainCtrl', function ($scope, QuickAdd, $location) {
     $scope.tournamentName = "";
 

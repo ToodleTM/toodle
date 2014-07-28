@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ezBracketApp')
+angular.module('toodleApp')
   .factory('Tournament', function ($resource) {
     return $resource('/api/tournament/:id', {
       id: '@id'
