@@ -65,6 +65,7 @@
     "load-grunt-tasks": "~0.2.0",
     "mocha": "^1.21.3",
     "open": "~0.0.4",
+    "phantomjs": "^1.9.7-15",
     "protractor": "^1.0.0",
     "requirejs": "~2.1.10",
     "should": "~2.1.0",
