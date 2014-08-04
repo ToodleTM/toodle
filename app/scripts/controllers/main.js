@@ -4,7 +4,7 @@ angular.module('toodleApp')
   .controller('MainCtrl', function ($scope, QuickAdd, $location) {
     $scope.tournamentName = "";
 
-    $scope.createTourney = function(form){
+    $scope.createTourney = function(){
         QuickAdd.createBasicTournament({tournamentName:$scope.tournamentName, players:[]}, function(){
             $("#tourneyCreationKo").fadeOut();
             $("#tourneyCreationOk").fadeOut();
