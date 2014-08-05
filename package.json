@@ -40,6 +40,7 @@
     "grunt-express-server": "~0.4.5",
     "grunt-google-cdn": "~0.2.0",
     "grunt-karma": "~0.6.2",
+    "grunt-mocha": "^0.4.11",
     "grunt-mocha-test": "~0.8.1",
     "grunt-newer": "~0.5.4",
     "grunt-ngmin": "~0.0.2",
@@ -69,6 +70,7 @@
     "protractor": "^1.0.0",
     "requirejs": "~2.1.10",
     "should": "~2.1.0",
+    "sinon": "^1.10.3",
     "supertest": "~0.8.2",
     "time-grunt": "~0.2.1"
   },
