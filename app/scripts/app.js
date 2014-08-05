@@ -13,7 +13,7 @@ angular.module('toodleApp', [
                 templateUrl: 'partials/main',
                 controller: 'MainCtrl'
             })
-            .when('/admin', {
+            .when('/admin/:id', {
                 templateUrl: 'partials/admin',
                 controller: 'AdminCtrl'
             })

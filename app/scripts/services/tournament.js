@@ -12,7 +12,7 @@ angular.module('toodleApp')
       get: {
         method: 'GET',
         params: {
-          id:'me'
+          id:'@id'
         }
       }
 	  });
