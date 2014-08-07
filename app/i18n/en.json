@@ -16,5 +16,22 @@
     },
     "header":{
         "title":"Toodle"
+    },
+    "admin":{
+        "intro":"This is your tournament administration page. You can edit everything related to your tournament here. Just remember that anyone with the URL will be able to do the same.",
+        "header":{
+            "tournament":"Tournament",
+            "adminPage":"admin page"
+        },
+        "form":{
+            "configure":"Configure your tournament",
+            "pickGame":"-- Pick a game --",
+            "other":"Other",
+            "engine":"Tournament engine",
+            "roundFormats":"Round formats",
+            "numberOfPlayers":"Number of players",
+            "submit":"Submit changes",
+            "game":"Game"
+        }
     }
 }

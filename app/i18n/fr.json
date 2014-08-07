@@ -16,5 +16,22 @@
     },
     "header":{
         "title":"Toodle"
+    },
+    "admin":{
+        "intro":"Ceci est la page d'administration de ton tournoi. Tu peux faire tous les changements que tu souhaites ici. Rappelles toi que n'importe qui avec l'URL d'admin peut faire la même chose.",
+        "header":{
+            "tournament":"Tournoi",
+            "adminPage":" : page d'administration"
+        },
+        "form":{
+            "configure":"Configure ton tournoi",
+            "pickGame":"-- Choisis un jeu --",
+            "other":"Autre",
+            "engine":"Règles à utiliser",
+            "roundFormats":"Format des rounds",
+            "numberOfPlayers":"Nombre de joueurs",
+            "submit":"Valider les changements",
+            "game":"Jeu"
+        }
     }
 }

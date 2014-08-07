@@ -1,9 +1,72 @@
 <div ng-include="'partials/navbar'"></div>
 
 <div>
-    this is an admin page
+    <h1>{{ 'admin.header.tournament' | translate }} {{tournamentInfo.tournamentName}} {{ 'admin.header.adminPage' |
+        translate}}</h1>
+
+    <p>{{ 'admin.intro' | translate }}</p>
+
+    <form class="form-horizontal">
+        <fieldset>
+
+            <legend>{{ 'admin.form.configure' | translate }}</legend>
+            <div class="row">
+
+                <div class="form-group col-sm-12">
+                    <label class="control-label" for="Game">{{ 'admin.form.game' | translate }}</label>
+
+                    <select id="game" name="game" class="form-control">
+                        <option>{{ 'admin.form.pickGame' | translate}}</option>
+                        <option>Starcraft</option>
+                        <option>{{ 'admin.form.other' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="form-group col-sm-12">
+                    <label class="control-label" for="engine">{{'admin.form.engine' | translate}}</label>
+
+                    <select id="engine" name="engine" class="form-control">
+                        <option>Single elim. bracket</option>
+                        <option>Single elim. bracket w/ 3rd place decider</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="Round format">{{ 'admin.form.roundFormats' | translate}}</label>
+
+                    <select id="Round format" name="Round format" class="form-control">
+                        <option>Best of 1</option>
+                        <option>Best of 3</option>
+                        <option>Best of 5</option>
+                        <option>Best of 7</option>
+                        <option>Best of 9</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label for="numberOfPlayers">{{ 'admin.form.numberOfPlayers' | translate}}</label>
+                    <select id="numberOfPlayers" name="numberOfPlayers" class="form-control">
+                        <option>8</option>
+                        <option>16</option>
+                        <option>32</option>
+                        <option>64</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="form-group col-sm-12">
+                    <button id="modifyTournament" type="button" class="btn btn-primary" >{{ 'admin.form.submit' | translate }}</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
 </div>
 
 <div class="footer">
-  <p translate="footer.love"></p>
+    <p translate="footer.love"></p>
 </div>
