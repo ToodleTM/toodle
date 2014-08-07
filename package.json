@@ -80,6 +80,6 @@
   },
   "scripts": {
     "test": "grunt test",
-    "postinstall": "./node_modules/bower/bin/bower install && cp .tmp/main.css app/styles/"
+    "postinstall": "./node_modules/bower/bin/bower install"
   }
 }
