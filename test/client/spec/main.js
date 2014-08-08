@@ -31,14 +31,14 @@ describe('Homepage', function () {
         expect(element(by.id('registerLabel')).getText(), 'Register a new Tournament!');
     })
 
-    it('Should display an error if the user tries to register a tournament w/ an empty name', function(){
+    it('Should display an error if the user tries to register a tournament w/ an empty name', function () {
         browser.get(homeAddress);
         element(by.id('registerTournamentButton')).click();
         expect(element(by.id('tourneyCreationKo')).getText()).toMatch(/×\nClose\nSomething bad happened, the tournament was not created. Please try again. \(Reason : Tournament name must not be blank\)/g)
-            //.toEqual('×\nClose\nSomething bad happened, the tournament was not created. Please try again. (Reason : Tournament name must not be blank)');
+        //.toEqual('×\nClose\nSomething bad happened, the tournament was not created. Please try again. (Reason : Tournament name must not be blank)');
     });
 
-    it("Sould display an OK message if the tournament has been successfully created", function(){
+    it("Sould display an OK message if the tournament has been successfully created", function () {
         browser.get(homeAddress);
         element(by.id('tournamentName')).sendKeys('protractor');
         element(by.id('registerTournamentButton')).click();
@@ -47,7 +47,7 @@ describe('Homepage', function () {
         expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g)
     });
 
-    it("Should go to an admin page when a tournament is created and we click on the admin link, then edit settings and validate", function(){
+    it("Should go to an admin page when a tournament is created and we click on the admin link, then edit settings and validate", function () {
         browser.get(homeAddress);
         element(by.id('tournamentName')).sendKeys('protractor');
         element(by.id('registerTournamentButton')).click();
@@ -77,6 +77,31 @@ describe('Homepage', function () {
         expect(engine.getAttribute('value')).toEqual('2');
         expect(numberOfPlayers.getAttribute('value')).toEqual('16');
         expect(roundFormat.getAttribute('value')).toEqual('7');
+    });
+
+    it('Should be able to look at a created tournament on the "play" section', function () {
+        browser.get(homeAddress);
+        element(by.id('tournamentName')).sendKeys('protractor');
+        element(by.id('registerTournamentButton')).click();
+
+        var tourneyConfirmationBox = element(by.id('tourneyCreationOk'));
+        expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g)
+        element(by.id('signupLink')).click();
+        var game = element(by.model('tournamentInfo.game'));
+        var description = element(by.model('tournamentInfo.description'));
+        var engine = element(by.model('tournamentInfo.engine'));
+        var numberOfPlayers = element(by.model('tournamentInfo.numberOfPlayers'));
+        var roundFormat = element(by.model('tournamentInfo.roundFormat'));
+        expect(game.getAttribute('value')).toEqual('');
+        expect(game.getAttribute('disabled')).toBeTruthy();
+        expect(description.getAttribute('value')).toEqual('');
+        expect(description.getAttribute('disabled')).toBeTruthy();
+        expect(engine.getAttribute('value')).toEqual('');
+        expect(engine.getAttribute('disabled')).toBeTruthy();
+        expect(numberOfPlayers.getAttribute('value')).toEqual('');
+        expect(numberOfPlayers.getAttribute('disabled')).toBeTruthy();
+        expect(roundFormat.getAttribute('value')).toEqual('');
+        expect(roundFormat.getAttribute('disabled')).toBeTruthy();
     });
 
 });

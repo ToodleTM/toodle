@@ -28,6 +28,7 @@
                     <label class="control-label" for="engine">{{'admin.form.engine' | translate}}</label>
 
                     <select id="engine" name="engine" class="form-control" ng-model="tournamentInfo.engine" disabled>
+                        <option value=""></option>
                         <option value="1">Single elim. bracket</option>
                         <option value="2">Single elim. bracket w/ 3rd place decider</option>
                     </select>
@@ -44,6 +45,7 @@
                     <label for="Round format">{{ 'admin.form.roundFormats' | translate}}</label>
 
                     <select id="Round format" name="Round format" class="form-control" ng-model="tournamentInfo.roundFormat" disabled>
+                        <option value=""></option>
                         <option value="1">Best of 1</option>
                         <option value="3">Best of 3</option>
                         <option value="5">Best of 5</option>
@@ -55,6 +57,7 @@
                 <div class="form-group col-sm-6">
                     <label for="numberOfPlayers">{{ 'admin.form.numberOfPlayers' | translate}}</label>
                     <select id="numberOfPlayers" name="numberOfPlayers" class="form-control" ng-model="tournamentInfo.numberOfPlayers" disabled>
+                        <option value=""></option>
                         <option value="8">8</option>
                         <option value="16">16</option>
                         <option value="32">32</option>
