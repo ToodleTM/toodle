@@ -33,6 +33,10 @@
             "numberOfPlayers":"Number of players",
             "submit":"Submit changes",
             "game":"Game"
+        },
+        "update":{
+            "success":"Tournament specs successfully updated",
+            "fail":"Something went wrong updating this tournament."
         }
     },
     "play":{
@@ -41,6 +45,7 @@
             "tournament":"Tournament",
             "playPage":"page"
         },
-        "enter":"Enter the tournament"
+        "enter":"Enter the tournament",
+        "infos":"Here's the info about this tournament"
     }
 }

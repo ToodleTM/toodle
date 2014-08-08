@@ -6,6 +6,64 @@
 
     <p>{{ 'play.intro' | translate }}</p>
 
+    <div class="form-horizontal">
+        <fieldset>
+
+            <legend>{{ 'play.infos' | translate }}</legend>
+            <div class="row">
+
+                <div class="form-group col-sm-12">
+                    <label class="control-label" for="game">{{ 'admin.form.game' | translate }}</label>
+
+                    <select id="game" name="game" class="form-control" ng-model="tournamentInfo.game" disabled>
+                        <option value="">{{ 'admin.form.pickGame' | translate}}</option>
+                        <option>Starcraft II</option>
+                        <option>{{ 'admin.form.other' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="form-group col-sm-12">
+                    <label class="control-label" for="engine">{{'admin.form.engine' | translate}}</label>
+
+                    <select id="engine" name="engine" class="form-control" ng-model="tournamentInfo.engine" disabled>
+                        <option value="1">Single elim. bracket</option>
+                        <option value="2">Single elim. bracket w/ 3rd place decider</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label class="control-label" for="description">{{ 'admin.form.description' | translate }}</label>
+                    <textarea id="description" name="description" class="form-control" ng-model="tournamentInfo.description" disabled></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="Round format">{{ 'admin.form.roundFormats' | translate}}</label>
+
+                    <select id="Round format" name="Round format" class="form-control" ng-model="tournamentInfo.roundFormat" disabled>
+                        <option value="1">Best of 1</option>
+                        <option value="3">Best of 3</option>
+                        <option value="5">Best of 5</option>
+                        <option value="7">Best of 7</option>
+                        <option value="9">Best of 9</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label for="numberOfPlayers">{{ 'admin.form.numberOfPlayers' | translate}}</label>
+                    <select id="numberOfPlayers" name="numberOfPlayers" class="form-control" ng-model="tournamentInfo.numberOfPlayers" disabled>
+                        <option value="8">8</option>
+                        <option value="16">16</option>
+                        <option value="32">32</option>
+                        <option value="64">64</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+    </div>
     <button class="btn btn-primary">{{ 'play.enter' | translate }}</button>
 </div>
 

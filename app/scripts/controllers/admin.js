@@ -9,12 +9,13 @@ angular.module('toodleApp')
         });
 
         $scope.updateTourney = function(){
-            console.log($scope.tournamentInfo);
-            console.log(Tournament.update);
+            $("#tourneyUpdateOk").hide();
+            $("#tourneyUpdateKo").hide();
             Tournament.update({id:tournamentId}, $scope.tournamentInfo, function(){
-                console.log('Success!');
-            }, function(){
-                console.log("Error /o\\!");
+                $("#tourneyUpdateOk").fadeIn();
+            }, function(err){
+                $scope.errorMessage = err;
+                $("#tourneyUpdateKo").fadeIn();
             })
         };
     }
