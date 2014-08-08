@@ -28,10 +28,25 @@
             "pickGame":"-- Choisis un jeu --",
             "other":"Autre",
             "engine":"Règles à utiliser",
+            "description":"Courte description (optionnelle)",
             "roundFormats":"Format des rounds",
             "numberOfPlayers":"Nombre de joueurs",
             "submit":"Valider les changements",
             "game":"Jeu"
+        },
+        "update":{
+            "success":"Tournament specs successfully updated",
+            "fail":"Something went wrong updating this tournament."
         }
+    },
+    "play":{
+        "intro":"Ceci est la page de tournoi. Tu peux t'y inscrire tant qu'il n'est pas commencé et consulter la liste des joueurs. Une fois le tournoi commencé tu peux aussi y revenir pour enregistrer tes résultats ou t'informer sur son déroulement.",
+        "header":{
+            "tournament":"Tournoi",
+            "playPage":"page"
+        },
+        "enter":"S'inscrire au tournoi",
+        "infos":"Voici les infos de ce tournoi"
+    }
     }
 }
