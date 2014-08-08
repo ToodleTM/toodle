@@ -28,10 +28,19 @@
             "pickGame":"-- Pick a game --",
             "other":"Other",
             "engine":"Tournament engine",
+            "description":"Short description (optionnal)",
             "roundFormats":"Round formats",
             "numberOfPlayers":"Number of players",
             "submit":"Submit changes",
             "game":"Game"
         }
+    },
+    "play":{
+        "intro":"This the tournament page. You can enter the tournament and watch the players list until it's started. Then you can go back here to report your games and look at the tournament status.",
+        "header":{
+            "tournament":"Tournament",
+            "playPage":"page"
+        },
+        "enter":"Enter the tournament"
     }
 }

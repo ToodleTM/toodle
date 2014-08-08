@@ -17,9 +17,9 @@ angular.module('toodleApp', [
                 templateUrl: 'partials/admin',
                 controller: 'AdminCtrl'
             })
-            .when('/signup', {
-                templateUrl:'partials/signup',
-                controller:'SignupCtrl'
+            .when('/play/:id', {
+                templateUrl:'partials/play',
+                controller:'PlayCtrl'
             })
             .otherwise({
                 redirectTo: '/'
