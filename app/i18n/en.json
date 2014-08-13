@@ -45,7 +45,12 @@
             "tournament":"Tournament",
             "playPage":"page"
         },
-        "enter":"Enter the tournament",
+        "enter":{
+            "go":"Go!",
+            "nick":"Nick",
+            "nickPlaceholder":"Your nick here",
+            "register":"Enter the tournament!"
+        },
         "infos":"Here's the info about this tournament"
     }
 }
