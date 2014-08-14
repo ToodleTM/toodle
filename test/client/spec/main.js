@@ -79,7 +79,7 @@ describe('Homepage', function () {
         expect(roundFormat.getAttribute('value')).toEqual('7');
     });
 
-    it('Should be able to look at a created tournament on the "play" section', function () {
+    it('Should be able to look at a created tournament on the "play" section and then register', function () {
         browser.get(homeAddress);
         element(by.id('tournamentName')).sendKeys('protractor');
         element(by.id('registerTournamentButton')).click();
@@ -92,6 +92,7 @@ describe('Homepage', function () {
         var engine = element(by.model('tournamentInfo.engine'));
         var numberOfPlayers = element(by.model('tournamentInfo.numberOfPlayers'));
         var roundFormat = element(by.model('tournamentInfo.roundFormat'));
+        var playersList = element(by.id('playersList'));
         expect(game.getAttribute('value')).toEqual('');
         expect(game.getAttribute('disabled')).toBeTruthy();
         expect(description.getAttribute('value')).toEqual('');
@@ -102,6 +103,11 @@ describe('Homepage', function () {
         expect(numberOfPlayers.getAttribute('disabled')).toBeTruthy();
         expect(roundFormat.getAttribute('value')).toEqual('');
         expect(roundFormat.getAttribute('disabled')).toBeTruthy();
+        expect(playersList.getText()).toEqual('Registered players (0)\nNo registered players at the moment');
+        var nickInput = element(by.id("inputNick"));
+        nickInput.sendKeys('protractest_newRegistration');
+        element(by.id('registerPlayerGo')).click();
+        expect(element(by.id('playerList')).getText()).toEqual('protractest_newRegistration');
     });
 
 });

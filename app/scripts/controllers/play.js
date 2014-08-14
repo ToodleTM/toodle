@@ -1,12 +1,28 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('PlayCtrl', function ($scope, $location, $http) {
+    .controller('PlayCtrl', function ($scope, $location, $http, TournamentPlay) {
         var tournamentId = $location.$$path.split('/')[2];
+        $scope.nick = "";
+        $scope.playerList = null;
 
         $http.get('api/play/' + tournamentId).success(function (data) {
-            console.log(data);
             $scope.tournamentInfo = data;
+            $scope.playerList = data.players;
         });
+
+        $scope.enterTournament = function () {
+            $("registrationKo").hide();
+            $("registrationOk").hide();
+            TournamentPlay.update({tournamentId: $scope.tournamentInfo._id, nick: $scope.nick}, function (data) {
+                $("#registrationOk").fadeIn();
+                $scope.playerList = data.players;
+                console.log(data);
+                console.log($scope.playerList);
+            }, function (message) {
+                $("#registrationKo").fadeIn();
+                $scope.errorMessage = message.data.message;
+            });
+        };
     }
 );

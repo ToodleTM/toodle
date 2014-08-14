@@ -51,6 +51,16 @@
             "nickPlaceholder":"Your nick here",
             "register":"Enter the tournament!"
         },
+        "register":{
+            "registeredPlayers":"Registered players",
+            "noPlayers":"No registered players at the moment",
+            "success":"Successfully registered",
+            "fail":"Player registration failed",
+            "errors":{
+                "noDuplicateNick":"A player with that name is already registered",
+                "noEmptyNick":"Empty nicks are not allowed"
+            }
+        },
         "infos":"Here's the info about this tournament"
     }
 }
