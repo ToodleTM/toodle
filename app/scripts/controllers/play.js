@@ -12,13 +12,12 @@ angular.module('toodleApp')
         });
 
         $scope.enterTournament = function () {
-            $("registrationKo").hide();
-            $("registrationOk").hide();
+            $("#registrationKo").hide();
+            $("#registrationOk").hide();
+            $("#inputNick").val('');
             TournamentPlay.update({tournamentId: $scope.tournamentInfo._id, nick: $scope.nick}, function (data) {
                 $("#registrationOk").fadeIn();
                 $scope.playerList = data.players;
-                console.log(data);
-                console.log($scope.playerList);
             }, function (message) {
                 $("#registrationKo").fadeIn();
                 $scope.errorMessage = message.data.message;

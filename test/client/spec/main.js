@@ -79,7 +79,7 @@ describe('Homepage', function () {
         expect(roundFormat.getAttribute('value')).toEqual('7');
     });
 
-    it('Should be able to look at a created tournament on the "play" section and then register', function () {
+    it('Should be able to look at a created tournament on the "play" section and then register once', function () {
         browser.get(homeAddress);
         element(by.id('tournamentName')).sendKeys('protractor');
         element(by.id('registerTournamentButton')).click();
@@ -108,6 +108,11 @@ describe('Homepage', function () {
         nickInput.sendKeys('protractest_newRegistration');
         element(by.id('registerPlayerGo')).click();
         expect(element(by.id('playerList')).getText()).toEqual('protractest_newRegistration');
+        expect(element(by.id('registrationOk')).getText()).toEqual('×\nClose\nSuccessfully registered');
+        nickInput.sendKeys('protractest_newRegistration');
+        element(by.id('registerPlayerGo')).click();
+        expect(element(by.id('playerList')).getText()).toEqual('protractest_newRegistration');
+        expect(element(by.id('registrationKo')).getText()).toEqual('×\nClose\nPlayer registration failed (Reason : A player with that name is already registered)');
     });
 
 });
