@@ -1,4 +1,3 @@
-// Generated on 2014-06-28 using generator-angular-fullstack 1.4.2
 'use strict';
 
 // # Globbing
@@ -327,7 +326,6 @@ module.exports = function (grunt) {
         html: ['<%= yeoman.dist %>/views/*.html']
       }
     },
-
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
@@ -397,33 +395,6 @@ module.exports = function (grunt) {
       ]
     },
 
-    // By default, your `index.html`'s <!-- Usemin block --> will take care of
-    // minification. These next options are pre-configured if you do not wish
-    // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css',
-    //         '<%= yeoman.app %>/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
-
-    // Test settings
     karma: {
       unit: {
         configFile: 'karma.conf.js',
@@ -437,7 +408,6 @@ module.exports = function (grunt) {
       },
       src: ['test/server/**/*.js']
     },
-
     env: {
       test: {
         NODE_ENV: 'test'
@@ -485,11 +455,6 @@ module.exports = function (grunt) {
       'open',
       'watch'
     ]);
-  });
-
-  grunt.registerTask('server', function () {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run(['serve']);
   });
 
   grunt.registerTask('test', function(target) {
