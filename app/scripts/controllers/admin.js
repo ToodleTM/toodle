@@ -8,14 +8,26 @@ angular.module('toodleApp')
             $scope.tournamentInfo = data;
         });
 
-        $scope.updateTourney = function(){
+        $scope.updateTourney = function () {
             $("#tourneyUpdateOk").hide();
             $("#tourneyUpdateKo").hide();
-            Tournament.update({id:tournamentId}, $scope.tournamentInfo, function(){
+            Tournament.update({id: tournamentId}, $scope.tournamentInfo, function () {
                 $("#tourneyUpdateOk").fadeIn();
-            }, function(err){
+            }, function (err) {
                 $scope.errorMessage = err;
                 $("#tourneyUpdateKo").fadeIn();
+            })
+        };
+
+        $scope.toggleRegistrationLock = function () {
+            $("#tourneyLockOk").hide();
+            $("#tourneyLockKo").hide();
+            $scope.tournamentInfo.locked != $scope.tournamentInfo.locked;
+            Tournament.update({id: tournamentId}, $scope.tournamentInfo, function () {
+                $("#tourneyLockOk").fadeIn();
+            }, function (err) {
+                $scope.errorMessage = err;
+                $("#tourneyLockKo").fadeIn();
             })
         };
     }

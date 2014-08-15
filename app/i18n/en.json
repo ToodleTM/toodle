@@ -34,6 +34,12 @@
             "submit":"Submit changes",
             "game":"Game"
         },
+        "actions":{
+            "lock":"Lock registrations",
+            "lockTooltip":"Prevent additional people from entering the tournament",
+            "open":"Open registrations",
+            "openTooltip":"Allow more people to enter the tournament"
+        },
         "update":{
             "success":"Tournament specs successfully updated",
             "fail":"Something went wrong updating this tournament."

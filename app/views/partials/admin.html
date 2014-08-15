@@ -3,7 +3,7 @@
 <div>
     <h1>{{ 'admin.header.tournament' | translate }} {{tournamentInfo.tournamentName}} {{ 'admin.header.adminPage' |
         translate}}</h1>
-
+    <button class="btn btn-warning" title="{{ 'admin.actions.lockTooltip' | translate }}" ng-click="toggleRegistrationLock()">{{ 'admin.actions.lock' | translate }}</button>
     <p>{{ 'admin.intro' | translate }}</p>
 
     <form class="form-horizontal" ng-submit="updateTourney()">
@@ -66,12 +66,10 @@
                 </div>
             </div>
             <div class="row">
-
                 <div class="form-group col-sm-12">
                     <button id="modifyTournament" type="submit" class="btn btn-primary" >{{ 'admin.form.submit' | translate }}</button>
                 </div>
             </div>
-
         </fieldset>
     </form>
     <div id="tourneyUpdateOk" class="alert alert-success alert-dismissible" role="alert" hidden>
