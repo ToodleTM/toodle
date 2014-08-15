@@ -9,7 +9,7 @@ describe('Tournament controller', function () {
         var tournamentService = new TournamentService();
         var model = {save: function (callback) {
             callback(true);
-        }}
+        }};
 
         var res = {json: function (status, data) {
         }};
@@ -26,16 +26,13 @@ describe('Tournament controller', function () {
         var tournamentService = new TournamentService();
         var model = {save: function (callback) {
             callback(false);
-        }, _id: 'abc'}
+        }, _id: 'abc'};
 
         var res = {json: function (status, data) {
         }};
         sinon.spy(res, 'json');
 
         var req = {body: {tournamentName: 'tournamentName'}};
-        var res = {json: function (status, data) {
-        }};
-
         sinon.spy(res, 'json');
 
         //action
@@ -71,6 +68,20 @@ describe('Tournament controller', function () {
         //assert
         assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'noEmptyNick');
+    });
+
+    it('should reject a player registration if tournament is locked', function(){
+        //setup
+        var tournamentService = new TournamentService();
+        var req = {body: {nick: 'MAdJoHn_37658'}};
+        var res = {json: function (returnCode, data) {
+        }};
+        sinon.spy(res, 'json');
+        //action
+        tournamentService.registerPlayer(req, res, {players: [], locked:true});
+        //assert
+        assert.equal(res.json.getCall(0).args[0], 400);
+        assert.equal(res.json.getCall(0).args[1].message, 'registrationLocked');
     });
 
     it('should not allow registration of the same player twice', function () {
@@ -135,4 +146,4 @@ describe('Tournament controller', function () {
         assert.equal(res.json.getCall(0).args[0], 500);
         assert.equal(res.json.getCall(0).args[1].message, 'saveError');
     });
-})
+});

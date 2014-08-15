@@ -64,7 +64,8 @@
             "fail":"Player registration failed",
             "errors":{
                 "noDuplicateNick":"A player with that name is already registered",
-                "noEmptyNick":"Empty nicks are not allowed"
+                "noEmptyNick":"Empty nicks are not allowed",
+                "registrationLocked":"You can't enter this tournament, registration is locked"
             }
         },
         "infos":"Here's the info about this tournament"

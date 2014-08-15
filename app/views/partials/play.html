@@ -78,7 +78,7 @@
                 <span> {{ 'play.register.noPlayers' | translate}} </span>
             </div>
         </fieldset>
-        <fieldset>
+        <fieldset ng-show="!tournamentInfo.locked">
             <legend>{{ 'play.enter.register' | translate }}</legend>
             <div class="row">
                 <form ng-submit="enterTournament()">
