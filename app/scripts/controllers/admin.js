@@ -22,7 +22,7 @@ angular.module('toodleApp')
         $scope.toggleRegistrationLock = function () {
             $("#tourneyLockOk").hide();
             $("#tourneyLockKo").hide();
-            $scope.tournamentInfo.locked != $scope.tournamentInfo.locked;
+            $scope.tournamentInfo.locked = toggleState($scope.tournamentInfo.locked);
             Tournament.update({id: tournamentId}, $scope.tournamentInfo, function () {
                 $("#tourneyLockOk").fadeIn();
             }, function (err) {

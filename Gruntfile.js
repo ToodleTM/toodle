@@ -54,7 +54,7 @@ module.exports = function (grunt) {
         }
       },
       mochaTest: {
-        files: ['test/server/{,*/}*.js'],
+        files: ['test/server/{,*/}*.js', 'test/client/spec/unit/{,*/}*.js'],
         tasks: ['env:test', 'mochaTest']
       },
       jsTest: {
@@ -406,7 +406,7 @@ module.exports = function (grunt) {
       options: {
         reporter: 'nyan'
       },
-      src: ['test/server/**/*.js']
+      src: ['test/server/**/*.js','test/client/spec/unit/{,*/}*.js']
     },
     env: {
       test: {
