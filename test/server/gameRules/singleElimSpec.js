@@ -48,13 +48,15 @@ describe('SingleElim engine', function () {
                     {name: 'anton'}
                 ]);
                 //assert
-                assert.equal(actual.length, 5);
+                assert.equal(actual.length, 4);
                 assert.equal(actual[0].player1.name, 'john');
                 assert.equal(actual[0].player2.name, 'jane');
                 assert.equal(actual[1].player1.name, 'bob');
                 assert.equal(actual[1].player2.name, 'alice');
-                assert.equal(actual[2].player1.name, 'anton');
+                assert.equal(actual[2].player1, null);
                 assert.equal(actual[2].player2, null);
+                assert.equal(actual[3].player2.name, 'anton');
+                assert.equal(actual[3].player1, null);
             });
 
             it('should number each match to ease lookup', function () {
@@ -69,10 +71,11 @@ describe('SingleElim engine', function () {
                     {name: 'anton'}
                 ]);
                 //assert
-                assert.equal(actual.length, 5);
+                assert.equal(actual.length, 4);
                 assert.equal(actual[0].number, 1);
                 assert.equal(actual[1].number, 2);
                 assert.equal(actual[2].number, 3);
+                assert.equal(actual[3].number, 4);
             });
         });
         describe('create subsequent matches', function () {
@@ -159,7 +162,8 @@ describe('SingleElim engine', function () {
                     {name: 'peter'}
                 ]);
                 //assert
-                console.log(actual);
+//                console.log(actual);
+                assert.equal(actual.length, 4)
                 assert.equal(actual[0].next, 3);
                 assert.equal(actual[1].next, 3);
                 assert.equal(actual[2].next, 4);
