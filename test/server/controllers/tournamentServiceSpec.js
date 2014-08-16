@@ -33,7 +33,6 @@ describe('Tournament controller', function () {
         sinon.spy(res, 'json');
 
         var req = {body: {tournamentName: 'tournamentName'}};
-        sinon.spy(res, 'json');
 
         //action
         tournamentService.saveTournament(req, res, model);
