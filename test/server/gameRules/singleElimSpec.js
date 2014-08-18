@@ -30,7 +30,6 @@ describe('SingleElim engine', function () {
             //assert
             assert.equal(Object.keys(actual).length, expectedBracketLength);
         }
-
         describe('Create the first matches', function () {
             it('should return an empty bracket if no players are submitted', function () {
                 initBracketTest(0, null);
@@ -46,25 +45,51 @@ describe('SingleElim engine', function () {
                 initBracketTest(3, [john, jane, bob, alice]);
             });
 
-            it('should be able to handle odd amounts of players', function () {
-                //setup
-                var engine = new SingleElim();
-                var actual = null;
-                var callbackSpy = sinon.spy(function (err, data) {
-                    actual = data;
+            describe('should be able to determine the bracket size based on the amount of players', function(){
+                it('should provide a size 8 bracket if player number is between 5 and 8', function(){
+                    //setup
+                    //action
+                    var actual = engine.defineBracketSize(5);
+                    //assert
+                    assert.equal(actual, 8);
                 });
-                //action
-                engine.initBracket([john, jane, bob, alice, franz], callbackSpy);
-                //assert
-                assert.equal(Object.keys(actual).length, 4);
-                assert.equal(actual[1].player1.name, 'john');
-                assert.equal(actual[1].player2.name, 'jane');
-                assert.equal(actual[2].player1.name, 'bob');
-                assert.equal(actual[2].player2.name, 'alice');
-                assert.equal(actual[3].player1, null);
-                assert.equal(actual[3].player2, null);
-                assert.equal(actual[4].player2.name, 'franz');
-                assert.equal(actual[4].player1, null);
+
+                it('should provide a size 1 bracket for 1 player', function(){
+                    var actual = engine.defineBracketSize(1);
+                    //assert
+                    assert.equal(actual, 1);
+                });
+
+
+                it('should provide a size 4 bracket for 4 players', function(){
+                    var actual = engine.defineBracketSize(4);
+                    //assert
+                    assert.equal(actual, 4);
+                });
+            });
+
+            describe('should be able to handle odd amounts of players', function () {
+                it('should be able to equally position 5 people in an 8 slot bracket', function(){
+                    //setup
+                    var engine = new SingleElim();
+                    var actual = null;
+                    var callbackSpy = sinon.spy(function (err, data) {
+                        actual = data;
+                    });
+                    //action
+                    engine.initBracket([john, jane, bob, alice, franz], callbackSpy);
+                    //assert
+                    assert.equal(Object.keys(actual).length, 7);
+                    assert.equal(actual[1].player1.name, 'john');
+                    assert.equal(actual[1].player2, null);
+                    assert.equal(actual[2].player1.name, 'jane');
+                    assert.equal(actual[2].player2.name, 'bob');
+                    assert.equal(actual[3].player1, null);
+                    assert.equal(actual[3].player2.name, 'alice');
+                    assert.equal(actual[4].player1, null);
+                    assert.equal(actual[4].player2.name, 'franz');
+                });
+
             });
 
             it('should number each match to ease lookup', function () {
@@ -76,8 +101,8 @@ describe('SingleElim engine', function () {
                 });
                 //action
                 engine.initBracket([john, jane, bob, alice, franz], callbackSpy);
-                //assert 
-                assert.equal(Object.keys(actual).length, 4);
+                //assert
+                assert.equal(Object.keys(actual).length, 7);
                 assert.equal(actual[1].number, 1);
                 assert.equal(actual[2].number, 2);
                 assert.equal(actual[3].number, 3);
@@ -125,17 +150,6 @@ describe('SingleElim engine', function () {
                 assert.equal(actual[6].next, 7);
                 assert.equal(actual[7].next, null);
             });
-
-            it('should handle odd brackets when numbering', function () {
-                //action
-                engine.initBracket([john, jane, bob, alice, peter], callbackSpy);
-                //assert
-                assert.equal(Object.keys(actual).length, 4)
-                assert.equal(actual[1].next, 3);
-                assert.equal(actual[2].next, 3);
-                assert.equal(actual[3].next, 4);
-                assert.equal(actual[4].next, null);
-            });
         });
         describe('balance bracket when initialing bracket', function () {
         });
@@ -168,13 +182,14 @@ describe('SingleElim engine', function () {
                 engine.reportWin(3, 2, 0, actual, callbackSpy);
                 engine.reportWin(4, 2, 0, actual, callbackSpy);
                 engine.reportWin(5, 2, 0, actual, callbackSpy);
-                var unreportCallbackSpy = sinon.spy(function(error, data){});
+                var unreportCallbackSpy = sinon.spy(function (error, data) {
+                });
                 //action
                 engine.unreport(1, actual, unreportCallbackSpy);
                 //assert
                 assert.equal(unreportCallbackSpy.getCall(0).args[0].message, 'nextMatchAlreadyReported');
             });
-            it('should only allow unreport of completed matches', function(){
+            it('should only allow unreport of completed matches', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 //action
@@ -191,33 +206,34 @@ describe('SingleElim engine', function () {
                 engine.reportWin(1, 2, 0, actual, callbackSpy);
 
                 //assert
-                assert.equal(actual[3].player1.name, 'john');
+                assert.equal(actual[5].player1.name, 'john');
                 assert.equal(actual[1].complete, true);
                 assert.equal(actual[1].score1, 2);
                 assert.equal(actual[1].score2, 0);
             });
 
-            it('should update the right slot of upcoming match', function(){
+            it('should update the right slot of upcoming match', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice, peter], callbackSpy);
                 //action
                 engine.reportWin(2, 2, 0, actual, callbackSpy);
                 //assert
-                assert.equal(actual[3].player1, null);
-                assert.equal(actual[3].player2.name, 'bob');
+                assert.equal(actual[5].player1, null);
+                assert.equal(actual[5].player2.name, 'jane');
             });
 
             it('should update next match with winners from both related matches', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice, peter], callbackSpy);
                 //action
-                engine.reportWin(1, 2, 0, actual, callbackSpy);
                 engine.reportWin(2, 0, 2, actual, callbackSpy);
+                engine.reportWin(1, 2, 0, actual, callbackSpy);
 
                 //assert
-                assert.equal(actual[3].player1.name, 'john');
-                assert.equal(actual[3].player2.name, 'alice');
+                assert.equal(actual[5].player1.name, 'john');
+                assert.equal(actual[5].player2.name, 'bob');
                 assert.equal(actual[1].complete, true);
+                assert.equal(actual[2].complete, true);
             });
 
             it('should not allow reporting an already reported match', function () {
@@ -229,7 +245,7 @@ describe('SingleElim engine', function () {
 
                 //assert
                 assert.equal(callbackSpy.getCall(1).args[0], null);
-                assert.equal(Object.keys(callbackSpy.getCall(1).args[1]).length, 4);
+                assert.equal(Object.keys(callbackSpy.getCall(1).args[1]).length, 7);
                 assert.equal(callbackSpy.getCall(2).args[0].message, 'alreadyReported');
             });
             it('should be able to tell if a tournament bracket is over', function () {
