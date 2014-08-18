@@ -197,16 +197,15 @@ describe('SingleElim engine', function () {
                 assert.equal(actual[1].score2, 0);
             });
 
-//            it('should update the right slot of upcoming match', function(){
-//                //setup
-//                engine.initBracket([john, jane, bob, alice, peter], callbackSpy);
-//                //action
-//                engine.reportWin(2, 2, 0, actual, callbackSpy);
-//
-//                //assert
-//                assert.equal(actual[2].player1, null);
-//                assert.equal(actual[2].player2.name, 'bob');
-//            });
+            it('should update the right slot of upcoming match', function(){
+                //setup
+                engine.initBracket([john, jane, bob, alice, peter], callbackSpy);
+                //action
+                engine.reportWin(2, 2, 0, actual, callbackSpy);
+                //assert
+                assert.equal(actual[3].player1, null);
+                assert.equal(actual[3].player2.name, 'bob');
+            });
 
             it('should update next match with winners from both related matches', function () {
                 //setup
