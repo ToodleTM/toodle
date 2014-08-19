@@ -20,7 +20,70 @@ describe('Tournament controller', function () {
         //assert
         assert.equal(400, res.json.getCall(0).args[0]);
     });
+    describe("Tournament Creation ", function () {
+        it('should use a tournament engine to create tournament bracket and return the created bracket', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var mockEngine = {initBracket:function(players, callback){
+                callback(null, {init:true});
+            }};
+            var mockEngineSpy = sinon.spy(mockEngine, 'initBracket');
+            var getTournamentEngineStub = sinon.stub().returns(mockEngine)
+            tournamentService.getTournamentEngine = getTournamentEngineStub;
+            var tournament = {engine:'tournamentEngine', players:[{name:'john'}, {name:'mary'}], save:function(){return res.json({init:true})}};
+            tournamentService.updateTournament = function(req,res, tournament, callback){
+                callback(null, {});
+            };
+            var res = {json:function(){}};
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.startTournament({}, res, tournament);
+            //assert
+            assert.equal(getTournamentEngineStub.called, true);
+            assert.equal(getTournamentEngineStub.getCall(0).args[0], 'tournamentEngine');
+            assert.equal(mockEngineSpy.getCall(0).args[0][0].name, 'john');
+            assert.equal(mockEngineSpy.getCall(0).args[0][1].name, 'mary');
+            assert.equal(res.json.getCall(0).args[0].init, true);
+        });
 
+        it('should be able to detect tournament engine errors @ init', function(){
+            //setup
+            var tournamentService = new TournamentService();
+            var mockEngine = {initBracket:function(players, callback){
+                callback({message:'thisIsAnError'}, null);
+            }};
+            var mockEngineSpy = sinon.spy(mockEngine, 'initBracket');
+            var getTournamentEngineStub = sinon.stub().returns(mockEngine)
+            tournamentService.getTournamentEngine = getTournamentEngineStub;
+            var tournament = {engine:'tournamentEngine', players:[{name:'john'}, {name:'mary'}], save:function(){}};
+            var res = {json:function(){}};
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.startTournament({}, res, tournament);
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 500);
+            assert.equal(res.json.getCall(0).args[1].message, 'thisIsAnError');
+        });
+
+        it('should save tournament bracket if bracket creation succeeds', function(){
+            //setup
+            var tournamentService = new TournamentService();
+            var mockEngine = {initBracket:function(players, callback){
+                callback(null, {init:true});
+            }};
+            sinon.spy(mockEngine, 'initBracket');
+            var getTournamentEngineStub = sinon.stub().returns(mockEngine)
+            tournamentService.getTournamentEngine = getTournamentEngineStub;
+            var tournament = {engine:'tournamentEngine', players:[{name:'john'}, {name:'mary'}], save:function(){}};
+            var res = {json:function(){}};
+            sinon.spy(res, 'json');
+            sinon.spy(tournamentService, 'updateTournament');
+            //action
+            tournamentService.startTournament({}, res, tournament);
+            //assert
+            assert.notEqual(tournamentService.updateTournament.getCall(0), null);
+        });
+    });
     it('should return admin and user URLs if save succeeds', function () {
         //setup
         var tournamentService = new TournamentService();
@@ -69,7 +132,7 @@ describe('Tournament controller', function () {
         assert.equal(res.json.getCall(0).args[1].message, 'noEmptyNick');
     });
 
-    it('should reject a player registration if tournament is locked', function(){
+    it('should reject a player registration if tournament is locked', function () {
         //setup
         var tournamentService = new TournamentService();
         var req = {body: {nick: 'MAdJoHn_37658'}};
@@ -77,7 +140,7 @@ describe('Tournament controller', function () {
         }};
         sinon.spy(res, 'json');
         //action
-        tournamentService.registerPlayer(req, res, {players: [], locked:true});
+        tournamentService.registerPlayer(req, res, {players: [], locked: true});
         //assert
         assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'registrationLocked');
@@ -91,7 +154,9 @@ describe('Tournament controller', function () {
         }};
         sinon.spy(res, 'json');
         //action
-        tournamentService.registerPlayer(req, res, {players: [{name:'toto'}]});
+        tournamentService.registerPlayer(req, res, {players: [
+            {name: 'toto'}
+        ]});
         //assert
         assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'noDuplicateNick');
@@ -105,7 +170,9 @@ describe('Tournament controller', function () {
         }};
         sinon.spy(res, 'json');
         //action
-        tournamentService.registerPlayer(req, res, {players: [{name:'toto'}]});
+        tournamentService.registerPlayer(req, res, {players: [
+            {name: 'toto'}
+        ]});
         //assert
         assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'noDuplicateNick');

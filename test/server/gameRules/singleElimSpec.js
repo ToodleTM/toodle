@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
-var SingleElim = require('../../../lib/gameRules/singleElim').SingleElim;
+var SingleElim = require('../../../lib/gameRules/singleElim').Engine;
 
 describe('SingleElim engine', function () {
     var engine, callbackSpy, actual;
