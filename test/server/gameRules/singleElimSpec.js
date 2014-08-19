@@ -30,6 +30,7 @@ describe('SingleElim engine', function () {
             //assert
             assert.equal(Object.keys(actual).length, expectedBracketLength);
         }
+
         describe('Create the first matches', function () {
             it('should return an empty bracket if no players are submitted', function () {
                 initBracketTest(0, null);
@@ -44,9 +45,8 @@ describe('SingleElim engine', function () {
             it('should pair players as they come into as many matches as needed', function () {
                 initBracketTest(3, [john, jane, bob, alice]);
             });
-
-            describe('should be able to determine the bracket size based on the amount of players', function(){
-                it('should provide a size 8 bracket if player number is between 5 and 8', function(){
+            describe('should be able to determine the bracket size based on the amount of players', function () {
+                it('should provide a size 8 bracket if player number is between 5 and 8', function () {
                     //setup
                     //action
                     var actual = engine.defineBracketSize(5);
@@ -54,22 +54,21 @@ describe('SingleElim engine', function () {
                     assert.equal(actual, 8);
                 });
 
-                it('should provide a size 1 bracket for 1 player', function(){
+                it('should provide a size 1 bracket for 1 player', function () {
                     var actual = engine.defineBracketSize(1);
                     //assert
                     assert.equal(actual, 1);
                 });
 
 
-                it('should provide a size 4 bracket for 4 players', function(){
+                it('should provide a size 4 bracket for 4 players', function () {
                     var actual = engine.defineBracketSize(4);
                     //assert
                     assert.equal(actual, 4);
                 });
             });
-
             describe('should be able to handle odd amounts of players', function () {
-                it('should be able to equally position 5 people in an 8 slot bracket', function(){
+                it('should be able to equally position 5 people in an 8 slot bracket', function () {
                     //setup
                     var engine = new SingleElim();
                     var actual = null;
@@ -151,10 +150,22 @@ describe('SingleElim engine', function () {
                 assert.equal(actual[7].next, null);
             });
         });
-        describe('balance bracket when initialing bracket', function () {
+        describe('Additonal operations on init', function () {
+            it('should update upcoming matches upon initialization if there are empty slots', function(){
+                //setup / action
+                engine.initBracket([john, jane, bob, alice, franz], callbackSpy);
+                //assert
+                assert.equal(actual[5].player1.name, 'john');
+                assert.equal(actual[5].player2, null);
+                assert.equal(actual[6].player1.name, 'alice');
+                assert.equal(actual[6].player2.name, 'franz');
+                assert.equal(actual[1].complete, true);
+                assert.equal(actual[3].complete, true);
+                assert.equal(actual[4].complete, true);
+            });
         });
     });
-    describe('report matches', function () {
+    describe('Match reporting', function () {
         describe('Unreport match', function () {
             it('should be able to unreport a match and update the bracket accordingly', function () {
                 //setup
@@ -203,13 +214,13 @@ describe('SingleElim engine', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice, peter], callbackSpy);
                 //action
-                engine.reportWin(1, 2, 0, actual, callbackSpy);
+                engine.reportWin(2, 2, 0, actual, callbackSpy);
 
                 //assert
-                assert.equal(actual[5].player1.name, 'john');
-                assert.equal(actual[1].complete, true);
-                assert.equal(actual[1].score1, 2);
-                assert.equal(actual[1].score2, 0);
+                assert.equal(actual[5].player2.name, 'jane');
+                assert.equal(actual[2].complete, true);
+                assert.equal(actual[2].score1, 2);
+                assert.equal(actual[2].score2, 0);
             });
 
             it('should update the right slot of upcoming match', function () {
@@ -218,27 +229,27 @@ describe('SingleElim engine', function () {
                 //action
                 engine.reportWin(2, 2, 0, actual, callbackSpy);
                 //assert
-                assert.equal(actual[5].player1, null);
+                assert.equal(actual[5].player1.name, 'john');
                 assert.equal(actual[5].player2.name, 'jane');
             });
 
             it('should update next match with winners from both related matches', function () {
                 //setup
-                engine.initBracket([john, jane, bob, alice, peter], callbackSpy);
+                engine.initBracket([john, jane, bob, alice, peter, franz, cole], callbackSpy);
                 //action
                 engine.reportWin(2, 0, 2, actual, callbackSpy);
                 engine.reportWin(1, 2, 0, actual, callbackSpy);
 
                 //assert
                 assert.equal(actual[5].player1.name, 'john');
-                assert.equal(actual[5].player2.name, 'bob');
+                assert.equal(actual[5].player2.name, 'alice');
                 assert.equal(actual[1].complete, true);
                 assert.equal(actual[2].complete, true);
             });
 
             it('should not allow reporting an already reported match', function () {
                 //setup
-                engine.initBracket([john, jane, bob, alice, peter], callbackSpy);
+                engine.initBracket([john, jane, bob, alice, peter, franz, cole, patrick], callbackSpy);
                 engine.reportWin(1, 2, 0, actual, callbackSpy);
                 //action
                 engine.reportWin(1, 0, 2, actual, callbackSpy);
@@ -273,7 +284,6 @@ describe('SingleElim engine', function () {
                 assert.equal(callbackSpy.getCall(1).args[2], false);
             });
         });
-
     });
 });
 
