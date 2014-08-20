@@ -35,14 +35,14 @@ angular.module('toodleApp')
             $("#tourneyRunOk").hide();
             $("#tourneyRunKo").hide();
             $scope.tournamentInfo.running = toggleState($scope.tournamentInfo.running);
-
-//            Tournament.update({id: tournamentId}, $scope.tournamentInfo, function () {
-//                    $("#tourneyLockOk").fadeIn();
-//                }, function (err) {
-//                    $scope.errorMessage = err;
-//                    $("#tourneyLockKo").fadeIn();
-//                }
-//            );
+            $http.put("/api/tournament/start/", {"tournamentId":$scope.tournamentInfo._id})
+                .success(function(data, status, headers, config) {
+                    $("#tourneyRunOk").fadeIn();
+                })
+                .error(function(data, status, headers, config) {
+                    $scope.errorMessage = err;
+                    $("#tourneyRunKo").fadeIn();
+                });
         };
     }
 );
