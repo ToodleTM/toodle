@@ -46,10 +46,16 @@
                 "notRunningTooltip": "Stop tournament, users will be able to register again",
                 "confirm": "Confirm",
                 "cancel": "Cancel",
-                "willStop":"This will stop the current tournament and allow users to register again",
+                "willStop":"This will stop the current tournament and allow users to register again. WARNING: This _will_ destroy the current bracket",
                 "willStart":"This will start the tournament and prevent users from registering.",
-                "modalTitle":"Start / stop tournament"
-            }
+                "modalTitle":"Start / stop tournament",
+                "tournamentAlreadyRunning": "Tournament is already running",
+                "tournamentAlreadyStopped": "Tournament is already stopped",
+                "noEngineSpecified":"No game engine was specified, can't start tournament until it's done",
+                "noPlayers":"Players registered, there's no point in initiating the bracket"
+            },
+            "addPlayer":"Add a player to the tournament",
+            "playerNickPlaceholder":"Player nick"
 
         },
         "update": {

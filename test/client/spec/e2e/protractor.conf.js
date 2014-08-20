@@ -4,7 +4,7 @@
 // => all the webdriver-manager config
 exports.config = {
     seleniumAddress: 'http://localhost:4300',
-    specs: ['createTournament.js', 'playerRegistration.js', 'updateTournament.js'],
+    specs: ['createTournament.js', 'playerRegistration.js', 'updateTournament.js', 'startAndStopTournament.js'],
     capabilities:{
         'browserName':'firefox'
     }

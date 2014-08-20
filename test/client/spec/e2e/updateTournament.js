@@ -45,4 +45,18 @@ describe('User having the admin link of a tournament', function () {
         element(by.id('lockTournament')).click();
         expect(element(by.id('lockTournament')).getText()).toEqual('Open registrations');
     });
+
+    it('should be able to register new players from the admin page', function(){
+        browser.get(homeAddress);
+        element(by.id('tournamentName')).sendKeys('protractor');
+        element(by.id('registerTournamentButton')).click();
+
+        var tourneyConfirmationBox = element(by.id('tourneyCreationOk'));
+        expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g);
+        element(by.id('adminLink')).click();
+        expect(element(by.id('registerPlayerGo')).getText()).toEqual('Go!');
+        element(by.id('inputNick')).sendKeys('test1');
+        element(by.id('registerPlayerGo')).click();
+        expect(element(by.id('playersList')).getText()).toEqual('Registered players (1)\ntest1');
+    });
 });
