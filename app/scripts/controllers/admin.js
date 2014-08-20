@@ -30,5 +30,19 @@ angular.module('toodleApp')
                 $("#tourneyLockKo").fadeIn();
             })
         };
+
+        $scope.toggleStart = function () {
+            $("#tourneyRunOk").hide();
+            $("#tourneyRunKo").hide();
+            $scope.tournamentInfo.running = toggleState($scope.tournamentInfo.running);
+
+//            Tournament.update({id: tournamentId}, $scope.tournamentInfo, function () {
+//                    $("#tourneyLockOk").fadeIn();
+//                }, function (err) {
+//                    $scope.errorMessage = err;
+//                    $("#tourneyLockKo").fadeIn();
+//                }
+//            );
+        };
     }
 );

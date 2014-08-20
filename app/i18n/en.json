@@ -1,73 +1,85 @@
 {
-    "quickAdd":{
-        "registerMessage":"Register a new tournament !",
-        "success":{
-            "pre":"The tournament has been created! You can administer it using",
-            "mid":", and you can send",
-            "end":"to allow your users to enroll.",
-            "thisLink":"this link"
+    "quickAdd": {
+        "registerMessage": "Register a new tournament !",
+        "success": {
+            "pre": "The tournament has been created! You can administer it using",
+            "mid": ", and you can send",
+            "end": "to allow your users to enroll.",
+            "thisLink": "this link"
         },
-        "fail":"Something bad happened, the tournament was not created. Please try again.",
-        "tournamentNamePlaceholder":"Your tournament name here",
-        "go":"Go !"
+        "fail": "Something bad happened, the tournament was not created. Please try again.",
+        "tournamentNamePlaceholder": "Your tournament name here",
+        "go": "Go !"
     },
-    "footer":{
-        "love":"♥ from the Toodle team"
+    "footer": {
+        "love": "♥ from the Toodle team"
     },
-    "header":{
-        "title":"Toodle"
+    "header": {
+        "title": "Toodle"
     },
-    "admin":{
-        "intro":"This is your tournament administration page. You can edit everything related to your tournament here. Just remember that anyone with the URL will be able to do the same.",
-        "header":{
-            "tournament":"Tournament",
-            "adminPage":"admin page"
+    "admin": {
+        "intro": "This is your tournament administration page. You can edit everything related to your tournament here. Just remember that anyone with the URL will be able to do the same.",
+        "header": {
+            "tournament": "Tournament",
+            "adminPage": "admin page"
         },
-        "form":{
-            "configure":"Configure your tournament",
-            "pickGame":"-- Pick a game --",
-            "other":"Other",
-            "engine":"Tournament engine",
-            "description":"Short description (optionnal)",
-            "roundFormats":"Round formats",
-            "numberOfPlayers":"Number of players",
-            "submit":"Submit changes",
-            "game":"Game"
+        "form": {
+            "configure": "Configure your tournament",
+            "pickGame": "-- Pick a game --",
+            "other": "Other",
+            "engine": "Tournament engine",
+            "description": "Short description (optionnal)",
+            "roundFormats": "Round formats",
+            "numberOfPlayers": "Number of players",
+            "submit": "Submit changes",
+            "game": "Game"
         },
-        "actions":{
-            "lock":"Lock registrations",
-            "lockTooltip":"Prevent additional people from entering the tournament",
-            "open":"Open registrations",
-            "openTooltip":"Allow more people to enter the tournament"
+        "actions": {
+            "lock": "Lock registrations",
+            "lockTooltip": "Prevent additional people from entering the tournament",
+            "open": "Open registrations",
+            "openTooltip": "Allow more people to enter the tournament",
+            "run": {
+                "running": "Stop brackets",
+                "notRunning": "Start brackets",
+                "runningTooltip": "Start tournament, users won't be able to register anymore",
+                "notRunningTooltip": "Stop tournament, users will be able to register again",
+                "confirm": "Confirm",
+                "cancel": "Cancel",
+                "willStop":"This will stop the current tournament and allow users to register again",
+                "willStart":"This will start the tournament and prevent users from registering.",
+                "modalTitle":"Start / stop tournament"
+            }
+
         },
-        "update":{
-            "success":"Tournament specs successfully updated",
-            "fail":"Something went wrong updating this tournament."
+        "update": {
+            "success": "Tournament specs successfully updated",
+            "fail": "Something went wrong updating this tournament."
         }
     },
-    "play":{
-        "intro":"This the tournament page. You can enter the tournament and watch the players list until it's started. Then you can go back here to report your games and look at the tournament status.",
-        "header":{
-            "tournament":"Tournament",
-            "playPage":"page"
+    "play": {
+        "intro": "This the tournament page. You can enter the tournament and watch the players list until it's started. Then you can go back here to report your games and look at the tournament status.",
+        "header": {
+            "tournament": "Tournament",
+            "playPage": "page"
         },
-        "enter":{
-            "go":"Go!",
-            "nick":"Nick",
-            "nickPlaceholder":"Your nick here",
-            "register":"Enter the tournament!"
+        "enter": {
+            "go": "Go!",
+            "nick": "Nick",
+            "nickPlaceholder": "Your nick here",
+            "register": "Enter the tournament!"
         },
-        "register":{
-            "registeredPlayers":"Registered players",
-            "noPlayers":"No registered players at the moment",
-            "success":"Successfully registered",
-            "fail":"Player registration failed",
-            "errors":{
-                "noDuplicateNick":"A player with that name is already registered",
-                "noEmptyNick":"Empty nicks are not allowed",
-                "registrationLocked":"You can't enter this tournament, registration is locked"
+        "register": {
+            "registeredPlayers": "Registered players",
+            "noPlayers": "No registered players at the moment",
+            "success": "Successfully registered",
+            "fail": "Player registration failed",
+            "errors": {
+                "noDuplicateNick": "A player with that name is already registered",
+                "noEmptyNick": "Empty nicks are not allowed",
+                "registrationLocked": "You can't enter this tournament, registration is locked"
             }
         },
-        "infos":"Here's the info about this tournament"
+        "infos": "Here's the info about this tournament"
     }
 }

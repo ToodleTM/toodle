@@ -12,6 +12,36 @@
         <button type="button" class="close alert-fix-close" data-dismiss="alert" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         {{ 'admin.update.fail' | translate }} (Reason : {{errorMessage}})
     </div>
+    <button id="runTournament" data-toggle="modal" data-target="#runModal" class="btn {{ tournamentInfo.running ? 'btn-success' : 'btn-danger'}}" title="{{ tournamentInfo.running ? 'admin.actions.run.runningTooltip' : 'admin.actions.run.notRunningTooltip' | translate }}">{{ tournamentInfo.running ? 'admin.actions.run.running' : 'admin.actions.run.notRunning' | translate }}</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="runModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{ 'admin.actions.run.modalTitle' | translate }}</h4>
+                </div>
+                <div class="modal-body">
+                    {{ tournamentInfo.running ? 'admin.actions.run.willStop' : 'admin.actions.run.willStart' | translate }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'admin.actions.run.cancel' | translate}}</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="toggleStart()">{{ 'admin.actions.run.confirm' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="tourneyRunOk" class="alert alert-success alert-dismissible" role="alert" hidden>
+        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        {{ 'admin.update.success' | translate}}
+    </div>
+    <div id="tourneyRunKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
+        <button type="button" class="close alert-fix-close" data-dismiss="alert" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        {{ 'admin.update.fail' | translate }} (Reason : {{errorMessage}})
+    </div>
     <p>{{ 'admin.intro' | translate }}</p>
 
     <form class="form-horizontal" ng-submit="updateTourney()">
