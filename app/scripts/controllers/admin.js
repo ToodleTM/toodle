@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('AdminCtrl', function ($scope, $location, $http, Tournament, TournamentPlay) {
+    .controller('AdminCtrl', function ($scope, $location, $http, Tournament) {
         var tournamentId = $location.$$path.split('/')[2];
-        $scope.nick;
+        $scope.nick = '';
+        $scope.playerList = null;
         $http.get('api/tournament/' + tournamentId).success(function (data) {
             $scope.tournamentInfo = data;
+            $scope.playerList = $scope.tournamentInfo.players;
         });
 
         $scope.updateTourney = function () {
@@ -36,27 +38,35 @@ angular.module('toodleApp')
             $("#tourneyRunKo").hide();
             $scope.tournamentInfo.running = toggleState($scope.tournamentInfo.running);
             var urlSuffix = '';
-            if($scope.tournamentInfo.running){
+            if ($scope.tournamentInfo.running) {
                 urlSuffix = 'start';
             } else {
                 urlSuffix = 'stop';
             }
-            $http.put('/api/tournament/'+urlSuffix+'/', {"tournamentId":$scope.tournamentInfo._id})
-                .success(function(data, status, headers, config) {
+            $http.put('/api/tournament/' + urlSuffix + '/', {"tournamentId": $scope.tournamentInfo._id})
+                .success(function () {
                     $("#tourneyRunOk").fadeIn();
                 })
-                .error(function(data, status, headers, config) {
+                .error(function (data) {
                     $scope.errorMessage = data.message;
                     $("#tourneyRunKo").fadeIn();
                 });
         };
 
-        $scope.addPlayer = function(){
+        $scope.addPlayer = function () {
             $("#registrationKo").hide();
             $("#registrationOk").hide();
-            if($scope.nick){
-                $scope.tournamentInfo.players.push({name:$scope.nick});
-                $scope.updateTourney();
+            if ($scope.nick) {
+                $http.post('/api/tournament/addPlayer/', {"tournamentId": $scope.tournamentInfo._id, nick: $scope.nick})
+                    .success(function (data) {
+                        $scope.tournamentInfo = data;
+                        $scope.playerList = $scope.tournamentInfo.players;
+                        $("#registrationOk").fadeIn();
+                    })
+                    .error(function (data) {
+                        $scope.errorMessage = data.message;
+                        $("#registrationKo").fadeIn();
+                    });
                 $scope.nick = '';
             }
         }

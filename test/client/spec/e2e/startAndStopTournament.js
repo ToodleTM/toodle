@@ -11,6 +11,9 @@ describe('Start tournament', function () {
         expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g);
         element(by.id('adminLink')).click();
 
+        element(by.id('inputNick')).sendKeys('test1');
+        element(by.id('registerPlayerGo')).click();
+
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
 
@@ -19,7 +22,7 @@ describe('Start tournament', function () {
         expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(Reason : No game engine was specified, can't start tournament until it's done\)/g);
     });
 
-    it('Should not allow tournament start if tournament contains no players', function(){
+    it('Should not allow tournament start if tournament contains no players', function () {
         browser.get(homeAddress);
         element(by.id('tournamentName')).sendKeys('protractor');
         element(by.id('registerTournamentButton')).click();
@@ -32,6 +35,6 @@ describe('Start tournament', function () {
 
 
         var tourneyRunBox = element(by.id('tourneyRunKo'));
-        expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(Reason : Players registered, there's no point in initiating the bracket\)/g);
+        expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(Reason : No players registered, there's no point in initiating the bracket\)/g);
     });
 });

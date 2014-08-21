@@ -52,7 +52,7 @@
                 "tournamentAlreadyRunning": "Tournament is already running",
                 "tournamentAlreadyStopped": "Tournament is already stopped",
                 "noEngineSpecified":"No game engine was specified, can't start tournament until it's done",
-                "noPlayers":"Players registered, there's no point in initiating the bracket"
+                "noPlayers":"No players registered, there's no point in initiating the bracket"
             },
             "addPlayer":"Add a player to the tournament",
             "playerNickPlaceholder":"Player nick"

@@ -29,7 +29,7 @@ describe('Tournament controller', function () {
                     callback(null, {init: true});
                 }};
                 var mockEngineSpy = sinon.spy(mockEngine, 'initBracket');
-                var getTournamentEngineStub = sinon.stub().returns(mockEngine)
+                var getTournamentEngineStub = sinon.stub().returns(mockEngine);
                 tournamentService.getTournamentEngine = getTournamentEngineStub;
                 var tournament = {engine: 'tournamentEngine', players: [
                     {name: 'john'},
@@ -38,7 +38,7 @@ describe('Tournament controller', function () {
                     return res.json({init: true})
                 }};
                 tournamentService.updateTournament = function (req, res, tournament, callback) {
-                    callback(null, {});
+                    callback(null, tournament);
                 };
                 var res = {json: function () {
                 }};
@@ -50,7 +50,7 @@ describe('Tournament controller', function () {
                 assert.equal(getTournamentEngineStub.getCall(0).args[0], 'tournamentEngine');
                 assert.equal(mockEngineSpy.getCall(0).args[0][0].name, 'john');
                 assert.equal(mockEngineSpy.getCall(0).args[0][1].name, 'mary');
-                assert.equal(res.json.getCall(0).args[0].init, true);
+                assert.equal(res.json.getCall(0).args[0].bracket.init, true);
             });
 
             it('should be able to detect tournament engine errors @ init', function () {
@@ -59,8 +59,7 @@ describe('Tournament controller', function () {
                 var mockEngine = {initBracket: function (players, callback) {
                     callback({message: 'thisIsAnError'}, null);
                 }};
-                var mockEngineSpy = sinon.spy(mockEngine, 'initBracket');
-                var getTournamentEngineStub = sinon.stub().returns(mockEngine)
+                var getTournamentEngineStub = sinon.stub().returns(mockEngine);
                 tournamentService.getTournamentEngine = getTournamentEngineStub;
                 var tournament = {engine: 'tournamentEngine', players: [
                     {name: 'john'},
@@ -77,10 +76,12 @@ describe('Tournament controller', function () {
                 assert.equal(res.json.getCall(0).args[1].message, 'thisIsAnError');
             });
 
-            it('should reject tournament start request if no engine is specified', function(){
+            it('should reject tournament start request if no engine is specified', function () {
                 //setup
                 var tournamentService = new TournamentService();
-                var tournament = {engine:null, players:[{name:'john'}]};
+                var tournament = {engine: null, players: [
+                    {name: 'john'}
+                ]};
                 var res = {json: function () {
                 }};
                 sinon.spy(res, 'json');
@@ -98,7 +99,7 @@ describe('Tournament controller', function () {
                     callback(null, {init: true});
                 }};
                 sinon.spy(mockEngine, 'initBracket');
-                var getTournamentEngineStub = sinon.stub().returns(mockEngine)
+                var getTournamentEngineStub = sinon.stub().returns(mockEngine);
                 tournamentService.getTournamentEngine = getTournamentEngineStub;
                 var tournament = {engine: 'tournamentEngine', players: [
                     {name: 'john'},
@@ -132,7 +133,7 @@ describe('Tournament controller', function () {
                 assert.equal(res.json.getCall(0).args[1].message, 'tournamentAlreadyRunning');
             });
 
-            it('Should not be able to start a tournament with no players', function(){
+            it('Should not be able to start a tournament with no players', function () {
                 //setup
                 var tournamentService = new TournamentService();
                 var tournament = {};
@@ -150,7 +151,7 @@ describe('Tournament controller', function () {
             it('should be able to stop the tournament if it s running', function () {
                 //setup
                 var tournamentService = new TournamentService();
-                var tournament = {running: true, save:function(callback){
+                var tournament = {running: true, save: function (callback) {
                     callback(null);
                 }};
                 var res = {json: function () {
@@ -166,10 +167,10 @@ describe('Tournament controller', function () {
                 assert.equal(updateTournamentCall.args[2].running, false);
                 assert.equal(Object.keys(updateTournamentCall.args[2].bracket).length, 0);
             });
-            it('should not allow stopping a not running tournament', function(){
+            it('should not allow stopping a not running tournament', function () {
                 //setup
                 var tournamentService = new TournamentService();
-                var tournament = {running: false, save:function(callback){
+                var tournament = {running: false, save: function (callback) {
                     callback(null);
                 }};
                 var res = {json: function () {
@@ -203,112 +204,143 @@ describe('Tournament controller', function () {
         assert.match(res.json.getCall(0).args[0].signupURL, /^tournamentName[0-9]+$/);
     });
 
-    it('should reject a player registration w/ an empty player name', function () {
-        //setup
-        var tournamentService = new TournamentService();
-        var req = {body: {nick: ''}};
-        var res = {json: function (returnCode, data) {
-        }};
-        sinon.spy(res, 'json');
-        //action
-        tournamentService.registerPlayer(req, res, {players: []});
-        //assert
-        assert.equal(res.json.getCall(0).args[0], 400);
-        assert.equal(res.json.getCall(0).args[1].message, 'noEmptyNick');
-    });
+    describe('Player registration', function () {
+        it('should reject a player registration w/ an empty player name', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var req = {body: {nick: ''}};
+            var res = {json: function (returnCode, data) {
+            }};
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.registerPlayer(req, res, {players: []});
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 400);
+            assert.equal(res.json.getCall(0).args[1].message, 'noEmptyNick');
+        });
 
-    it('should reject a player registration w/ a blank player name', function () {
-        //setup
-        var tournamentService = new TournamentService();
-        var req = {body: {nick: '\t     '}};
-        var res = {json: function (returnCode, data) {
-        }};
-        sinon.spy(res, 'json');
-        //action
-        tournamentService.registerPlayer(req, res, {players: []});
-        //assert
-        assert.equal(res.json.getCall(0).args[0], 400);
-        assert.equal(res.json.getCall(0).args[1].message, 'noEmptyNick');
-    });
+        it('should reject a player registration w/ a blank player name', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var req = {body: {nick: '\t     '}};
+            var res = {json: function (returnCode, data) {
+            }};
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.registerPlayer(req, res, {players: []});
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 400);
+            assert.equal(res.json.getCall(0).args[1].message, 'noEmptyNick');
+        });
 
-    it('should reject a player registration if tournament is locked', function () {
-        //setup
-        var tournamentService = new TournamentService();
-        var req = {body: {nick: 'MAdJoHn_37658'}};
-        var res = {json: function (returnCode, data) {
-        }};
-        sinon.spy(res, 'json');
-        //action
-        tournamentService.registerPlayer(req, res, {players: [], locked: true});
-        //assert
-        assert.equal(res.json.getCall(0).args[0], 400);
-        assert.equal(res.json.getCall(0).args[1].message, 'registrationLocked');
-    });
+        it('should reject a player registration if tournament is locked', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var req = {body: {nick: 'MAdJoHn_37658'}};
+            var res = {json: function (returnCode, data) {
+            }};
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.registerPlayer(req, res, {players: [], locked: true});
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 400);
+            assert.equal(res.json.getCall(0).args[1].message, 'registrationLocked');
+        });
 
-    it('should not allow registration of the same player twice', function () {
-        //setup
-        var tournamentService = new TournamentService();
-        var req = {body: {nick: 'toto'}};
-        var res = {json: function (returnCode, data) {
-        }};
-        sinon.spy(res, 'json');
-        //action
-        tournamentService.registerPlayer(req, res, {players: [
-            {name: 'toto'}
-        ]});
-        //assert
-        assert.equal(res.json.getCall(0).args[0], 400);
-        assert.equal(res.json.getCall(0).args[1].message, 'noDuplicateNick');
-    });
+        it('should not allow registration of the same player twice', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var req = {body: {nick: 'toto'}};
+            var res = {json: function (returnCode, data) {
+            }};
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.registerPlayer(req, res, {players: [
+                {name: 'toto'}
+            ]});
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 400);
+            assert.equal(res.json.getCall(0).args[1].message, 'noDuplicateNick');
+        });
 
-    it('should not allow registration of the same player twice (use of caps)', function () {
-        //setup
-        var tournamentService = new TournamentService();
-        var req = {body: {nick: 'TOtO'}};
-        var res = {json: function (returnCode, data) {
-        }};
-        sinon.spy(res, 'json');
-        //action
-        tournamentService.registerPlayer(req, res, {players: [
-            {name: 'toto'}
-        ]});
-        //assert
-        assert.equal(res.json.getCall(0).args[0], 400);
-        assert.equal(res.json.getCall(0).args[1].message, 'noDuplicateNick');
-    });
+        it('should not allow registration of the same player twice (use of caps)', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var req = {body: {nick: 'TOtO'}};
+            var res = {json: function (returnCode, data) {
+            }};
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.registerPlayer(req, res, {players: [
+                {name: 'toto'}
+            ]});
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 400);
+            assert.equal(res.json.getCall(0).args[1].message, 'noDuplicateNick');
+        });
 
-    it('should allow registration when nick is not empty and unused', function () {
-        //setup
-        var tournamentService = new TournamentService();
-        var req = {body: {nick: 'toto'}};
-        var res = {json: function (data) {
-        }};
-        sinon.spy(res, 'json');
-        //action
-        tournamentService.registerPlayer(req, res, {players: [
-            {name: 'titi'}
-        ], save: function (callback) {
-            callback(false);
-        }});
-        //assert
-        assert.equal(res.json.getCall(0).args[0].players[0].name, 'titi');
-        assert.equal(res.json.getCall(0).args[0].players[1].name, 'toto');
-    });
+        it('should allow registration when nick is not empty and unused', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var req = {body: {nick: 'toto'}};
+            var res = {json: function (data) {
+            }};
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.registerPlayer(req, res, {players: [
+                {name: 'titi'}
+            ], save: function (callback) {
+                callback(false);
+            }});
+            //assert
+            assert.equal(res.json.getCall(0).args[0].players[0].name, 'titi');
+            assert.equal(res.json.getCall(0).args[0].players[1].name, 'toto');
+        });
 
-    it('should return an error if new nick is valid but the app can t save', function () {
-        var tournamentService = new TournamentService();
-        var req = {body: {nick: 'toto'}};
-        var res = {json: function (data) {
-        }};
-        sinon.spy(res, 'json');
-        //action
-        tournamentService.registerPlayer(req, res, {players: [
-            {name: 'titi'}
-        ], save: function (callback) {
-            callback(true);
-        }});
-        //assert
-        assert.equal(res.json.getCall(0).args[0], 500);
-        assert.equal(res.json.getCall(0).args[1].message, 'saveError');
+        it('should return an error if new nick is valid but the app can t save', function () {
+            var tournamentService = new TournamentService();
+            var req = {body: {nick: 'toto'}};
+            var res = {json: function (data) {
+            }};
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.registerPlayer(req, res, {players: [
+                {name: 'titi'}
+            ], save: function (callback) {
+                callback(true);
+            }});
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 500);
+            assert.equal(res.json.getCall(0).args[1].message, 'saveError');
+        });
+
+        it('should allow player add when using the admin id if tournament is locked', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var req = {body: {nick: 'MAdJoHn_37658'}};
+            var res = {json: function (returnCode, data) {
+            }};
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.registerPlayer(req, res, {players: [], locked: true, save:function(callback){callback(false)}}, true);
+            //assert
+            assert.equal(res.json.getCall(0).args[0].players[0].name, 'MAdJoHn_37658');
+        });
+
+        it('should not allow player registration if tournament is in progress (running)', function(){
+            //setup
+            var tournamentService = new TournamentService();
+            var req = {body: {nick: 'MAdJoHn_37658'}};
+            var res = {json: function (returnCode, data) {
+            }};
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.registerPlayer(req, res, {players: [], running: true, save:function(callback){callback(false)}}, true);
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[1].message, 'tournamentAlreadyRunning');
+        });
+
+
     });
 });

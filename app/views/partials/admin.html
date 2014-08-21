@@ -118,12 +118,12 @@
         <button type="button" class="close alert-fix-close" data-dismiss="alert" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         {{ 'admin.update.fail' | translate }} (Reason : {{errorMessage}})
     </div>
-    <fieldset id="playersList" ng-model="tournamentInfo.players">
-        <legend>{{ 'play.register.registeredPlayers' | translate}} ({{tournamentInfo.players.length}})</legend>
-        <div ng-repeat="player in tournamentInfo.players" id="playerList">
+    <fieldset id="playersList" ng-model="playerList">
+        <legend>{{ 'play.register.registeredPlayers' | translate}} ({{playerList.length}})</legend>
+        <div ng-repeat="player in playerList" id="playerList">
             <span>{{player.name}}</span>
         </div>
-        <div ng-show="tournamentInfo.players.length == 0">
+        <div ng-show="playerList.length == 0">
             <span> {{ 'play.register.noPlayers' | translate}} </span>
         </div>
     </fieldset>
