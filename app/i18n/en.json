@@ -87,5 +87,8 @@
             }
         },
         "infos": "Here's the info about this tournament"
+    },
+    "bracket":{
+        "header":"This is the current state of tournament"
     }
 }

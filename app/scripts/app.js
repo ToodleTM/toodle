@@ -21,6 +21,10 @@ angular.module('toodleApp', [
                 templateUrl:'partials/play',
                 controller:'PlayCtrl'
             })
+            .when('/bracket/:id', {
+                templateUrl:'partials/bracket',
+                controller:'BracketCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });

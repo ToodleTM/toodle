@@ -163,6 +163,20 @@ describe('SingleElim engine', function () {
                 assert.equal(actual[3].complete, true);
                 assert.equal(actual[4].complete, true);
             });
+
+            it('should register the round number of a match upon initialization', function(){
+                //setup / action
+                engine.initBracket([john, jane, bob, alice, franz], callbackSpy);
+                //assert
+                assert.equal(actual[1].round, 4);
+                assert.equal(actual[2].round, 4);
+                assert.equal(actual[3].round, 4);
+                assert.equal(actual[4].round, 4);
+                assert.equal(actual[5].round, 2);
+                assert.equal(actual[6].round, 2);
+                assert.equal(actual[7].round, 1);
+
+            });
         });
     });
     describe('Match reporting', function () {
