@@ -86,7 +86,14 @@
                 "registrationLocked": "You can't enter this tournament, registration is locked"
             }
         },
-        "infos": "Here's the info about this tournament"
+        "report":{
+            "success":"Match reported",
+            "fail":"An error occurred when reporting match",
+            "buttonCaption":"Report Match",
+            "description":"Report a match you played for this tournament"
+        },
+        "infos": "Here's the info about this tournament",
+        "bracket":"The bracket"
     },
     "bracket":{
         "header":"This is the current state of tournament"

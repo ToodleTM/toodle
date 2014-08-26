@@ -23,5 +23,9 @@ angular.module('toodleApp')
                 $scope.errorMessage = message.data.message;
             });
         };
+
+        $scope.reportWinForm = function(){
+
+        }
     }
 );

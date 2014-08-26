@@ -6,10 +6,23 @@
 
     <p>{{ 'play.intro' | translate }}</p>
 
+    <button id="reportWin" class="btn btn-primary" title="{{ 'play.report.description' | translate }}" ng-click="reportWinForm()">{{ 'play.report.buttonCaption' | translate }}</button>
+    <div id="reportWinOk" class="alert alert-success alert-dismissible" role="alert" hidden>
+        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        {{ 'play.report.success' | translate}}
+    </div>
+    <div id="reportWinKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
+        <button type="button" class="close alert-fix-close" data-dismiss="alert" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        {{ 'play.report.fail' | translate }} (Reason : {{errorMessage}})
+    </div>
+
     <div class="form-horizontal">
         <fieldset>
 
             <legend>{{ 'play.infos' | translate }}</legend>
+            <p>
+                <a ng-href="/bracket/{{ tournamentInfo.signupID }}/">{{ 'play.bracket' | translate }}</a>
+            </p>
             <div class="row">
 
                 <div class="form-group col-sm-12">

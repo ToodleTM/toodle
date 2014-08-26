@@ -5,7 +5,7 @@ var sinon = require('sinon');
 describe('Bracket drawing', function () {
     var paper, raphael;
 
-    beforeEach(function(){
+    beforeEach(function () {
         paper = {
             rect: function () {
                 return {attr: function () {
@@ -102,12 +102,12 @@ describe('Bracket drawing', function () {
             player1: {name: 'john'},
             player2: {name: 'jane'},
             complete: false,
-            round:8
+            round: 8
         }, 2: {
             player1: {name: 'alice'},
             player2: {name: 'bob'},
             complete: false,
-            round:4
+            round: 4
         }};
         //action
         raphael.drawBracket(paper, bracket);
@@ -119,6 +119,32 @@ describe('Bracket drawing', function () {
         assert.equal(raphael.drawPlayerSlot.getCall(3).args[1], 200);
         assert.equal(raphael.drawPlayerSlot.getCall(3).args[2], 75);
     });
+
+//    it('should display a report button if match is incomplete', function () {
+//        sinon.spy(raphael, 'drawPlayerSlot');
+//        sinon.spy(raphael, 'drawLinkBetweenSlots');
+//        var bracket = {1: {
+//            player1: {name: 'john'},
+//            player2: {name: 'jane'},
+//            complete: false,
+//            round: 8
+//        }};
+//        var rectAttrSpy = sinon.spy();
+//        paper.rect = function(){return {attr:rectAttrSpy}};
+//        sinon.spy(paper, 'rect');
+//        //action
+//        raphael.drawBracket(paper, bracket);
+//        //assert
+//        assert.equal(raphael.drawPlayerSlot.getCall(2).args[0], paper);
+//        assert.equal(raphael.drawPlayerSlot.getCall(2).args[1], 200);
+//        assert.equal(raphael.drawPlayerSlot.getCall(2).args[2], 50);
+//        assert.equal(paper.rect.getCall(1).args[0], 130);
+//        assert.equal(paper.rect.getCall(1).args[0], 30);
+//        assert.equal(paper.rect.getCall(1).args[0], 20);
+//        assert.equal(paper.rect.getCall(1).args[0], 20);
+//        assert.equal(rectAttrSpy.getCall(0).args[0]['fill'], 'green');
+//        assert.equal(rectAttrSpy.getCall(0).args[0]['stroke'], 'green');
+//    });
 });
 
 

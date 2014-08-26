@@ -17,10 +17,10 @@ RaphaelToBracket.prototype.drawPlayerSlot = function (paper, baseX, baseY, name,
 
     paper.rect(baseX, baseY, SLOT_WIDTH, SLOT_HEIGHT).attr({stroke: PLAYER_BOX_COLOR, 'stroke-width': 2});
     paper.text(baseX + 5, baseY + 10, name).attr(TEXT_ATTRIBUTES);
-
-    if (score) {
-        paper.text(baseX + 100, baseY + 10, score).attr(TEXT_ATTRIBUTES);
-    }
+//    if()
+//    if (score) {
+//        paper.text(baseX + 100, baseY + 10, score).attr(TEXT_ATTRIBUTES);
+//    }
 };
 
 function drawBracket(paper, bracket) {
