@@ -2,7 +2,7 @@ var assert = require('chai').assert;
 var sinon = require('sinon');
 var TournamentService = require('../../../lib/service/tournamentService').TournamentService;
 
-describe('Tournament controller', function () {
+describe('Tournament Service', function () {
 
     it('should return an error if save fails', function () {
         //setup
