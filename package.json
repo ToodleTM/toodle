@@ -74,7 +74,8 @@
     "should": "~2.1.0",
     "sinon": "^1.10.3",
     "supertest": "~0.8.2",
-    "time-grunt": "~0.2.1"
+    "time-grunt": "~0.2.1",
+    "grunt-shell": "~1.0.1"
   },
   "engines": {
     "node": ">=0.10.0"

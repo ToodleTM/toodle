@@ -24,7 +24,7 @@ angular.module('toodleApp')
         $scope.toggleRegistrationLock = function () {
             $("#tourneyLockOk").hide();
             $("#tourneyLockKo").hide();
-            $scope.tournamentInfo.locked = toggleState($scope.tournamentInfo.locked);
+            $scope.tournamentInfo.locked = genericUtils.toggleState($scope.tournamentInfo.locked);
             Tournament.update({id: tournamentId}, $scope.tournamentInfo, function () {
                 $("#tourneyLockOk").fadeIn();
             }, function (err) {
@@ -36,7 +36,7 @@ angular.module('toodleApp')
         $scope.toggleStart = function () {
             $("#tourneyRunOk").hide();
             $("#tourneyRunKo").hide();
-            $scope.tournamentInfo.running = toggleState($scope.tournamentInfo.running);
+            $scope.tournamentInfo.running = genericUtils.toggleState($scope.tournamentInfo.running);
             var urlSuffix = '';
             if ($scope.tournamentInfo.running) {
                 urlSuffix = 'start';

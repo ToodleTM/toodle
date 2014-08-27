@@ -23,12 +23,7 @@ RaphaelToBracket.prototype.drawPlayerSlot = function (paper, baseX, baseY, name,
 //    }
 };
 
-function drawBracket(paper, bracket) {
-    RaphaelToBracket.prototype.drawBracket(paper, bracket);
-}
-
 RaphaelToBracket.prototype.drawBracket = function (paper, bracket) {
-
     function getPlayerNameOrPlaceHolder(player) {
         return player ? player.name : TO_BE_DECIDED;
     }
