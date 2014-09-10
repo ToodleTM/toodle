@@ -1,6 +1,6 @@
-var r2b = new (require('./raphaelToBracket.js').RaphaelToBracket)();
+var d3b = new (require('./d3Bracket.js').D3Bracket)();
 var utils = new (require('./utils.js').Utils)();
 
 
 genericUtils = utils;
-renderer = r2b;
+renderer = d3b;

@@ -9,7 +9,7 @@ angular.module('toodleApp')
         $http.get('api/play/' + tournamentId).success(function (data) {
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;
-            renderer.drawBracket(Raphael('bracket', '100%', '100%'), data.bracket);
+            renderer.drawBracket(data.bracket);
         });
     }
 );

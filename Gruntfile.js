@@ -430,10 +430,10 @@ module.exports = function (grunt) {
         },
 
         mochaTest: {
-            options: {
-                reporter: 'nyan'
-            },
-            src: ['test/server/**/*.js', 'test/client/spec/unit/{,*/}*.js']
+                options: {
+                    reporter: 'nyan'
+                },
+                src: ['test/server/**/*.js', 'test/client/spec/unit/{,*/}*.js']
         },
         env: {
             test: {
