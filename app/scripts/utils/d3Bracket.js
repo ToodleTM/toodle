@@ -39,7 +39,6 @@ function insertNodes(currentNode, bracket) {
 
 var WIDTH = 2000;
 var HEIGHT = 1000;
-var VERTICAL_MARGIN = 20;
 var NODE_TEXT_LEFT_MARGIN = 30;
 
 var NODE_WIDTH = 150;
@@ -131,7 +130,7 @@ function giveAnIdToEachNode(svg, nodes) {
     return node;
 }
 function appendSvgCanvas(margin) {
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#bracket").append("svg")
         .attr("width", WIDTH + margin.right + margin.left)
         .attr("height", HEIGHT + margin.top + margin.bottom)
         .append("g")
@@ -142,7 +141,6 @@ function appendSvgCanvas(margin) {
 D3Bracket.prototype.drawBracket = function (bracket) {
     var d3Nodes = this.convertBracketToD3Tree(bracket);
 
-    var margin = {top: VERTICAL_MARGIN, right: HEIGHT, bottom: VERTICAL_MARGIN, left: HEIGHT};
 
     var tree = d3.layout.tree()
         .size([HEIGHT, WIDTH]);
@@ -151,7 +149,8 @@ D3Bracket.prototype.drawBracket = function (bracket) {
         .projection(function (d) {
             return [d.y, d.x];
         });
-    var svg = appendSvgCanvas(margin);
+
+
 
     var nodes = tree.nodes(d3Nodes).reverse(),
         links = tree.links(nodes);
@@ -162,6 +161,8 @@ D3Bracket.prototype.drawBracket = function (bracket) {
         d.x = d.x/2; // vertical alignment should be half the size as the one provided by the init
     });
 
+    var margin = {top: 0, right: 0, bottom: 0, left: HEIGHT};
+    var svg = appendSvgCanvas(margin);
     var node = tranlateOrigin(giveAnIdToEachNode(svg, nodes));
 
     drawSingleNode(node, drawLine());
