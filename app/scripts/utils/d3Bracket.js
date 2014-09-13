@@ -1,21 +1,25 @@
 'use strict';
-var D3Bracket = function(){};
+var D3Bracket = function () {
+};
 var _ = require('../../../node_modules/lodash/lodash.js');
 
-D3Bracket.prototype.convertBracketToD3Tree = function(bracket){
+D3Bracket.prototype.convertBracketToD3Tree = function (bracket) {
     var transformedBracket = {};
 
-    var root = _.find(bracket, function(item){
+    var root = _.find(bracket, function (item) {
         return item.next == null;
     });
-    if(root){
-       transformedBracket = insertNodes(root, bracket);
+    if (root) {
+        transformedBracket = insertNodes(root, bracket);
     }
     return transformedBracket;
 };
 
-function insertNodes(currentNode, bracket){
-    var children = _.filter(bracket, function(item){
+//recursively runs through the bracket until initial matches are found,
+// then places these matches in the "children" array of their upcoming match
+// in the tree structure, and so on
+function insertNodes(currentNode, bracket) {
+    var children = _.filter(bracket, function (item) {
         return currentNode.number == item.next;
     });
     var result = {};
@@ -24,115 +28,146 @@ function insertNodes(currentNode, bracket){
     result.name = currentNode.number;
     result.parent = currentNode.next || 'null';
 
-    if(children.length){
+    if (children.length) {
         result.children = [];
-        _.forEach(children, function(child){
+        _.forEach(children, function (child) {
             result.children.push(insertNodes(child, bracket));
         });
     }
     return result;
 };
 
-D3Bracket.prototype.drawBracket = function(bracket){
-    var d3Nodes = this.convertBracketToD3Tree(bracket);
-    // ************** Generate the tree diagram  *****************
-    var margin = {top: 20, right: 1000, bottom: 20, left: 1000},
-// width = 960 - margin.right - margin.left,
-// height = 500 - margin.top - margin.bottom;
-        width = 2000,
-        height=1000;
+var WIDTH = 2000;
+var HEIGHT = 1000;
+var VERTICAL_MARGIN = 20;
+var NODE_TEXT_LEFT_MARGIN = 30;
+
+var NODE_WIDTH = 150;
+var NODE_HEIGHT = 40;
+var TEXT_IN_NODE_VALIGN_TOP = -5;
+var TEXT_IN_NODE_VALIGN_BOTTOM = 15;
+var NODE_FILL_COLOR = '#fff';
+var NODE_INNER_SEPARATION_COLOR = '#ddd';
+var NODE_OUTER_COLOR = '#aad';
+
+var TREE_LEVELS_HORIZONTAL_DEPTH = 400;
+
+
+function drawSingleNode(nodeEnter, lineFunction) {
+    var lineData = [
+        {x: 0, y: -NODE_HEIGHT / 2},
+        {x: NODE_WIDTH, y: -NODE_HEIGHT / 2},
+        {x: NODE_WIDTH, y: NODE_HEIGHT / 2},
+        {x: 0, y: NODE_HEIGHT / 2},
+        {x: 0, y: -NODE_HEIGHT / 2}
+    ];
+    nodeEnter.append("path")
+        .attr("d", lineFunction(lineData))
+        .attr("stroke", NODE_OUTER_COLOR)
+        .attr('stroke-width', 2)
+        .attr('fill', NODE_FILL_COLOR);
+
+    nodeEnter.append("path")
+        .attr("d", lineFunction([
+            {x: 0, y: 0},
+            {x: NODE_WIDTH, y: 0}
+        ]))
+        .attr("stroke", NODE_INNER_SEPARATION_COLOR)
+        .attr('stroke-width', 1);
+}
+
+D3Bracket.prototype.drawPlayerNameInNode = function(node, player1) {
+    node.append("text")
+        .attr("x", function (d) {
+            return  NODE_TEXT_LEFT_MARGIN;
+        })
+        .attr("y", function (d) {
+            return player1 ? TEXT_IN_NODE_VALIGN_TOP : TEXT_IN_NODE_VALIGN_BOTTOM;
+        })
+        .attr("text-anchor", function (d) {
+            return "start";
+        })
+        .text(function (d) {
+            var playerData = player1 ? d.player1 : d.player2
+            return playerData ? playerData.name : "TBD";
+        })
+        .style("fill-opacity", 1);
+};
+
+function drawLinesBetweenNodes(svg, links, diagonal) {
+    var link = svg.selectAll("path.link")
+        .data(links, function (d) {
+            return d.target.id;
+        });
+    link.enter().insert("path", "g")
+        .attr("class", "link")
+        .attr("d", diagonal);
+}
+function drawLine() {
+    var lineFunction = d3.svg.line().
+        x(function (d) {
+            return d.x
+        }).
+        y(function (d) {
+            return d.y
+        }).
+        interpolate('linerar');
+    return lineFunction;
+}
+function tranlateOrigin(node) {
+    var nodeEnter = node.enter().append("g")
+        .attr("class", "node")
+        .attr("transform", function (d) {
+            return "translate(" + d.y + "," + d.x + ")";
+        });
+    return nodeEnter;
+}
+function giveAnIdToEachNode(svg, nodes) {
     var i = 0;
-
-    var tree = d3.layout.tree()
-        .size([height, width]);
-
-    var diagonal = d3.svg.diagonal()
-        .projection(function(d) { return [d.y, d.x]; });
-
+    var node = svg.selectAll("g.node")
+        .data(nodes, function (d) {
+            return d.id || (d.id = ++i);
+        });
+    return node;
+}
+function appendSvgCanvas(margin) {
     var svg = d3.select("body").append("svg")
-        .attr("width", width + margin.right + margin.left)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", WIDTH + margin.right + margin.left)
+        .attr("height", HEIGHT + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    return svg;
+}
 
-    var root = d3Nodes;
-    update(root);
+D3Bracket.prototype.drawBracket = function (bracket) {
+    var d3Nodes = this.convertBracketToD3Tree(bracket);
 
-    function update(source) {
+    var margin = {top: VERTICAL_MARGIN, right: HEIGHT, bottom: VERTICAL_MARGIN, left: HEIGHT};
 
-        // Compute the new tree layout.
-        var nodes = tree.nodes(root).reverse(),
-            links = tree.links(nodes);
+    var tree = d3.layout.tree()
+        .size([HEIGHT, WIDTH]);
 
-        // Normalize for fixed-depth.
-        nodes.forEach(function(d) { d.y = -d.depth * 300; });
+    var diagonal = d3.svg.diagonal()
+        .projection(function (d) {
+            return [d.y, d.x];
+        });
+    var svg = appendSvgCanvas(margin);
 
-        // Declare the nodes¦
-        var node = svg.selectAll("g.node")
-            .data(nodes, function(d) { return d.id || (d.id = ++i); });
+    var nodes = tree.nodes(d3Nodes).reverse(),
+        links = tree.links(nodes);
 
-        // Enter the nodes.
-        var nodeEnter = node.enter().append("g")
-            .attr("class", "node")
-            .attr("transform", function(d) {
-                return "translate(" + d.y+ "," + d.x + ")"; });
+    // Normalize for fixed-depth.
+    nodes.forEach(function (d) {
+        d.y = -d.depth * TREE_LEVELS_HORIZONTAL_DEPTH;
+        d.x = d.x/2; // vertical alignment should be half the size as the one provided by the init
+    });
 
-        var lineFunction = d3.svg.line().
-            x(function(d){
-                //console.log(d);
-                return d.x
-            }).
-            y(function(d){
-                //console.log(d);
-                return d.y
-            }).
-            interpolate('linerar');
+    var node = tranlateOrigin(giveAnIdToEachNode(svg, nodes));
 
-        var lineData = [{x:-0, y:-20}, {x:100, y:-20}, {x:100, y:20}, {x:0, y:20}, {x:0, y:-20}];
-        nodeEnter.append("path")
-            .attr("d", lineFunction(lineData))
-            .attr("stroke", 'blue')
-            .attr('stroke-width', 2)
-            .attr('fill', '#fff');
-
-        nodeEnter.append("path")
-            .attr("d", lineFunction([{x:0,y:0}, {x:100, y:0}]))
-            .attr("stroke", 'black')
-            .attr('stroke-width', 1);
-
-
-        nodeEnter.append("text")
-            .attr("x", function(d) {
-                return d.parent == "null" ? 30 : 30;
-            })
-            .attr("y", function(d){return -5})
-            //.attr("dy", ".35em")
-            .attr("text-anchor", function(d) {
-                return "start"; })
-            .text(function(d) { return d.player1 ? d.player1.name : "TBD"; })
-            .style("fill-opacity", 1);
-
-        nodeEnter.append("text")
-            .attr("x", function(d) {
-                return d.parent == "null" ? 30 : 30; })
-            .attr("y", function(d){return 15})
-            //.attr("dy", ".35em")
-            .attr("text-anchor", function(d) { return "start" })
-            .text(function(d) { return d.player2 ? d.player2.name : "TBD"; })
-            .style("fill-opacity", 1);
-
-
-
-        // Declare the links¦
-        var link = svg.selectAll("path.link")
-            .data(links, function(d) { return d.target.id; });
-
-        // Enter the links.
-        link.enter().insert("path", "g")
-            .attr("class", "link")
-            .attr("d", diagonal);
-
-    }
+    drawSingleNode(node, drawLine());
+    this.drawPlayerNameInNode(node, true);
+    this.drawPlayerNameInNode(node, false);
+    drawLinesBetweenNodes(svg, links, diagonal);
 };
 
 module.exports.D3Bracket = D3Bracket;
