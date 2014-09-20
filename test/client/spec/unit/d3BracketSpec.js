@@ -40,7 +40,10 @@ describe('D3ToBracket', function(){
                     number:1,
                     player1: {name: 'bob'},
                     player2: {name: 'alice'},
-                    next:3
+                    next:3,
+                    complete:true,
+                    score1:2,
+                    score2:0
                 },
                 2: {
                     number:2,
@@ -60,14 +63,74 @@ describe('D3ToBracket', function(){
             //assert
             assert.equal(actual.player1, null);
             assert.equal(actual.player2.name, 'frank');
+            assert.equal(actual.canReport, false);
             assert.equal(actual.parent, 'null');
             assert.equal(actual.children.length, 2);
             assert.equal(actual.children[0].player1.name, 'bob');
             assert.equal(actual.children[0].player2.name, 'alice');
+            assert.equal(actual.children[0].complete, true);
+            assert.equal(actual.children[0].score1, 2);
+            assert.equal(actual.children[0].score2, 0);
             assert.equal(actual.children[0].parent, 3);
             assert.equal(actual.children[1].player1, null);
             assert.equal(actual.children[1].player2.name, 'frank');
             assert.equal(actual.children[1].parent, 3);
+        });
+
+        it('should enable match report if all previous matches are completed and current match is not', function(){
+            //setup
+            var d3Bracket = new D3Bracket();
+            var bracket = {
+                1: {
+                    number:1,
+                    player1: {name: 'bob'},
+                    player2: {name: 'alice'},
+                    next:3,
+                    complete:true,
+                    score1:2,
+                    score2:0
+                },
+                2: {
+                    number:2,
+                    player1: null,
+                    player2:{name:'frank'},
+                    next:3,
+                    complete:true,
+                    score1:2,
+                    score2:0
+                },
+                3:{
+                    number:3,
+                    player1:null,
+                    player2:{name:'frank'}
+                }
+            };
+            //action
+            var actual = d3Bracket.convertBracketToD3Tree(bracket, true);
+
+            //assert
+            assert.equal(actual.player1, null);
+            assert.equal(actual.player2.name, 'frank');
+            assert.equal(actual.parent, 'null');
+            assert.equal(actual.canReport, true);
+            assert.equal(actual.children.length, 2);
+            assert.equal(actual.children[0].complete, true);
+            assert.equal(actual.children[1].complete, true);
+        });
+
+        it('should allow reporting if current match is in the first round of the bracket and it has not yet been reported', function(){
+            //setup
+            var d3Bracket = new D3Bracket();
+            var bracket ={
+                1: {
+                    number:1,
+                    player1: {name: 'john'},
+                    player2: {name: 'jane'}
+                }};
+            //action
+            var actual = d3Bracket.convertBracketToD3Tree(bracket);
+            //assert
+            assert.equal(actual.canReport, true);
         });
 
         it('should be able to link children to parents on multiple levels', function(){
@@ -144,7 +207,6 @@ describe('D3ToBracket', function(){
             assert.equal(actual.children[1].children[0].parent, 6);
             assert.equal(actual.children[1].children[1].name, 4);
             assert.equal(actual.children[1].children[1].parent, 6);
-
         });
     });
 });

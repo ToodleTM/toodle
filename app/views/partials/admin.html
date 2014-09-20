@@ -3,31 +3,47 @@
 <div>
     <h1>{{ 'admin.header.tournament' | translate }} {{tournamentInfo.tournamentName}} {{ 'admin.header.adminPage' |
         translate}}</h1>
-    <button id="lockTournament" class="btn {{ tournamentInfo.locked ? 'btn-success' : 'btn-danger'}}" title="{{ tournamentInfo.locked ? 'admin.actions.openTooltip' : 'admin.actions.lockTooltip' | translate }}" ng-click="toggleRegistrationLock()">{{ tournamentInfo.locked ? 'admin.actions.open' : 'admin.actions.lock' | translate }}</button>
+    <button id="lockTournament" class="btn {{ tournamentInfo.locked ? 'btn-success' : 'btn-danger'}}"
+            title="{{ tournamentInfo.locked ? 'admin.actions.openTooltip' : 'admin.actions.lockTooltip' | translate }}"
+            ng-click="toggleRegistrationLock()">{{ tournamentInfo.locked ? 'admin.actions.open' : 'admin.actions.lock' |
+        translate }}
+    </button>
     <div id="tourneyLockOk" class="alert alert-success alert-dismissible" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
         {{ 'admin.update.success' | translate}}
     </div>
     <div id="tourneyLockKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
         {{ 'admin.update.fail' | translate }} (Reason : {{errorMessage}})
     </div>
-    <button id="runTournament" data-toggle="modal" data-target="#runModal" class="btn {{ tournamentInfo.running ? 'btn-success' : 'btn-danger'}}" title="{{ tournamentInfo.running ? 'admin.actions.run.runningTooltip' : 'admin.actions.run.notRunningTooltip' | translate }}">{{ tournamentInfo.running ? 'admin.actions.run.running' : 'admin.actions.run.notRunning' | translate }}</button>
+    <button id="runTournament" data-toggle="modal" data-target="#runModal"
+            class="btn {{ tournamentInfo.running ? 'btn-success' : 'btn-danger'}}"
+            title="{{ tournamentInfo.running ? 'admin.actions.run.runningTooltip' : 'admin.actions.run.notRunningTooltip' | translate }}">
+        {{ tournamentInfo.running ? 'admin.actions.run.running' : 'admin.actions.run.notRunning' | translate }}
+    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="runModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalLabel">{{ 'admin.actions.run.modalTitle' | translate }}</h4>
                 </div>
                 <div class="modal-body">
-                    {{ tournamentInfo.running ? 'admin.actions.run.willStop' : 'admin.actions.run.willStart' | translate }}
+                    {{ tournamentInfo.running ? 'admin.actions.run.willStop' : 'admin.actions.run.willStart' | translate
+                    }}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'admin.actions.run.cancel' | translate}}</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="toggleStart()" id="doStart">{{ 'admin.actions.run.confirm' | translate }}</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'admin.actions.run.cancel' |
+                        translate}}
+                    </button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="toggleStart()"
+                            id="doStart">{{ 'admin.actions.run.confirm' | translate }}
+                    </button>
                 </div>
             </div>
         </div>
@@ -35,22 +51,28 @@
 
 
     <div id="tourneyRunOk" class="alert alert-success alert-dismissible" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
         {{ 'admin.update.success' | translate}}
     </div>
     <div id="tourneyRunKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
         {{ 'admin.update.fail' | translate }} (Reason : {{ 'admin.actions.run.'+errorMessage | translate }})
     </div>
     <p>{{ 'admin.intro' | translate }}</p>
-
+    <fieldset>
+        <legend>{{ 'admin.misc.links'| translate}}</legend>
+            <a ng-href="/play/{{tournamentInfo.signupID}}">{{ 'admin.misc.playLink' | translate}}</a><br/>
+            <a ng-href="/bracket/{{tournamentInfo.signupID}}">{{ 'admin.misc.brackets' | translate}}</a>
+    </fieldset>
     <form class="form-horizontal" ng-submit="updateTourney()">
         <fieldset>
 
             <legend>{{ 'admin.form.configure' | translate }}</legend>
             <div class="row">
 
-                <div class="form-group col-sm-12">
+                <div class="form-group col-sm-6">
                     <label class="control-label" for="game">{{ 'admin.form.game' | translate }}</label>
 
                     <select id="game" name="game" class="form-control" ng-model="tournamentInfo.game">
@@ -59,10 +81,8 @@
                         <option value="other">{{ 'admin.form.other' | translate}}</option>
                     </select>
                 </div>
-            </div>
-            <div class="row">
 
-                <div class="form-group col-sm-12">
+                <div class="form-group col-sm-6">
                     <label class="control-label" for="engine">{{'admin.form.engine' | translate}}</label>
 
                     <select id="engine" name="engine" class="form-control" ng-model="tournamentInfo.engine">
@@ -75,14 +95,16 @@
             <div class="row">
                 <div class="form-group col-sm-12">
                     <label class="control-label" for="description">{{ 'admin.form.description' | translate }}</label>
-                    <textarea id="description" name="description" class="form-control" ng-model="tournamentInfo.description"></textarea>
+                    <textarea id="description" name="description" class="form-control"
+                              ng-model="tournamentInfo.description"></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-sm-6">
                     <label for="roundFormat">{{ 'admin.form.roundFormats' | translate}}</label>
 
-                    <select id="roundFormat" name="roundFormat" class="form-control" ng-model="tournamentInfo.roundFormat">
+                    <select id="roundFormat" name="roundFormat" class="form-control"
+                            ng-model="tournamentInfo.roundFormat">
                         <option value=""></option>
                         <option value="1">Best of 1</option>
                         <option value="3">Best of 3</option>
@@ -92,30 +114,34 @@
                     </select>
                 </div>
 
-                <div class="form-group col-sm-6">
-                    <label for="numberOfPlayers">{{ 'admin.form.numberOfPlayers' | translate}}</label>
-                    <select id="numberOfPlayers" name="numberOfPlayers" class="form-control" ng-model="tournamentInfo.numberOfPlayers">
-                        <option value=""></option>
-                        <option value="8">8</option>
-                        <option value="16">16</option>
-                        <option value="32">32</option>
-                        <option value="64">64</option>
-                    </select>
-                </div>
+                <!--<div class="form-group col-sm-6">-->
+                <!--<label for="numberOfPlayers">{{ 'admin.form.numberOfPlayers' | translate}}</label>-->
+                <!--<select id="numberOfPlayers" name="numberOfPlayers" class="form-control" ng-model="tournamentInfo.numberOfPlayers">-->
+                <!--<option value=""></option>-->
+                <!--<option value="8">8</option>-->
+                <!--<option value="16">16</option>-->
+                <!--<option value="32">32</option>-->
+                <!--<option value="64">64</option>-->
+                <!--</select>-->
+                <!--</div>-->
             </div>
             <div class="row">
                 <div class="form-group col-sm-12">
-                    <button id="modifyTournament" type="submit" class="btn btn-primary" >{{ 'admin.form.submit' | translate }}</button>
+                    <button id="modifyTournament" type="submit" class="btn btn-primary">{{ 'admin.form.submit' |
+                        translate }}
+                    </button>
                 </div>
             </div>
         </fieldset>
     </form>
     <div id="tourneyUpdateOk" class="alert alert-success alert-dismissible" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
         {{ 'admin.update.success' | translate}}
     </div>
     <div id="tourneyUpdateKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
         {{ 'admin.update.fail' | translate }} (Reason : {{errorMessage}})
     </div>
     <fieldset id="playersList" ng-model="playerList">
@@ -136,16 +162,20 @@
                            placeholder="{{ 'admin.actions.playerNickPlaceholder' | translate}}" ng-model="nick"/>
                 </div>
                 <div class="form-group col-sm-6">
-                    <button class="btn btn-primary" id="registerPlayerGo" type="submit">{{ 'play.enter.go' | translate }}</button>
+                    <button class="btn btn-primary" id="registerPlayerGo" type="submit">{{ 'play.enter.go' | translate
+                        }}
+                    </button>
                 </div>
             </form>
         </div>
         <div id="registrationOk" class="alert alert-success alert-dismissible" role="alert" hidden>
-            <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             {{ 'play.register.success' | translate}}
         </div>
         <div id="registrationKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
-            <button type="button" class="close alert-fix-close" data-dismiss="alert" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             {{ 'play.register.fail' | translate }} (Reason : {{ 'play.register.errors.'+errorMessage | translate }})
         </div>
     </fieldset>

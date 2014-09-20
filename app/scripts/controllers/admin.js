@@ -8,6 +8,8 @@ angular.module('toodleApp')
         $http.get('api/tournament/' + tournamentId).success(function (data) {
             $scope.tournamentInfo = data;
             $scope.playerList = $scope.tournamentInfo.players;
+            console.log($scope.tournamentInfo);
+
         });
 
         $scope.updateTourney = function () {

@@ -3,7 +3,7 @@ var D3Bracket = function () {
 };
 var _ = require('../../../node_modules/lodash/lodash.js');
 
-D3Bracket.prototype.convertBracketToD3Tree = function (bracket) {
+D3Bracket.prototype.convertBracketToD3Tree = function (bracket, debug) {
     var transformedBracket = {};
 
     var root = _.find(bracket, function (item) {
@@ -23,10 +23,16 @@ function insertNodes(currentNode, bracket) {
         return currentNode.number == item.next;
     });
     var result = {};
+    var previousMatches = _.filter(bracket, function(item){return item.next == currentNode.number});
+
     result.player1 = currentNode.player1;
     result.player2 = currentNode.player2;
     result.name = currentNode.number;
     result.parent = currentNode.next || 'null';
+    result.complete = currentNode.complete;
+    result.canReport = !currentNode.complete && _.every(previousMatches, function(item){return item.complete});
+    result.score1 = currentNode.score1;
+    result.score2 = currentNode.score2;
 
     if (children.length) {
         result.children = [];

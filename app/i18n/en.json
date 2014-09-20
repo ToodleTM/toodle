@@ -58,6 +58,11 @@
             "playerNickPlaceholder":"Player nick"
 
         },
+        "misc":{
+            "links":"Links to other related pages for your tournament",
+            "playLink":"Player's signup form",
+            "brackets":"Tournament's bracket"
+        },
         "update": {
             "success": "Tournament specs successfully updated",
             "fail": "Something went wrong updating this tournament."
@@ -92,7 +97,9 @@
             "buttonCaption":"Report Match",
             "description":"Report a match you played for this tournament"
         },
-        "infos": "Here's the info about this tournament",
+        "noGame":"No game specified",
+        "noGameType":"No game type specified",
+        "infos": "Info about this tournament",
         "bracket":"The bracket"
     },
     "bracket":{

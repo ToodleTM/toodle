@@ -25,23 +25,22 @@
             </p>
             <div class="row">
 
-                <div class="form-group col-sm-12">
+                <div class="form-group col-sm-6">
                     <label class="control-label" for="game">{{ 'admin.form.game' | translate }}</label>
 
                     <select id="game" name="game" class="form-control" ng-model="tournamentInfo.game" disabled>
-                        <option value="">{{ 'admin.form.pickGame' | translate}}</option>
+                        <option value="">{{ 'play.noGame' | translate}}</option>
                         <option value="sc2">Starcraft II</option>
                         <option value="other">{{ 'admin.form.other' | translate}}</option>
                     </select>
                 </div>
-            </div>
-            <div class="row">
 
-                <div class="form-group col-sm-12">
+
+                <div class="form-group col-sm-6">
                     <label class="control-label" for="engine">{{'admin.form.engine' | translate}}</label>
 
                     <select id="engine" name="engine" class="form-control" ng-model="tournamentInfo.engine" disabled>
-                        <option value=""></option>
+                        <option value="">{{ 'play.noGameType' | translate}}</option>
                         <option value="1">Single elim. bracket</option>
                         <option value="2">Single elim. bracket w/ 3rd place decider</option>
                     </select>
@@ -55,19 +54,19 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-sm-6">
-                    <label for="Round format">{{ 'admin.form.roundFormats' | translate}}</label>
+                <!--<div class="form-group col-sm-6">-->
+                    <!--<label for="Round format">{{ 'admin.form.roundFormats' | translate}}</label>-->
 
-                    <select id="Round format" name="Round format" class="form-control"
-                            ng-model="tournamentInfo.roundFormat" disabled>
-                        <option value=""></option>
-                        <option value="1">Best of 1</option>
-                        <option value="3">Best of 3</option>
-                        <option value="5">Best of 5</option>
-                        <option value="7">Best of 7</option>
-                        <option value="9">Best of 9</option>
-                    </select>
-                </div>
+                    <!--<select id="Round format" name="Round format" class="form-control"-->
+                            <!--ng-model="tournamentInfo.roundFormat" disabled>-->
+                        <!--<option value=""></option>-->
+                        <!--<option value="1">Best of 1</option>-->
+                        <!--<option value="3">Best of 3</option>-->
+                        <!--<option value="5">Best of 5</option>-->
+                        <!--<option value="7">Best of 7</option>-->
+                        <!--<option value="9">Best of 9</option>-->
+                    <!--</select>-->
+                <!--</div>-->
 
                 <div class="form-group col-sm-6">
                     <label for="numberOfPlayers">{{ 'admin.form.numberOfPlayers' | translate}}</label>
