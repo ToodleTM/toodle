@@ -2,7 +2,7 @@
 
 angular.module('toodleApp')
     .factory('Tournament', function ($resource) {
-        return $resource('/api/tournament/:id', {
+        return $resource('/api/tournament/admin/:id', {
             id: '@id'
         }, { //parameters default
             update: {
@@ -24,8 +24,6 @@ angular.module('toodleApp')
                 params:{}
             }
         });
-    }
-
-);
+    });
 
 

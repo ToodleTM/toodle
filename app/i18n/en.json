@@ -54,6 +54,15 @@
                 "noEngineSpecified":"No game engine was specified, can't start tournament until it's done",
                 "noPlayers":"No players registered, there's no point in initiating the bracket"
             },
+            "reporting":{
+                "title":"Reporting",
+                "reportMatch":"Report a game",
+                "unreportMatch":"Unreport a game",
+                "reportButton":"Go to the form",
+                "unreportButton":"Unreport !",
+                "describeReport":"Please fill in the form and validate it in order to report the match.",
+                "playerScore":"'s score"
+            },
             "addPlayer":"Add a player to the tournament",
             "playerNickPlaceholder":"Player nick"
 
@@ -104,5 +113,8 @@
     },
     "bracket":{
         "header":"This is the current state of tournament"
+    },
+    "common":{
+        "errorFindingMatchesToReport":"An error occurred while looking up matches to be reported."
     }
 }

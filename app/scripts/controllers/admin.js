@@ -5,11 +5,18 @@ angular.module('toodleApp')
         var tournamentId = $location.$$path.split('/')[2];
         $scope.nick = '';
         $scope.playerList = null;
-        $http.get('api/tournament/' + tournamentId).success(function (data) {
+        $http.get('api/tournament/admin/' + tournamentId).success(function (data) {
             $scope.tournamentInfo = data;
             $scope.playerList = $scope.tournamentInfo.players;
-            console.log($scope.tournamentInfo);
-
+            $http.get('/api/tournament/matchesToReport?tournamentId='+$scope.tournamentInfo._id)
+                .success(function(data){
+                    $scope.gamesToReport = data;
+                    if(data.length > 0 ){
+                        $scope.firstGameToReport = $scope.gamesToReport[0];
+                    }
+                })
+                .error(function(){
+                });
         });
 
         $scope.updateTourney = function () {
@@ -72,5 +79,9 @@ angular.module('toodleApp')
                 $scope.nick = '';
             }
         }
+
+        $scope.reportMatch = function(){
+            console.log($scope.score1, $scope.score2);
+        };
     }
 );
