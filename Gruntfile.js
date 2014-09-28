@@ -233,7 +233,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 options: {
-                    generatedImagesDir: '<%= yeoman.dist %>/public/images/generated'
+                    generatedImagesDir: '<%= yeoman.dist %>/app/images/generated'
                 }
             },
             server: {
@@ -248,10 +248,10 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     src: [
-                        '<%= yeoman.dist %>/public/scripts/{,*/}*.js',
-                        '<%= yeoman.dist %>/public/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/public/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-                        '<%= yeoman.dist %>/public/styles/fonts/*'
+                        '<%= yeoman.dist %>/app/scripts/{,*/}*.js',
+                        '<%= yeoman.dist %>/app/styles/{,*/}*.css',
+                        '<%= yeoman.dist %>/app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                        '<%= yeoman.dist %>/app/styles/fonts/*'
                     ]
                 }
             }
@@ -264,17 +264,17 @@ module.exports = function (grunt) {
             html: ['<%= yeoman.app %>/views/index.html',
                 '<%= yeoman.app %>/views/index.jade'],
             options: {
-                dest: '<%= yeoman.dist %>/public'
+                dest: '<%= yeoman.dist %>/app'
             }
         },
 
         // Performs rewrites based on rev and the useminPrepare configuration
         usemin: {
-            html: ['<%= yeoman.dist %>/views/{,*/}*.html',
-                '<%= yeoman.dist %>/views/{,*/}*.jade'],
-            css: ['<%= yeoman.dist %>/public/styles/{,*/}*.css'],
+            html: ['<%= yeoman.dist %>/app/views/{,*/}*.html',
+                '<%= yeoman.dist %>/app/views/{,*/}*.jade'],
+            css: ['<%= yeoman.dist %>/app/styles/{,*/}*.css'],
             options: {
-                assetsDirs: ['<%= yeoman.dist %>/public']
+                assetsDirs: ['<%= yeoman.dist %>/app']
             }
         },
 
@@ -289,7 +289,7 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: '<%= yeoman.app %>/images',
                         src: '{,*/}*.{png,jpg,jpeg,gif}',
-                        dest: '<%= yeoman.dist %>/public/images'
+                        dest: '<%= yeoman.dist %>/app/images'
                     }
                 ]
             }
@@ -302,7 +302,7 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: '<%= yeoman.app %>/images',
                         src: '{,*/}*.svg',
-                        dest: '<%= yeoman.dist %>/public/images'
+                        dest: '<%= yeoman.dist %>/app/images'
                     }
                 ]
             }
@@ -321,7 +321,7 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: '<%= yeoman.app %>/views',
                         src: ['*.html', 'partials/**/*.html'],
-                        dest: '<%= yeoman.dist %>/views'
+                        dest: '<%= yeoman.dist %>/app/views'
                     }
                 ]
             }
@@ -345,18 +345,76 @@ module.exports = function (grunt) {
         // Replace Google CDN references
         cdnify: {
             dist: {
-                html: ['<%= yeoman.dist %>/views/*.html']
+                html: ['<%= yeoman.dist %>/app/views/*.html']
             }
         },
         // Copies remaining files to places other tasks can use
         copy: {
+            softDist:{
+                files:[
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= yeoman.app %>',
+                        dest: '<%= yeoman.dist %>/app',
+                        src: [
+                            '*.{ico,png,txt}',
+                            '.htaccess',
+                            'bower_components/**/*',
+                            'images/{,*/}*.{webp}',
+                            'fonts/**/*'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dest: '<%= yeoman.dist %>',
+                        src: [
+                            'package.json',
+                            'server.js',
+                            'lib/**/*'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dest: '<%= yeoman.dist %>',
+                        src: [
+                            'app/scripts/utils/packed.js'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dest: '<%= yeoman.dist %>',
+                        src: [
+                            'app/i18n/*.json'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dest: '<%= yeoman.dist %>',
+                        src: [
+                            'app/scripts/controllers/*.js',
+                            'app/scripts/directives/*.js',
+                            'app/scripts/services/*.js',
+                            'app/scripts/utils/packed.js',
+                            'app/scripts/app.js'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dest: '<%= yeoman.dist %>',
+                        src: [
+                            'app/styles/*.css'
+                        ]
+                    }
+                ]
+            },
             dist: {
                 files: [
                     {
                         expand: true,
                         dot: true,
                         cwd: '<%= yeoman.app %>',
-                        dest: '<%= yeoman.dist %>/public',
+                        dest: '<%= yeoman.dist %>/app',
                         src: [
                             '*.{ico,png,txt}',
                             '.htaccess',
@@ -369,13 +427,13 @@ module.exports = function (grunt) {
                         expand: true,
                         dot: true,
                         cwd: '<%= yeoman.app %>/views',
-                        dest: '<%= yeoman.dist %>/views',
+                        dest: '<%= yeoman.dist %>/app/views',
                         src: '**/*.jade'
                     },
                     {
                         expand: true,
                         cwd: '.tmp/images',
-                        dest: '<%= yeoman.dist %>/public/images',
+                        dest: '<%= yeoman.dist %>/app/images',
                         src: ['generated/*']
                     },
                     {
@@ -385,6 +443,20 @@ module.exports = function (grunt) {
                             'package.json',
                             'server.js',
                             'lib/**/*'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dest: '<%= yeoman.dist %>',
+                        src: [
+                            'app/scripts/utils/packed.js'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dest: '<%= yeoman.dist %>',
+                        src: [
+                            'app/i18n/*.json'
                         ]
                     }
                 ]
@@ -516,12 +588,22 @@ module.exports = function (grunt) {
         'autoprefixer',
         'concat',
         'ngmin',
+        'shell:duo',
         'copy:dist',
         'cdnify',
         'cssmin',
         'uglify',
         'rev',
         'usemin'
+    ]);
+
+    grunt.registerTask('softBuild', [
+        'clean:dist',
+        'bower-install',
+        'concurrent:dist',
+        'compass',
+        'shell:duo',
+        'copy:softDist'
     ]);
 
     grunt.registerTask('heroku', function () {
