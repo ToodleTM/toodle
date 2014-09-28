@@ -95,8 +95,8 @@ D3Bracket.prototype.drawPlayerNameInNode = function(node, player1) {
         .text(function (d) {
             var playerData = player1 ? d.player1 : d.player2;
             var playerScore = player1 ? d.score1: d.score2;
-            var textToPrint = playerScore || playerScore == 0 ? playerScore + ' ' +playerData.name : ' -  ' +playerData.name
-            return playerData ? textToPrint : "TBD";
+            var playerName = playerData ? playerData.name : 'TBD';
+            return playerScore || playerScore == 0 ? playerScore + ' ' +playerName : ' -  ' +playerName;
         })
         .style("fill-opacity", 1);
 };
