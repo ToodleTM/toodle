@@ -13,6 +13,9 @@ angular.module('toodleApp')
                     $scope.gamesToReport = data;
                     if(data.length > 0 ){
                         $scope.firstGameToReport = $scope.gamesToReport[0];
+                        $scope.number = $scope.firstGameToReport.number;
+                        $scope.score1=0;
+                        $scope.score2=0;
                     }
                 })
                 .error(function(){
@@ -78,10 +81,31 @@ angular.module('toodleApp')
                     });
                 $scope.nick = '';
             }
-        }
+        };
 
         $scope.reportMatch = function(){
-            console.log($scope.score1, $scope.score2);
+            $("#tourneyUpdateOk").hide();
+            $("#tourneyUpdateKo").hide();
+            $http.post('/api/tournament/reportMatch/', {tournamentId:$scope.tournamentInfo._id, number:$scope.number, score1:$scope.score1, score2:$scope.score2}).success(function(data){
+                $("#tourneyUpdateOk").fadeIn();
+                $http.get('/api/tournament/matchesToReport?tournamentId='+$scope.tournamentInfo._id)
+                    .success(function(data){
+                        $scope.gamesToReport = data;
+                        if(data.length > 0 ){
+                            $scope.firstGameToReport = $scope.gamesToReport[0];
+                            $scope.number = $scope.firstGameToReport.number;
+                            $scope.score1=0;
+                            $scope.score2=0;
+                        }
+                    })
+                    .error(function(){
+                    });
+                $scope.tournamentInfo = data;
+                console.log($scope.gamesToReport, $scope.firstGameToReport, $scope.tournamentInfo);
+            }).error(function(data){
+                $("#tourneyUpdateKo").fadeIn();
+            });
+            //console.log($scope.score1, $scope.score2);
         };
     }
 );
