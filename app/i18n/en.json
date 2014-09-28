@@ -63,6 +63,10 @@
                 "describeReport":"Please fill in the form and validate it in order to report the match.",
                 "playerScore":"'s score"
             },
+            "unreporting":{
+                "title":"Unreporting",
+                "warning":"Clicking the confirmation button will unreport the match, permanently deleting any content (score, replays ...) related. This action can't be undone."
+            },
             "addPlayer":"Add a player to the tournament",
             "playerNickPlaceholder":"Player nick"
 
