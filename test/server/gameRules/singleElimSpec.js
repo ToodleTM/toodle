@@ -222,6 +222,21 @@ describe('SingleElim engine', function () {
                 //assert
                 assert.equal(callbackSpy.getCall(1).args[0].message, 'cantUnreportIncompleteMatch');
             });
+
+            it('should allow to unreport the completed finals of a bracket', function(){
+                //seiup
+                var reportWinCallback = function(err, data){};
+                var reportWinCallbackSpy = sinon.spy(reportWinCallback);
+                engine.initBracket([john, jane], callbackSpy);
+                engine.reportWin(1, 2, 0, actual, reportWinCallbackSpy)
+                //actpm
+                engine.unreport(1, actual, callbackSpy);
+                //assert
+                assert.equal(reportWinCallbackSpy.getCall(0).args[0], null);
+                assert.equal(reportWinCallbackSpy.getCall(0).args[1][1].complete, false);
+                assert.equal(reportWinCallbackSpy.getCall(0).args[1][1].score1, 0);
+                assert.equal(reportWinCallbackSpy.getCall(0).args[1][1].score2, 0);
+            })
         });
         describe('Report match', function () {
             it('should update next match with match winner', function () {
