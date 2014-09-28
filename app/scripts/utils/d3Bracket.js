@@ -45,7 +45,7 @@ function insertNodes(currentNode, bracket) {
 
 var WIDTH = 2000;
 var HEIGHT = 1000;
-var NODE_TEXT_LEFT_MARGIN = 30;
+var NODE_TEXT_LEFT_MARGIN = 10;
 
 var NODE_WIDTH = 150;
 var NODE_HEIGHT = 40;
@@ -93,8 +93,10 @@ D3Bracket.prototype.drawPlayerNameInNode = function(node, player1) {
             return "start";
         })
         .text(function (d) {
-            var playerData = player1 ? d.player1 : d.player2
-            return playerData ? playerData.name : "TBD";
+            var playerData = player1 ? d.player1 : d.player2;
+            var playerScore = player1 ? d.score1: d.score2;
+            var textToPrint = playerScore || playerScore == 0 ? playerScore + ' ' +playerData.name : ' -  ' +playerData.name
+            return playerData ? textToPrint : "TBD";
         })
         .style("fill-opacity", 1);
 };
