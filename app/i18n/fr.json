@@ -54,6 +54,19 @@
                 "noEngineSpecified": "Aucun moteur de jeu n'est spécifié, impossible de démarrer le tournoi tant que cela n'est pas fait",
                 "noPlayers": "Aucun joueur enregistré. Aucun intérêt à démarrer le tournoi."
             },
+            "reporting":{
+                "title":"Reporting",
+                "reportMatch":"Enregistrer un résultat",
+                "unreportMatch":"Annuler un enregistrement",
+                "reportButton":"Formulaire",
+                "unreportButton":"Annuler !",
+                "describeReport":"Remplis le formulaire pour enregistrer le résultat.",
+                "playerScore":" score"
+            },
+            "unreporting":{
+                "title":"Annuler un enregistrement",
+                "warning":"En cliquant sur le bouton de confirmation tu vas valider l'annulation, ce qui aura pour effet d'effacer le résultat du match (score, replay ...). Cette action ne peut être annulée."
+            },
             "addPlayer": "Ajouter un joueur au tournoi",
             "playerNickPlaceholder": "Pseudo du joueur"
 
