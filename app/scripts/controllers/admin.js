@@ -36,24 +36,28 @@ angular.module('toodleApp')
         $scope.updateTourney = function () {
             $("#tourneyUpdateOk").hide();
             $("#tourneyUpdateKo").hide();
-            Tournament.update({id: tournamentId}, $scope.tournamentInfo, function () {
-                $("#tourneyUpdateOk").fadeIn();
-            }, function (err) {
-                $scope.errorMessage = err;
-                $("#tourneyUpdateKo").fadeIn();
-            })
+            $http.put('/api/tournament/admin/update/?id='+tournamentId, $scope.tournamentInfo)
+                .success(function(){
+                    $("#tourneyUpdateOk").fadeIn();
+                })
+                .error(function(){
+                    scope.errorMessage = err;
+                    $("#tourneyUpdateKo").fadeIn();
+                });
         };
 
         $scope.toggleRegistrationLock = function () {
             $("#tourneyLockOk").hide();
             $("#tourneyLockKo").hide();
             $scope.tournamentInfo.locked = genericUtils.toggleState($scope.tournamentInfo.locked);
-            Tournament.update({id: tournamentId}, $scope.tournamentInfo, function () {
-                $("#tourneyLockOk").fadeIn();
-            }, function (err) {
-                $scope.errorMessage = err;
-                $("#tourneyLockKo").fadeIn();
-            })
+            $http.put('/api/tournament/admin/lock?id='+tournamentId, $scope.tournamentInfo)
+                .success(function(){
+                    $("#tourneyLockOk").fadeIn();
+                })
+                .error(function(){
+                    scope.errorMessage = err;
+                    $("#tourneyLockKo").fadeIn();
+                });
         };
 
         $scope.toggleStart = function () {
@@ -115,7 +119,6 @@ angular.module('toodleApp')
             }).error(function (data) {
                 $("#tourneyUpdateKo").fadeIn();
             });
-            //console.log($scope.score1, $scope.score2);
         };
 
         $scope.unreportMatch = function () {
@@ -138,7 +141,6 @@ angular.module('toodleApp')
             }).error(function (data) {
                 $("#tourneyUpdateKo").fadeIn();
             });
-            //console.log($scope.score1, $scope.score2);
         };
     }
 );

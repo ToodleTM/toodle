@@ -1,23 +1,24 @@
 'use strict';
 
 angular.module('toodleApp')
-  .controller('MainCtrl', function ($scope, QuickAdd, $location) {
+  .controller('MainCtrl', function ($scope, $http, $location) {
     $scope.tournamentName = "";
 
     $scope.createTourney = function(){
-        QuickAdd.createBasicTournament({tournamentName:$scope.tournamentName, players:[]}, function(){
-            $("#tourneyCreationKo").fadeOut();
-            $("#tourneyCreationOk").fadeOut();
-        }).then(function(res){
-            $scope.adminURL = res.adminURL;
-            $scope.signupURL = res.signupURL;
-            $location.path('/');
-            $scope.tournamentCreated = true;
-            $("#tourneyCreationOk").fadeIn();
-            $scope.tournamentName = "";
-        }).catch(function(err){
-            $scope.errorMessage = err.data.errors.tournamentName.message;
-            $("#tourneyCreationKo").fadeIn();
-        });
+        $("#tourneyCreationKo").fadeOut();
+        $("#tourneyCreationOk").fadeOut();
+        $http.post('/api/tournament/', {tournamentName:$scope.tournamentName, players:[]})
+            .success(function(res){
+                $scope.adminURL = res.adminURL;
+                $scope.signupURL = res.signupURL;
+                $location.path('/');
+                $scope.tournamentCreated = true;
+                $("#tourneyCreationOk").fadeIn();
+                $scope.tournamentName = "";
+            })
+            .error(function(){
+                $scope.errorMessage = err.data.errors.tournamentName.message;
+                $("#tourneyCreationKo").fadeIn();
+            });
     };
   });
