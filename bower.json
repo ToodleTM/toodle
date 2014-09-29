@@ -15,7 +15,6 @@
     "angular-translate": "~2.2.0",
     "angular-translate-loader-static-files": "~2.2.0",
     "angular-translate-storage-cookie": "~2.2.0",
-    "raphael": "~2.1.2",
     "d3": "~3.4.11"
   },
   "devDependencies": {
