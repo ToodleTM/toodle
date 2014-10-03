@@ -228,7 +228,7 @@ describe('SingleElim engine', function () {
                 var reportWinCallback = function(err, data){};
                 var reportWinCallbackSpy = sinon.spy(reportWinCallback);
                 engine.initBracket([john, jane], callbackSpy);
-                engine.reportWin(1, 2, 0, actual, reportWinCallbackSpy)
+                engine.reportWin(1, 2, 0, actual, reportWinCallbackSpy);
                 //actpm
                 engine.unreport(1, actual, callbackSpy);
                 //assert
@@ -236,7 +236,24 @@ describe('SingleElim engine', function () {
                 assert.equal(reportWinCallbackSpy.getCall(0).args[1][1].complete, false);
                 assert.equal(reportWinCallbackSpy.getCall(0).args[1][1].score1, 0);
                 assert.equal(reportWinCallbackSpy.getCall(0).args[1][1].score2, 0);
-            })
+            });
+
+            it('should not rely on player names for the next match in order to update it', function(){
+                //setup
+                var bracket = {
+                    '1':{},
+                    '2':{player1:bob, player2:alice, score1:0, score2:2, complete:true, next:3},
+                    '3':{complete:false,player1:null, player2:alice}
+                };
+                try {
+                    //action
+                    engine.unreport(2, bracket, callbackSpy);
+                } catch(exception){
+                    //assert
+                    assert.ok(false);
+                }
+
+            });
         });
         describe('Report match', function () {
             it('should update next match with match winner', function () {
