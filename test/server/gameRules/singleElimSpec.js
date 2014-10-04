@@ -329,6 +329,15 @@ describe('SingleElim engine', function () {
                 //assert
                 assert.equal(callbackSpy.getCall(1).args[2], false);
             });
+
+            it('should not be able to update a match with uncomplete previous matches', function(){
+                //setup
+                engine.initBracket([john, jane, bob, alice], callbackSpy);
+                //action
+                engine.reportWin(3, 2, 0, actual, callbackSpy);
+                //assert
+                assert.equal(callbackSpy.getCall(1).args[0].message, 'notAllPreviousMatchesAreComplete');
+            })
         });
     });
     describe('Bracket infos', function(){
