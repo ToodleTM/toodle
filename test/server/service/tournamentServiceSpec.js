@@ -349,156 +349,227 @@ describe('Tournament Service', function () {
     });
 
     describe('Tournament management', function () {
+        var res = {};
+        var tournamentService = {};
+        var req = {body:{}};
+        beforeEach(function(){
+            tournamentService = new TournamentService();
+
+            res = {
+                json: function () {
+                }
+            };
+            sinon.spy(res, 'json');
+        });
         describe('Match reporting', function () {
-            it('should return an empty array if there s nothing to return and the call is ok', function () {
-                //setup
-                var tournamentService = new TournamentService();
-                tournamentService.getTournamentEngine = function () {
-                    return {
-                        initBracket: function () {
-                            return {}
-                        },
-                        getMatchesToReport: function (bracket, callback) {
-                            callback(false, []);
-                        }
-                    }
-                };
-                var res = {
-                    json: function () {
-                    }
-                };
-                sinon.spy(res, 'json');
-                //action
-                tournamentService.getMatchesToReport(null, res, {});
-                //assert
-                assert.equal(res.json.getCall(0).args[0].length, 0);
-            });
+            describe('getMatchesToReport', function () {
 
-            it('should return an error if engine call failed for some reason', function () {
-                //setup
-                var tournamentService = new TournamentService();
-                tournamentService.getTournamentEngine = function () {
-                    return {
-                        initBracket: function () {
-                            return {}
-                        },
-                        getMatchesToReport: function (bracket, callback) {
-                            callback(true, null);
+                it('should return an empty array if there s nothing to return and the call is ok', function () {
+                    //setup
+                    tournamentService.getTournamentEngine = function () {
+                        return {
+                            initBracket: function () {
+                                return {}
+                            },
+                            getMatchesToReport: function (bracket, callback) {
+                                callback(false, []);
+                            }
                         }
-                    }
-                };
-                var res = {
-                    json: function () {
-                    }
-                };
-                sinon.spy(res, 'json');
-                //action
-                tournamentService.getMatchesToReport(null, res, {});
-                //assert
-                assert.equal(res.json.getCall(0).args[0], 500);
-                assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
-            });
+                    };
 
-            it('should correctly handle an uncatched exception', function () {
-                //setup
-                var tournamentService = new TournamentService();
-                tournamentService.getTournamentEngine = function () {
-                    return {
-                        initBracket: function () {
-                            return {}
-                        },
-                        getMatchesToReport: function (bracket, callback) {
-                            throw new Error('this is an uncatched exception');
+                    //action
+                    tournamentService.getMatchesToReport(null, res, {});
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0].length, 0);
+                });
+
+                it('should return an error if engine call failed for some reason', function () {
+                    //setup
+                    tournamentService.getTournamentEngine = function () {
+                        return {
+                            initBracket: function () {
+                                return {}
+                            },
+                            getMatchesToReport: function (bracket, callback) {
+                                callback(true, null);
+                            }
                         }
-                    }
-                };
-                var res = {
-                    json: function () {
-                    }
-                };
-                sinon.spy(res, 'json');
-                //action
-                tournamentService.getMatchesToReport(null, res, {});
-                //assert
-                assert.equal(res.json.getCall(0).args[0], 500);
-                assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
+                    };
+                    //action
+                    tournamentService.getMatchesToReport(null, res, {});
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0], 500);
+                    assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
+                });
+
+                it('should correctly handle an uncatched exception', function () {
+                    //setup
+                    tournamentService.getTournamentEngine = function () {
+                        return {
+                            initBracket: function () {
+                                return {}
+                            },
+                            getMatchesToReport: function (bracket, callback) {
+                                throw new Error('this is an uncatched exception');
+                            }
+                        }
+                    };
+                    //action
+                    tournamentService.getMatchesToReport(null, res, {});
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0], 500);
+                    assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
+                });
+            });
+            describe('reportMatch', function () {
+                it('should give a detailed error when engine.reportWin fails', function(){
+                    //setup
+                    tournamentService.getTournamentEngine = function () {
+                        return {
+                            initBracket: function () {
+                                return {}
+                            },
+                            reportWin:function(number, s1, s2, bracket, callback){
+                                callback({message:'this is an error message from the engine'});
+                            }
+                        }
+                    };
+                    //action
+                    tournamentService.reportMatch(req, res, {engine:''}, null);
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0], 500);
+                    assert.equal(res.json.getCall(0).args[1].error, 'errorReportingMatch');
+                    assert.equal(res.json.getCall(0).args[1].message, 'this is an error message from the engine');
+                });
+
+                it('should report a detailed error when tournament update fails', function(){
+                    //setup
+                    tournamentService.getTournamentEngine = function () {
+                        return {
+                            initBracket: function () {
+                                return {}
+                            },
+                            reportWin:function(number, s1, s2, bracket, callback){
+                                callback(false);
+                            }
+                        }
+                    };
+                    var model = {update:function(criteria, data, callback){
+                        callback(true);
+                    }};
+                    //action
+                    tournamentService.reportMatch(req, res, {engine:''}, model);
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0], 500);
+                    assert.equal(res.json.getCall(0).args[1].error, 'errorReportingMatch');
+                    assert.equal(res.json.getCall(0).args[1].message, 'Tournament update failed!');
+                });
             });
         });
         describe('Match unreporting', function () {
-            it('should return an empty array if there s nothing to return and the call is ok', function () {
-                //setup
-                var tournamentService = new TournamentService();
-                tournamentService.getTournamentEngine = function () {
-                    return {
-                        initBracket: function () {
-                            return {}
-                        },
-                        getUnreportableMatches: function (bracket, callback) {
-                            callback(false, []);
+            describe('getMatchesToUnreport', function () {
+                it('should return an empty array if there s nothing to return and the call is ok', function () {
+                    //setup
+                    tournamentService.getTournamentEngine = function () {
+                        return {
+                            initBracket: function () {
+                                return {}
+                            },
+                            getUnreportableMatches: function (bracket, callback) {
+                                callback(false, []);
+                            }
                         }
-                    }
-                };
-                var res = {
-                    json: function () {
-                    }
-                };
-                sinon.spy(res, 'json');
-                //action
-                tournamentService.getMatchesToUnreport(null, res, {});
-                //assert
-                assert.equal(res.json.getCall(0).args[0].length, 0);
-            });
+                    };
+                    //action
+                    tournamentService.getMatchesToUnreport(null, res, {});
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0].length, 0);
+                });
 
-            it('should return an error if engine call failed for some reason', function () {
-                //setup
-                var tournamentService = new TournamentService();
-                tournamentService.getTournamentEngine = function () {
-                    return {
-                        initBracket: function () {
-                            return {}
-                        },
-                        getMatchesToUnreport: function (bracket, callback) {
-                            callback(true, null);
+                it('should return an error if engine call failed for some reason', function () {
+                    //setup
+                    tournamentService.getTournamentEngine = function () {
+                        return {
+                            initBracket: function () {
+                                return {}
+                            },
+                            getMatchesToUnreport: function (bracket, callback) {
+                                callback(true, null);
+                            }
                         }
-                    }
-                };
-                var res = {
-                    json: function () {
-                    }
-                };
-                sinon.spy(res, 'json');
-                //action
-                tournamentService.getMatchesToUnreport(null, res, {});
-                //assert
-                assert.equal(res.json.getCall(0).args[0], 500);
-                assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToUnreport');
-            });
+                    };
+                    //action
+                    tournamentService.getMatchesToUnreport(null, res, {});
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0], 500);
+                    assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToUnreport');
+                });
 
-            it('should correctly handle an uncatched exception', function () {
-                //setup
-                var tournamentService = new TournamentService();
-                tournamentService.getTournamentEngine = function () {
-                    return {
-                        initBracket: function () {
-                            return {}
-                        },
-                        getMatchesToUnreport: function (bracket, callback) {
-                            throw new Error('this is an uncatched exception');
+                it('should correctly handle an uncatched exception', function () {
+                    //setup
+                    tournamentService.getTournamentEngine = function () {
+                        return {
+                            initBracket: function () {
+                                return {}
+                            },
+                            getMatchesToUnreport: function (bracket, callback) {
+                                throw new Error('this is an uncatched exception');
+                            }
                         }
-                    }
-                };
-                var res = {
-                    json: function () {
-                    }
-                };
-                sinon.spy(res, 'json');
-                //action
-                tournamentService.getMatchesToUnreport(null, res, {});
-                //assert
-                assert.equal(res.json.getCall(0).args[0], 500);
-                assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToUnreport');
+                    };
+                    //action
+                    tournamentService.getMatchesToUnreport(null, res, {});
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0], 500);
+                    assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToUnreport');
+                });
             });
+            describe('unreportMatch', function () {
+                it('should return a specific error if unreport fails', function () {
+                    //setup
+                    tournamentService.getTournamentEngine = function () {
+                        return {
+                            initBracket: function () {
+                                return {}
+                            },
+                            unreport: function (number, bracket, callback) {
+                                callback({message: 'this is an error message from engine.unreport'})
+                            }
+                        }
+                    };
+                    //action
+                    tournamentService.unreportMatch(req, res, {bracket: {}}, null);
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0], 500);
+                    assert.equal(res.json.getCall(0).args[1].error, 'errorUnreportingMatch');
+                    assert.equal(res.json.getCall(0).args[1].message, 'this is an error message from engine.unreport');
+                });
 
+                it('should return a specific error if tournament unreport could not be saved', function () {
+                    //setup
+                    tournamentService.getTournamentEngine = function () {
+                        return {
+                            initBracket: function () {
+                                return {}
+                            },
+                            unreport: function (number, bracket, callback) {
+                                callback(false, {})
+                            }
+                        }
+                    };
+                    var model = {
+                        update: function (criteria, data, callback) {
+                            callback(true);
+                        }
+                    };
+                    //action
+                    tournamentService.unreportMatch(req, res, {bracket: {}}, model);
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0], 500);
+                    assert.equal(res.json.getCall(0).args[1].error, 'errorUnreportingMatch');
+                    assert.equal(res.json.getCall(0).args[1].message, 'Tournament update failed!');
+                });
+            });
         })
     });
 });
