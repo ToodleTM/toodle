@@ -65,7 +65,8 @@
             },
             "unreporting":{
                 "title":"Annuler un enregistrement",
-                "warning":"En cliquant sur le bouton de confirmation tu vas valider l'annulation, ce qui aura pour effet d'effacer le résultat du match (score, replay ...). Cette action ne peut être annulée."
+                "warning":"En cliquant sur le bouton de confirmation tu vas valider l'annulation, ce qui aura pour effet d'effacer le résultat du match (score, replay ...). Cette action ne peut être annulée.",
+                "errorUnreportingMatch":"An error has occurred when unreporting last match"
             },
             "addPlayer": "Ajouter un joueur au tournoi",
             "playerNickPlaceholder": "Pseudo du joueur"
