@@ -252,7 +252,15 @@ describe('SingleElim engine', function () {
                     //assert
                     assert.ok(false);
                 }
+            });
 
+            it('should return an error if we try to report a match without number', function(){
+                //setup
+                engine.initBracket([john, jane], callbackSpy);
+                //action
+                engine.unreport(null, actual, callbackSpy);
+                //assert
+                assert.equal(callbackSpy.getCall(1).args[0].message, 'numberlessMatchNotAllowed');
             });
         });
         describe('Report match', function () {
@@ -337,7 +345,25 @@ describe('SingleElim engine', function () {
                 engine.reportWin(3, 2, 0, actual, callbackSpy);
                 //assert
                 assert.equal(callbackSpy.getCall(1).args[0].message, 'notAllPreviousMatchesAreComplete');
-            })
+            });
+
+            it('should return an error if we try to report a match without number', function(){
+                //setup
+                engine.initBracket([john, jane, bob, alice], callbackSpy);
+                //action
+                engine.reportWin(null, 2, 0, actual, callbackSpy);
+                //assert
+                assert.equal(callbackSpy.getCall(1).args[0].message, 'numberlessMatchNotAllowed');
+            });
+
+            it('should only allow integers for score inputs', function(){
+                //setup
+                engine.initBracket([john, jane, bob, alice], callbackSpy);
+                //action
+                engine.reportWin(1, 'hello', 0, actual, callbackSpy);
+                //assert
+                assert.equal(callbackSpy.getCall(1).args[0].message, 'invalidScores');
+            });
         });
     });
     describe('Bracket infos', function(){

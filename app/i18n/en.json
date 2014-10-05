@@ -61,12 +61,21 @@
                 "reportButton":"Go to the form",
                 "unreportButton":"Unreport !",
                 "describeReport":"Please fill in the form and validate it in order to report the match.",
-                "playerScore":"'s score"
-            },
-            "unreporting":{
-                "title":"Unreporting",
+                "playerScore":"'s score",
+                "unreportTitle":"Unreporting",
                 "warning":"Clicking the confirmation button will unreport the match, permanently deleting any content (score, replays ...) related. This action can't be undone.",
-                "errorUnreportingMatch":"An error has occurred when unreporting last match"
+                "errorUnreportingMatch":"An error has occurred when unreporting last match",
+                "reportingOk":"Reporting successful",
+                "reportingKo":"Reporting failed",
+                "errors":{
+                    "cantUnreportUnknownMatch":"Can't report a match that does not exist for this bracket",
+                    "cantUnreportIncompleteMatch":"Unable to unreport a match that has not been played yet",
+                    "nextMatchAlreadyReported":"The next match has already been played, you need to unreport it first in order to be able to unreport this one",
+                    "notAllPreviousMatchesAreComplete":"There are matches before this one that need to be reported before you can report this one",
+                    "alreadyReported":"This match has already been reported. If you want to edit it you must unreport and then report it again",
+                    "numberlessMatchNotAllowed":"No match number was provided, unable to report.",
+                    "invalidScores":"Please use integers when reporting score"
+                }
             },
             "addPlayer":"Add a player to the tournament",
             "playerNickPlaceholder":"Player nick"
