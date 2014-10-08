@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('BracketCtrl', function ($scope, $location, $http, TournamentPlay) {
+    .controller('BracketCtrl', function ($scope, $location, $http) {
         var tournamentId = $location.$$path.split('/')[2];
         $scope.nick = "";
         $scope.playerList = null;

@@ -247,7 +247,7 @@ describe('Tournament Service', function () {
             assert.equal(res.json.getCall(0).args[1].message, 'registrationLocked');
         });
 
-        it('should not allow registration of the same player twice', function () {
+        it('should not allow registration of the same player twice (strict)', function () {
             //setup
             var tournamentService = new TournamentService();
             var req = {body: {nick: 'toto'}};
@@ -263,7 +263,7 @@ describe('Tournament Service', function () {
             assert.equal(res.json.getCall(0).args[1].message, 'noDuplicateNick');
         });
 
-        it('should not allow registration of the same player twice (use of caps)', function () {
+        it('should not allow registration of the same player twice (using mixed capitalization in nick)', function () {
             //setup
             var tournamentService = new TournamentService();
             var req = {body: {nick: 'TOtO'}};
@@ -345,7 +345,6 @@ describe('Tournament Service', function () {
             assert.equal(res.json.getCall(0).args[1].message, 'tournamentAlreadyRunning');
         });
 
-
     });
 
     describe('Tournament management', function () {
@@ -396,7 +395,7 @@ describe('Tournament Service', function () {
                         }
                     };
                     //action
-                    tournamentService.getMatchesToReport(null, res, {});
+                    tournamentService.getMatchesToReport(null, res, {engine:'dummy'});
                     //assert
                     assert.equal(res.json.getCall(0).args[0], 500);
                     assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
@@ -415,10 +414,18 @@ describe('Tournament Service', function () {
                         }
                     };
                     //action
-                    tournamentService.getMatchesToReport(null, res, {});
+                    tournamentService.getMatchesToReport(null, res, {engine:'dummy'});
                     //assert
                     assert.equal(res.json.getCall(0).args[0], 500);
                     assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
+                });
+
+                it('should return an empty list if no tournament engine is specified', function(){
+                    //setup
+                    //action
+                    tournamentService.getMatchesToReport(null, res, {});
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0].length, 0);
                 });
             });
             describe('reportMatch', function () {
@@ -499,7 +506,7 @@ describe('Tournament Service', function () {
                         }
                     };
                     //action
-                    tournamentService.getMatchesToUnreport(null, res, {});
+                    tournamentService.getMatchesToUnreport(null, res, {engine:'dummy'});
                     //assert
                     assert.equal(res.json.getCall(0).args[0], 500);
                     assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToUnreport');
@@ -518,10 +525,17 @@ describe('Tournament Service', function () {
                         }
                     };
                     //action
-                    tournamentService.getMatchesToUnreport(null, res, {});
+                    tournamentService.getMatchesToUnreport(null, res, {engine:'dummy'});
                     //assert
                     assert.equal(res.json.getCall(0).args[0], 500);
                     assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToUnreport');
+                });
+                it('should return an empty list if no tournament engine is specified', function(){
+                    //setup
+                    //action
+                    tournamentService.getMatchesToUnreport(null, res, {});
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0].length, 0);
                 });
             });
             describe('unreportMatch', function () {

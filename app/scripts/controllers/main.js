@@ -16,8 +16,8 @@ angular.module('toodleApp')
                 $("#tourneyCreationOk").fadeIn();
                 $scope.tournamentName = "";
             })
-            .error(function(){
-                $scope.errorMessage = err.data.errors.tournamentName.message;
+            .error(function(err){
+                $scope.errorMessage = err.errors.tournamentName.message;
                 $("#tourneyCreationKo").fadeIn();
             });
     };

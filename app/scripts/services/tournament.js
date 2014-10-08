@@ -16,14 +16,6 @@ angular.module('toodleApp')
                 }
             }
         });
-    })
-    .factory('TournamentPlay', function($resource){
-        return $resource('/api/update-tournament/play', {}, {
-            update:{
-                method:'PUT',
-                params:{}
-            }
-        });
     });
 
 
