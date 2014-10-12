@@ -52,7 +52,9 @@
                 "tournamentAlreadyRunning": "Le tournoi a déjà commencé",
                 "tournamentAlreadyStopped": "Le tournoi est déjà arrêté",
                 "noEngineSpecified": "Aucun moteur de jeu n'est spécifié, impossible de démarrer le tournoi tant que cela n'est pas fait",
-                "noPlayers": "Aucun joueur enregistré. Aucun intérêt à démarrer le tournoi."
+                "noPlayers": "Aucun joueur enregistré. Aucun intérêt à démarrer le tournoi.",
+                "invalidTournamentEngine":"le moteur de règles demandé n'est pas dsponible",
+                "nextMatchDoesNotExist":"Impossible de trouver le match suivant"
             },
             "reporting":{
                 "title":"Reporting",

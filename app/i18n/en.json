@@ -52,7 +52,8 @@
                 "tournamentAlreadyRunning": "Tournament is already running",
                 "tournamentAlreadyStopped": "Tournament is already stopped",
                 "noEngineSpecified":"No game engine was specified, can't start tournament until it's done",
-                "noPlayers":"No players registered, there's no point in initiating the bracket"
+                "noPlayers":"No players registered, there's no point in initiating the bracket",
+                "invalidTournamentEngine":"The tournament engine specified is not available."
             },
             "reporting":{
                 "title":"Reporting",
@@ -74,7 +75,8 @@
                     "notAllPreviousMatchesAreComplete":"There are matches before this one that need to be reported before you can report this one",
                     "alreadyReported":"This match has already been reported. If you want to edit it you must unreport and then report it again",
                     "numberlessMatchNotAllowed":"No match number was provided, unable to report.",
-                    "invalidScores":"Please use integers when reporting score"
+                    "invalidScores":"Please use integers when reporting score",
+                    "nextMatchDoesNotExist":"Could not find the next match"
                 }
             },
             "addPlayer":"Add a player to the tournament",

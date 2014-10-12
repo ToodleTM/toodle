@@ -146,6 +146,21 @@ describe('Tournament Service', function () {
                 assert.equal(res.json.getCall(0).args[0], 409);
                 assert.equal(res.json.getCall(0).args[1].message, 'noPlayers');
             });
+
+            it('should return an error if no matching tournament engine is found', function(){
+                //setup
+                var tournamentService = new TournamentService();
+                var tournament = {players:[{name:'bob'}], engine:'some engine'};
+                var res = {json: function () {
+                }};
+                tournamentService.getTournamentEngine = function(){return null};
+                sinon.spy(res, 'json');
+                //action
+                tournamentService.startTournament({}, res, tournament);
+                //assert
+                assert.equal(res.json.getCall(0).args[0], 409);
+                assert.equal(res.json.getCall(0).args[1].message, 'invalidTournamentEngine');
+            });
         });
         describe('Tournament Stop', function () {
             it('should be able to stop the tournament if it s running', function () {
@@ -350,8 +365,8 @@ describe('Tournament Service', function () {
     describe('Tournament management', function () {
         var res = {};
         var tournamentService = {};
-        var req = {body:{}};
-        beforeEach(function(){
+        var req = {body: {}};
+        beforeEach(function () {
             tournamentService = new TournamentService();
 
             res = {
@@ -395,7 +410,7 @@ describe('Tournament Service', function () {
                         }
                     };
                     //action
-                    tournamentService.getMatchesToReport(null, res, {engine:'dummy'});
+                    tournamentService.getMatchesToReport(null, res, {engine: 'dummy'});
                     //assert
                     assert.equal(res.json.getCall(0).args[0], 500);
                     assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
@@ -414,58 +429,67 @@ describe('Tournament Service', function () {
                         }
                     };
                     //action
-                    tournamentService.getMatchesToReport(null, res, {engine:'dummy'});
+                    tournamentService.getMatchesToReport(null, res, {engine: 'dummy'});
                     //assert
                     assert.equal(res.json.getCall(0).args[0], 500);
                     assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
                 });
 
-                it('should return an empty list if no tournament engine is specified', function(){
+                it('should return an empty list if no tournament engine is specified', function () {
                     //setup
                     //action
                     tournamentService.getMatchesToReport(null, res, {});
                     //assert
                     assert.equal(res.json.getCall(0).args[0].length, 0);
                 });
+
+                it('should return an error if no engine is found', function(){
+                    //setup
+                    //action
+                    tournamentService.getMatchesToReport(null, res, {engine:'some engine'})
+                    //assert
+                    assert.equal(res.json.getCall(0).args[0], 500);
+                    assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
+                });
             });
             describe('reportMatch', function () {
-                it('should give a detailed error when engine.reportWin fails', function(){
+                it('should give a detailed error when engine.reportWin fails', function () {
                     //setup
                     tournamentService.getTournamentEngine = function () {
                         return {
                             initBracket: function () {
                                 return {}
                             },
-                            reportWin:function(number, s1, s2, bracket, callback){
-                                callback({message:'this is an error message from the engine'});
+                            reportWin: function (number, s1, s2, bracket, callback) {
+                                callback({message: 'this is an error message from the engine'});
                             }
                         }
                     };
                     //action
-                    tournamentService.reportMatch(req, res, {engine:''}, null);
+                    tournamentService.reportMatch(req, res, {engine: ''}, null);
                     //assert
                     assert.equal(res.json.getCall(0).args[0], 500);
                     assert.equal(res.json.getCall(0).args[1].error, 'errorReportingMatch');
                     assert.equal(res.json.getCall(0).args[1].message, 'this is an error message from the engine');
                 });
 
-                it('should report a detailed error when tournament update fails', function(){
+                it('should report a detailed error when tournament update fails', function () {
                     //setup
                     tournamentService.getTournamentEngine = function () {
                         return {
                             initBracket: function () {
                                 return {}
                             },
-                            reportWin:function(number, s1, s2, bracket, callback){
+                            reportWin: function (number, s1, s2, bracket, callback) {
                                 callback(false);
                             }
                         }
                     };
-                    var model = {update:function(criteria, data, callback){
+                    var model = {update: function (criteria, data, callback) {
                         callback(true);
                     }};
                     //action
-                    tournamentService.reportMatch(req, res, {engine:''}, model);
+                    tournamentService.reportMatch(req, res, {engine: ''}, model);
                     //assert
                     assert.equal(res.json.getCall(0).args[0], 500);
                     assert.equal(res.json.getCall(0).args[1].error, 'errorReportingMatch');
@@ -506,7 +530,7 @@ describe('Tournament Service', function () {
                         }
                     };
                     //action
-                    tournamentService.getMatchesToUnreport(null, res, {engine:'dummy'});
+                    tournamentService.getMatchesToUnreport(null, res, {engine: 'dummy'});
                     //assert
                     assert.equal(res.json.getCall(0).args[0], 500);
                     assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToUnreport');
@@ -525,12 +549,12 @@ describe('Tournament Service', function () {
                         }
                     };
                     //action
-                    tournamentService.getMatchesToUnreport(null, res, {engine:'dummy'});
+                    tournamentService.getMatchesToUnreport(null, res, {engine: 'dummy'});
                     //assert
                     assert.equal(res.json.getCall(0).args[0], 500);
                     assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToUnreport');
                 });
-                it('should return an empty list if no tournament engine is specified', function(){
+                it('should return an empty list if no tournament engine is specified', function () {
                     //setup
                     //action
                     tournamentService.getMatchesToUnreport(null, res, {});
@@ -585,5 +609,16 @@ describe('Tournament Service', function () {
                 });
             });
         })
+    });
+
+    describe('Get tournament engine', function () {
+        it('should return null if tournament engine does not exist', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            //action
+            var actual = tournamentService.getTournamentEngine('bob');
+            //assert
+            assert.equal(actual, null);
+        });
     });
 });
