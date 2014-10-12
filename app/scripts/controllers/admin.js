@@ -72,8 +72,9 @@ angular.module('toodleApp')
                 urlSuffix = 'stop';
             }
             $http.put('/api/tournament/' + urlSuffix + '/', {"tournamentId": $scope.tournamentInfo._id})
-                .success(function () {
+                .success(function (tournamentInfo) {
                     $("#tourneyRunOk").fadeIn();
+                    $scope.tournamentInfo = tournamentInfo;
                 })
                 .error(function (data) {
                     $scope.tournamentInfo.running = originalValue;
