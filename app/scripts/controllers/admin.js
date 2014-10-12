@@ -63,6 +63,7 @@ angular.module('toodleApp')
         $scope.toggleStart = function () {
             $("#tourneyRunOk").hide();
             $("#tourneyRunKo").hide();
+            var originalValue = $scope.tournamentInfo.running;
             $scope.tournamentInfo.running = genericUtils.toggleState($scope.tournamentInfo.running);
             var urlSuffix = '';
             if ($scope.tournamentInfo.running) {
@@ -75,6 +76,7 @@ angular.module('toodleApp')
                     $("#tourneyRunOk").fadeIn();
                 })
                 .error(function (data) {
+                    $scope.tournamentInfo.running = originalValue;
                     $scope.errorMessage = data.message;
                     $("#tourneyRunKo").fadeIn();
                 });

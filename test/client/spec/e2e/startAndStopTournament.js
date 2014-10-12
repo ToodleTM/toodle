@@ -20,6 +20,8 @@ describe('Start tournament', function () {
 
         var tourneyRunBox = element(by.id('tourneyRunKo'));
         expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(Reason : No game engine was specified, can't start tournament until it's done\)/g);
+        expect(element(by.id("runTournament")).getText('Start'));
+        expect(element(by.id("runTournament")).getAttribute('class')).toMatch('btn btn-danger');
     });
 
     it('Should not allow tournament start if tournament contains no players', function () {
