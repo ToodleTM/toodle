@@ -8,18 +8,7 @@
         ng-click="toggleRegistrationLock()">{{ tournamentInfo.locked ? 'admin.actions.open' : 'admin.actions.lock' |
     translate }}
 </button>
-<div id="tourneyLockOk" class="alert alert-success alert-dismissible" role="alert" hidden>
-    <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
-            aria-hidden="true">&times;</span><span
-            class="sr-only">Close</span></button>
-    {{ 'admin.update.success' | translate}}
-</div>
-<div id="tourneyLockKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
-    <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
-            aria-hidden="true">&times;</span><span
-            class="sr-only">Close</span></button>
-    {{ 'admin.update.fail' | translate }} (Reason : {{errorMessage}})
-</div>
+
 <button id="runTournament" data-toggle="modal" data-target="#runModal"
         class="btn {{ tournamentInfo.running ? 'btn-success' : 'btn-danger'}}"
         title="{{ tournamentInfo.running ? 'admin.actions.run.runningTooltip' : 'admin.actions.run.notRunningTooltip' | translate }}">
@@ -143,6 +132,7 @@
             class="sr-only">Close</span></button>
     {{ 'admin.update.fail' | translate }} (Reason : {{ 'admin.actions.run.'+errorMessage | translate }})
 </div>
+
 <p>{{ 'admin.intro' | translate }}</p>
 <fieldset>
     <legend>{{ 'admin.misc.links'| translate}}</legend>

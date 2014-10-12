@@ -47,16 +47,16 @@ angular.module('toodleApp')
         };
 
         $scope.toggleRegistrationLock = function () {
-            $("#tourneyLockOk").hide();
-            $("#tourneyLockKo").hide();
+            $("#tourneyRunOk").hide();
+            $("#tourneyRunKo").hide();
             $scope.tournamentInfo.locked = genericUtils.toggleState($scope.tournamentInfo.locked);
             $http.put('/api/tournament/admin/lock?id='+tournamentId, $scope.tournamentInfo)
                 .success(function(){
-                    $("#tourneyLockOk").fadeIn();
+                    $("#tourneyRunOk").fadeIn();
                 })
                 .error(function(){
                     scope.errorMessage = err;
-                    $("#tourneyLockKo").fadeIn();
+                    $("#tourneyRunKo").fadeIn();
                 });
         };
 
