@@ -54,7 +54,8 @@
                 "noEngineSpecified": "Aucun moteur de jeu n'est spécifié, impossible de démarrer le tournoi tant que cela n'est pas fait",
                 "noPlayers": "Aucun joueur enregistré. Aucun intérêt à démarrer le tournoi.",
                 "invalidTournamentEngine":"le moteur de règles demandé n'est pas dsponible",
-                "nextMatchDoesNotExist":"Impossible de trouver le match suivant"
+                "notFound":"Tournament does not exist",
+                "cantUnlockRunningTournament":"You can't unlock registrations to a running tournament."
             },
             "reporting":{
                 "title":"Reporting",
@@ -76,7 +77,8 @@
                     "notAllPreviousMatchesAreComplete":"Certains matchs menant à celui là doivent être enregistrés avant de pouvoir enregistrer celui là!",
                     "alreadyReported":"Ce match a déjà été enregistré. Pour pouvoir l'éditer, tu dois d'abord unreport le match puis le ré-enregistrer.",
                     "numberlessMatchNotAllowed":"Aucun numéro de match fourni, impossible d'effectuer l'opération.",
-                    "invalidScores":"Utilises des entiers pour inscrire le score."
+                    "invalidScores":"Utilises des entiers pour inscrire le score.",
+                    "nextMatchDoesNotExist":"Impossible de trouver le match suivant"
                 }
             },
             "addPlayer": "Ajouter un joueur au tournoi",

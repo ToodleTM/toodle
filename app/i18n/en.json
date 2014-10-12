@@ -53,7 +53,9 @@
                 "tournamentAlreadyStopped": "Tournament is already stopped",
                 "noEngineSpecified":"No game engine was specified, can't start tournament until it's done",
                 "noPlayers":"No players registered, there's no point in initiating the bracket",
-                "invalidTournamentEngine":"The tournament engine specified is not available."
+                "invalidTournamentEngine":"The tournament engine specified is not available.",
+                "notFound":"Tournament does not exist",
+                "cantUnlockRunningTournament":"You can't unlock registrations to a running tournament."
             },
             "reporting":{
                 "title":"Reporting",

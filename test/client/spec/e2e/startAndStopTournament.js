@@ -59,7 +59,7 @@ describe('Start tournament', function () {
         element(by.id('doStart')).click();
 
         var tourneyRunBox = element(by.id('tourneyRunOk'));
-        expect(tourneyRunBox.getText()).toMatch(/×\nClose\nTournament specs successfully updated./g);
+        expect(tourneyRunBox.getText()).toMatch(/×\nClose\nTournament specs successfully updated/g);
         expect(element(by.id("runTournament")).getText()).toBe('Stop brackets');
         expect(element(by.id("runTournament")).getAttribute('class')).toMatch('btn btn-success');
     });

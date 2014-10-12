@@ -147,13 +147,17 @@ describe('Tournament Service', function () {
                 assert.equal(res.json.getCall(0).args[1].message, 'noPlayers');
             });
 
-            it('should return an error if no matching tournament engine is found', function(){
+            it('should return an error if no matching tournament engine is found', function () {
                 //setup
                 var tournamentService = new TournamentService();
-                var tournament = {players:[{name:'bob'}], engine:'some engine'};
+                var tournament = {players: [
+                    {name: 'bob'}
+                ], engine: 'some engine'};
                 var res = {json: function () {
                 }};
-                tournamentService.getTournamentEngine = function(){return null};
+                tournamentService.getTournamentEngine = function () {
+                    return null
+                };
                 sinon.spy(res, 'json');
                 //action
                 tournamentService.startTournament({}, res, tournament);
@@ -329,7 +333,7 @@ describe('Tournament Service', function () {
             assert.equal(res.json.getCall(0).args[1].message, 'saveError');
         });
 
-        it('should allow player add when using the admin id if tournament is locked', function () {
+        it('should allow player add when using the admin id even if tournament is locked', function () {
             //setup
             var tournamentService = new TournamentService();
             var req = {body: {nick: 'MAdJoHn_37658'}};
@@ -443,10 +447,10 @@ describe('Tournament Service', function () {
                     assert.equal(res.json.getCall(0).args[0].length, 0);
                 });
 
-                it('should return an error if no engine is found', function(){
+                it('should return an error if no engine is found', function () {
                     //setup
                     //action
-                    tournamentService.getMatchesToReport(null, res, {engine:'some engine'})
+                    tournamentService.getMatchesToReport(null, res, {engine: 'some engine'})
                     //assert
                     assert.equal(res.json.getCall(0).args[0], 500);
                     assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
@@ -609,6 +613,64 @@ describe('Tournament Service', function () {
                 });
             });
         })
+    });
+
+    describe('Tournament locking / unlocking', function () {
+        it('should be possible to lock anytime', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var res = {
+                json: function () {
+                }
+            };
+            sinon.spy(res, 'json');
+            var tournament = {running: false};
+            var model = {update: function (selector, data, callback) {
+                callback(null, {});
+            }};
+            sinon.spy(model, 'update');
+            //action
+            tournamentService.lockTournament(null, res, tournament, model);
+            //assert
+            assert.equal(res.json.getCall(0).args[0], tournament);
+            assert.equal(model.update.calledOnce, true);
+        });
+
+        it('should not be possible to unlock if tournament is running', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var res = {
+                json: function () {}
+            };
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.unlockTournament(null, res, {running: true}, null);
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[1].message, 'cantUnlockRunningTournament')
+        });
+
+        it('should be possible to unlock if tournament is not running', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var res = {
+                json: function () {
+                }
+            };
+            var tournament = {};
+
+            var model = {
+                update: function (a, b, callback) {
+                    callback(null, {});
+                }
+            };
+
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.unlockTournament(null, res, tournament, model);
+            //assert
+            assert.equal(res.json.getCall(0).args[0], tournament);
+        });
     });
 
     describe('Get tournament engine', function () {
