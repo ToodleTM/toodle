@@ -86,6 +86,6 @@
   "scripts": {
     "test": "grunt test",
     "postinstall": "./node_modules/bower/bin/bower install",
-    "qualimetry":"plato -r -d qualimetry/platoReport -x app/bower_components/  lib/ app/ test && istanbul cover _mocha --dir qualimetry/cover -- -R spec test/server/* test/server/tournamentService/* test/client/spec/unit/*"
+    "qualimetry":"plato -r -d qualimetry/platoReport -x app/bower_components/  lib/ app/ test && istanbul cover _mocha --dir qualimetry/cover -- -R spec test/server/**/* test/client/spec/unit/*"
   }
 }

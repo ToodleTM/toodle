@@ -5,42 +5,52 @@ angular.module('toodleApp')
         var tournamentId = $location.$$path.split('/')[2];
         $scope.nick = '';
         $scope.playerList = null;
-        $http.get('api/tournament/admin/' + tournamentId).success(function (data) {
-            $scope.tournamentInfo = data;
-            $scope.playerList = $scope.tournamentInfo.players;
-            $http.get('/api/tournament/matchesToReport?tournamentId=' + $scope.tournamentInfo._id)
-                .success(function (data) {
-                    $scope.gamesToReport = data;
-                    if (data.length > 0) {
-                        $scope.firstGameToReport = $scope.gamesToReport[0];
-                        $scope.number = $scope.firstGameToReport.number;
-                        $scope.score1 = 0;
-                        $scope.score2 = 0;
-                    }
-                })
-                .error(function () {
-                });
+        $http.get('api/tournament/admin/' + tournamentId)
+            .success(function (data, status, error) {
+                $scope.tournamentInfo = data;
+                $scope.playerList = $scope.tournamentInfo.players;
+                $http.get('/api/tournament/matchesToReport?tournamentId=' + $scope.tournamentInfo._id)
+                    .success(function (data) {
+                        $scope.gamesToReport = data;
+                        if (data.length > 0) {
+                            $scope.firstGameToReport = $scope.gamesToReport[0];
+                            $scope.number = $scope.firstGameToReport.number;
+                            $scope.score1 = 0;
+                            $scope.score2 = 0;
+                        }
+                    })
+                    .error(function () {
+                    });
 
-            $http.get('/api/tournament/matchesToUnreport?tournamentId=' + $scope.tournamentInfo._id)
-                .success(function (data) {
-                    $scope.gamesToUnreport = data;
-                    if (data.length > 0) {
-                        $scope.gameToUnreport = $scope.gamesToUnreport[0];
-                        $scope.unreportNumber = $scope.gameToUnreport.number;
-                    }
-                })
-                .error(function (err) {
-                });
-        });
+                $http.get('/api/tournament/matchesToUnreport?tournamentId=' + $scope.tournamentInfo._id)
+                    .success(function (data) {
+                        $scope.gamesToUnreport = data;
+                        if (data.length > 0) {
+                            $scope.gameToUnreport = $scope.gamesToUnreport[0];
+                            $scope.unreportNumber = $scope.gameToUnreport.number;
+                        }
+                    })
+                    .error(function (err) {
+                    });
+            })
+            .error(function(error, status){
+                $("#content *").hide();
+                if(status == 404){
+                    $scope.error = 'noSuchTournament';
+                } else {
+                    $scope.error = 'serverError';
+                }
+                $("#error").show();
+            });
 
         $scope.updateTourney = function () {
             $("#tourneyUpdateOk").hide();
             $("#tourneyUpdateKo").hide();
-            $http.put('/api/tournament/admin/update/?id='+tournamentId, $scope.tournamentInfo)
-                .success(function(){
+            $http.put('/api/tournament/admin/update/?id=' + tournamentId, $scope.tournamentInfo)
+                .success(function () {
                     $("#tourneyUpdateOk").fadeIn();
                 })
-                .error(function(){
+                .error(function () {
                     scope.errorMessage = err;
                     $("#tourneyUpdateKo").fadeIn();
                 });
@@ -51,9 +61,9 @@ angular.module('toodleApp')
             $("#tourneyRunKo").hide();
             var previousLockedStatus = $scope.tournamentInfo.locked;
             $scope.tournamentInfo.locked = genericUtils.toggleState($scope.tournamentInfo.locked);
-            $http.put('/api/tournament/admin/'+(!$scope.tournamentInfo.locked ? 'un':'')+'lockTournament?tournamentId='+tournamentId, $scope.tournamentInfo)
-                .success(function(code, data){
-                    if(code == 404){
+            $http.put('/api/tournament/admin/' + (!$scope.tournamentInfo.locked ? 'un' : '') + 'lockTournament?tournamentId=' + tournamentId, $scope.tournamentInfo)
+                .success(function (code, data) {
+                    if (code == 404) {
                         $scope.tournamentInfo.locked = previousLockedStatus;
                         $scope.errorMessage = 'notFound';
                         $("#tourneyRunKo").fadeIn();
@@ -61,7 +71,7 @@ angular.module('toodleApp')
                         $("#tourneyRunOk").fadeIn();
                     }
                 })
-                .error(function(error){
+                .error(function (error) {
                     $scope.tournamentInfo.locked = previousLockedStatus;
                     $scope.errorMessage = error.message;
                     $("#tourneyRunKo").fadeIn();
@@ -112,7 +122,12 @@ angular.module('toodleApp')
         $scope.reportMatch = function () {
             $("#tourneyReportingOk").hide();
             $("#tourneyReportingKo").hide();
-            $http.post('/api/tournament/reportMatch/', {tournamentId: $scope.tournamentInfo._id, number: $scope.number, score1: $scope.score1, score2: $scope.score2}).success(function (data) {
+            $http.post('/api/tournament/reportMatch/', {
+                tournamentId: $scope.tournamentInfo._id,
+                number: $scope.number,
+                score1: $scope.score1,
+                score2: $scope.score2
+            }).success(function (data) {
                 $http.get('/api/tournament/matchesToReport?tournamentId=' + $scope.tournamentInfo._id)
                     .success(function (data) {
                         $("#tourneyReportingOk").fadeIn();
@@ -136,7 +151,10 @@ angular.module('toodleApp')
         $scope.unreportMatch = function () {
             $("#tourneyReportingOk").hide();
             $("#tourneyReportingKo").hide();
-            $http.post('/api/tournament/unreportMatch/', {tournamentId: $scope.tournamentInfo._id, number: $scope.gameToUnreport.number}).success(function (data) {
+            $http.post('/api/tournament/unreportMatch/', {
+                tournamentId: $scope.tournamentInfo._id,
+                number: $scope.gameToUnreport.number
+            }).success(function (data) {
                 $http.get('/api/tournament/matchesToUnreport?tournamentId=' + $scope.tournamentInfo._id)
                     .success(function (data) {
                         $("#tourneyReportingOk").fadeIn();

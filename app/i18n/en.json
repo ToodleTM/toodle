@@ -1,138 +1,143 @@
 {
-    "quickAdd": {
-        "registerMessage": "Register a new tournament !",
-        "success": {
-            "pre": "The tournament has been created! You can administer it using",
-            "mid": ", and you can send",
-            "end": "to allow your users to enroll.",
-            "thisLink": "this link"
-        },
-        "fail": "Something bad happened, the tournament was not created. Please try again.",
-        "tournamentNamePlaceholder": "Your tournament name here",
-        "go": "Go !"
+  "quickAdd": {
+    "registerMessage": "Register a new tournament !",
+    "success": {
+      "pre": "The tournament has been created! You can administer it using",
+      "mid": ", and you can send",
+      "end": "to allow your users to enroll.",
+      "thisLink": "this link"
     },
-    "footer": {
-        "love": "♥ from the Toodle team"
-    },
+    "fail": "Something bad happened, the tournament was not created. Please try again.",
+    "tournamentNamePlaceholder": "Your tournament name here",
+    "go": "Go !"
+  },
+  "footer": {
+    "love": "♥ from the Toodle team"
+  },
+  "header": {
+    "title": "Toodle"
+  },
+  "admin": {
+    "intro": "This is your tournament administration page. You can edit everything related to your tournament here. Just remember that anyone with the URL will be able to do the same.",
     "header": {
-        "title": "Toodle"
+      "tournament": "Tournament",
+      "adminPage": "admin page"
     },
-    "admin": {
-        "intro": "This is your tournament administration page. You can edit everything related to your tournament here. Just remember that anyone with the URL will be able to do the same.",
-        "header": {
-            "tournament": "Tournament",
-            "adminPage": "admin page"
-        },
-        "form": {
-            "configure": "Configure your tournament",
-            "pickGame": "-- Pick a game --",
-            "other": "Other",
-            "engine": "Tournament engine",
-            "description": "Short description (optionnal)",
-            "roundFormats": "Round formats",
-            "numberOfPlayers": "Number of players",
-            "submit": "Submit changes",
-            "game": "Game"
-        },
-        "actions": {
-            "lock": "Lock registrations",
-            "lockTooltip": "Prevent additional people from entering the tournament",
-            "open": "Open registrations",
-            "openTooltip": "Allow more people to enter the tournament",
-            "run": {
-                "running": "Stop brackets",
-                "notRunning": "Start brackets",
-                "runningTooltip": "Start tournament, users won't be able to register anymore",
-                "notRunningTooltip": "Stop tournament, users will be able to register again",
-                "confirm": "Confirm",
-                "cancel": "Cancel",
-                "willStop":"This will stop the current tournament and allow users to register again. WARNING: This _will_ destroy the current bracket",
-                "willStart":"This will start the tournament and prevent users from registering.",
-                "modalTitle":"Start / stop tournament",
-                "tournamentAlreadyRunning": "Tournament is already running",
-                "tournamentAlreadyStopped": "Tournament is already stopped",
-                "noEngineSpecified":"No game engine was specified, can't start tournament until it's done",
-                "noPlayers":"No players registered, there's no point in initiating the bracket",
-                "invalidTournamentEngine":"The tournament engine specified is not available.",
-                "notFound":"Tournament does not exist",
-                "cantUnlockRunningTournament":"You can't unlock registrations to a running tournament."
-            },
-            "reporting":{
-                "title":"Reporting",
-                "reportMatch":"Report a game",
-                "unreportMatch":"Unreport a game",
-                "reportButton":"Go to the form",
-                "unreportButton":"Unreport !",
-                "describeReport":"Please fill in the form and validate it in order to report the match.",
-                "playerScore":"'s score",
-                "unreportTitle":"Unreporting",
-                "warning":"Clicking the confirmation button will unreport the match, permanently deleting any content (score, replays ...) related. This action can't be undone.",
-                "errorUnreportingMatch":"An error has occurred when unreporting last match",
-                "reportingOk":"Reporting successful",
-                "reportingKo":"Reporting failed",
-                "errors":{
-                    "cantUnreportUnknownMatch":"Can't report a match that does not exist for this bracket",
-                    "cantUnreportIncompleteMatch":"Unable to unreport a match that has not been played yet",
-                    "nextMatchAlreadyReported":"The next match has already been played, you need to unreport it first in order to be able to unreport this one",
-                    "notAllPreviousMatchesAreComplete":"There are matches before this one that need to be reported before you can report this one",
-                    "alreadyReported":"This match has already been reported. If you want to edit it you must unreport and then report it again",
-                    "numberlessMatchNotAllowed":"No match number was provided, unable to report.",
-                    "invalidScores":"Please use integers when reporting score",
-                    "nextMatchDoesNotExist":"Could not find the next match"
-                }
-            },
-            "addPlayer":"Add a player to the tournament",
-            "playerNickPlaceholder":"Player nick"
-
-        },
-        "misc":{
-            "links":"Links to other related pages for your tournament",
-            "playLink":"Player's signup form",
-            "brackets":"Tournament's bracket"
-        },
-        "update": {
-            "success": "Tournament specs successfully updated",
-            "fail": "Something went wrong updating this tournament."
+    "form": {
+      "configure": "Configure your tournament",
+      "pickGame": "-- Pick a game --",
+      "other": "Other",
+      "engine": "Tournament engine",
+      "description": "Short description (optionnal)",
+      "roundFormats": "Round formats",
+      "numberOfPlayers": "Number of players",
+      "submit": "Submit changes",
+      "game": "Game"
+    },
+    "actions": {
+      "lock": "Lock registrations",
+      "lockTooltip": "Prevent additional people from entering the tournament",
+      "open": "Open registrations",
+      "openTooltip": "Allow more people to enter the tournament",
+      "run": {
+        "running": "Stop brackets",
+        "notRunning": "Start brackets",
+        "runningTooltip": "Start tournament, users won't be able to register anymore",
+        "notRunningTooltip": "Stop tournament, users will be able to register again",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "willStop": "This will stop the current tournament and allow users to register again. WARNING: This _will_ destroy the current bracket",
+        "willStart": "This will start the tournament and prevent users from registering.",
+        "modalTitle": "Start / stop tournament",
+        "tournamentAlreadyRunning": "Tournament is already running",
+        "tournamentAlreadyStopped": "Tournament is already stopped",
+        "noEngineSpecified": "No game engine was specified, can't start tournament until it's done",
+        "noPlayers": "No players registered, there's no point in initiating the bracket",
+        "invalidTournamentEngine": "The tournament engine specified is not available.",
+        "notFound": "Tournament does not exist",
+        "cantUnlockRunningTournament": "You can't unlock registrations to a running tournament."
+      },
+      "reporting": {
+        "title": "Reporting",
+        "reportMatch": "Report a game",
+        "unreportMatch": "Unreport a game",
+        "reportButton": "Go to the form",
+        "unreportButton": "Unreport !",
+        "describeReport": "Please fill in the form and validate it in order to report the match.",
+        "playerScore": "'s score",
+        "unreportTitle": "Unreporting",
+        "warning": "Clicking the confirmation button will unreport the match, permanently deleting any content (score, replays ...) related. This action can't be undone.",
+        "errorUnreportingMatch": "An error has occurred when unreporting last match",
+        "reportingOk": "Reporting successful",
+        "reportingKo": "Reporting failed",
+        "errors": {
+          "cantUnreportUnknownMatch": "Can't report a match that does not exist for this bracket",
+          "cantUnreportIncompleteMatch": "Unable to unreport a match that has not been played yet",
+          "nextMatchAlreadyReported": "The next match has already been played, you need to unreport it first in order to be able to unreport this one",
+          "notAllPreviousMatchesAreComplete": "There are matches before this one that need to be reported before you can report this one",
+          "alreadyReported": "This match has already been reported. If you want to edit it you must unreport and then report it again",
+          "numberlessMatchNotAllowed": "No match number was provided, unable to report.",
+          "invalidScores": "Please use integers when reporting score",
+          "nextMatchDoesNotExist": "Could not find the next match"
         }
+      },
+      "addPlayer": "Add a new player",
+      "addMultiplePlayers": "Add a group of players",
+      "playerNickPlaceholder": "Player nick"
     },
-    "play": {
-        "intro": "This the tournament page. You can enter the tournament and watch the players list until it's started. Then you can go back here to report your games and look at the tournament status.",
-        "header": {
-            "tournament": "Tournament",
-            "playPage": "page"
-        },
-        "enter": {
-            "go": "Go!",
-            "nick": "Nick",
-            "nickPlaceholder": "Your nick here",
-            "register": "Enter the tournament!"
-        },
-        "register": {
-            "registeredPlayers": "Registered players",
-            "noPlayers": "No registered players at the moment",
-            "success": "Successfully registered",
-            "fail": "Player registration failed",
-            "errors": {
-                "noDuplicateNick": "A player with that name is already registered",
-                "noEmptyNick": "Empty nicks are not allowed",
-                "registrationLocked": "You can't enter this tournament, registration is locked"
-            }
-        },
-        "report":{
-            "success":"Match reported",
-            "fail":"An error occurred when reporting match",
-            "buttonCaption":"Report Match",
-            "description":"Report a match you played for this tournament"
-        },
-        "noGame":"No game specified",
-        "noGameType":"No game type specified",
-        "infos": "Info about this tournament",
-        "bracket":"The bracket"
+    "misc": {
+      "links": "Links to other related pages for your tournament",
+      "playLink": "Player's signup form",
+      "brackets": "Tournament's bracket",
+      "fileMustBeCSV": "file needs to be a CSV file"
     },
-    "bracket":{
-        "header":"This is the current state of tournament"
+    "update": {
+      "success": "Tournament specs successfully updated",
+      "fail": "Something went wrong updating this tournament."
     },
-    "common":{
-        "errorFindingMatchesToReport":"An error occurred while looking up matches to be reported."
+    "error": {
+      "noSuchTournament": "No such tournament has been registered, check your URL or go back to the main page to create a new tournament.",
+      "serverError": "A server error has occurred, wait for a bit to retry and if nothing gets better, get in touch with the admin"
     }
+  },
+  "play": {
+    "intro": "This the tournament page. You can enter the tournament and watch the players list until it's started. Then you can go back here to report your games and look at the tournament status.",
+    "header": {
+      "tournament": "Tournament",
+      "playPage": "page"
+    },
+    "enter": {
+      "go": "Go!",
+      "nick": "Nick",
+      "nickPlaceholder": "Your nick here",
+      "register": "Enter the tournament!"
+    },
+    "register": {
+      "registeredPlayers": "Registered players",
+      "noPlayers": "No registered players at the moment",
+      "success": "Successfully registered",
+      "fail": "Player registration failed",
+      "errors": {
+        "noDuplicateNick": "A player with that name is already registered",
+        "noEmptyNick": "Empty nicks are not allowed",
+        "registrationLocked": "You can't enter this tournament, registration is locked"
+      }
+    },
+    "report": {
+      "success": "Match reported",
+      "fail": "An error occurred when reporting match",
+      "buttonCaption": "Report Match",
+      "description": "Report a match you played for this tournament"
+    },
+    "noGame": "No game specified",
+    "noGameType": "No game type specified",
+    "infos": "Info about this tournament",
+    "bracket": "The bracket"
+  },
+  "bracket": {
+    "header": "This is the current state of tournament"
+  },
+  "common": {
+    "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported."
+  }
 }

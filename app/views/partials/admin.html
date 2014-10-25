@@ -1,6 +1,12 @@
 <div ng-include="'partials/navbar'"></div>
 
-<div>
+<div id="content">
+<div id="error" class="alert alert-danger" role="alert" hidden>
+    <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+            aria-hidden="true">&times;</span><span
+            class="sr-only">Close</span></button>
+    {{ 'admin.error.'+error | translate}}
+</div>
 <h1>{{ 'admin.header.tournament' | translate }} {{tournamentInfo.tournamentName}} {{ 'admin.header.adminPage' |
     translate}}</h1>
 <button id="lockTournament" class="btn {{ tournamentInfo.locked ? 'btn-success' : 'btn-danger'}}"
