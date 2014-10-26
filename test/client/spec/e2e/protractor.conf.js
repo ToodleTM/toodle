@@ -6,7 +6,7 @@
 // npm install -g phantomjs
 exports.config = {
     seleniumAddress: 'http://127.0.0.1:4300/wd/hub',
-    specs: ['createTournament.js', 'playerRegistration.js', 'updateTournament.js', 'startAndStopTournament.js'],
+    specs: ['accessTournament.js', 'createTournament.js', 'playerRegistration.js', 'updateTournament.js', 'startAndStopTournament.js'],
     capabilities:{
         'browserName':'phantomjs'
     }
