@@ -5,7 +5,8 @@ angular.module('toodleApp', [
     'ngResource',
     'ngSanitize',
     'ngRoute',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'angularFileUpload'
 ])
     .config(function ($routeProvider, $locationProvider, $httpProvider, $translateProvider) {
         $routeProvider

@@ -15,7 +15,7 @@ describe('Mass seeding', function () {
         //setup
 
         //action
-        tournamentService.multipleSeed(null, res, tournament, null, []);
+        tournamentService.multipleSeed(null, res, tournament, []);
         //assert
         assert.deepEqual(res.json.getCall(0).args[0], tournament);
     });
@@ -23,7 +23,7 @@ describe('Mass seeding', function () {
     it('should be able to add players to the existing list the tournament has', function(){
         //setup
         //action
-        tournamentService.multipleSeed(null, res, tournament, null, [{name:'larry'}]);
+        tournamentService.multipleSeed(null, res, tournament, [{name:'larry'}]);
         //assert
         assert.deepEqual(res.json.getCall(0).args[0], {players:[{name:'larry'}]});
     });
@@ -31,7 +31,7 @@ describe('Mass seeding', function () {
     it('should not be able to add the same player twice', function(){
         //setup
         //action
-        tournamentService.multipleSeed(null, res, tournament, null, [{name:'larry'}, {name:'larry'}]);
+        tournamentService.multipleSeed(null, res, tournament, [{name:'larry'}, {name:'larry'}]);
         //assert
         assert.deepEqual(res.json.getCall(0).args[0], {players:[{name:'larry'}]});
     });
@@ -39,7 +39,7 @@ describe('Mass seeding', function () {
     it('should not be able to add players w/ same nicks buth with different capitalization', function(){
         //setup
         //action
-        tournamentService.multipleSeed(null, res, tournament, null, [{name:'laRrY'}, {name:'larry'}]);
+        tournamentService.multipleSeed(null, res, tournament, [{name:'laRrY'}, {name:'larry'}]);
         //assert
         assert.deepEqual(res.json.getCall(0).args[0], {players:[{name:'laRrY'}]});
     });
@@ -47,7 +47,7 @@ describe('Mass seeding', function () {
     it('should not be able to add players w/ same nicks but w/ preceeding / trailing spaces', function(){
         //setup
         //action
-        tournamentService.multipleSeed(null, res, tournament, null, [{name:'\tlarry  '}, {name:'  larry'}]);
+        tournamentService.multipleSeed(null, res, tournament, [{name:'\tlarry  '}, {name:'  larry'}]);
         //assert
         assert.deepEqual(res.json.getCall(0).args[0], {players:[{name:'larry'}]});
     });
@@ -56,7 +56,7 @@ describe('Mass seeding', function () {
         //setup
         tournament.players.push({name:'lArry'});
         //action
-        tournamentService.multipleSeed(null, res, tournament, null, [{name:'larry'}]);
+        tournamentService.multipleSeed(null, res, tournament, [{name:'larry'}]);
         //assert
         assert.deepEqual(res.json.getCall(0).args[0], {players:[{name:'lArry'}]});
     });

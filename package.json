@@ -7,18 +7,21 @@
     "compression": "~1.0.1",
     "connect-mongo": "mrzepinski/connect-mongo#2135988",
     "cookie-parser": "~1.0.1",
+    "csv-parse": "0.0.6",
+    "csvtojson": "^0.3.14",
     "ejs": "~0.8.4",
     "errorhandler": "~1.0.0",
     "express": "~4.0.0",
     "express-session": "~1.0.2",
+    "formidable": "^1.0.15",
     "lodash": "~2.4.1",
     "method-override": "~1.0.0",
     "mongoose": "~3.8.8",
     "morgan": "~1.0.0",
     "passport": "~0.2.0",
     "passport-local": "~0.1.6",
-    "static-favicon": "~1.0.1",
-    "q": "~1.0.1"
+    "q": "~1.0.1",
+    "static-favicon": "~1.0.1"
   },
   "devDependencies": {
     "chai": "^1.9.1",
@@ -86,6 +89,6 @@
   "scripts": {
     "test": "grunt test",
     "postinstall": "./node_modules/bower/bin/bower install",
-    "qualimetry":"plato -r -d qualimetry/platoReport -x app/bower_components/  lib/ app/ test && istanbul cover _mocha --dir qualimetry/cover -- -R spec test/server/**/* test/client/spec/unit/*"
+    "qualimetry": "plato -r -d qualimetry/platoReport -x app/bower_components/  lib/ app/ test && istanbul cover _mocha --dir qualimetry/cover -- -R spec test/server/**/* test/client/spec/unit/*"
   }
 }

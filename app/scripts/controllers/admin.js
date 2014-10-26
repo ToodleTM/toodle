@@ -1,10 +1,31 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('AdminCtrl', function ($scope, $location, $http, Tournament) {
+    .controller('AdminCtrl', function ($scope, $location, $http, $upload, Tournament) {
         var tournamentId = $location.$$path.split('/')[2];
         $scope.nick = '';
         $scope.playerList = null;
+
+        //using the basic example for ng-file-upload directive (https://www.npmjs.org/package/angular-file-upload),
+        // works like a charm but beware of where to load the directive (if I do it just for that controller,
+        // the admin view won't load anymore, had to do it in the main app script, like for I18N for example)
+        $scope.onFileSelect = function($files) {
+            for (var i = 0; i < $files.length; i++) {
+                var file = $files[i];
+                $scope.upload = $upload.upload({
+                    url: '/api/tournament/admin/multipleRegistration?tournamentId='+$scope.tournamentInfo._id,
+                    data: {myObj: $scope.myModelObj},
+                    file: file
+                }).progress(function(evt) {
+                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+                }).success(function(data, status, headers, config) {
+                    // file is uploaded successfully
+                    console.log(data);
+                    $scope.tournamentInfo = data;
+                    $scope.playerList = $scope.tournamentInfo.players;
+                });
+            }
+        };
         $http.get('api/tournament/admin/' + tournamentId)
             .success(function (data, status, error) {
                 $scope.tournamentInfo = data;
