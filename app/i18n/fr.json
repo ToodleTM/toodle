@@ -82,17 +82,24 @@
                 }
             },
             "addPlayer": "Ajouter un joueur au tournoi",
-            "playerNickPlaceholder": "Pseudo du joueur"
-
+            "addMultiplePlayers":"Ajouter des joueurs depuis une liste",
+            "playerNickPlaceholder": "Pseudo du joueur",
+            "multipleRegistrationSuccessful":"Les nouveaux joueurs ont été ajoutés"
         },
         "misc": {
             "links": "Liens vers d'autres pages concernant le tournoi",
             "playLink": "Le formulaire d'inscription des joueurs",
-            "brackets": "L'arbre du tournoi"
+            "brackets": "L'arbre du tournoi",
+            "fileMustBeCSV":"le fichier doit être au format CSV"
         },
         "update": {
             "success": "Tournament specs successfully updated",
             "fail": "Something went wrong updating this tournament."
+        },
+        "error": {
+            "noSuchTournament": "Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi.",
+            "serverError": "Une erreur server s'est produite. Attends un peu avant de ré-essayer et si rien ne change contactes un admin.",
+            "notACSVFile":"Le fichier ne semble pas être au format CSV"
         }
     },
     "play": {
