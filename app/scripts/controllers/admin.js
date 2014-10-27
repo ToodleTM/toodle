@@ -10,6 +10,8 @@ angular.module('toodleApp')
         // works like a charm but beware of where to load the directive (if I do it just for that controller,
         // the admin view won't load anymore, had to do it in the main app script, like for I18N for example)
         $scope.onFileSelect = function($files) {
+            $("#multipleRegistrationOk").hide();
+            $("#multipleRegistrationKo").hide();
             for (var i = 0; i < $files.length; i++) {
                 var file = $files[i];
                 $scope.upload = $upload.upload({
@@ -19,10 +21,14 @@ angular.module('toodleApp')
                 }).progress(function(evt) {
                     console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
                 }).success(function(data, status, headers, config) {
-                    // file is uploaded successfully
-                    console.log(data);
+                    $("#multiSeedInput").val('');
                     $scope.tournamentInfo = data;
                     $scope.playerList = $scope.tournamentInfo.players;
+                    $("#multipleRegistrationOk").fadeIn();
+                }).error(function(err){
+                    $scope.errorMessage = err.message;
+                    $("#multiSeedInput").val('');
+                    $("#multipleRegistrationKo").fadeIn();
                 });
             }
         };

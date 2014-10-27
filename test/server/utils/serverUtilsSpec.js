@@ -43,4 +43,96 @@ describe('Server Utils', function () {
             assert.equal(actual, false);
         });
     });
+    describe('Multiseed handling', function () {
+        it('should return an error if not all the parsed CSV items do not contain a "name" attribute', function () {
+            //setup
+            var res = {
+                json: function () {
+                }
+            };
+            sinon.spy(res, 'json');
+            //action
+            //parsedCSV, TournamentModel, req, res, tournamentService, next
+            serverUtils.handleMultipleSeeding([{}], null, null, res, null, null);
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[1].message, 'noNameField');
+        });
+
+        it('should call multipleSeed if parsed players have a name', function () {
+            //setup
+            var req = {query: {tournamentId: 1}}
+            var res = {
+                json: function () {
+                }
+            };
+            var model = {
+                findById: function (criteria, callback) {
+                    callback(null, {});
+                }
+            };
+            var tournamentService = {
+                multipleSeed: function () {
+                },
+                updateTournament: function () {
+                    return res.json({});
+                }
+            };
+            sinon.spy(res, 'json');
+            //action
+            //parsedCSV, TournamentModel, req, res, tournamentService, next
+            serverUtils.handleMultipleSeeding([{name: 'BillyBob'}], model, req, res, tournamentService, null);
+            //assert
+            assert.deepEqual(res.json.getCall(0).args[0], {});
+        });
+
+        it('should return a 404 error if no tournament was found', function () {
+            //setup
+            var req = {query: {tournamentId: 1}};
+            var res = {
+                json:function(){}
+            };
+            var model = {
+                findById: function (criteria, callback) {
+                    callback(true);
+                }
+            };
+            sinon.spy(res, 'json');
+            //action
+            serverUtils.handleMultipleSeeding([{name: 'BillyBob'}], model, req, res, null);
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 404);
+            assert.equal(res.json.getCall(0).args[1].message, 'noSuchTournament');
+        });
+
+        it('should treat an exception from tournamentService.multipleSeed as the fact that the parsed file was not a CSV', function () {
+            //this is probably not totally accurate but it seems pretty reasonable right now
+
+            //setup
+            var req = {query: {tournamentId: 1}}
+            var res = {
+                json: function () {
+                }
+            };
+            var model = {
+                findById: function (criteria, callback) {
+                    callback(null, {});
+                }
+            };
+            var tournamentService = {
+                multipleSeed: function () {
+                    throw new Error('some random error');
+                },
+                updateTournament: function () {
+                    return res.json({});
+                }
+            };
+            sinon.spy(res, 'json');
+            //action
+            serverUtils.handleMultipleSeeding([{name: 'BillyBob'}], model, req, res, tournamentService);
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[1].message, 'notACSVFile');
+        });
+    });
 });

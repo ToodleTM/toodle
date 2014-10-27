@@ -83,7 +83,8 @@
       },
       "addPlayer": "Add a new player",
       "addMultiplePlayers": "Add a group of players",
-      "playerNickPlaceholder": "Player nick"
+      "playerNickPlaceholder": "Player nick",
+      "multipleRegistrationSuccessful":"All new players added"
     },
     "misc": {
       "links": "Links to other related pages for your tournament",
@@ -97,7 +98,8 @@
     },
     "error": {
       "noSuchTournament": "No such tournament has been registered, check your URL or go back to the main page to create a new tournament.",
-      "serverError": "A server error has occurred, wait for a bit to retry and if nothing gets better, get in touch with the admin"
+      "serverError": "A server error has occurred, wait for a bit to retry and if nothing gets better, get in touch with the admin",
+      "notACSVFile":"File does not seem to be a CSV file"
     }
   },
   "play": {
