@@ -137,7 +137,8 @@
     "bracket": "The bracket"
   },
   "bracket": {
-    "header": "This is the current state of tournament"
+    "header": "This is the current state of tournament",
+    "tournamentNotRunningWarning":"Tournament is not currently running, please come back later!"
   },
   "common": {
     "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported."

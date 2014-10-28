@@ -137,7 +137,8 @@
         "bracket":"L'arbre"
     },
     "bracket":{
-        "header":"Voici l'état actuel du tournoi"
+        "header":"Voici l'état actuel du tournoi",
+        "tournamentNotRunningWarning":"Le tournoi n'a pas encore commencé, reviens plus tard!"
     },
     "common":{
         "errorFindingMatchesToReport":"Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer."

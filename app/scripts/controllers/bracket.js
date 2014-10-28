@@ -9,7 +9,11 @@ angular.module('toodleApp')
         $http.get('api/play/' + tournamentId).success(function (data) {
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;
-            renderer.drawBracket(data.bracket);
+            if($scope.tournamentInfo.running){
+                renderer.drawBracket(data.bracket);
+            } else {
+                $("#notRunning").show();
+            }
         });
     }
 );
