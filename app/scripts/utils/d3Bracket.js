@@ -43,8 +43,8 @@ function insertNodes(currentNode, bracket) {
     return result;
 };
 
-var WIDTH = 2000;
-var HEIGHT = 1000;
+D3Bracket.prototype.WIDTH = 1400;
+D3Bracket.prototype.HEIGHT = 700;
 var NODE_TEXT_LEFT_MARGIN = 10;
 
 var NODE_WIDTH = 150;
@@ -58,7 +58,7 @@ var NODE_OUTER_COLOR = '#aad';
 var TREE_LEVELS_HORIZONTAL_DEPTH = 400;
 
 
-function drawSingleNode(nodeEnter, lineFunction) {
+D3Bracket.prototype.drawSingleNode = function(nodeEnter, lineFunction) {
     var lineData = [
         {x: 0, y: -NODE_HEIGHT / 2},
         {x: NODE_WIDTH, y: -NODE_HEIGHT / 2},
@@ -79,7 +79,7 @@ function drawSingleNode(nodeEnter, lineFunction) {
         ]))
         .attr("stroke", NODE_INNER_SEPARATION_COLOR)
         .attr('stroke-width', 1);
-}
+};
 
 D3Bracket.prototype.drawPlayerNameInNode = function(node, player1) {
     node.append("text")
@@ -101,7 +101,7 @@ D3Bracket.prototype.drawPlayerNameInNode = function(node, player1) {
         .style("fill-opacity", 1);
 };
 
-function drawLinesBetweenNodes(svg, links, diagonal) {
+D3Bracket.prototype.drawLinesBetweenNodes = function(svg, links, diagonal) {
     var link = svg.selectAll("path.link")
         .data(links, function (d) {
             return d.target.id;
@@ -109,8 +109,8 @@ function drawLinesBetweenNodes(svg, links, diagonal) {
     link.enter().insert("path", "g")
         .attr("class", "link")
         .attr("d", diagonal);
-}
-function drawLine() {
+};
+D3Bracket.prototype.drawLine = function(d3) {
     var lineFunction = d3.svg.line().
         x(function (d) {
             return d.x
@@ -120,63 +120,71 @@ function drawLine() {
         }).
         interpolate('linerar');
     return lineFunction;
-}
-function tranlateOrigin(node) {
+};
+D3Bracket.prototype.translateOrigin = function(node) {
     var nodeEnter = node.enter().append("g")
         .attr("class", "node")
         .attr("transform", function (d) {
             return "translate(" + d.y + "," + d.x + ")";
         });
     return nodeEnter;
-}
-function giveAnIdToEachNode(svg, nodes) {
+};
+D3Bracket.prototype.giveAnIdToEachNode = function(svg, nodes) {
     var i = 0;
     var node = svg.selectAll("g.node")
         .data(nodes, function (d) {
             return d.id || (d.id = ++i);
         });
     return node;
-}
-function appendSvgCanvas(margin) {
+};
+D3Bracket.prototype.appendSvgCanvas = function(margin, d3) {
     var svg = d3.select("#bracket").append("svg")
-        .attr("width", WIDTH + margin.right + margin.left)
-        .attr("height", HEIGHT + margin.top + margin.bottom)
+        .attr("width", this.WIDTH + margin.right + margin.left)
+        .attr("height", this.HEIGHT + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     return svg;
-}
-
-D3Bracket.prototype.drawBracket = function (bracket) {
+};
+D3Bracket.prototype.getWidth = function(){
+    return this.WIDTH;
+};
+D3Bracket.prototype.getHeight = function(){
+    return this.HEIGHT;
+};
+D3Bracket.prototype.setViewDimensions = function(bracket){
+    var depth = Math.log(_.keys(bracket).length+1)/Math.log(2);
+    this.WIDTH = 400*Math.round(depth);
+    this.HEIGHT = this.WIDTH/2;
+};
+D3Bracket.prototype.drawBracket = function (bracket, d3) {
     var d3Nodes = this.convertBracketToD3Tree(bracket);
-
-
+    var that = this;
+    this.setViewDimensions(bracket);
     var tree = d3.layout.tree()
-        .size([HEIGHT, WIDTH]);
+        .size([this.HEIGHT, this.WIDTH]);
 
     var diagonal = d3.svg.diagonal()
         .projection(function (d) {
             return [d.y, d.x];
         });
 
-
-
     var nodes = tree.nodes(d3Nodes).reverse(),
         links = tree.links(nodes);
 
     // Normalize for fixed-depth.
     nodes.forEach(function (d) {
-        d.y = -d.depth * TREE_LEVELS_HORIZONTAL_DEPTH;
-        d.x = d.x/2; // vertical alignment should be half the size as the one provided by the init
+        d.y = that.WIDTH-200-d.depth * TREE_LEVELS_HORIZONTAL_DEPTH;
+        d.x = d.x;
     });
 
-    var margin = {top: 0, right: 0, bottom: 0, left: HEIGHT};
-    var svg = appendSvgCanvas(margin);
-    var node = tranlateOrigin(giveAnIdToEachNode(svg, nodes));
+    var margin = {top: 0, right: 0, bottom: 0, left: 0};
+    var svg = this.appendSvgCanvas(margin, d3);
+    var node = this.translateOrigin(this.giveAnIdToEachNode(svg, nodes));
 
-    drawSingleNode(node, drawLine());
+    this.drawSingleNode(node, this.drawLine(d3));
     this.drawPlayerNameInNode(node, true);
     this.drawPlayerNameInNode(node, false);
-    drawLinesBetweenNodes(svg, links, diagonal);
+    this.drawLinesBetweenNodes(svg, links, diagonal);
 };
 
 module.exports.D3Bracket = D3Bracket;

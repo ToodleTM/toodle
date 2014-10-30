@@ -10,7 +10,7 @@ angular.module('toodleApp')
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;
             if($scope.tournamentInfo.running){
-                renderer.drawBracket(data.bracket);
+                renderer.drawBracket(data.bracket, d3);
             } else {
                 $("#notRunning").show();
             }
