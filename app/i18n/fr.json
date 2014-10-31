@@ -122,7 +122,8 @@
             "errors": {
                 "noDuplicateNick": "Un joueur avec ce nom là s'est déjà enregistré pour ce tournoi",
                 "noEmptyNick": "Le pseudo ne doit ni être vide, ni ne contenir que des espaces.",
-                "registrationLocked": "Les inscriptions sont désactivées pour ce tournoi."
+                "registrationLocked": "Les inscriptions sont désactivées pour ce tournoi.",
+                "noSuchTournament":"Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi."
             }
         },
         "report": {

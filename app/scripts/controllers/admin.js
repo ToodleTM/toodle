@@ -41,6 +41,11 @@ angular.module('toodleApp')
             .success(function (data, status, error) {
                 $scope.tournamentInfo = data;
                 $scope.playerList = $scope.tournamentInfo.players;
+                if($scope.tournamentInfo.game){
+                    $http.get('/views/resources/factions.json').success(function(data){
+                        $scope.factions = data[$scope.tournamentInfo.game];
+                    });
+                }
                 $http.get('/api/tournament/matchesToReport?tournamentId=' + $scope.tournamentInfo._id)
                     .success(function (data) {
                         $scope.gamesToReport = data;
@@ -137,14 +142,19 @@ angular.module('toodleApp')
             $("#registrationKo").hide();
             $("#registrationOk").hide();
             if ($scope.nick) {
-                $http.post('/api/tournament/addPlayer/', {"tournamentId": $scope.tournamentInfo._id, nick: $scope.nick})
+                debugger;
+                $http.post('/api/tournament/addPlayer/', {"tournamentId": $scope.tournamentInfo._id, nick: $scope.nick, faction:$scope.faction})
                     .success(function (data) {
                         $scope.tournamentInfo = data;
                         $scope.playerList = $scope.tournamentInfo.players;
                         $("#registrationOk").fadeIn();
                     })
-                    .error(function (data) {
-                        $scope.errorMessage = data.message;
+                    .error(function (data, statusCode) {
+                        if(statusCode == '404'){
+                            $scope.errorMessage = 'noSuchTournament';
+                        } else {
+                            $scope.errorMessage = data.message;
+                        }
                         $("#registrationKo").fadeIn();
                     });
                 $scope.nick = '';
