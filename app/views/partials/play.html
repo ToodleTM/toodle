@@ -53,33 +53,6 @@
                               ng-model="tournamentInfo.description" disabled></textarea>
                 </div>
             </div>
-            <div class="row">
-                <!--<div class="form-group col-sm-6">-->
-                    <!--<label for="Round format">{{ 'admin.form.roundFormats' | translate}}</label>-->
-
-                    <!--<select id="Round format" name="Round format" class="form-control"-->
-                            <!--ng-model="tournamentInfo.roundFormat" disabled>-->
-                        <!--<option value=""></option>-->
-                        <!--<option value="1">Best of 1</option>-->
-                        <!--<option value="3">Best of 3</option>-->
-                        <!--<option value="5">Best of 5</option>-->
-                        <!--<option value="7">Best of 7</option>-->
-                        <!--<option value="9">Best of 9</option>-->
-                    <!--</select>-->
-                <!--</div>-->
-
-                <div class="form-group col-sm-6">
-                    <label for="numberOfPlayers">{{ 'admin.form.numberOfPlayers' | translate}}</label>
-                    <select id="numberOfPlayers" name="numberOfPlayers" class="form-control"
-                            ng-model="tournamentInfo.numberOfPlayers" disabled>
-                        <option value=""></option>
-                        <option value="8">8</option>
-                        <option value="16">16</option>
-                        <option value="32">32</option>
-                        <option value="64">64</option>
-                    </select>
-                </div>
-            </div>
         </fieldset>
         <fieldset id="playersList" ng-model="playerList">
             <legend>{{ 'play.register.registeredPlayers' | translate}} ({{playerList.length}})</legend>
