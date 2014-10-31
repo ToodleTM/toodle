@@ -144,7 +144,7 @@
 <fieldset>
     <legend>{{ 'admin.misc.links'| translate}}</legend>
     <a ng-href="/play/{{tournamentInfo.signupID}}">{{ 'admin.misc.playLink' | translate}}</a><br/>
-    <a ng-href="/bracket/{{tournamentInfo.signupID}}">{{ 'admin.misc.brackets' | translate}}</a>
+    <a ng-show="tournamentInfo.running" ng-href="/bracket/{{tournamentInfo.signupID}}">{{ 'admin.misc.brackets' | translate}}</a>
 </fieldset>
 
 <fieldset ng-show="tournamentInfo.running">
