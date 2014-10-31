@@ -54,17 +54,6 @@
                 </div>
             </div>
         </fieldset>
-        <fieldset id="playersList" ng-model="playerList">
-            <legend>{{ 'play.register.registeredPlayers' | translate}} ({{playerList.length}})</legend>
-            <div ng-repeat="player in playerList" id="playerList">
-                <span>
-                <span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px" ></span>{{player.name}}
-                </span>
-            </div>
-            <div ng-show="playerList.length == 0">
-                <span> {{ 'play.register.noPlayers' | translate}} </span>
-            </div>
-        </fieldset>
         <fieldset ng-show="!tournamentInfo.locked">
             <legend>{{ 'play.enter.register' | translate }}</legend>
             <div class="row">
@@ -90,6 +79,17 @@
             <div id="registrationKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
                 <button type="button" class="close alert-fix-close" data-dismiss="alert" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 {{ 'play.register.fail' | translate }} (Reason : {{ 'play.register.errors.'+errorMessage | translate }})
+            </div>
+        </fieldset>
+        <fieldset id="playersList" ng-model="playerList">
+            <legend>{{ 'play.register.registeredPlayers' | translate}} ({{playerList.length}})</legend>
+            <div ng-repeat="player in playerList" id="playerList">
+                <span>
+                <span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px" ></span>{{player.name}}
+                </span>
+            </div>
+            <div ng-show="playerList.length == 0">
+                <span> {{ 'play.register.noPlayers' | translate}} </span>
             </div>
         </fieldset>
     </div>

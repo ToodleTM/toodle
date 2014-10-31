@@ -245,15 +245,6 @@
             class="sr-only">Close</span></button>
     {{ 'admin.update.fail' | translate }} (Reason : {{errorMessage}})
 </div>
-<fieldset id="playersList" ng-model="playerList">
-    <legend>{{ 'play.register.registeredPlayers' | translate}} ({{playerList.length}})</legend>
-    <div ng-repeat="player in playerList" id="playerList">
-        <span><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px"></span>{{player.name}}</span>
-    </div>
-    <div ng-show="playerList.length == 0">
-        <span> {{ 'play.register.noPlayers' | translate}} </span>
-    </div>
-</fieldset>
 <fieldset ng-show="!tournamentInfo.running">
     <div class="row">
         <div class="form-group col-sm-6">
@@ -269,7 +260,7 @@
                         <select name="inputFaction" class="form-control" ng-model="faction" ng-options="item for item in factions track by item">
                             <option value=""> -- Choose a faction -- </option>
                         </select>
-                        </div>
+                    </div>
                     <div class="form-group col-sm-1">
                         <button class="btn btn-primary" id="registerPlayerGo" type="submit">{{ 'play.enter.go' |
                             translate
@@ -319,6 +310,16 @@
         </div>
     </div>
 </fieldset>
+<fieldset id="playersList" ng-model="playerList">
+    <legend>{{ 'play.register.registeredPlayers' | translate}} ({{playerList.length}})</legend>
+    <div ng-repeat="player in playerList" id="playerList">
+        <span><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px"></span>{{player.name}}</span>
+    </div>
+    <div ng-show="playerList.length == 0">
+        <span> {{ 'play.register.noPlayers' | translate}} </span>
+    </div>
+</fieldset>
+
 </div>
 
 <div class="footer">
