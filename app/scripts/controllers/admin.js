@@ -142,7 +142,6 @@ angular.module('toodleApp')
             $("#registrationKo").hide();
             $("#registrationOk").hide();
             if ($scope.nick) {
-                debugger;
                 $http.post('/api/tournament/addPlayer/', {"tournamentId": $scope.tournamentInfo._id, nick: $scope.nick, faction:$scope.faction})
                     .success(function (data) {
                         $scope.tournamentInfo = data;
