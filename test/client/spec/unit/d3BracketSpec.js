@@ -228,8 +228,8 @@ describe('D3ToBracket', function () {
         it('should define a canvas height that is _depth_ times the calculated length if the total number of matches to play is above 127', function () {
             //setup
             var d3Bracket = new D3Bracket();
-            var bracket ={};
-            for(var i=1;i<=127;i++){
+            var bracket = {};
+            for (var i = 1; i <= 127; i++) {
                 bracket[i] = {};
             }
             //action
@@ -239,11 +239,11 @@ describe('D3ToBracket', function () {
             assert.equal(d3Bracket.getHeight(), 19600);
         });
 
-        it('should define a canvas height that is _depth_/2 times the calculated length if the total number to matches to play lies between 31 and 127', function(){
+        it('should define a canvas height that is _depth_/2 times the calculated length if the total number to matches to play lies between 31 and 127', function () {
             //setup
             var d3Bracket = new D3Bracket();
-            var bracket ={};
-            for(var i=1;i<=63;i++){
+            var bracket = {};
+            for (var i = 1; i <= 63; i++) {
                 bracket[i] = {};
             }
             //action
@@ -284,7 +284,6 @@ describe('D3ToBracket', function () {
             assert.equal(d3Bracket.getHeight(), 0);
         });
     });
-
     describe('drawbracket function', function () {
         var d3 = {};
         var treeSize = null;
@@ -373,24 +372,29 @@ describe('D3ToBracket', function () {
             };
             callCheck = sinon.spy();
 
-            d3.select = function(a){
+            d3.select = function (a) {
                 callCheck(a);
-                var returnFunction = function(){};
-                returnFunction.append = function(a){
+                var returnFunction = function () {
+                };
+                returnFunction.append = function (a) {
                     callCheck(a);
-                    var attrFunc = function(){};
-                    attrFunc.attr = function(a, b){
+                    var attrFunc = function () {
+                    };
+                    attrFunc.attr = function (a, b) {
                         callCheck(a, b);
-                        var secondAttrFunc = function(){};
-                        secondAttrFunc.attr = function(a, b){
+                        var secondAttrFunc = function () {
+                        };
+                        secondAttrFunc.attr = function (a, b) {
                             callCheck(a, b);
 
-                            var appendFunc = function(){}
+                            var appendFunc = function () {
+                            }
 
-                            appendFunc.append = function(a){
+                            appendFunc.append = function (a) {
                                 callCheck(a);
-                                var thirdAttrFunc = function(){}
-                                thirdAttrFunc.attr = function(a, b){
+                                var thirdAttrFunc = function () {
+                                }
+                                thirdAttrFunc.attr = function (a, b) {
                                     callCheck(a, b);
                                 };
                                 sinon.spy(thirdAttrFunc);
@@ -438,7 +442,7 @@ describe('D3ToBracket', function () {
             assert.equal(treeSize.getCall(0).args[0][1], 1200);
         });
 
-        it('should set the svg canvas with the appropriate properties (width, height, margins) for a depth 3 bracket', function(){
+        it('should set the svg canvas with the appropriate properties (width, height, margins) for a depth 3 bracket', function () {
             //setup
             var d3Bracket = new D3Bracket();
 
@@ -472,4 +476,65 @@ describe('D3ToBracket', function () {
             assert.equal(callCheck.getCall(5).args[1], 'translate(0,0)');
         });
     })
+    describe('GetTextToDraw', function () {
+        it('should return TBD if if we don t want player1 data and no data about player 2 is available', function () {
+            //setup
+            var d3Bracket = new D3Bracket();
+            var data = {};
+            //action
+            var actual = d3Bracket.getTextToDraw(data, false);
+            //assert
+            assert.equal(actual, ' -  TBD');
+        });
+
+        it('should return player2 s nick if we don t want player1 data and data about player2 is available', function () {
+            //setup
+            var d3Bracket = new D3Bracket();
+            var data = {
+                player2: {name: 'Bob'}
+            };
+            //action
+            var actual = d3Bracket.getTextToDraw(data, false);
+            //assert
+            assert.equal(actual, ' -  Bob');
+        });
+
+        it('should return player1 s nick if we want player1 data and data about player1 is available', function () {
+            //setup
+            var d3Bracket = new D3Bracket();
+            var data = {
+                player1: {name: 'Billy Bob'}
+            };
+            //action
+            var actual = d3Bracket.getTextToDraw(data, true);
+            //assert
+            assert.equal(actual, ' -  Billy Bob');
+        });
+
+        it('should return player1 s nick w/ score if we want player1 data and his score is available', function () {
+            //setup
+            var d3Bracket = new D3Bracket();
+            var data = {
+                player1: {name: 'Billy Bob'},
+                score1: 42
+            };
+            //action
+            var actual = d3Bracket.getTextToDraw(data, true);
+            //assert
+            assert.equal(actual, '42 Billy Bob');
+        });
+
+        it('should return player2 s nick w/ score if we don t want player2 data and player2 s score is available', function () {
+            //setup
+            var d3Bracket = new D3Bracket();
+            var data = {
+                player2: {name: 'Bob'},
+                score2: 24
+            };
+            //action
+            var actual = d3Bracket.getTextToDraw(data, false);
+            //assert
+            assert.equal(actual, '24 Bob');
+        });
+    });
 });

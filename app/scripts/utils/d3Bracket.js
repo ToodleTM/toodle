@@ -81,7 +81,14 @@ D3Bracket.prototype.drawSingleNode = function(nodeEnter, lineFunction) {
         .attr('stroke-width', 1);
 };
 
+D3Bracket.prototype.getTextToDraw = function(d, player1){
+    var playerData = player1 ? d.player1 : d.player2;
+    var playerScore = player1 ? d.score1 : d.score2;
+    var playerName = playerData ? playerData.name : 'TBD';
+    return playerScore || playerScore == 0 ? playerScore + ' ' +playerName : ' -  ' +playerName;
+};
 D3Bracket.prototype.drawPlayerNameInNode = function(node, player1) {
+    var that = this;
     node.append("text")
         .attr("x", function (d) {
             return  NODE_TEXT_LEFT_MARGIN;
@@ -93,10 +100,7 @@ D3Bracket.prototype.drawPlayerNameInNode = function(node, player1) {
             return "start";
         })
         .text(function (d) {
-            var playerData = player1 ? d.player1 : d.player2;
-            var playerScore = player1 ? d.score1: d.score2;
-            var playerName = playerData ? playerData.name : 'TBD';
-            return playerScore || playerScore == 0 ? playerScore + ' ' +playerName : ' -  ' +playerName;
+            return that.getTextToDraw(d, player1);
         })
         .style("fill-opacity", 1);
 };
