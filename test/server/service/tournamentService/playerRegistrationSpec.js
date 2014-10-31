@@ -142,4 +142,22 @@ describe('Player registration', function () {
         assert.equal(res.json.getCall(0).args[1].message, 'tournamentAlreadyRunning');
     });
 
+    it('should be able to register a player w/ faction data', function(){
+        //setup
+        var tournamentService = new TournamentService();
+        var req = {body: {nick: 'MAdJoHn_37658', faction:'murloc'}};
+        var res = {json: function (returnCode, data) {
+        }};
+        sinon.spy(res, 'json');
+        //action
+        var tournament = {
+            players: [], save: function (callback) {
+                callback(false)
+            }
+        };
+        tournamentService.registerPlayer(req, res, tournament, true);
+        //assert
+        assert.deepEqual(res.json.getCall(0).args[0], tournament);
+        assert.equal(tournament.players[0].faction, 'murloc');
+    })
 });
