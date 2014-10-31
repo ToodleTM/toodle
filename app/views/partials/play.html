@@ -100,7 +100,12 @@
                         <input type="text" name="inputNick" id="inputNick" class="form-control"
                                placeholder="{{ 'play.enter.nickPlaceholder' | translate}}" ng-model="nick"/>
                     </div>
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-4">
+                        <select name="inputFaction" class="form-control" ng-model="faction" ng-options="item for item in factions track by item">
+                            <option value=""> -- Choose a faction -- </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-1">
                         <button class="btn btn-primary" id="registerPlayerGo" type="submit">{{ 'play.enter.go' | translate }}</button>
                     </div>
                 </form>
