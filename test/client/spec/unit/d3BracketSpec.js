@@ -225,6 +225,34 @@ describe('D3ToBracket', function () {
             assert.equal(d3Bracket.getHeight(), 200);
         });
 
+        it('should define a canvas height that is _depth_ times the calculated length if the total number of matches to play is above 127', function () {
+            //setup
+            var d3Bracket = new D3Bracket();
+            var bracket ={};
+            for(var i=1;i<=127;i++){
+                bracket[i] = {};
+            }
+            //action
+            d3Bracket.setViewDimensions(bracket);
+            //assert
+            assert.equal(d3Bracket.getWidth(), 2800);
+            assert.equal(d3Bracket.getHeight(), 19600);
+        });
+
+        it('should define a canvas height that is _depth_/2 times the calculated length if the total number to matches to play lies between 31 and 127', function(){
+            //setup
+            var d3Bracket = new D3Bracket();
+            var bracket ={};
+            for(var i=1;i<=63;i++){
+                bracket[i] = {};
+            }
+            //action
+            d3Bracket.setViewDimensions(bracket);
+            //assert
+            assert.equal(d3Bracket.getWidth(), 2400);
+            assert.equal(d3Bracket.getHeight(), 7200);
+        });
+
         it('should define dimensions L1200 / H600 if the bracket is of depth 3', function () {
             //setup
             var d3Bracket = new D3Bracket();

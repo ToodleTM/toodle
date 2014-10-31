@@ -152,9 +152,17 @@ D3Bracket.prototype.getHeight = function(){
     return this.HEIGHT;
 };
 D3Bracket.prototype.setViewDimensions = function(bracket){
-    var depth = Math.log(_.keys(bracket).length+1)/Math.log(2);
+    var numPlayers = _.keys(bracket).length;
+    var depth = Math.log(numPlayers+1)/Math.log(2);
+    //debugger;
     this.WIDTH = 400*Math.round(depth);
-    this.HEIGHT = this.WIDTH/2;
+    if(numPlayers < 32){
+        this.HEIGHT = this.WIDTH/2;
+    } else if(numPlayers < 127){
+        this.HEIGHT = this.WIDTH*Math.round(depth/2);
+    } else {
+        this.HEIGHT = this.WIDTH*Math.ceil(depth);
+    }
 };
 D3Bracket.prototype.drawBracket = function (bracket, d3) {
     var d3Nodes = this.convertBracketToD3Tree(bracket);
