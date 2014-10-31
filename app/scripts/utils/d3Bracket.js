@@ -23,14 +23,18 @@ function insertNodes(currentNode, bracket) {
         return currentNode.number == item.next;
     });
     var result = {};
-    var previousMatches = _.filter(bracket, function(item){return item.next == currentNode.number});
+    var previousMatches = _.filter(bracket, function (item) {
+        return item.next == currentNode.number
+    });
 
     result.player1 = currentNode.player1;
     result.player2 = currentNode.player2;
     result.name = currentNode.number;
     result.parent = currentNode.next || 'null';
     result.complete = currentNode.complete;
-    result.canReport = !currentNode.complete && _.every(previousMatches, function(item){return item.complete});
+    result.canReport = !currentNode.complete && _.every(previousMatches, function (item) {
+        return item.complete
+    });
     result.score1 = currentNode.score1;
     result.score2 = currentNode.score2;
 
@@ -45,7 +49,7 @@ function insertNodes(currentNode, bracket) {
 
 D3Bracket.prototype.WIDTH = 1400;
 D3Bracket.prototype.HEIGHT = 700;
-var NODE_TEXT_LEFT_MARGIN = 10;
+var NODE_TEXT_LEFT_MARGIN = 25;
 
 var NODE_WIDTH = 150;
 var NODE_HEIGHT = 40;
@@ -58,7 +62,7 @@ var NODE_OUTER_COLOR = '#aad';
 var TREE_LEVELS_HORIZONTAL_DEPTH = 400;
 
 
-D3Bracket.prototype.drawSingleNode = function(nodeEnter, lineFunction) {
+D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction) {
     var lineData = [
         {x: 0, y: -NODE_HEIGHT / 2},
         {x: NODE_WIDTH, y: -NODE_HEIGHT / 2},
@@ -81,17 +85,28 @@ D3Bracket.prototype.drawSingleNode = function(nodeEnter, lineFunction) {
         .attr('stroke-width', 1);
 };
 
-D3Bracket.prototype.getTextToDraw = function(d, player1){
+D3Bracket.prototype.getTextToDraw = function (d, player1) {
     var playerData = player1 ? d.player1 : d.player2;
     var playerScore = player1 ? d.score1 : d.score2;
     var playerName = playerData ? playerData.name : 'TBD';
-    return playerScore || playerScore == 0 ? playerScore + ' ' +playerName : ' -  ' +playerName;
+    return playerScore || playerScore == 0 ? playerScore + ' ' + playerName : ' -  ' + playerName;
 };
-D3Bracket.prototype.drawPlayerNameInNode = function(node, player1) {
+
+D3Bracket.prototype.getIconToShow = function (d, player1) {
+    if (player1) {
+        if(d.player1 && d.player1.faction) {
+            return '/images/icon-' + d.player1.faction + '.png';
+        }
+    } else if (d.player2 && d.player2.faction) {
+        return '/images/icon-' + d.player2.faction + '.png';
+    }
+    return '/images/icon-default.png';
+};
+D3Bracket.prototype.drawPlayerNameInNode = function (node, player1) {
     var that = this;
     node.append("text")
         .attr("x", function (d) {
-            return  NODE_TEXT_LEFT_MARGIN;
+            return NODE_TEXT_LEFT_MARGIN;
         })
         .attr("y", function (d) {
             return player1 ? TEXT_IN_NODE_VALIGN_TOP : TEXT_IN_NODE_VALIGN_BOTTOM;
@@ -103,9 +118,25 @@ D3Bracket.prototype.drawPlayerNameInNode = function(node, player1) {
             return that.getTextToDraw(d, player1);
         })
         .style("fill-opacity", 1);
+
+    node.append('svg:image')
+        .attr("class", "circle")
+        .attr("xlink:href", function (d) {
+            return that.getIconToShow(d, player1)
+        })
+        .attr("x", "0px")
+        .attr("y", function () {
+            if (player1) {
+                return "-20px"
+            } else {
+                return "0px"
+            }
+        })
+        .attr("width", "20px")
+        .attr("height", "20px");
 };
 
-D3Bracket.prototype.drawLinesBetweenNodes = function(svg, links, diagonal) {
+D3Bracket.prototype.drawLinesBetweenNodes = function (svg, links, diagonal) {
     var link = svg.selectAll("path.link")
         .data(links, function (d) {
             return d.target.id;
@@ -114,7 +145,7 @@ D3Bracket.prototype.drawLinesBetweenNodes = function(svg, links, diagonal) {
         .attr("class", "link")
         .attr("d", diagonal);
 };
-D3Bracket.prototype.drawLine = function(d3) {
+D3Bracket.prototype.drawLine = function (d3) {
     var lineFunction = d3.svg.line().
         x(function (d) {
             return d.x
@@ -125,7 +156,7 @@ D3Bracket.prototype.drawLine = function(d3) {
         interpolate('linerar');
     return lineFunction;
 };
-D3Bracket.prototype.translateOrigin = function(node) {
+D3Bracket.prototype.translateOrigin = function (node) {
     var nodeEnter = node.enter().append("g")
         .attr("class", "node")
         .attr("transform", function (d) {
@@ -133,7 +164,7 @@ D3Bracket.prototype.translateOrigin = function(node) {
         });
     return nodeEnter;
 };
-D3Bracket.prototype.giveAnIdToEachNode = function(svg, nodes) {
+D3Bracket.prototype.giveAnIdToEachNode = function (svg, nodes) {
     var i = 0;
     var node = svg.selectAll("g.node")
         .data(nodes, function (d) {
@@ -141,7 +172,7 @@ D3Bracket.prototype.giveAnIdToEachNode = function(svg, nodes) {
         });
     return node;
 };
-D3Bracket.prototype.appendSvgCanvas = function(margin, d3) {
+D3Bracket.prototype.appendSvgCanvas = function (margin, d3) {
     var svg = d3.select("#bracket").append("svg")
         .attr("width", this.WIDTH + margin.right + margin.left)
         .attr("height", this.HEIGHT + margin.top + margin.bottom)
@@ -149,23 +180,23 @@ D3Bracket.prototype.appendSvgCanvas = function(margin, d3) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     return svg;
 };
-D3Bracket.prototype.getWidth = function(){
+D3Bracket.prototype.getWidth = function () {
     return this.WIDTH;
 };
-D3Bracket.prototype.getHeight = function(){
+D3Bracket.prototype.getHeight = function () {
     return this.HEIGHT;
 };
-D3Bracket.prototype.setViewDimensions = function(bracket){
+D3Bracket.prototype.setViewDimensions = function (bracket) {
     var numPlayers = _.keys(bracket).length;
-    var depth = Math.log(numPlayers+1)/Math.log(2);
+    var depth = Math.log(numPlayers + 1) / Math.log(2);
     //debugger;
-    this.WIDTH = 400*Math.round(depth);
-    if(numPlayers < 32){
-        this.HEIGHT = this.WIDTH/2;
-    } else if(numPlayers < 127){
-        this.HEIGHT = this.WIDTH*Math.round(depth/2);
+    this.WIDTH = 400 * Math.round(depth);
+    if (numPlayers < 32) {
+        this.HEIGHT = this.WIDTH / 2;
+    } else if (numPlayers < 127) {
+        this.HEIGHT = this.WIDTH * Math.round(depth / 2);
     } else {
-        this.HEIGHT = this.WIDTH*Math.ceil(depth);
+        this.HEIGHT = this.WIDTH * Math.ceil(depth);
     }
 };
 D3Bracket.prototype.drawBracket = function (bracket, d3) {
@@ -185,7 +216,7 @@ D3Bracket.prototype.drawBracket = function (bracket, d3) {
 
     // Normalize for fixed-depth.
     nodes.forEach(function (d) {
-        d.y = that.WIDTH-200-d.depth * TREE_LEVELS_HORIZONTAL_DEPTH;
+        d.y = that.WIDTH - 200 - d.depth * TREE_LEVELS_HORIZONTAL_DEPTH;
         d.x = d.x;
     });
 

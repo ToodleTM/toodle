@@ -475,7 +475,7 @@ describe('D3ToBracket', function () {
             assert.equal(callCheck.getCall(5).args[0], 'transform');
             assert.equal(callCheck.getCall(5).args[1], 'translate(0,0)');
         });
-    })
+    });
     describe('GetTextToDraw', function () {
         it('should return TBD if if we don t want player1 data and no data about player 2 is available', function () {
             //setup
@@ -535,6 +535,87 @@ describe('D3ToBracket', function () {
             var actual = d3Bracket.getTextToDraw(data, false);
             //assert
             assert.equal(actual, '24 Bob');
+        });
+    });
+
+    describe('Faction icon display', function(){
+        it('should return player1 s icon in a correctly formatted string if we re interested in player1', function(){
+            //setup
+            var d3Bracket = new D3Bracket();
+            var d = {
+                player1: {
+                    faction: 'player1'
+                },
+                player2:{
+                    faction:'player2'
+                }
+            };
+            //action
+            var actual = d3Bracket.getIconToShow(d, true);
+            //assert
+            assert.equal(actual, '/images/icon-player1.png');
+        });
+        it('should return player2 s icon in a correctly formatted string if we re not interested in player1', function(){
+            //setup
+            var d3Bracket = new D3Bracket();
+            var d = {
+                player1: {
+                    faction: 'player1'
+                },
+                player2:{
+                    faction:'player2'
+                }
+            };
+            //action
+            var actual = d3Bracket.getIconToShow(d, false);
+            //assert
+            assert.equal(actual, '/images/icon-player2.png');
+        });
+        it('should return a default icon if no player1 faction is specified', function(){
+            //setup
+            var d3Bracket = new D3Bracket();
+            var d = {
+                player1: {
+                }
+            };
+            //action
+            var actual = d3Bracket.getIconToShow(d, true);
+            //assert
+            assert.equal(actual, '/images/icon-default.png');
+       });
+
+        it('should return a default icon if no player2 faction is specified', function(){
+            //setup
+            var d3Bracket = new D3Bracket();
+            var d = {
+                player2: {
+                }
+            };
+            //action
+            var actual = d3Bracket.getIconToShow(d, false);
+            //assert
+            assert.equal(actual, '/images/icon-default.png');
+        });
+
+        it('should return the default icon if no player1 is defined and we re trying to display player1', function(){
+            //setup
+            var d3Bracket = new D3Bracket();
+            var d = {
+            };
+            //action
+            var actual = d3Bracket.getIconToShow(d, true);
+            //assert
+            assert.equal(actual, '/images/icon-default.png');
+        });
+        it('should return the default icon if no player2 is defined and we re trying to display player2', function(){
+            //setup
+            var d3Bracket = new D3Bracket();
+            var d = {
+            };
+            //action
+            var actual = d3Bracket.getIconToShow(d, false);
+            //assert
+            assert.equal(actual, '/images/icon-default.png');
         });
     });
 });
