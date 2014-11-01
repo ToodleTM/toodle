@@ -103,6 +103,11 @@ body {
     cursor:pointer;
 }
 
+.playerInListInfo{
+    display:none;
+    float:right;
+    color:red;
+}
 .playerInList span span img {
     margin-top:3px;
     margin-right:8px;

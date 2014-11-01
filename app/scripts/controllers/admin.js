@@ -41,8 +41,8 @@ angular.module('toodleApp')
             .success(function (data, status, error) {
                 $scope.tournamentInfo = data;
                 $scope.playerList = $scope.tournamentInfo.players;
-                if($scope.tournamentInfo.game){
-                    $http.get('/views/resources/factions.json').success(function(data){
+                if ($scope.tournamentInfo.game) {
+                    $http.get('/views/resources/factions.json').success(function (data) {
                         $scope.factions = data[$scope.tournamentInfo.game];
                     });
                 }
@@ -142,14 +142,18 @@ angular.module('toodleApp')
             $("#registrationKo").hide();
             $("#registrationOk").hide();
             if ($scope.nick) {
-                $http.post('/api/tournament/addPlayer/', {"tournamentId": $scope.tournamentInfo._id, nick: $scope.nick, faction:$scope.faction})
+                $http.post('/api/tournament/addPlayer/', {
+                    "tournamentId": $scope.tournamentInfo._id,
+                    nick: $scope.nick,
+                    faction: $scope.faction
+                })
                     .success(function (data) {
                         $scope.tournamentInfo = data;
                         $scope.playerList = $scope.tournamentInfo.players;
                         $("#registrationOk").fadeIn();
                     })
                     .error(function (data, statusCode) {
-                        if(statusCode == '404'){
+                        if (statusCode == '404') {
                             $scope.errorMessage = 'noSuchTournament';
                         } else {
                             $scope.errorMessage = data.message;
@@ -214,5 +218,22 @@ angular.module('toodleApp')
                 $("#tourneyReportingKo").fadeIn();
             });
         };
+
+        $scope.removePlayer = function (playerNick) {
+
+            $http.post('/api/tournament/admin/removePlayer', {
+                tournamentId: $scope.tournamentInfo._id,
+                nick: playerNick
+            }).success(function (data) {
+                $scope.playerList = data.players;
+            }).error(function(message, statusCode){
+                $scope.errorMessage = message.message;
+                $("#notes-"+$scope.stripped(playerNick)).show();
+            });
+        };
+
+        $scope.stripped = function(nick){
+            return nick.replace(/\s/g,'');
+        }
     }
 );

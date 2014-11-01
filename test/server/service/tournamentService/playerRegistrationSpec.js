@@ -161,3 +161,89 @@ describe('Player registration', function () {
         assert.equal(tournament.players[0].faction, 'murloc');
     })
 });
+
+describe('Unregister player', function(){
+    it('should be able to unregister a player from an empty tournament (no players)', function(){
+        //setup
+        var tournamentService = new TournamentService();
+        var req = {body:{nick:' john '}};
+        var res = {
+            json:function(){}
+        };
+        var tournament = {
+            players:[],
+            save:function(callback){
+                callback(null, {});
+            }
+        };
+        sinon.spy(res, 'json');
+        sinon.spy(tournament, 'save');
+        //action
+        tournamentService.unregisterPlayer(req, res, tournament);
+        //assert
+        assert.deepEqual(res.json.getCall(0).args[0].players, []);
+    });
+    it('should be able to unregister a player whose nick matches strictly the one of a registered player in a tournament', function(){
+        //setup
+        var tournamentService = new TournamentService();
+        var req = {body:{nick:'john'}};
+        var res = {
+            json:function(){}
+        };
+        var tournament = {
+            players:[{name:'john'}],
+            save:function(callback){
+                callback(null, {});
+            }
+        };
+        sinon.spy(res, 'json');
+        sinon.spy(tournament, 'save');
+        //action
+        tournamentService.unregisterPlayer(req, res, tournament);
+        //assert
+        assert.deepEqual(res.json.getCall(0).args[0].players, []);
+        assert.equal(tournament.save.calledOnce, true);
+    });
+
+    it('should be able to unregister a player whose _trimmed_ nick matches strictly the one of a registered player in a tournament', function(){
+        //setup
+        var tournamentService = new TournamentService();
+        var req = {body:{nick:' john   '}};
+        var res = {
+            json:function(){}
+        };
+        var tournament = {
+            players:[{name:'john'}],
+            save:function(callback){
+                callback(null, {});
+            }
+        };
+        sinon.spy(res, 'json');
+        sinon.spy(tournament, 'save');
+        //action
+        tournamentService.unregisterPlayer(req, res, tournament);
+        //assert
+        assert.deepEqual(res.json.getCall(0).args[0].players, []);
+        assert.equal(tournament.save.calledOnce, true);
+    });
+
+    it('should refuse to remove a player from a started tournament', function(){
+        //setup
+        var tournamentService = new TournamentService();
+        var req = {body:{nick:' john '}}
+        var res = {
+            json:function(){}
+        };
+        var tournament = {
+            running:true,
+            players:[]
+        };
+        sinon.spy(res, 'json');
+        //action
+        tournamentService.unregisterPlayer(req, res, tournament)
+        //assert
+        assert.equal(res.json.getCall(0).args[0], 409);
+        assert.equal(res.json.getCall(0).args[1].message, 'cantRemovePlayerWhileRunning');
+    });
+
+});
