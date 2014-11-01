@@ -1,0 +1,18 @@
+/* TEAM */
+Founder / Lead designer / Developer / Deployment guy : Martin Bahier
+Site : http://martinbahier.fr
+Twitter : @MartinBahier
+Location : Paris, France
+
+Founder / PR / Validation : Alexandre Coulange-Evain
+Twitter : @ThisIsBrioche
+Location : Paris, France
+
+/* THANKS */
+Coffee
+Beer
+Long nights
+
+/* SITE */
+Components : Bootstrap / AngularJS
+Software : Intellij's WebStorm / Bash / VIM
