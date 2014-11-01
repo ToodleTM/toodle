@@ -15,4 +15,4 @@ Long nights
 
 /* SITE */
 Components : Bootstrap / AngularJS
-Software : Intellij's WebStorm / Bash / VIM
+Software : Intellij's WebStorm,  Bash,  VIM,  TeamCity, protractor / phantomjs
