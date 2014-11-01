@@ -312,8 +312,8 @@
 </fieldset>
 <fieldset id="playersList" ng-model="playerList">
     <legend>{{ 'play.register.registeredPlayers' | translate}} ({{playerList.length}})</legend>
-    <div ng-repeat="player in playerList" id="playerList">
-        <span><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px"></span>{{player.name}}</span>
+    <div ng-repeat="player in playerList" id="playerList" class="playerInList">
+        <span style="float:left"><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px"></span>{{player.name}} </span> <i title="{{'admin.actions.removePlayer'|translate}}" class="glyphicon glyphicon-trash"></i>
     </div>
     <div ng-show="playerList.length == 0">
         <span> {{ 'play.register.noPlayers' | translate}} </span>

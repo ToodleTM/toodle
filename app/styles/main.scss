@@ -86,3 +86,24 @@ body {
     font-size:small;
     cursor: help;
 }
+
+.playerInList {
+    width:100%;
+    height:25px
+}
+
+.playerInList:hover{
+    background-color: #efefef;
+}
+.playerInList i {
+    font-size: xx-small;
+    float: right;
+    top:8px;
+    right:8px;
+    cursor:pointer;
+}
+
+.playerInList span span img {
+    margin-top:3px;
+    margin-right:8px;
+}

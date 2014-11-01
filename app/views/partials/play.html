@@ -83,7 +83,7 @@
         </fieldset>
         <fieldset id="playersList" ng-model="playerList">
             <legend>{{ 'play.register.registeredPlayers' | translate}} ({{playerList.length}})</legend>
-            <div ng-repeat="player in playerList" id="playerList">
+            <div ng-repeat="player in playerList" id="playerList" class="playerInList">
                 <span>
                 <span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px" ></span>{{player.name}}
                 </span>

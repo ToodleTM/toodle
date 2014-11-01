@@ -85,7 +85,8 @@
       "addMultiplePlayers": "Add a group of players",
       "playerNickPlaceholder": "Player nick",
       "multipleRegistrationSuccessful":"All new players added",
-      "multipleSeedTooltip":"Here, you can upload a csv file (with commas as separators) the 1st line is the header and must contain properties names (like 'name, faction') rather than actual data. Column ordering does not matter but you should always have a 'name' column."
+      "multipleSeedTooltip":"Here, you can upload a csv file (with commas as separators) the 1st line is the header and must contain properties names (like 'name, faction') rather than actual data. Column ordering does not matter but you should always have a 'name' column.",
+      "removePlayer":"Remove player from this tournament"
     },
     "misc": {
       "links": "Links to other related pages for your tournament",
