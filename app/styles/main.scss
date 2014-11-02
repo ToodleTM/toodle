@@ -2,113 +2,128 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 
 /* Space out content a bit */
 body {
-    padding-top: 20px;
-    padding-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .footer {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 /* Custom page header */
 .header {
-    border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
 }
 
 /* Custom page footer */
 .footer {
-    padding-top: 19px;
-    color: #777;
-    border-top: 1px solid #e5e5e5;
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
 }
 
 .container-narrow > hr {
-    margin: 30px 0;
+  margin: 30px 0;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-    .container {
-        max-width: 730px;
-    }
+  .container {
+    max-width: 730px;
+  }
 
-    /* Remove the padding we set earlier */
-    .header,
-    .marketing,
-    .footer {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    /* Space out the masthead */
-    .header {
-        margin-bottom: 30px;
-    }
-    /* Remove the bottom border on the jumbotron for visual effect */
-    .jumbotron {
-        border-bottom: 0;
-    }
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
 }
 
-.input-center{
-  text-align:center;
+.input-center {
+  text-align: center;
 }
 
-.alert-fix-close{
-  right:-10px !important;
-  top:-10px !important;
+.alert-fix-close {
+  right: -10px !important;
+  top: -10px !important;
 }
 
 .form-horizontal .form-group {
-  margin-left:0;
-  margin-right:0;
+  margin-left: 0;
+  margin-right: 0;
 }
 
-#modifyTournament{
-  float:right;
+#modifyTournament {
+  float: right;
 }
 
-#bracket{
-  margin-left:-50%;
+#bracket {
+  margin-left: -50%;
 }
 
-.what-is-this{
-    font-size:small;
-    cursor: help;
+.what-is-this {
+  font-size: small;
+  cursor: help;
 }
 
 .playerInList {
-    width:100%;
-    height:25px
+  width: 100%;
+  height: 25px
 }
 
-.playerInList:hover{
-    background-color: #efefef;
+.playerInList:hover {
+  background-color: #efefef;
 }
+
 .playerInList i {
-    font-size: xx-small;
-    float: right;
-    top:8px;
-    right:8px;
-    cursor:pointer;
+  font-size: xx-small;
+  float: right;
+  top: 4px;
+  right: 8px;
+  cursor: pointer;
 }
 
-.playerInListInfo{
-    display:none;
-    float:right;
-    color:red;
+.playerInListInfo {
+  display: none;
+  float: right;
+  color: red;
 }
+
 .playerInList span span img {
-    margin-top:3px;
-    margin-right:8px;
+  margin-top:-4px;
+  margin-right: 8px;
+}
+
+#playersList ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+#playersList ul li {
+  margin: 5px;
+  padding: 5px;
+  width: 100%;
 }

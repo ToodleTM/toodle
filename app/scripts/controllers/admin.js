@@ -41,6 +41,26 @@ angular.module('toodleApp')
             .success(function (data, status, error) {
                 $scope.tournamentInfo = data;
                 $scope.playerList = $scope.tournamentInfo.players;
+                $("#sortablePlayerList").sortable({
+                    revert: true,
+                    stop: function (event, objectMoved) {
+                        var movedPlayer = objectMoved.item[0].innerText;
+                        var nextPlayerInList = objectMoved.item[0].nextElementSibling ? objectMoved.item[0].nextElementSibling.innerText : null;
+                        $http.post('/api/tournament/admin/rearrangePlayers', {
+                            tournamentId: $scope.tournamentInfo._id,
+                            playerToMove: movedPlayer,
+                            newNextPlayer: nextPlayerInList
+                        })
+                            .success(function (data) {
+
+                            })
+                            .error(function (message, statusCode) {
+                                $scope.errorMessage = message.message;
+                                $("#notes-" + $scope.stripped(movedPlayer)).show();
+                            });
+                    }
+                });
+                $("ul, li").disableSelection();
                 if ($scope.tournamentInfo.game) {
                     $http.get('/views/resources/factions.json').success(function (data) {
                         $scope.factions = data[$scope.tournamentInfo.game];
@@ -226,14 +246,14 @@ angular.module('toodleApp')
                 nick: playerNick
             }).success(function (data) {
                 $scope.playerList = data.players;
-            }).error(function(message, statusCode){
+            }).error(function (message, statusCode) {
                 $scope.errorMessage = message.message;
-                $("#notes-"+$scope.stripped(playerNick)).show();
+                $("#notes-" + $scope.stripped(playerNick)).show();
             });
         };
 
-        $scope.stripped = function(nick){
-            return nick.replace(/\s/g,'');
+        $scope.stripped = function (nick) {
+            return nick.replace(/\s/g, '');
         }
     }
 );

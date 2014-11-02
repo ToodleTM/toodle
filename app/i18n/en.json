@@ -87,7 +87,8 @@
       "multipleRegistrationSuccessful":"All new players added",
       "multipleSeedTooltip":"Here, you can upload a csv file (with commas as separators) the 1st line is the header and must contain properties names (like 'name, faction') rather than actual data. Column ordering does not matter but you should always have a 'name' column.",
       "removePlayer":"Remove player from this tournament",
-      "cantRemovePlayerWhileRunning":"Can't remove a player while the tournament is running!"
+      "cantRemovePlayerWhileRunning":"Can't remove a player while the tournament is running!",
+      "unableToChangeOrderWhileTournamentIsLive":"Unable reorder players while tournament is live."
     },
     "misc": {
       "links": "Links to other related pages for your tournament",

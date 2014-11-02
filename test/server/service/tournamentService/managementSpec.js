@@ -124,9 +124,11 @@ describe('Tournament management', function () {
                         }
                     }
                 };
-                var model = {update: function (criteria, data, callback) {
-                    callback(true);
-                }};
+                var model = {
+                    update: function (criteria, data, callback) {
+                        callback(true);
+                    }
+                };
                 //action
                 tournamentService.reportMatch(req, res, {engine: ''}, model);
                 //assert
@@ -247,7 +249,134 @@ describe('Tournament management', function () {
                 assert.equal(res.json.getCall(0).args[1].message, 'Tournament update failed!');
             });
         });
-    })
-});/**
- * Created by octo-mba on 10/24/14.
- */
+    });
+    describe('Rearrange Players', function () {
+        it('should not try to update players list if player to move can t be found', function () {
+            //setup
+            var req = {
+                body: {
+                    playerToMove: 'player',
+                    newNextPlayer: 'otherplayer'
+                }
+            };
+            var tournament = {
+                players: [{name: 'a'}, {name: 'b'}],
+                save: function () {
+                }
+            };
+            var res = {
+                json: function () {
+                }
+            };
+            sinon.spy(tournament, 'save');
+            sinon.spy(res, 'json');
+
+            //action
+            tournamentService.rearrangePlayers(req, res, tournament);
+            //assert
+            assert.deepEqual(res.json.getCall(0).args[0].players, tournament.players);
+            assert.equal(tournament.save.called, false);
+        });
+
+        it('should return an error if the player to move next to can t be found', function () {
+            //setup
+            var req = {
+                body: {
+                    playerToMove: 'player',
+                    newNextPlayer: 'otherplayer'
+                }
+            };
+            var tournament = {
+                players: [{name: 'player'}, {name: 'b'}],
+                save: function () {
+                }
+            };
+            var res = {
+                json: function () {
+                }
+            };
+            sinon.spy(tournament, 'save');
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.rearrangePlayers(req, res, tournament);
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[1].message, 'playerToMoveNextToDoesNotExist');
+        });
+
+        it('should move player next to the target if both nicks are in the players list of the tournament', function () {
+            //setup
+            var req = {
+                body: {
+                    playerToMove: 'player',
+                    newNextPlayer: 'otherPlayer'
+                }
+            };
+            var tournament = {
+                players: [{name: 'player'}, {name: 'johnny'}, {name: 'otherPlayer'}],
+                save: function (callback) {
+                    callback(null, tournament)
+                }
+            };
+            var res = {
+                json: function () {
+                }
+            };
+            sinon.spy(tournament, 'save');
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.rearrangePlayers(req, res, tournament);
+            //assert
+            assert.deepEqual(res.json.getCall(0).args[0].players, [{name: 'johnny'}, {name: 'player'}, {name: 'otherPlayer'}]);
+            assert.equal(tournament.save.calledOnce, true);
+        });
+
+        it('should be able to move a player to the last spot in the list (i.e : target is null and player does exist)', function () {
+            //setup
+            var req = {
+                body: {
+                    playerToMove: 'player',
+                    newNextPlayer: null
+                }
+            };
+            var tournament = {
+                players: [{name: 'player'}, {name: 'johnny'}, {name: 'otherPlayer'}],
+                save: function (callback) {
+                    callback(null, tournament)
+                }
+            };
+            var res = {
+                json: function () {
+                }
+            };
+            sinon.spy(tournament, 'save');
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.rearrangePlayers(req, res, tournament);
+            //assert
+            assert.deepEqual(res.json.getCall(0).args[0].players, [{name: 'johnny'}, {name: 'otherPlayer'}, {name: 'player'}])
+            assert.equal(tournament.save.calledOnce, true);
+        });
+
+        it('should return an error if we try to change players order in a running tournament', function () {
+            //setup
+            var req = {
+                body: {
+                }
+            };
+            var tournament = {
+                running:true
+            };
+            var res = {
+                json: function () {
+                }
+            };
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.rearrangePlayers(req, res, tournament);
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[1].message, 'unableToChangeOrderWhileTournamentIsLive');
+        });
+    });
+});
