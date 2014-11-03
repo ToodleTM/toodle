@@ -90,7 +90,8 @@ describe('Server Utils', function () {
             //setup
             var req = {query: {tournamentId: 1}};
             var res = {
-                json:function(){}
+                json: function () {
+                }
             };
             var model = {
                 findById: function (criteria, callback) {
@@ -135,4 +136,50 @@ describe('Server Utils', function () {
             assert.equal(res.json.getCall(0).args[1].message, 'notACSVFile');
         });
     });
-});
+
+    describe('Create tournament id', function () {
+        it('should return null for an empty tournament name', function () {
+            //setup
+            //action
+            var actual = serverUtils.createTournamentId(null, '');
+            //assert
+            assert.equal(actual, null);
+        });
+
+        it('should return null for a null tournament name', function(){
+            //setup
+
+            //action
+            var actual = serverUtils.createTournamentId(123, null);
+            //assert
+            assert.equal(actual, null);
+        });
+
+        it('should return null for an empty tournament name even if a timestamp is provided', function () {
+            //setup
+            //action
+            var actual = serverUtils.createTournamentId(123, '');
+            //assert
+            assert.equal(actual, null);
+        });
+
+
+        it('should append a timestamp at the end of the ID', function () {
+            //setup
+            //action
+            var actual = serverUtils.createTournamentId(123, 'name');
+            //assert
+            assert.equal(actual, 'name123');
+        });
+
+        it('should remove all non characters / non digits from the tournament name before appending it top the timestamp', function () {
+            //setup
+
+            //action
+            var actual = serverUtils.createTournamentId(123, ' n. a\r,m<\t>\n/;:\\e"');
+            //assert
+            assert.equal(actual, 'name123');
+        });
+    });
+})
+;
