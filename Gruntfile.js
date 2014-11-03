@@ -233,7 +233,8 @@ module.exports = function (grunt) {
             },
             dist: {
                 options: {
-                    generatedImagesDir: '<%= yeoman.dist %>/app/images/generated'
+                    generatedImagesDir: '<%= yeoman.dist %>/app/images/generated',
+                    cssDir:'<%= yeoman.dist%>/app/styles/'
                 }
             },
             server: {
@@ -397,13 +398,6 @@ module.exports = function (grunt) {
                             'app/scripts/services/*.js',
                             'app/scripts/utils/packed.js',
                             'app/scripts/app.js'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dest: '<%= yeoman.dist %>',
-                        src: [
-                            'app/styles/*.css'
                         ]
                     }
                 ]
