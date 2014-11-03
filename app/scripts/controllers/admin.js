@@ -50,13 +50,13 @@ angular.module('toodleApp')
                             playerToMove: movedPlayer,
                             newNextPlayer: nextPlayerInList
                         })
-                            .success(function (data) {
+                        .success(function (data) {
 
-                            })
-                            .error(function (message, statusCode) {
-                                $scope.errorMessage = message.message;
-                                $("#notes-" + $scope.stripped(movedPlayer)).show();
-                            });
+                        })
+                        .error(function (message, statusCode) {
+                            $scope.errorMessage = message.message;
+                            $("#notes-" + $scope.stripped(movedPlayer)).show();
+                        });
                     }
                 });
                 $("ul, li").disableSelection();
@@ -103,8 +103,14 @@ angular.module('toodleApp')
             $("#tourneyUpdateOk").hide();
             $("#tourneyUpdateKo").hide();
             $http.put('/api/tournament/admin/update/?id=' + tournamentId, $scope.tournamentInfo)
-                .success(function () {
+                .success(function (data) {
+                    $scope.tournamentInfo = data;
                     $("#tourneyUpdateOk").fadeIn();
+                    if ($scope.tournamentInfo.game) {
+                        $http.get('/views/resources/factions.json').success(function (data) {
+                            $scope.factions = data[$scope.tournamentInfo.game];
+                        });
+                    }
                 })
                 .error(function () {
                     scope.errorMessage = err;
