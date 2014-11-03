@@ -14,7 +14,6 @@ angular.module('toodleApp')
             $("#multipleRegistrationKo").hide();
             for (var i = 0; i < $files.length; i++) {
                 var file = $files[i];
-                debugger;
                 $scope.upload = $upload.upload({
                     url: '/api/tournament/admin/multipleRegistration?tournamentId=' + $scope.tournamentInfo._id,
                     data: {myObj: $scope.myModelObj},
