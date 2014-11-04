@@ -361,7 +361,6 @@ module.exports = function (grunt) {
                         src: [
                             '*.{ico,png,txt}',
                             '.htaccess',
-                            'bower_components/**/*',
                             'images/{,*/}*.{webp}',
                             'fonts/**/*'
                         ]
@@ -380,13 +379,6 @@ module.exports = function (grunt) {
                         expand: true,
                         dest: '<%= yeoman.dist %>',
                         src: [
-                            'app/scripts/utils/packed.js'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dest: '<%= yeoman.dist %>',
-                        src: [
                             'app/i18n/*.json'
                         ]
                     },
@@ -398,7 +390,8 @@ module.exports = function (grunt) {
                             'app/scripts/directives/*.js',
                             'app/scripts/services/*.js',
                             'app/scripts/utils/packed.js',
-                            'app/scripts/app.js'
+                            'app/scripts/app.js',
+                            'app/views/resources/factions.json'
                         ]
                     }
                 ]
