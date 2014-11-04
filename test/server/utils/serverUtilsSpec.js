@@ -61,21 +61,21 @@ describe('Server Utils', function () {
 
         it('should call multipleSeed if parsed players have a name', function () {
             //setup
-            var req = {query: {tournamentId: 1}}
+            var req = {query: {tournamentId: 1}};
             var res = {
                 json: function () {
                 }
             };
+            var tournament = {save:function(){
+                res.json({});
+            }};
             var model = {
                 findById: function (criteria, callback) {
-                    callback(null, {});
+                    callback(null, tournament);
                 }
             };
             var tournamentService = {
                 multipleSeed: function () {
-                },
-                updateTournament: function () {
-                    return res.json({});
                 }
             };
             sinon.spy(res, 'json');

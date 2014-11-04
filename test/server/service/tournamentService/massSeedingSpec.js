@@ -15,49 +15,49 @@ describe('Mass seeding', function () {
         //setup
 
         //action
-        tournamentService.multipleSeed(null, res, tournament, []);
+        var actual = tournamentService.multipleSeed(null, res, tournament, []);
         //assert
-        assert.deepEqual(res.json.getCall(0).args[0], tournament);
+        assert.deepEqual(actual, tournament);
     });
 
     it('should be able to add players to the existing list the tournament has', function(){
         //setup
         //action
-        tournamentService.multipleSeed(null, res, tournament, [{name:'larry'}]);
+        var actual = tournamentService.multipleSeed(null, res, tournament, [{name:'larry'}]);
         //assert
-        assert.deepEqual(res.json.getCall(0).args[0], {players:[{name:'larry'}]});
+        assert.deepEqual(actual, {players:[{name:'larry'}]});
     });
 
     it('should not be able to add the same player twice', function(){
         //setup
         //action
-        tournamentService.multipleSeed(null, res, tournament, [{name:'larry'}, {name:'larry'}]);
+        var actual = tournamentService.multipleSeed(null, res, tournament, [{name:'larry'}, {name:'larry'}]);
         //assert
-        assert.deepEqual(res.json.getCall(0).args[0], {players:[{name:'larry'}]});
+        assert.deepEqual(actual, {players:[{name:'larry'}]});
     });
 
     it('should not be able to add players w/ same nicks buth with different capitalization', function(){
         //setup
         //action
-        tournamentService.multipleSeed(null, res, tournament, [{name:'laRrY'}, {name:'larry'}]);
+        var actual = tournamentService.multipleSeed(null, res, tournament, [{name:'laRrY'}, {name:'larry'}]);
         //assert
-        assert.deepEqual(res.json.getCall(0).args[0], {players:[{name:'laRrY'}]});
+        assert.deepEqual(actual, {players:[{name:'laRrY'}]});
     });
 
     it('should not be able to add players w/ same nicks but w/ preceeding / trailing spaces', function(){
         //setup
         //action
-        tournamentService.multipleSeed(null, res, tournament, [{name:'\tlarry  '}, {name:'  larry'}]);
+        var actual = tournamentService.multipleSeed(null, res, tournament, [{name:'\tlarry  '}, {name:'  larry'}]);
         //assert
-        assert.deepEqual(res.json.getCall(0).args[0], {players:[{name:'larry'}]});
+        assert.deepEqual(actual, {players:[{name:'larry'}]});
     });
 
     it('should not be able to insert a nick that already exists in the list', function(){
         //setup
         tournament.players.push({name:'lArry'});
         //action
-        tournamentService.multipleSeed(null, res, tournament, [{name:'larry'}]);
+        var actual = tournamentService.multipleSeed(null, res, tournament, [{name:'larry'}]);
         //assert
-        assert.deepEqual(res.json.getCall(0).args[0], {players:[{name:'lArry'}]});
+        assert.deepEqual(actual, {players:[{name:'lArry'}]});
     });
 });
