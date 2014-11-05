@@ -371,6 +371,7 @@ module.exports = function (grunt) {
                         src: [
                             'package.json',
                             'bower.json',
+                            '.bowerrc',
                             'server.js',
                             'lib/**/*'
                         ]
