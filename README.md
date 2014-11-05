@@ -22,6 +22,14 @@ Then, once the app is configured to access your mongodb instance (via _/lib/conf
 * bower i
 
 although most cloud based platforms like Heroku / Nodejitsu should do this for you when you deploy, if you choose to use such a platform.
+
+The app runs on 'development' settings by default, if you want to enable gzip compression you need to set the NODE_ENV variable to 'production'. This is easily done in the NodeJitsu admin interface, and I guess it's as simple in the Heroku one. If you're just making some tests on a VM, you can enable the option as easily as changing the port :
+
+    user@host:/toodleRoot$ PORT=8080 NODE_ENV=production node server
+
+will start a toodle instance on port 8080 in with the NODE_ENV variable set to 'production'
+
+The version that we deploy on our test instance ([http://www.toodle.it](http://www.toodle.it)) is actually the result of the 'softBuild' grunt task which is then run through pm2 with production configuration (gzip compression enabled, no livereload ...). When run, this build outputs a 'dist' directory to the root of the project that can be scp-ed or sent to heroku/nodejitsu/what-have-you (the post-install task already runs bower install so deployment should not be an issue).
 # What do I need to run all tests in a CI tool ?
 It's fairly straightforward to run the unit tests, you just need to add a build step that runs : 
 
