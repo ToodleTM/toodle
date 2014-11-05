@@ -57,6 +57,7 @@ describe('Server Utils', function () {
             //assert
             assert.equal(res.json.getCall(0).args[0], 409);
             assert.equal(res.json.getCall(0).args[1].message, 'noNameField');
+            assert.equal(res.json.calledOnce, true);
         });
 
         it('should call multipleSeed if parsed players have a name', function () {
@@ -84,6 +85,8 @@ describe('Server Utils', function () {
             serverUtils.handleMultipleSeeding([{name: 'BillyBob'}], model, req, res, tournamentService, null);
             //assert
             assert.deepEqual(res.json.getCall(0).args[0], {});
+            assert.equal(res.json.calledOnce, true);
+
         });
 
         it('should return a 404 error if no tournament was found', function () {
@@ -104,6 +107,7 @@ describe('Server Utils', function () {
             //assert
             assert.equal(res.json.getCall(0).args[0], 404);
             assert.equal(res.json.getCall(0).args[1].message, 'noSuchTournament');
+            assert.equal(res.json.calledOnce, true);
         });
 
         it('should treat an exception from tournamentService.multipleSeed as the fact that the parsed file was not a CSV', function () {
@@ -134,6 +138,8 @@ describe('Server Utils', function () {
             //assert
             assert.equal(res.json.getCall(0).args[0], 409);
             assert.equal(res.json.getCall(0).args[1].message, 'notACSVFile');
+            assert.equal(res.json.calledOnce, true);
+
         });
     });
 

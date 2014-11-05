@@ -20,6 +20,7 @@ describe('Tournament locking / unlocking', function () {
         //assert
         assert.equal(res.json.getCall(0).args[0], tournament);
         assert.equal(model.update.calledOnce, true);
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should not be possible to unlock if tournament is running', function () {
@@ -33,7 +34,8 @@ describe('Tournament locking / unlocking', function () {
         tournamentService.unlockTournament(null, res, {running: true}, null);
         //assert
         assert.equal(res.json.getCall(0).args[0], 409);
-        assert.equal(res.json.getCall(0).args[1].message, 'cantUnlockRunningTournament')
+        assert.equal(res.json.getCall(0).args[1].message, 'cantUnlockRunningTournament');
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should be possible to unlock if tournament is not running', function () {
@@ -56,5 +58,6 @@ describe('Tournament locking / unlocking', function () {
         tournamentService.unlockTournament(null, res, tournament, model);
         //assert
         assert.equal(res.json.getCall(0).args[0], tournament);
+        assert.equal(res.json.calledOnce, true);
     });
 });

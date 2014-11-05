@@ -33,6 +33,7 @@ describe("Tournament Creation ", function () {
             assert.equal(mockEngineSpy.getCall(0).args[0][0].name, 'john');
             assert.equal(mockEngineSpy.getCall(0).args[0][1].name, 'mary');
             assert.equal(res.json.getCall(0).args[0].bracket.init, true);
+            assert.equal(res.json.calledOnce, true);
         });
 
         it('should be able to detect tournament engine errors @ init', function () {
@@ -56,6 +57,7 @@ describe("Tournament Creation ", function () {
             //assert
             assert.equal(res.json.getCall(0).args[0], 409);
             assert.equal(res.json.getCall(0).args[1].message, 'thisIsAnError');
+            assert.equal(res.json.calledOnce, true);
         });
 
         it('should reject tournament start request if no engine is specified', function () {
@@ -72,6 +74,7 @@ describe("Tournament Creation ", function () {
             //assert
             assert.equal(res.json.getCall(0).args[0], 409);
             assert.equal(res.json.getCall(0).args[1].message, 'noEngineSpecified');
+            assert.equal(res.json.calledOnce, true);
         });
 
         it('should save tournament bracket if bracket creation succeeds', function () {
@@ -113,6 +116,7 @@ describe("Tournament Creation ", function () {
             //assert
             assert.equal(res.json.getCall(0).args[0], 409);
             assert.equal(res.json.getCall(0).args[1].message, 'tournamentAlreadyRunning');
+            assert.equal(res.json.calledOnce, true);
         });
 
         it('Should not be able to start a tournament with no players', function () {
@@ -127,6 +131,7 @@ describe("Tournament Creation ", function () {
             //assert
             assert.equal(res.json.getCall(0).args[0], 409);
             assert.equal(res.json.getCall(0).args[1].message, 'noPlayers');
+            assert.equal(res.json.calledOnce, true);
         });
 
         it('should return an error if no matching tournament engine is found', function () {
@@ -146,6 +151,7 @@ describe("Tournament Creation ", function () {
             //assert
             assert.equal(res.json.getCall(0).args[0], 409);
             assert.equal(res.json.getCall(0).args[1].message, 'invalidTournamentEngine');
+            assert.equal(res.json.calledOnce, true);
         });
     });
     describe('Tournament Stop', function () {
@@ -167,6 +173,7 @@ describe("Tournament Creation ", function () {
             assert.notEqual(updateTournamentCall, null);
             assert.equal(updateTournamentCall.args[2].running, false);
             assert.equal(Object.keys(updateTournamentCall.args[2].bracket).length, 0);
+            assert.equal(res.json.calledOnce, true);
         });
         it('should not allow stopping a not running tournament', function () {
             //setup
@@ -182,6 +189,7 @@ describe("Tournament Creation ", function () {
             //assert
             assert.equal(res.json.getCall(0).args[0], 409);
             assert.equal(res.json.getCall(0).args[1].message, 'tournamentAlreadyStopped');
+            assert.equal(res.json.calledOnce, true);
         });
     });
 });

@@ -19,6 +19,7 @@ describe('Tournament Service', function () {
         tournamentService.saveTournament({body: {}}, res, model);
         //assert
         assert.equal(400, res.json.getCall(0).args[0]);
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should return admin and user URLs if save succeeds', function () {
@@ -39,5 +40,6 @@ describe('Tournament Service', function () {
         //assert
         assert.equal(res.json.getCall(0).args[0].adminURL, 'abc');
         assert.match(res.json.getCall(0).args[0].signupURL, /^tournamentName[0-9]+$/);
+        assert.equal(res.json.calledOnce, true);
     });
 });

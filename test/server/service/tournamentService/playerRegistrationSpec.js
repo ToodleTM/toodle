@@ -14,6 +14,7 @@ describe('Player registration', function () {
         //assert
         assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'noEmptyNick');
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should reject a player registration w/ a blank player name', function () {
@@ -28,6 +29,7 @@ describe('Player registration', function () {
         //assert
         assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'noEmptyNick');
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should reject a player registration if tournament is locked', function () {
@@ -42,6 +44,7 @@ describe('Player registration', function () {
         //assert
         assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'registrationLocked');
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should not allow registration of the same player twice (strict)', function () {
@@ -58,6 +61,7 @@ describe('Player registration', function () {
         //assert
         assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'noDuplicateNick');
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should not allow registration of the same player twice (using mixed capitalization in nick)', function () {
@@ -74,6 +78,7 @@ describe('Player registration', function () {
         //assert
         assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'noDuplicateNick');
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should allow registration when nick is not empty and unused', function () {
@@ -92,6 +97,7 @@ describe('Player registration', function () {
         //assert
         assert.equal(res.json.getCall(0).args[0].players[0].name, 'titi');
         assert.equal(res.json.getCall(0).args[0].players[1].name, 'toto');
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should return an error if new nick is valid but the app can t save', function () {
@@ -109,6 +115,7 @@ describe('Player registration', function () {
         //assert
         assert.equal(res.json.getCall(0).args[0], 500);
         assert.equal(res.json.getCall(0).args[1].message, 'saveError');
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should allow player add when using the admin id even if tournament is locked', function () {
@@ -124,6 +131,7 @@ describe('Player registration', function () {
         }}, true);
         //assert
         assert.equal(res.json.getCall(0).args[0].players[0].name, 'MAdJoHn_37658');
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should not allow player registration if tournament is in progress (running)', function () {
@@ -140,6 +148,7 @@ describe('Player registration', function () {
         //assert
         assert.equal(res.json.getCall(0).args[0], 409);
         assert.equal(res.json.getCall(0).args[1].message, 'tournamentAlreadyRunning');
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should be able to register a player w/ faction data', function(){
@@ -159,6 +168,7 @@ describe('Player registration', function () {
         //assert
         assert.deepEqual(res.json.getCall(0).args[0], tournament);
         assert.equal(tournament.players[0].faction, 'murloc');
+        assert.equal(res.json.calledOnce, true);
     })
 });
 
@@ -182,6 +192,7 @@ describe('Unregister player', function(){
         tournamentService.unregisterPlayer(req, res, tournament);
         //assert
         assert.deepEqual(res.json.getCall(0).args[0].players, []);
+        assert.equal(res.json.calledOnce, true);
     });
     it('should be able to unregister a player whose nick matches strictly the one of a registered player in a tournament', function(){
         //setup
@@ -203,6 +214,7 @@ describe('Unregister player', function(){
         //assert
         assert.deepEqual(res.json.getCall(0).args[0].players, []);
         assert.equal(tournament.save.calledOnce, true);
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should be able to unregister a player whose _trimmed_ nick matches strictly the one of a registered player in a tournament', function(){
@@ -225,6 +237,7 @@ describe('Unregister player', function(){
         //assert
         assert.deepEqual(res.json.getCall(0).args[0].players, []);
         assert.equal(tournament.save.calledOnce, true);
+        assert.equal(res.json.calledOnce, true);
     });
 
     it('should refuse to remove a player from a started tournament', function(){
@@ -244,6 +257,7 @@ describe('Unregister player', function(){
         //assert
         assert.equal(res.json.getCall(0).args[0], 409);
         assert.equal(res.json.getCall(0).args[1].message, 'cantRemovePlayerWhileRunning');
+        assert.equal(res.json.calledOnce, true);
     });
 
 });

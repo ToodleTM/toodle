@@ -34,6 +34,7 @@ describe('Tournament management', function () {
                 tournamentService.getMatchesToReport(null, res, {});
                 //assert
                 assert.equal(res.json.getCall(0).args[0].length, 0);
+                assert.equal(res.json.calledOnce, true);
             });
 
             it('should return an error if engine call failed for some reason', function () {
@@ -53,6 +54,7 @@ describe('Tournament management', function () {
                 //assert
                 assert.equal(res.json.getCall(0).args[0], 409);
                 assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
+                assert.equal(res.json.calledOnce, true);
             });
 
             it('should correctly handle an uncatched exception', function () {
@@ -72,6 +74,7 @@ describe('Tournament management', function () {
                 //assert
                 assert.equal(res.json.getCall(0).args[0], 500);
                 assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
+                assert.equal(res.json.calledOnce, true);
             });
 
             it('should return an empty list if no tournament engine is specified', function () {
@@ -80,15 +83,17 @@ describe('Tournament management', function () {
                 tournamentService.getMatchesToReport(null, res, {});
                 //assert
                 assert.equal(res.json.getCall(0).args[0].length, 0);
+                assert.equal(res.json.calledOnce, true);
             });
 
             it('should return an error if no engine is found', function () {
                 //setup
                 //action
-                tournamentService.getMatchesToReport(null, res, {engine: 'some engine'})
+                tournamentService.getMatchesToReport(null, res, {engine: 'some engine'});
                 //assert
                 assert.equal(res.json.getCall(0).args[0], 500);
                 assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
+                assert.equal(res.json.calledOnce, true);
             });
         });
         describe('reportMatch', function () {
@@ -110,6 +115,7 @@ describe('Tournament management', function () {
                 assert.equal(res.json.getCall(0).args[0], 409);
                 assert.equal(res.json.getCall(0).args[1].error, 'errorReportingMatch');
                 assert.equal(res.json.getCall(0).args[1].message, 'this is an error message from the engine');
+                assert.equal(res.json.calledOnce, true);
             });
 
             it('should report a detailed error when tournament update fails', function () {
@@ -135,6 +141,7 @@ describe('Tournament management', function () {
                 assert.equal(res.json.getCall(0).args[0], 500);
                 assert.equal(res.json.getCall(0).args[1].error, 'errorReportingMatch');
                 assert.equal(res.json.getCall(0).args[1].message, 'Tournament update failed!');
+                assert.equal(res.json.calledOnce, true);
             });
         });
     });
@@ -156,6 +163,7 @@ describe('Tournament management', function () {
                 tournamentService.getMatchesToUnreport(null, res, {});
                 //assert
                 assert.equal(res.json.getCall(0).args[0].length, 0);
+                assert.equal(res.json.calledOnce, true);
             });
 
             it('should return an error if engine call failed for some reason', function () {
@@ -175,6 +183,7 @@ describe('Tournament management', function () {
                 //assert
                 assert.equal(res.json.getCall(0).args[0], 409);
                 assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToUnreport');
+                assert.equal(res.json.calledOnce, true);
             });
 
             it('should correctly handle an uncatched exception', function () {
@@ -194,6 +203,7 @@ describe('Tournament management', function () {
                 //assert
                 assert.equal(res.json.getCall(0).args[0], 500);
                 assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToUnreport');
+                assert.equal(res.json.calledOnce, true);
             });
             it('should return an empty list if no tournament engine is specified', function () {
                 //setup
@@ -201,6 +211,7 @@ describe('Tournament management', function () {
                 tournamentService.getMatchesToUnreport(null, res, {});
                 //assert
                 assert.equal(res.json.getCall(0).args[0].length, 0);
+                assert.equal(res.json.calledOnce, true);
             });
         });
         describe('unreportMatch', function () {
@@ -222,6 +233,7 @@ describe('Tournament management', function () {
                 assert.equal(res.json.getCall(0).args[0], 409);
                 assert.equal(res.json.getCall(0).args[1].error, 'errorUnreportingMatch');
                 assert.equal(res.json.getCall(0).args[1].message, 'this is an error message from engine.unreport');
+                assert.equal(res.json.calledOnce, true);
             });
 
             it('should return a specific error if tournament unreport could not be saved', function () {
@@ -247,6 +259,7 @@ describe('Tournament management', function () {
                 assert.equal(res.json.getCall(0).args[0], 500);
                 assert.equal(res.json.getCall(0).args[1].error, 'errorUnreportingMatch');
                 assert.equal(res.json.getCall(0).args[1].message, 'Tournament update failed!');
+                assert.equal(res.json.calledOnce, true);
             });
         });
     });
@@ -276,6 +289,7 @@ describe('Tournament management', function () {
             //assert
             assert.deepEqual(res.json.getCall(0).args[0].players, tournament.players);
             assert.equal(tournament.save.called, false);
+            assert.equal(res.json.calledOnce, true);
         });
 
         it('should return an error if the player to move next to can t be found', function () {
@@ -302,6 +316,7 @@ describe('Tournament management', function () {
             //assert
             assert.equal(res.json.getCall(0).args[0], 409);
             assert.equal(res.json.getCall(0).args[1].message, 'playerToMoveNextToDoesNotExist');
+            assert.equal(res.json.calledOnce, true);
         });
 
         it('should move player next to the target if both nicks are in the players list of the tournament', function () {
@@ -329,6 +344,7 @@ describe('Tournament management', function () {
             //assert
             assert.deepEqual(res.json.getCall(0).args[0].players, [{name: 'johnny'}, {name: 'player'}, {name: 'otherPlayer'}]);
             assert.equal(tournament.save.calledOnce, true);
+            assert.equal(res.json.calledOnce, true);
         });
 
         it('should be able to move a player to the last spot in the list (i.e : target is null and player does exist)', function () {
@@ -356,6 +372,7 @@ describe('Tournament management', function () {
             //assert
             assert.deepEqual(res.json.getCall(0).args[0].players, [{name: 'johnny'}, {name: 'otherPlayer'}, {name: 'player'}])
             assert.equal(tournament.save.calledOnce, true);
+            assert.equal(res.json.calledOnce, true);
         });
 
         it('should return an error if we try to change players order in a running tournament', function () {
@@ -377,6 +394,7 @@ describe('Tournament management', function () {
             //assert
             assert.equal(res.json.getCall(0).args[0], 409);
             assert.equal(res.json.getCall(0).args[1].message, 'unableToChangeOrderWhileTournamentIsLive');
+            assert.equal(res.json.calledOnce, true);
         });
     });
 });
