@@ -67,16 +67,6 @@ angular.module('toodleApp')
                 }
                 updateMatchesToReport();
                 updateMatchesToUnreport();
-                //$http.get('/api/tournament/matchesToUnreport?tournamentId=' + $scope.tournamentInfo._id)
-                //    .success(function (data) {
-                //        $scope.gamesToUnreport = data;
-                //        if (data.length > 0) {
-                //            $scope.gameToUnreport = $scope.gamesToUnreport[0];
-                //            $scope.unreportNumber = $scope.gameToUnreport.number;
-                //        }
-                //    })
-                //    .error(function (err) {
-                //    });
             })
             .error(function (error, status) {
                 $("#content *").hide();
