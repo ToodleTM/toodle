@@ -1,12 +1,12 @@
 'use strict';
-
 angular.module('toodleApp', [
     'ngCookies',
     'ngResource',
     'ngSanitize',
     'ngRoute',
     'pascalprecht.translate',
-    'angularFileUpload'
+    'angularFileUpload',
+    'ngCookies'
 ])
     .config(function ($routeProvider, $locationProvider, $httpProvider, $translateProvider) {
         $routeProvider

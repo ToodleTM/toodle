@@ -127,3 +127,34 @@ body {
   padding: 5px;
   width: 100%;
 }
+
+.toodle-header{
+  position:relative;
+}
+
+.toodle-title {
+  margin-top:0;
+  margin-bottom:0;
+  line-height:40px;
+  padding-bottom:19px;
+  font-size:24px;
+  text-decoration: none;
+  &:hover{
+    text-decoration: none;
+  }
+  &:link{
+    text-decoration: none;
+  }
+  &:visited{
+    text-decoration: none;
+  }
+  &:active{
+    text-decoration: none;
+  }
+}
+
+.toodle-select-language{
+  position:absolute;
+  right:0;
+  top:5px;
+}
