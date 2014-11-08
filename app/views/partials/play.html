@@ -20,7 +20,7 @@
         <fieldset>
 
             <legend>{{ 'play.infos' | translate }}</legend>
-            <p>
+            <p ng-show="tournamentInfo.running">
                 <a ng-href="/bracket/{{ tournamentInfo.signupID }}/">{{ 'play.bracket' | translate }}</a>
             </p>
             <div class="row">

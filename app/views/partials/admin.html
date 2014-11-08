@@ -17,7 +17,7 @@
 
 <button id="runTournament" data-toggle="modal" data-target="#runModal"
         class="btn {{ tournamentInfo.running ? 'btn-success' : 'btn-danger'}}"
-        title="{{ tournamentInfo.running ? 'admin.actions.run.runningTooltip' : 'admin.actions.run.notRunningTooltip' | translate }}">
+        title="{{ !tournamentInfo.running ? 'admin.actions.run.runningTooltip' : 'admin.actions.run.notRunningTooltip' | translate }}">
     {{ tournamentInfo.running ? 'admin.actions.run.running' : 'admin.actions.run.notRunning' | translate }}
 </button>
 
