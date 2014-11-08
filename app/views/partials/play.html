@@ -53,6 +53,13 @@
                               ng-model="tournamentInfo.description" disabled></textarea>
                 </div>
             </div>
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label class="control-label" for="startDate">{{ 'admin.form.startDate' | translate }}</label>
+                    <input type="text" id="startDate" name="startDate" class="form-control"
+                              ng-model="tournamentInfo.startDate" disabled />
+                </div>
+            </div>
         </fieldset>
         <fieldset ng-show="!tournamentInfo.locked">
             <legend>{{ 'play.enter.register' | translate }}</legend>

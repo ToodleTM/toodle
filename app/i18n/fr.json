@@ -32,7 +32,8 @@
             "roundFormats": "Format des rounds",
             "numberOfPlayers": "Nombre de joueurs",
             "submit": "Valider les changements",
-            "game": "Jeu"
+            "game": "Jeu",
+            "startDate":"Date de début"
         },
         "actions": {
             "lock": "Fermer les inscriptions",
@@ -110,8 +111,8 @@
     "play": {
         "intro": "Ceci est la page de tournoi. Tu peux t'y inscrire tant qu'il n'est pas commencé et consulter la liste des joueurs. Une fois le tournoi commencé tu peux aussi y revenir pour enregistrer tes résultats ou t'informer sur son déroulement.",
         "header": {
-            "tournament": "Tournoi",
-            "playPage": "page"
+            "tournament": "Page d'administration du tournoi",
+            "playPage": ""
         },
         "enter": {
             "go": "Go!",

@@ -32,7 +32,8 @@
       "roundFormats": "Round formats",
       "numberOfPlayers": "Number of players",
       "submit": "Submit changes",
-      "game": "Game"
+      "game": "Game",
+      "startDate": "Start date"
     },
     "actions": {
       "lock": "Lock registrations",

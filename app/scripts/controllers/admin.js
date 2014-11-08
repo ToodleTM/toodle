@@ -6,6 +6,8 @@ angular.module('toodleApp')
         $scope.nick = '';
         $scope.playerList = null;
 
+        $("#tournamentStart").datepicker({minDate: 0, maxDate: "+12M", showButtonPanel: true});
+
         //using the basic example for ng-file-upload directive (https://www.npmjs.org/package/angular-file-upload),
         // works like a charm but beware of where to load the directive (if I do it just for that controller,
         // the admin view won't load anymore, had to do it in the main app script, like for I18N for example)
@@ -40,6 +42,7 @@ angular.module('toodleApp')
             .success(function (data, status, error) {
                 $scope.tournamentInfo = data;
                 $scope.playerList = $scope.tournamentInfo.players;
+                $scope.tournamentStartDate = $scope.tournamentInfo.startDate;
                 $("#sortablePlayerList").sortable({
                     revert: true,
                     stop: function (event, objectMoved) {
@@ -81,6 +84,7 @@ angular.module('toodleApp')
         $scope.updateTourney = function () {
             $("#tourneyUpdateOk").hide();
             $("#tourneyUpdateKo").hide();
+            $scope.tournamentInfo.startDate = $scope.tournamentStartDate;
             $http.put('/api/tournament/admin/update/?id=' + tournamentId, $scope.tournamentInfo)
                 .success(function (data) {
                     $scope.tournamentInfo = data;
@@ -145,7 +149,6 @@ angular.module('toodleApp')
                     }
                 })
                 .error(function (err) {
-                    console.log(err);
                 });
         }
         $scope.toggleStart = function () {
