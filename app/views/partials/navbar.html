@@ -1,15 +1,21 @@
 <div class="header toodle-header" ng-controller="NavbarCtrl">
-  <!--<ul class="nav nav-pills pull-right">-->
+    <!--<ul class="nav nav-pills pull-right">-->
     <!--<li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">-->
-        <!--<a ng-href="{{item.link}}">{{item.title}}</a>-->
+    <!--<a ng-href="{{item.link}}">{{item.title}}</a>-->
     <!--</li>-->
     <!--<li ng-hide="currentUser" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li>-->
     <!--<li ng-hide="currentUser" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>-->
     <!--<li ng-show="currentUser" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>-->
-  <!--</ul>-->
-  <a href="/" class="toodle-title text-muted" translate="header.title"></a>
-  <select class="toodle-select-language" id="language" ng-model="selectedLanguage">
-    <option value="en">EN</option>
-    <option value="fr">FR</option>
-  </select>
+    <!--</ul>-->
+    <div class="row">
+    <div class="form-group col-sm-9">
+        <a href="/" class="toodle-title text-muted" translate="header.title"></a>
+    </div>
+    <div class="form-group col-sm-2">
+        <select class="toodle-select-language form-control ng-pristine" id="language" ng-model="selectedLanguage">
+            <option value="en">EN</option>
+            <option value="fr">FR</option>
+        </select>
+    </div>
+    </div>
 </div>

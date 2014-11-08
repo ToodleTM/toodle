@@ -97,8 +97,8 @@
             "fileMustBeCSV":"le fichier doit être au format CSV"
         },
         "update": {
-            "success": "Tournament specs successfully updated",
-            "fail": "Something went wrong updating this tournament."
+            "success": "Les détails du tournoi ont été mis à jour",
+            "fail": "Un problème est survenu en mettant à jour les détails du tournoi."
         },
         "error": {
             "noSuchTournament": "Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi.",
@@ -136,8 +136,8 @@
             "buttonCaption": "Enregistrer le match",
             "description": "Enregistres le résultat d'un match que tu as joué pendant le tournoi"
         },
-        "noGame": "No game specified",
-        "noGameType": "No game type specified",
+        "noGame": "Pas de jeu renseigné",
+        "noGameType": "Pas de type d'arbre renseigné",
         "infos": "Voici les infos de ce tournoi",
         "bracket":"L'arbre"
     },
