@@ -78,7 +78,8 @@
           "alreadyReported": "This match has already been reported. If you want to edit it you must unreport and then report it again",
           "numberlessMatchNotAllowed": "No match number was provided, unable to report.",
           "invalidScores": "Please use integers when reporting score",
-          "nextMatchDoesNotExist": "Could not find the next match"
+          "nextMatchDoesNotExist": "Could not find the next match",
+          "winnerMustHaveHigherScore":"Winning player must have a higher score"
         }
       },
       "addPlayer": "Add a new player",

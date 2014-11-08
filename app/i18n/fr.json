@@ -78,7 +78,8 @@
                     "alreadyReported":"Ce match a déjà été enregistré. Pour pouvoir l'éditer, tu dois d'abord unreport le match puis le ré-enregistrer.",
                     "numberlessMatchNotAllowed":"Aucun numéro de match fourni, impossible d'effectuer l'opération.",
                     "invalidScores":"Utilises des entiers pour inscrire le score.",
-                    "nextMatchDoesNotExist":"Impossible de trouver le match suivant"
+                    "nextMatchDoesNotExist":"Impossible de trouver le match suivant",
+                    "winnerMustHaveHigherScore":"Le gagnant doit avoir un meilleur score que le perdant"
                 }
             },
             "addPlayer": "Ajouter un joueur au tournoi",

@@ -371,8 +371,17 @@ describe('SingleElim engine', function () {
                 delete actualBracket[3];
                 //action
                 engine.reportWin(1, 2, 1, actualBracket, callbackSpy);
-                //assert\
+                //assert
                 assert.equal(callbackSpy.getCall(1).args[0].message, 'nextMatchDoesNotExist');
+            });
+
+            it('should return an error if we report a match of players w/ the same score', function(){
+                //setup
+                engine.initBracket([john, jane, bob, alice], callbackSpy);
+                //action
+                engine.reportWin(1, 1, 1, actualBracket, callbackSpy);
+                //assert
+                assert.equal(callbackSpy.getCall(1).args[0].message, 'winnerMustHaveHigherScore');
             });
         });
     });
