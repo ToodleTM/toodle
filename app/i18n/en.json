@@ -33,7 +33,13 @@
       "numberOfPlayers": "Number of players",
       "submit": "Submit changes",
       "game": "Game",
-      "startDate": "Start date"
+      "startDate": "Start date",
+      "userPrivileges":{
+        "title":"Non-admin user privileges",
+        "atWill":"Report / unreport at will",
+        "reportOnly":"Report only",
+        "nothing":"Neither report nor unreport"
+      }
     },
     "actions": {
       "lock": "Lock registrations",
@@ -80,7 +86,8 @@
           "numberlessMatchNotAllowed": "No match number was provided, unable to report.",
           "invalidScores": "Please use integers when reporting score",
           "nextMatchDoesNotExist": "Could not find the next match",
-          "winnerMustHaveHigherScore":"Winning player must have a higher score"
+          "winnerMustHaveHigherScore":"Winning player must have a higher score",
+          "insufficientPrivileges":"You are not allowed do that"
         }
       },
       "addPlayer": "Add a new player",

@@ -137,7 +137,7 @@
     <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
             aria-hidden="true">&times;</span><span
             class="sr-only">Close</span></button>
-    {{ 'admin.update.fail' | translate }} (Reason : {{ 'admin.actions.run.'+errorMessage | translate }})
+    {{ 'admin.update.fail' | translate }} ({{ 'admin.actions.run.'+errorMessage | translate }})
 </div>
 
 <p>{{ 'admin.intro' | translate }}</p>
@@ -186,7 +186,7 @@
             <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
                     aria-hidden="true">&times;</span><span
                     class="sr-only">Close</span></button>
-            {{ 'admin.actions.reporting.reportingKo' | translate }} (Reason : {{
+            {{ 'admin.actions.reporting.reportingKo' | translate }} ({{
             'admin.actions.reporting.errors.'+errorMessage.message | translate}})
         </div>
     </div>
@@ -210,7 +210,7 @@
             <div class="form-group col-sm-6">
                 <label class="control-label" for="engine">{{'admin.form.engine' | translate}}</label>
 
-                <select id="engine" name="engine" class="form-control" ng-model="tournamentInfo.engine">
+                <select id="engine" name="engine" class="form-control" ng-model="tournamentInfo.engine" required="required">
                     <option value=""></option>
                     <option value="singleElim">Single elim. bracket</option>
                     <option value="2">Single elim. bracket w/ 3rd place decider</option>
@@ -225,10 +225,29 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-sm-12">
+            <div class="form-group col-sm-6">
                 <label class="control-label" for="tournamentStart">{{ 'admin.form.startDate'| translate}}</label>
                 <input type="text" id="tournamentStart"  class="form-control" ng-model="tournamentStartDate"/>
             </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label" for="reportRights">{{ 'admin.form.userPrivileges.title' | translate}}</label>
+                <div class="controls" id="reportRights" style="margin-left:20px;">
+                    <label class="radio" for="reportRights-0">
+                        <input type="radio" name="reportRights" id="reportRights-0" value="3" ng-model="tournamentInfo.userPrivileges" required="required">
+                        {{ 'admin.form.userPrivileges.atWill' | translate}}
+                    </label>
+                    <label class="radio" for="reportRights-1">
+                        <input type="radio" name="reportRights" id="reportRights-1" value="2" ng-model="tournamentInfo.userPrivileges" required="required">
+                        {{ 'admin.form.userPrivileges.reportOnly' | translate}}
+                    </label>
+                    <label class="radio" for="reportRights-2">
+                        <input type="radio" name="reportRights" id="reportRights-2" value="1" ng-model="tournamentInfo.userPrivileges" required="required">
+                        {{ 'admin.form.userPrivileges.nothing' | translate}}
+                    </label>
+                </div>
+            </div>
+
         </div>
         <div class="row">
             <div class="form-group col-sm-12">
@@ -249,7 +268,7 @@
     <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
             aria-hidden="true">&times;</span><span
             class="sr-only">Close</span></button>
-    {{ 'admin.update.fail' | translate }} (Reason : {{errorMessage}})
+    {{ 'admin.update.fail' | translate }} ({errorMessage}})
 </div>
 <fieldset ng-show="!tournamentInfo.running">
     <div class="row">
@@ -283,7 +302,7 @@
             <div id="registrationKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
                 <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
                         aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                {{ 'play.register.fail' | translate }} (Reason : {{ 'play.register.errors.'+errorMessage | translate }})
+                {{ 'play.register.fail' | translate }} ({{ 'play.register.errors.'+errorMessage | translate }})
             </div>
         </div>
         <div class="form-group col-sm-6">
@@ -311,7 +330,7 @@
             <div id="multipleRegistrationKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
                 <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
                         aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                {{ 'play.register.fail' | translate }} (Reason : {{ 'admin.error.'+errorMessage | translate }})
+                {{ 'play.register.fail' | translate }} ({{ 'admin.error.'+errorMessage | translate }})
             </div>
         </div>
     </div>

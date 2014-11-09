@@ -7,23 +7,30 @@ describe("Tournament Creation ", function () {
         it('should use a tournament engine to create tournament bracket and return the created bracket', function () {
             //setup
             var tournamentService = new TournamentService();
-            var mockEngine = {initBracket: function (players, callback) {
-                callback(null, {init: true});
-            }};
+            var mockEngine = {
+                initBracket: function (players, callback) {
+                    callback(null, {init: true});
+                }
+            };
             var mockEngineSpy = sinon.spy(mockEngine, 'initBracket');
             var getTournamentEngineStub = sinon.stub().returns(mockEngine);
             tournamentService.getTournamentEngine = getTournamentEngineStub;
-            var tournament = {engine: 'tournamentEngine', players: [
-                {name: 'john'},
-                {name: 'mary'}
-            ], save: function () {
-                return res.json({init: true})
-            }};
+            var tournament = {
+                userPrivileges:1,
+                engine: 'tournamentEngine', players: [
+                    {name: 'john'},
+                    {name: 'mary'}
+                ], save: function () {
+                    return res.json({init: true})
+                }
+            };
             tournamentService.updateTournament = function (req, res, tournament, callback) {
                 callback(null, tournament);
             };
-            var res = {json: function () {
-            }};
+            var res = {
+                json: function () {
+                }
+            };
             sinon.spy(res, 'json');
             //action
             tournamentService.startTournament({}, res, tournament);
@@ -39,18 +46,25 @@ describe("Tournament Creation ", function () {
         it('should be able to detect tournament engine errors @ init', function () {
             //setup
             var tournamentService = new TournamentService();
-            var mockEngine = {initBracket: function (players, callback) {
-                callback({message: 'thisIsAnError'}, null);
-            }};
+            var mockEngine = {
+                initBracket: function (players, callback) {
+                    callback({message: 'thisIsAnError'}, null);
+                }
+            };
             var getTournamentEngineStub = sinon.stub().returns(mockEngine);
             tournamentService.getTournamentEngine = getTournamentEngineStub;
-            var tournament = {engine: 'tournamentEngine', players: [
-                {name: 'john'},
-                {name: 'mary'}
-            ], save: function () {
-            }};
-            var res = {json: function () {
-            }};
+            var tournament = {
+                userPrivileges:1,
+                engine: 'tournamentEngine', players: [
+                    {name: 'john'},
+                    {name: 'mary'}
+                ], save: function () {
+                }
+            };
+            var res = {
+                json: function () {
+                }
+            };
             sinon.spy(res, 'json');
             //action
             tournamentService.startTournament({}, res, tournament);
@@ -63,11 +77,15 @@ describe("Tournament Creation ", function () {
         it('should reject tournament start request if no engine is specified', function () {
             //setup
             var tournamentService = new TournamentService();
-            var tournament = {engine: null, players: [
-                {name: 'john'}
-            ]};
-            var res = {json: function () {
-            }};
+            var tournament = {
+                engine: null, players: [
+                    {name: 'john'}
+                ]
+            };
+            var res = {
+                json: function () {
+                }
+            };
             sinon.spy(res, 'json');
             //action
             tournamentService.startTournament({}, res, tournament);
@@ -80,19 +98,26 @@ describe("Tournament Creation ", function () {
         it('should save tournament bracket if bracket creation succeeds', function () {
             //setup
             var tournamentService = new TournamentService();
-            var mockEngine = {initBracket: function (players, callback) {
-                callback(null, {init: true});
-            }};
+            var mockEngine = {
+                initBracket: function (players, callback) {
+                    callback(null, {init: true});
+                }
+            };
             sinon.spy(mockEngine, 'initBracket');
             var getTournamentEngineStub = sinon.stub().returns(mockEngine);
             tournamentService.getTournamentEngine = getTournamentEngineStub;
-            var tournament = {engine: 'tournamentEngine', players: [
-                {name: 'john'},
-                {name: 'mary'}
-            ], save: function () {
-            }};
-            var res = {json: function () {
-            }};
+            var tournament = {
+                userPrivileges:1,
+                engine: 'tournamentEngine', players: [
+                    {name: 'john'},
+                    {name: 'mary'}
+                ], save: function () {
+                }
+            };
+            var res = {
+                json: function () {
+                }
+            };
             sinon.spy(res, 'json');
             sinon.spy(tournamentService, 'updateTournament');
             //action
@@ -108,8 +133,10 @@ describe("Tournament Creation ", function () {
             //setup
             var tournamentService = new TournamentService();
             var tournament = {running: true};
-            var res = {json: function () {
-            }};
+            var res = {
+                json: function () {
+                }
+            };
             sinon.spy(res, 'json');
             //action
             tournamentService.startTournament({}, res, tournament);
@@ -123,8 +150,10 @@ describe("Tournament Creation ", function () {
             //setup
             var tournamentService = new TournamentService();
             var tournament = {};
-            var res = {json: function () {
-            }};
+            var res = {
+                json: function () {
+                }
+            };
             sinon.spy(res, 'json');
             //action
             tournamentService.startTournament({}, res, tournament);
@@ -137,11 +166,16 @@ describe("Tournament Creation ", function () {
         it('should return an error if no matching tournament engine is found', function () {
             //setup
             var tournamentService = new TournamentService();
-            var tournament = {players: [
-                {name: 'bob'}
-            ], engine: 'some engine'};
-            var res = {json: function () {
-            }};
+            var tournament = {
+                userPrivileges:1,
+                players: [
+                    {name: 'bob'}
+                ], engine: 'some engine'
+            };
+            var res = {
+                json: function () {
+                }
+            };
             tournamentService.getTournamentEngine = function () {
                 return null
             };
@@ -153,16 +187,48 @@ describe("Tournament Creation ", function () {
             assert.equal(res.json.getCall(0).args[1].message, 'invalidTournamentEngine');
             assert.equal(res.json.calledOnce, true);
         });
+
+        it('should return an error if no userPrivileges are set when starting the tournament', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var tournament = {
+                players: [
+                    {name: 'bob'}
+                ], engine: 'some engine'
+            };
+            var res = {
+                json: function () {
+                }
+            };
+            var mockEngine = {
+                initBracket: function (players, callback) {
+                    callback(null, {init: true});
+                }
+            };
+            sinon.spy(mockEngine, 'initBracket');
+            var getTournamentEngineStub = sinon.stub().returns(mockEngine);
+            tournamentService.getTournamentEngine = getTournamentEngineStub;
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.startTournament({}, res, tournament);
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[1].message, 'userPrivilegesMustBeSpecified');
+        });
     });
     describe('Tournament Stop', function () {
         it('should be able to stop the tournament if it s running', function () {
             //setup
             var tournamentService = new TournamentService();
-            var tournament = {running: true, save: function (callback) {
-                callback(null);
-            }};
-            var res = {json: function () {
-            }};
+            var tournament = {
+                running: true, save: function (callback) {
+                    callback(null);
+                }
+            };
+            var res = {
+                json: function () {
+                }
+            };
             sinon.spy(res, 'json');
             sinon.spy(tournamentService, 'updateTournament');
             //action
@@ -178,11 +244,15 @@ describe("Tournament Creation ", function () {
         it('should not allow stopping a not running tournament', function () {
             //setup
             var tournamentService = new TournamentService();
-            var tournament = {running: false, save: function (callback) {
-                callback(null);
-            }};
-            var res = {json: function () {
-            }};
+            var tournament = {
+                running: false, save: function (callback) {
+                    callback(null);
+                }
+            };
+            var res = {
+                json: function () {
+                }
+            };
             sinon.spy(res, 'json');
             //action
             tournamentService.stopTournament({}, res, tournament);

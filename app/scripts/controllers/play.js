@@ -46,6 +46,14 @@ angular.module('toodleApp')
                 });
         }
 
+        $scope.playerCanReport = function(){
+            return $scope.tournamentInfo ? $scope.tournamentInfo.userPrivileges > 1: false;
+        };
+
+        $scope.playerCanUnreport = function(){
+            return $scope.tournamentInfo ? $scope.tournamentInfo.userPrivileges > 2 : false;
+        };
+
         $scope.enterTournament = function () {
             $("#registrationKo").hide();
             $("#registrationOk").hide();
@@ -70,6 +78,7 @@ angular.module('toodleApp')
             }).success(function (data) {
                 updateMatchesToReport();
                 updateMatchesToUnreport();
+                $("#tourneyReportingOk").show();
                 $scope.tournamentInfo = data;
             }).error(function (data) {
                 $scope.errorMessage = data;
@@ -86,6 +95,7 @@ angular.module('toodleApp')
             }).success(function (data) {
                 updateMatchesToReport();
                 updateMatchesToUnreport();
+                $("#tourneyReportingOk").show();
                 $scope.tournamentInfo = data;
             }).error(function (data) {
                 $scope.errorMessage = data;

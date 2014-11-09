@@ -85,8 +85,8 @@
     <p>{{ 'play.intro' | translate }}</p>
 
     <fieldset ng-show="tournamentInfo.running">
-        <legend> {{ 'admin.actions.reporting.title' | translate }}</legend>
-        <div class="form-group col-sm-6">
+        <legend ng-show="playerCanReport()"> {{ 'admin.actions.reporting.title' | translate }}</legend>
+        <div class="form-group col-sm-6" ng-show="playerCanReport()">
             <label class="control-label" for="reportGame">{{ 'admin.actions.reporting.reportMatch' | translate }}</label>
 
             <select id="reportGame" name="reportGame" class="form-control" ng-model="firstGameToReport"
@@ -99,7 +99,7 @@
             </button>
         </div>
 
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-6" ng-show="playerCanUnreport()">
             <label class="control-label" for="unreportGame">{{ 'admin.actions.reporting.unreportMatch' | translate
                 }}</label>
 
@@ -123,7 +123,7 @@
                 <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
                         aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
-                {{ 'admin.actions.reporting.reportingKo' | translate }} (Reason : {{
+                {{ 'admin.actions.reporting.reportingKo' | translate }} ({{
                 'admin.actions.reporting.errors.'+errorMessage.message | translate}})
             </div>
         </div>
@@ -198,7 +198,7 @@
             </div>
             <div id="registrationKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
                 <button type="button" class="close alert-fix-close" data-dismiss="alert" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                {{ 'play.register.fail' | translate }} (Reason : {{ 'play.register.errors.'+errorMessage | translate }})
+                {{ 'play.register.fail' | translate }} ({{ 'play.register.errors.'+errorMessage | translate }})
             </div>
         </fieldset>
         <fieldset id="playersList" ng-model="playerList">

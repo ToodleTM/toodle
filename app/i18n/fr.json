@@ -33,7 +33,13 @@
             "numberOfPlayers": "Nombre de joueurs",
             "submit": "Valider les changements",
             "game": "Jeu",
-            "startDate":"Date de début"
+            "startDate":"Date de début",
+            "userPrivileges":{
+                "title":"Privilèges pour les non-administrateurs",
+                "atWill":"Report / unreport",
+                "reportOnly":"Seulement report",
+                "nothing":"Aucun des deux"
+            }
         },
         "actions": {
             "lock": "Fermer les inscriptions",
@@ -56,7 +62,7 @@
                 "noPlayers": "Aucun joueur enregistré. Aucun intérêt à démarrer le tournoi.",
                 "invalidTournamentEngine":"le moteur de règles demandé n'est pas dsponible",
                 "notFound":"Tournament does not exist",
-                "cantUnlockRunningTournament":"You can't unlock registrations to a running tournament."
+                "cantUnlockRunningTournament":"Il n'est pas possible d'accepter de nouveaux joueurs une fois le tournoi commencé."
             },
             "reporting":{
                 "title":"Reporting",
@@ -73,14 +79,15 @@
                 "reportingKo":"Échec du reporting",
                 "errors":{
                     "cantUnreportUnknownMatch":"Impossible de report un match qui n'existe pas pour ce tournoi",
-                    "cantUnreportIncompleteMatch":"Imp[ossible d'annuler un match qui n'a pas encore été joué",
+                    "cantUnreportIncompleteMatch":"Impossible d'annuler un match qui n'a pas encore été joué",
                     "nextMatchAlreadyReported":"Le match suivant a déjà été joué, tu dois d'abord l'annuler pour pouvoir annuler le match qui t'intéresse.",
                     "notAllPreviousMatchesAreComplete":"Certains matchs menant à celui là doivent être enregistrés avant de pouvoir enregistrer celui là!",
                     "alreadyReported":"Ce match a déjà été enregistré. Pour pouvoir l'éditer, tu dois d'abord unreport le match puis le ré-enregistrer.",
                     "numberlessMatchNotAllowed":"Aucun numéro de match fourni, impossible d'effectuer l'opération.",
                     "invalidScores":"Utilises des entiers pour inscrire le score.",
                     "nextMatchDoesNotExist":"Impossible de trouver le match suivant",
-                    "winnerMustHaveHigherScore":"Le gagnant doit avoir un meilleur score que le perdant"
+                    "winnerMustHaveHigherScore":"Le gagnant doit avoir un meilleur score que le perdant",
+                    "insufficientPrivileges":"Vous n'avez pas le droit de faire ça"
                 }
             },
             "addPlayer": "Ajouter un joueur au tournoi",

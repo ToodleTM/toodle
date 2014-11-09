@@ -6,11 +6,11 @@ var serverUtils = new (require('../../../lib/utils/serverUtils'))();
 describe('TournamentControllerUtils', function () {
     var tournamentModel = {
         findById: function () {
-        },
-        find: function () {
         }
     };
     beforeEach(function () {
+        tournamentModel.find = function () {
+        };
         sinon.spy(serverUtils, 'isThisTournamentIdValid');
         sinon.spy(tournamentModel, 'find');
         sinon.spy(tournamentModel, 'findById');
@@ -72,6 +72,47 @@ describe('TournamentControllerUtils', function () {
             assert.equal(res.json.calledOnce, true);
             assert.equal(res.json.getCall(0).args[0], 404);
         });
+
+        it('should not allow reporting through the signupID if tournament has userPrivileges of 1', function () {
+            //setup
+            var req = {body: {signupID: 'asdfasfdasdf5452d71103aec670587bea44'}};
+            tournamentModel.find = function (params, callback) {
+                callback(null, [{userPrivileges: 1}]);
+            };
+            sinon.spy(tournamentModel, 'find');
+            var tournamentService = {
+                reportMatch: sinon.spy()
+            };
+            var res = {json: sinon.spy()};
+            //action
+            tournamentControllerUtils.reportMatchHelper(req, res, serverUtils, tournamentModel, tournamentService);
+            //assert
+            assert.equal(serverUtils.isThisTournamentIdValid.called, false);
+            assert.equal(tournamentModel.findById.called, false);
+            assert.equal(tournamentService.reportMatch.called, false);
+            assert.equal(res.json.calledOnce, true);
+            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[1].message, 'insufficientPrivileges');
+        });
+
+        it('should allow reporting through the signupID if tournament has userPrivileges superior to 1', function () {
+            //setup
+            var req = {body: {signupID: 'asdfasfdasdf5452d71103aec670587bea44'}};
+            tournamentModel.find = function (params, callback) {
+                callback(null, [{userPrivileges: 2}]);
+            };
+            sinon.spy(tournamentModel, 'find');
+            var tournamentService = {
+                reportMatch: sinon.spy()
+            };
+            //action
+            tournamentControllerUtils.reportMatchHelper(req, null, serverUtils, tournamentModel, tournamentService);
+            //assert
+            assert.equal(serverUtils.isThisTournamentIdValid.called, false);
+            assert.equal(tournamentModel.findById.called, false);
+            assert.equal(tournamentService.reportMatch.calledOnce, true);
+        });
+
     });
 
     describe('Unreporting Helper', function () {
@@ -85,10 +126,10 @@ describe('TournamentControllerUtils', function () {
             assert.equal(tournamentModel.findById.calledOnce, true);
         });
 
-        it('should return a 404 if tournamentId is present but invalid', function(){
+        it('should return a 404 if tournamentId is present but invalid', function () {
             //setup
             var req = {body: {tournamentId: '5452d71103a7bea44'}};
-            var res = {json:sinon.spy()};
+            var res = {json: sinon.spy()};
             //action
             tournamentControllerUtils.unreportMatchHelper(req, res, serverUtils, tournamentModel, null);
             //assert
@@ -98,7 +139,7 @@ describe('TournamentControllerUtils', function () {
             assert.equal(res.json.getCall(0).args[0], 404);
         });
 
-        it('should accept signupID as a tournament identifier to unreport a tournament', function(){
+        it('should accept signupID as a tournament identifier to unreport a tournament', function () {
             //setup
             var req = {body: {signupID: '5452d71103aec670587bea44'}};
             //action
@@ -108,10 +149,10 @@ describe('TournamentControllerUtils', function () {
             assert.equal(tournamentModel.findById.calledOnce, false);
         });
 
-        it('should return a 404 if neither tournamentId nor signupID are provided', function(){
+        it('should return a 404 if neither tournamentId nor signupID are provided', function () {
             //setup
             var req = {body: {}};
-            var res = {json:sinon.spy()};
+            var res = {json: sinon.spy()};
             //action
             tournamentControllerUtils.unreportMatchHelper(req, res, serverUtils, tournamentModel, null);
             //assert
@@ -119,6 +160,26 @@ describe('TournamentControllerUtils', function () {
             assert.equal(tournamentModel.findById.called, false);
             assert.equal(res.json.calledOnce, true);
             assert.equal(res.json.getCall(0).args[0], 404);
-        })
+        });
+
+        it('should not allow unreporting with a signupID for user privileges inferior to 3', function () {
+            //setup
+            var req = {body: {signupID: '5452d71103aec670587bea44'}};
+            tournamentModel.find = function(params, callback){ callback(null, [{userPrivileges:1}])};
+            sinon.spy(tournamentModel, 'find');
+            var tournamentService = {
+                unreportMatch: sinon.spy()
+            };
+            var res = {json:sinon.spy()};
+            //action
+            tournamentControllerUtils.unreportMatchHelper(req, res, serverUtils, tournamentModel, tournamentService);
+            //assert
+            assert.equal(tournamentModel.find.calledOnce, true);
+            assert.equal(tournamentModel.findById.calledOnce, false);
+            assert.equal(tournamentService.unreportMatch.called, false);
+            assert.equal(res.json.calledOnce, true);
+            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[1].message, 'insufficientPrivileges');
+        });
     });
 });
