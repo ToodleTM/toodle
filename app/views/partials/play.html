@@ -1,20 +1,133 @@
 <div ng-include="'partials/navbar'"></div>
+<!-- Reporting Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="reportModalLabel">{{ 'admin.actions.reporting.title' | translate }} - {{
+                    firstGameToReport.player1.name }} VS {{firstGameToReport.player2.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
 
+                    <legend>{{ 'admin.actions.reporting.describeReport'| translate}}</legend>
+                    <fieldset>
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label class="control-label" for="score1"> {{firstGameToReport.player1.name}}{{
+                                    'admin.actions.reporting.playerScore'|
+                                    translate}}</label>
+                                <input type="text" id="score1" ng-model="score1" class="form-control"/>
+
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="control-label" for="score2"> {{firstGameToReport.player2.name}}{{
+                                    'admin.actions.reporting.playerScore'|
+                                    translate}}</label>
+                                <input type="text" id="score2" ng-model="score2" class="form-control"/>
+                            </div>
+                            <input type="hidden" ng-model="firstGameToReport.number">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'admin.actions.run.cancel' |
+                    translate}}
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="reportMatch()"
+                        id="doReport">{{ 'admin.actions.run.confirm' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="unreportModal" tabindex="-1" role="dialog" aria-labelledby="unreportModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="unreportModalLabel">{{ 'admin.actions.reporting.unreportTitle' | translate
+                    }} - {{
+                    gameToUnreport.player1.name }} VS {{gameToUnreport.player2.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            {{ 'admin.actions.reporting.warning' | translate }}
+                        </div>
+                    </div>
+                    <input type="hidden" ng-model="gameToUnreport.number">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'admin.actions.run.cancel' |
+                    translate}}
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="unreportMatch()"
+                        id="doUnreport">{{ 'admin.actions.run.confirm' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <div>
     <h1>{{ 'play.header.tournament' | translate }} {{tournamentInfo.tournamentName}} {{ 'play.header.playPage' |
         translate}}</h1>
 
     <p>{{ 'play.intro' | translate }}</p>
 
-    <button id="reportWin" class="btn btn-primary" title="{{ 'play.report.description' | translate }}" ng-click="reportWinForm()">{{ 'play.report.buttonCaption' | translate }}</button>
-    <div id="reportWinOk" class="alert alert-success alert-dismissible" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        {{ 'play.report.success' | translate}}
-    </div>
-    <div id="reportWinKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        {{ 'play.report.fail' | translate }} (Reason : {{errorMessage}})
-    </div>
+    <fieldset ng-show="tournamentInfo.running">
+        <legend> {{ 'admin.actions.reporting.title' | translate }}</legend>
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="reportGame">{{ 'admin.actions.reporting.reportMatch' | translate }}</label>
+
+            <select id="reportGame" name="reportGame" class="form-control" ng-model="firstGameToReport"
+                    ng-options="item as item.player1.name+' VS '+item.player2.name for item in gamesToReport track by item.number">
+            </select>
+            <button id="reportGameButton" data-toggle="modal" data-target="#reportModal"
+                    class="btn btn-primary"
+                    title="{{'admin.actions.reporting.reportButton'|translate}}">
+                {{'admin.actions.reporting.reportButton'|translate}}
+            </button>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="unreportGame">{{ 'admin.actions.reporting.unreportMatch' | translate
+                }}</label>
+
+            <select id="unreportGame" name="unreportGame" class="form-control" ng-model="gameToUnreport"
+                    ng-options="item as item.player1.name+' VS '+item.player2.name for item in gamesToUnreport track by item.number">
+            </select>
+            <button id="unreportGameButton" data-toggle="modal" data-target="#unreportModal"
+                    class="btn btn-primary"
+                    title="{{'admin.actions.reporting.unreportButton'|translate}}">
+                {{'admin.actions.reporting.unreportButton'|translate}}
+            </button>
+        </div>
+        <div class="form-group col-sm-12">
+            <div id="tourneyReportingOk" class="alert alert-success alert-dismissible" role="alert" hidden>
+                <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+                        aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                {{ 'admin.actions.reporting.reportingOk' | translate}}
+            </div>
+            <div id="tourneyReportingKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
+                <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+                        aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                {{ 'admin.actions.reporting.reportingKo' | translate }} (Reason : {{
+                'admin.actions.reporting.errors.'+errorMessage.message | translate}})
+            </div>
+        </div>
+    </fieldset>
 
     <div class="form-horizontal">
         <fieldset>
