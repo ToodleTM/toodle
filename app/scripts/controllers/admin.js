@@ -95,8 +95,8 @@ angular.module('toodleApp')
                         });
                     }
                 })
-                .error(function () {
-                    scope.errorMessage = err;
+                .error(function (err) {
+                    $scope.errorMessage = err.message;
                     $("#tourneyUpdateKo").fadeIn();
                 });
         };

@@ -268,7 +268,7 @@
     <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
             aria-hidden="true">&times;</span><span
             class="sr-only">Close</span></button>
-    {{ 'admin.update.fail' | translate }} ({errorMessage}})
+    {{ 'admin.update.fail' | translate }} ({{ 'admin.form.'+errorMessage | translate}})
 </div>
 <fieldset ng-show="!tournamentInfo.running">
     <div class="row">

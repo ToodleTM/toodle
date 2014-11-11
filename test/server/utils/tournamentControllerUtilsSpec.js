@@ -3,6 +3,8 @@ var sinon = require('sinon');
 var tournamentControllerUtils = new (require('../../../lib/utils/tournamentControllerUtils'))();
 var serverUtils = new (require('../../../lib/utils/serverUtils'))();
 
+
+var VALID_TOURNAMENT_ID = '5452d71103aec670587bea44';
 describe('TournamentControllerUtils', function () {
     var tournamentModel = {
         findById: function () {
@@ -23,7 +25,7 @@ describe('TournamentControllerUtils', function () {
     describe('Reporting helper', function () {
         it('should allow tournamentID to be used for reporting a match', function () {
             //setup
-            var req = {body: {tournamentId: '5452d71103aec670587bea44'}};
+            var req = {body: {tournamentId: VALID_TOURNAMENT_ID}};
             //action
             tournamentControllerUtils.reportMatchHelper(req, null, serverUtils, tournamentModel, null);
             //assert
@@ -118,7 +120,7 @@ describe('TournamentControllerUtils', function () {
     describe('Unreporting Helper', function () {
         it('should accept tournamentID as a tournament identifier to unreport a tournament', function () {
             //setup
-            var req = {body: {tournamentId: '5452d71103aec670587bea44'}};
+            var req = {body: {tournamentId: VALID_TOURNAMENT_ID}};
             //action
             tournamentControllerUtils.unreportMatchHelper(req, null, serverUtils, tournamentModel, null);
             //assert
@@ -165,12 +167,14 @@ describe('TournamentControllerUtils', function () {
         it('should not allow unreporting with a signupID for user privileges inferior to 3', function () {
             //setup
             var req = {body: {signupID: '5452d71103aec670587bea44'}};
-            tournamentModel.find = function(params, callback){ callback(null, [{userPrivileges:1}])};
+            tournamentModel.find = function (params, callback) {
+                callback(null, [{userPrivileges: 1}])
+            };
             sinon.spy(tournamentModel, 'find');
             var tournamentService = {
                 unreportMatch: sinon.spy()
             };
-            var res = {json:sinon.spy()};
+            var res = {json: sinon.spy()};
             //action
             tournamentControllerUtils.unreportMatchHelper(req, res, serverUtils, tournamentModel, tournamentService);
             //assert
@@ -180,6 +184,100 @@ describe('TournamentControllerUtils', function () {
             assert.equal(res.json.calledOnce, true);
             assert.equal(res.json.getCall(0).args[0], 409);
             assert.equal(res.json.getCall(0).args[1].message, 'insufficientPrivileges');
+        });
+    });
+
+    describe('Update helper', function () {
+        var tournamentService = {
+            updateTournament: function () {
+            }
+        };
+
+        beforeEach(function () {
+            sinon.spy(tournamentService, 'updateTournament');
+        });
+        afterEach(function () {
+            tournamentService.updateTournament.restore();
+        });
+
+        it('should not allow changing the engine value if tournament has already begun', function () {
+            //setup
+            var newData = {_id: VALID_TOURNAMENT_ID, engine: 'Some Engine'};
+            tournamentModel.findById = function (id, callback) {
+                callback(null, {engine: 'some other engine', running: true});
+            };
+            sinon.spy(tournamentModel, 'findById');
+            var res = {json: sinon.spy()};
+            var serverUtils = {
+                isThisTournamentIdValid: function () {
+                    return true;
+                }
+            };
+            //action
+            tournamentControllerUtils.updateTournament(null, res, serverUtils, newData, tournamentService, tournamentModel, null);
+            //assert
+            assert.equal(res.json.calledOnce, true);
+            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[1].message, 'cantUpdateEngineWhileRunning');
+            assert.equal(tournamentService.updateTournament.called, false);
+        });
+
+        it('should return a 404 if tournament id is not valid', function () {
+            //setup
+            var newData = {_id: 'not a valid ID', engine: 'Some Engine'};
+            var res = {json: sinon.spy()};
+            var serverUtils = {
+                isThisTournamentIdValid: function () {
+                    return false;
+                }
+            };
+            //action
+            tournamentControllerUtils.updateTournament(null, res, serverUtils, newData, tournamentService, tournamentModel, null);
+            //assert
+            assert.equal(res.json.calledOnce, true);
+            assert.equal(res.json.getCall(0).args[0], 404);
+            assert.equal(tournamentService.updateTournament.called, false);
+        });
+
+        it('should update call the updateTournament function if we re not trying to change the engine of a running tournament', function () {
+            //setup
+            var newData = {_id: VALID_TOURNAMENT_ID, engine: 'Some Engine'};
+            tournamentModel.findById = function (id, callback) {
+                callback(null, {engine: 'Some Engine', running: true});
+            };
+            sinon.spy(tournamentModel, 'findById');
+            var res = {json: sinon.spy()};
+            var serverUtils = {
+                isThisTournamentIdValid: function () {
+                    return true;
+                }
+            };
+            //action
+            tournamentControllerUtils.updateTournament(null, res, serverUtils, newData, tournamentService, tournamentModel, null);
+            //assert
+            assert.equal(res.json.called, false);
+            assert.equal(tournamentService.updateTournament.calledOnce, true);
+        });
+
+        //verif changement d'engine quand le tournoi est pas running
+        it('should allow engine changes when tournament is NOT running', function(){
+            //setup
+            var newData = {_id: VALID_TOURNAMENT_ID, engine: 'Some Engine'};
+            tournamentModel.findById = function (id, callback) {
+                callback(null, {engine: 'a different engine', running: false});
+            };
+            sinon.spy(tournamentModel, 'findById');
+            var res = {json: sinon.spy()};
+            var serverUtils = {
+                isThisTournamentIdValid: function () {
+                    return true;
+                }
+            };
+            //action
+            tournamentControllerUtils.updateTournament(null, res, serverUtils, newData, tournamentService, tournamentModel, null);
+            //assert
+            assert.equal(res.json.called, false);
+            assert.equal(tournamentService.updateTournament.calledOnce, true);
         });
     });
 });

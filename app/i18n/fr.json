@@ -39,7 +39,8 @@
                 "atWill":"Report / unreport",
                 "reportOnly":"Seulement report",
                 "nothing":"Aucun des deux"
-            }
+            },
+            "cantUpdateEngineWhileRunning":"Tu ne peux pas mettre à jour le moteur de tournoi alors que ce dernier a commencé."
         },
         "actions": {
             "lock": "Fermer les inscriptions",
