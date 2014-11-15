@@ -5,7 +5,8 @@ angular.module('toodleApp')
         var tournamentId = $location.$$path.split('/')[2];
         $scope.nick = '';
         $scope.playerList = null;
-
+        _paq.push(['setDocumentTitle', 'Admin Page']);
+        _paq.push(['trackPageView']);
         $("#tournamentStart").datepicker({minDate: 0, maxDate: "+12M", showButtonPanel: true});
 
         //using the basic example for ng-file-upload directive (https://www.npmjs.org/package/angular-file-upload),

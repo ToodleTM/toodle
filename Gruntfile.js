@@ -392,7 +392,8 @@ module.exports = function (grunt) {
                             'app/scripts/services/*.js',
                             'app/scripts/utils/packed.js',
                             'app/scripts/app.js',
-                            'app/views/resources/factions.json'
+                            'app/views/resources/factions.json',
+                            'app/config/piwik.config.js'
                         ]
                     }
                 ]

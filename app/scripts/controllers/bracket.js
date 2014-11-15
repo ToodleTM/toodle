@@ -5,7 +5,8 @@ angular.module('toodleApp')
         var tournamentId = $location.$$path.split('/')[2];
         $scope.nick = "";
         $scope.playerList = null;
-
+        _paq.push(['setDocumentTitle', 'Bracket page']);
+        _paq.push(['trackPageView']);
         $http.get('api/play/' + tournamentId).success(function (data) {
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;

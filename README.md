@@ -51,23 +51,27 @@ You also need to have protractor / webdriver-manager installed :
 
 And start it for protractor to be able to connect to it (it'll serve as an interface to the app).
 
-At the moment, here's the script we use in our CI : 
+I recommend selenium driver and the app to be tested to run as services that you shutdown / reboot when needed.
 
-    grunt serve --force &
-    APP_PID=$! #get the app PID to be able to kill it at the end
+#What's up with the Piwik configuration?
 
-    while ! nc -vz localhost 9042; do sleep 1; done #wait until app is ready
+##How do I make this work ?
+First, you need to have setup a piwik instance that'll gather data for you. From its interface you can generate the piwik code that you should use, but, unless the base code changes a lot from what is in index.html, what you need is write the config file that need to be located in _config/piwik.config.js_.
+Your config file should look like this :
 
-    #if selenium is already running, we don't want to try and run it again
-    if [ ! nc -vz localhost 4300 ]; then 
-        webdriver-manager start --seleniumPort=4300 &
-        SELENIUM_PID=$!+7
-    done
+    var piwik_config = {
+        url:'//<your piwik's url or IP>',
+        site_id:<the site ID piwik gave your toodle site>
+    };
 
-    while ! nc -vz localhost 4300; do sleep 1; done #wait until selenium webdriver is ready
+Nothing fancy here, but it allows for some flexibility deployment-wise.
 
-    protractor ./test/client/spec/e2e/protractor.conf.js
+For more info about how Piwik tracking works : [http://developer.piwik.org/api-reference/tracking-javascript](http://developer.piwik.org/api-reference/tracking-javascript)
 
-    kill $APP_PID && echo "Killed App"
-    
+Each Angular controller (besides of the navbar as it doesn't really make sense) is configured to signal Piwik at each load, so there's some kind of page tracking. You can perfect this or just leave this as is. If you do perfect this and think it might be interesting, please contact me or submit a pull request so that I can add this to the master branch.
+
+##What if I don't care much about this ?
+
+Then open the app/views/index.html file and remove the code between the "<piwik>" tags ;) To avoid JS errors you might want to remove the _paq calls you'll find in the angular controllers.
+
     
