@@ -3,7 +3,7 @@
         "registerMessage": "Créez un nouveau tournoi !",
         "success": {
             "pre": "Le tournoi a été créé! Vous pouvez l'administrer en utilisant",
-            "mid": ", et vous pouvez envoyer",
+            "mid": ", et vous pouvez envoyer ",
             "end": "pour permettre aux participants de d'inscrire.",
             "thisLink": "ce lien"
         },
@@ -70,7 +70,7 @@
                 "reportMatch":"Enregistrer un résultat",
                 "unreportMatch":"Annuler un enregistrement",
                 "reportButton":"Formulaire",
-                "unreportButton":"Annuler !",
+                "unreportButton":"Annuler le match!",
                 "describeReport":"Remplis le formulaire pour enregistrer le résultat.",
                 "playerScore":" score",
                 "unreportTitle":"Annuler un enregistrement",
