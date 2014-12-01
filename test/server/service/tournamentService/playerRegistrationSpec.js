@@ -1,3 +1,4 @@
+'use strict';
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var TournamentService = require('../../../../lib/service/tournamentService').TournamentService;
@@ -6,7 +7,7 @@ describe('Player registration', function () {
         //setup
         var tournamentService = new TournamentService();
         var req = {body: {nick: ''}};
-        var res = {json: function (returnCode, data) {
+        var res = {json: function () {
         }};
         sinon.spy(res, 'json');
         //action
@@ -21,7 +22,7 @@ describe('Player registration', function () {
         //setup
         var tournamentService = new TournamentService();
         var req = {body: {nick: '\t     '}};
-        var res = {json: function (returnCode, data) {
+        var res = {json: function () {
         }};
         sinon.spy(res, 'json');
         //action
@@ -36,7 +37,7 @@ describe('Player registration', function () {
         //setup
         var tournamentService = new TournamentService();
         var req = {body: {nick: 'MAdJoHn_37658'}};
-        var res = {json: function (returnCode, data) {
+        var res = {json: function () {
         }};
         sinon.spy(res, 'json');
         //action
@@ -51,7 +52,7 @@ describe('Player registration', function () {
         //setup
         var tournamentService = new TournamentService();
         var req = {body: {nick: 'toto'}};
-        var res = {json: function (returnCode, data) {
+        var res = {json: function () {
         }};
         sinon.spy(res, 'json');
         //action
@@ -68,7 +69,7 @@ describe('Player registration', function () {
         //setup
         var tournamentService = new TournamentService();
         var req = {body: {nick: 'TOtO'}};
-        var res = {json: function (returnCode, data) {
+        var res = {json: function () {
         }};
         sinon.spy(res, 'json');
         //action
@@ -85,7 +86,7 @@ describe('Player registration', function () {
         //setup
         var tournamentService = new TournamentService();
         var req = {body: {nick: 'toto'}};
-        var res = {json: function (data) {
+        var res = {json: function () {
         }};
         sinon.spy(res, 'json');
         //action
@@ -103,7 +104,7 @@ describe('Player registration', function () {
     it('should return an error if new nick is valid but the app can t save', function () {
         var tournamentService = new TournamentService();
         var req = {body: {nick: 'toto'}};
-        var res = {json: function (data) {
+        var res = {json: function () {
         }};
         sinon.spy(res, 'json');
         //action
@@ -122,12 +123,12 @@ describe('Player registration', function () {
         //setup
         var tournamentService = new TournamentService();
         var req = {body: {nick: 'MAdJoHn_37658'}};
-        var res = {json: function (returnCode, data) {
+        var res = {json: function () {
         }};
         sinon.spy(res, 'json');
         //action
         tournamentService.registerPlayer(req, res, {players: [], locked: true, save: function (callback) {
-            callback(false)
+            callback(false);
         }}, true);
         //assert
         assert.equal(res.json.getCall(0).args[0].players[0].name, 'MAdJoHn_37658');
@@ -138,12 +139,12 @@ describe('Player registration', function () {
         //setup
         var tournamentService = new TournamentService();
         var req = {body: {nick: 'MAdJoHn_37658'}};
-        var res = {json: function (returnCode, data) {
+        var res = {json: function () {
         }};
         sinon.spy(res, 'json');
         //action
         tournamentService.registerPlayer(req, res, {players: [], running: true, save: function (callback) {
-            callback(false)
+            callback(false);
         }}, true);
         //assert
         assert.equal(res.json.getCall(0).args[0], 409);
@@ -155,13 +156,13 @@ describe('Player registration', function () {
         //setup
         var tournamentService = new TournamentService();
         var req = {body: {nick: 'MAdJoHn_37658', faction:'murloc'}};
-        var res = {json: function (returnCode, data) {
+        var res = {json: function () {
         }};
         sinon.spy(res, 'json');
         //action
         var tournament = {
             players: [], save: function (callback) {
-                callback(false)
+                callback(false);
             }
         };
         tournamentService.registerPlayer(req, res, tournament, true);
@@ -169,7 +170,7 @@ describe('Player registration', function () {
         assert.deepEqual(res.json.getCall(0).args[0], tournament);
         assert.equal(tournament.players[0].faction, 'murloc');
         assert.equal(res.json.calledOnce, true);
-    })
+    });
 });
 
 describe('Unregister player', function(){
@@ -243,7 +244,7 @@ describe('Unregister player', function(){
     it('should refuse to remove a player from a started tournament', function(){
         //setup
         var tournamentService = new TournamentService();
-        var req = {body:{nick:' john '}}
+        var req = {body:{nick:' john '}};
         var res = {
             json:function(){}
         };
@@ -253,7 +254,7 @@ describe('Unregister player', function(){
         };
         sinon.spy(res, 'json');
         //action
-        tournamentService.unregisterPlayer(req, res, tournament)
+        tournamentService.unregisterPlayer(req, res, tournament);
         //assert
         assert.equal(res.json.getCall(0).args[0], 409);
         assert.equal(res.json.getCall(0).args[1].message, 'cantRemovePlayerWhileRunning');

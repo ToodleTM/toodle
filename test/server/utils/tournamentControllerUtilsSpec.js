@@ -1,3 +1,4 @@
+'use strict';
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var tournamentControllerUtils = new (require('../../../lib/utils/tournamentControllerUtils'))();
@@ -168,7 +169,7 @@ describe('TournamentControllerUtils', function () {
             //setup
             var req = {body: {signupID: '5452d71103aec670587bea44'}};
             tournamentModel.find = function (params, callback) {
-                callback(null, [{userPrivileges: 1}])
+                callback(null, [{userPrivileges: 1}]);
             };
             sinon.spy(tournamentModel, 'find');
             var tournamentService = {

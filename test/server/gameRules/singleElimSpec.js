@@ -1,3 +1,4 @@
+'use strict';
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var SingleElim = require('../../../lib/gameRules/singleElim').Engine;
@@ -207,7 +208,7 @@ describe('SingleElim engine', function () {
                 engine.reportWin(3, 2, 0, actualBracket, callbackSpy);
                 engine.reportWin(4, 2, 0, actualBracket, callbackSpy);
                 engine.reportWin(5, 2, 0, actualBracket, callbackSpy);
-                var unreportCallbackSpy = sinon.spy(function (error, data) {
+                var unreportCallbackSpy = sinon.spy(function () {
                 });
                 //action
                 engine.unreport(1, actualBracket, unreportCallbackSpy);
@@ -225,7 +226,7 @@ describe('SingleElim engine', function () {
 
             it('should allow to unreport the completed finals of a bracket', function(){
                 //seiup
-                var reportWinCallback = function(err, data){};
+                var reportWinCallback = function(){};
                 var reportWinCallbackSpy = sinon.spy(reportWinCallback);
                 engine.initBracket([john, jane], callbackSpy);
                 engine.reportWin(1, 2, 0, actualBracket, reportWinCallbackSpy);
@@ -316,7 +317,7 @@ describe('SingleElim engine', function () {
             it('should be able to tell if a tournament bracket is over', function () {
                 //setup
                 engine = new SingleElim();
-                reportWinCallbackSpy = sinon.spy(function (err, data) {
+                var reportWinCallbackSpy = sinon.spy(function (err, data) {
                     actualBracket = data;
                 });
                 engine.initBracket([john, jane], callbackSpy);

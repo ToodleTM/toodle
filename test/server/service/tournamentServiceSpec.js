@@ -1,3 +1,4 @@
+'use strict';
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var TournamentService = require('../../../lib/service/tournamentService').TournamentService;
@@ -11,7 +12,7 @@ describe('Tournament Service', function () {
             callback(true);
         }};
 
-        var res = {json: function (status, data) {
+        var res = {json: function () {
         }};
         sinon.spy(res, 'json');
 
@@ -29,7 +30,7 @@ describe('Tournament Service', function () {
             callback(false);
         }, _id: 'abc'};
 
-        var res = {json: function (status, data) {
+        var res = {json: function () {
         }};
         sinon.spy(res, 'json');
 

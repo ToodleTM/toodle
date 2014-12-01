@@ -1,3 +1,4 @@
+'use strict';
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var serverUtils = new (require('../../../lib/utils/serverUtils'))();
@@ -114,7 +115,7 @@ describe('Server Utils', function () {
             //this is probably not totally accurate but it seems pretty reasonable right now
 
             //setup
-            var req = {query: {tournamentId: 1}}
+            var req = {query: {tournamentId: 1}};
             var res = {
                 json: function () {
                 }

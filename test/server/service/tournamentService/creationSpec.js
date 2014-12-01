@@ -1,8 +1,9 @@
+'use strict';
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var TournamentService = require('../../../../lib/service/tournamentService').TournamentService;
 
-describe("Tournament Creation ", function () {
+describe('Tournament Creation ', function () {
     describe('Tournament Start', function () {
         it('should use a tournament engine to create tournament bracket and return the created bracket', function () {
             //setup
@@ -21,7 +22,7 @@ describe("Tournament Creation ", function () {
                     {name: 'john'},
                     {name: 'mary'}
                 ], save: function () {
-                    return res.json({init: true})
+                    return res.json({init: true});
                 }
             };
             tournamentService.updateTournament = function (req, res, tournament, callback) {
@@ -177,7 +178,7 @@ describe("Tournament Creation ", function () {
                 }
             };
             tournamentService.getTournamentEngine = function () {
-                return null
+                return null;
             };
             sinon.spy(res, 'json');
             //action

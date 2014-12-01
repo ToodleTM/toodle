@@ -1,3 +1,4 @@
+'use strict';
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var TournamentService = require('../../../../lib/service/tournamentService').TournamentService;
@@ -22,12 +23,12 @@ describe('Tournament management', function () {
                 tournamentService.getTournamentEngine = function () {
                     return {
                         initBracket: function () {
-                            return {}
+                            return {};
                         },
                         getMatchesToReport: function (bracket, callback) {
                             callback(false, []);
                         }
-                    }
+                    };
                 };
 
                 //action
@@ -42,12 +43,12 @@ describe('Tournament management', function () {
                 tournamentService.getTournamentEngine = function () {
                     return {
                         initBracket: function () {
-                            return {}
+                            return {};
                         },
                         getMatchesToReport: function (bracket, callback) {
                             callback(true, null);
                         }
-                    }
+                    };
                 };
                 //action
                 tournamentService.getMatchesToReport(null, res, {engine: 'dummy'});
@@ -62,12 +63,12 @@ describe('Tournament management', function () {
                 tournamentService.getTournamentEngine = function () {
                     return {
                         initBracket: function () {
-                            return {}
+                            return {};
                         },
-                        getMatchesToReport: function (bracket, callback) {
+                        getMatchesToReport: function () {
                             throw new Error('this is an uncatched exception');
                         }
-                    }
+                    };
                 };
                 //action
                 tournamentService.getMatchesToReport(null, res, {engine: 'dummy'});
@@ -102,12 +103,12 @@ describe('Tournament management', function () {
                 tournamentService.getTournamentEngine = function () {
                     return {
                         initBracket: function () {
-                            return {}
+                            return {};
                         },
                         reportWin: function (number, s1, s2, bracket, callback) {
                             callback({message: 'this is an error message from the engine'});
                         }
-                    }
+                    };
                 };
                 //action
                 tournamentService.reportMatch(req, res, {engine: ''}, null);
@@ -123,12 +124,12 @@ describe('Tournament management', function () {
                 tournamentService.getTournamentEngine = function () {
                     return {
                         initBracket: function () {
-                            return {}
+                            return {};
                         },
                         reportWin: function (number, s1, s2, bracket, callback) {
                             callback(false);
                         }
-                    }
+                    };
                 };
                 var model = {
                     update: function (criteria, data, callback) {
@@ -152,12 +153,12 @@ describe('Tournament management', function () {
                 tournamentService.getTournamentEngine = function () {
                     return {
                         initBracket: function () {
-                            return {}
+                            return {};
                         },
                         getUnreportableMatches: function (bracket, callback) {
                             callback(false, []);
                         }
-                    }
+                    };
                 };
                 //action
                 tournamentService.getMatchesToUnreport(null, res, {});
@@ -171,12 +172,12 @@ describe('Tournament management', function () {
                 tournamentService.getTournamentEngine = function () {
                     return {
                         initBracket: function () {
-                            return {}
+                            return {};
                         },
                         getUnreportableMatches: function (bracket, callback) {
                             callback(true, null);
                         }
-                    }
+                    };
                 };
                 //action
                 tournamentService.getMatchesToUnreport(null, res, {engine: 'dummy'});
@@ -191,12 +192,12 @@ describe('Tournament management', function () {
                 tournamentService.getTournamentEngine = function () {
                     return {
                         initBracket: function () {
-                            return {}
+                            return {};
                         },
-                        getMatchesToUnreport: function (bracket, callback) {
+                        getMatchesToUnreport: function () {
                             throw new Error('this is an uncatched exception');
                         }
-                    }
+                    };
                 };
                 //action
                 tournamentService.getMatchesToUnreport(null, res, {engine: 'dummy'});
@@ -220,12 +221,12 @@ describe('Tournament management', function () {
                 tournamentService.getTournamentEngine = function () {
                     return {
                         initBracket: function () {
-                            return {}
+                            return {};
                         },
                         unreport: function (number, bracket, callback) {
-                            callback({message: 'this is an error message from engine.unreport'})
+                            callback({message: 'this is an error message from engine.unreport'});
                         }
-                    }
+                    };
                 };
                 //action
                 tournamentService.unreportMatch(req, res, {bracket: {}}, null);
@@ -241,12 +242,12 @@ describe('Tournament management', function () {
                 tournamentService.getTournamentEngine = function () {
                     return {
                         initBracket: function () {
-                            return {}
+                            return {};
                         },
                         unreport: function (number, bracket, callback) {
-                            callback(false, {})
+                            callback(false, {});
                         }
-                    }
+                    };
                 };
                 var model = {
                     update: function (criteria, data, callback) {
@@ -330,7 +331,7 @@ describe('Tournament management', function () {
             var tournament = {
                 players: [{name: 'player'}, {name: 'johnny'}, {name: 'otherPlayer'}],
                 save: function (callback) {
-                    callback(null, tournament)
+                    callback(null, tournament);
                 }
             };
             var res = {
@@ -358,7 +359,7 @@ describe('Tournament management', function () {
             var tournament = {
                 players: [{name: 'player'}, {name: 'johnny'}, {name: 'otherPlayer'}],
                 save: function (callback) {
-                    callback(null, tournament)
+                    callback(null, tournament);
                 }
             };
             var res = {
@@ -370,7 +371,7 @@ describe('Tournament management', function () {
             //action
             tournamentService.rearrangePlayers(req, res, tournament);
             //assert
-            assert.deepEqual(res.json.getCall(0).args[0].players, [{name: 'johnny'}, {name: 'otherPlayer'}, {name: 'player'}])
+            assert.deepEqual(res.json.getCall(0).args[0].players, [{name: 'johnny'}, {name: 'otherPlayer'}, {name: 'player'}]);
             assert.equal(tournament.save.calledOnce, true);
             assert.equal(res.json.calledOnce, true);
         });
