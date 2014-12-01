@@ -14,7 +14,7 @@ describe('SingleElim engine', function () {
     var patrick = {name: 'patrick'};
 
     beforeEach(function () {
-        engine = new SingleElim;
+        engine = new SingleElim();
         callbackSpy = sinon.spy(function (err, data) {
             actualBracket = data;
         });
@@ -315,7 +315,7 @@ describe('SingleElim engine', function () {
             });
             it('should be able to tell if a tournament bracket is over', function () {
                 //setup
-                engine = new SingleElim;
+                engine = new SingleElim();
                 reportWinCallbackSpy = sinon.spy(function (err, data) {
                     actualBracket = data;
                 });
@@ -356,13 +356,38 @@ describe('SingleElim engine', function () {
                 assert.equal(callbackSpy.getCall(1).args[0].message, 'numberlessMatchNotAllowed');
             });
 
-            it('should only allow integers for score inputs', function(){
+            function testInvalidScoresWhenReporting(score1, score2){
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 //action
-                engine.reportWin(1, 'hello', 0, actualBracket, callbackSpy);
+                engine.reportWin(1, score1, score2, actualBracket, callbackSpy);
                 //assert
                 assert.equal(callbackSpy.getCall(1).args[0].message, 'invalidScores');
+            }
+
+
+            it('should only allow integers for score inputs', function(){
+                testInvalidScoresWhenReporting('hello', 0);
+            });
+
+            it('should only allow integers for score inputs', function(){
+                testInvalidScoresWhenReporting(null, 1);
+            });
+
+            it('should only allow integers for score inputs', function(){
+                testInvalidScoresWhenReporting(undefined, 1);
+            });
+
+            it('should only allow integers for score inputs', function(){
+                testInvalidScoresWhenReporting(0, 'hello');
+            });
+
+            it('should only allow integers for score inputs', function(){
+                testInvalidScoresWhenReporting(1, null);
+            });
+
+            it('should only allow integers for score inputs', function(){
+                testInvalidScoresWhenReporting(1, undefined);
             });
 
             it('should handle not being able to lookup next match (match has a "next" property but no such match exists in the bracket)', function (){
