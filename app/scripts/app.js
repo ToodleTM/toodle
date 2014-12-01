@@ -55,6 +55,6 @@ angular.module('toodleApp', [
             };
         }]);
     })
-    .run(function ($rootScope, $location) {
+    .run(function () { // $rootScope, $location
 
     });

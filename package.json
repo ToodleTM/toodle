@@ -1,6 +1,6 @@
 {
   "name": "toodle",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "dependencies": {
     "body-parser": "~1.0.0",
     "bower": "^1.3.9",
@@ -90,6 +90,6 @@
     "test": "grunt test",
     "postinstall": "./node_modules/bower/bin/bower install",
     "qualimetry": "plato -r -d qualimetry/platoReport -x app/bower_components/  lib/ app/ test && istanbul cover _mocha --dir qualimetry/cover -- -R spec test/server/**/* test/client/spec/unit/*",
-    "jshint":"jshint lib/ app/scripts/"
+    "jshint":"jshint lib/ app/scripts --exclude-path .jshintignore"
   }
 }

@@ -484,7 +484,7 @@ describe('SingleElim engine', function () {
                 assert.equal(unreportableMatchesSpy.getCall(0).args[1][0].number, 5);
             });
 
-            it('should allow to unreport the last match without trying to check the next match', function(){
+            it('should allow to unreport the last match of a bracket without trying to check its impossible next match', function(){
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 var unreportableMatchesSpy = sinon.spy();

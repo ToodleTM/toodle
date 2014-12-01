@@ -3,7 +3,7 @@
 angular.module('toodleApp')
     .controller('BracketCtrl', function ($scope, $location, $http) {
         var tournamentId = $location.$$path.split('/')[2];
-        $scope.nick = "";
+        $scope.nick = '';
         $scope.playerList = null;
         _paq.push(['setDocumentTitle', 'Bracket page']);
         _paq.push(['trackPageView']);
@@ -13,7 +13,7 @@ angular.module('toodleApp')
             if($scope.tournamentInfo.running){
                 renderer.drawBracket(data.bracket, d3);
             } else {
-                $("#notRunning").show();
+                $('#notRunning').show();
             }
         });
     }

@@ -20,5 +20,6 @@
   "smarttabs": true,
   "globals": {
     "angular": false
-  }
+  },
+  "predef":["$", "_paq", "genericUtils", "renderer", "d3"]
 }
