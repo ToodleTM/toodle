@@ -6,7 +6,7 @@ Comment out the seleniumAddress attribute if 'non phantom' E2E tests are needed 
 For the phantomjs driver to be available, you might want to try installing it this way :
 
     npm install -g phantomjs
-    
+
 ## Using protractor to run the tests
 ### Installing protractor globally
 You need to install protractor globally, this also installs the webdriver-manager that'll allow you to run headless tests using phantomjs.
@@ -19,12 +19,14 @@ Once this is done, you'll want to update webdriver manager so that it'll be able
 
 ### Daemonizing webdriver-manager using pm2
 To run the webdriver-manager as a daemon, you can use pm2 + the webdriver-manager.json file conveniently located in this very directory.
-Fair warning : the webdriver-manager script is probably not at the same location so I'd encourage checking it out first (using 'which webdriver-manager', for example) before trying to daemonize.
+
+Fair warning : the webdriver-manager script is probably not at the same location so I'd encourage checking it out first (using _'which webdriver-manager'_, for example) before trying to daemonize.
+
 You create the daemon like so :
 
     $ pm2 start -n <the fancy name you want for your webdriver-manager in pm2's listings> <path to>/webdriver-manager.json
 
-you can, of course, mix things up and change the port, the exe, add mode params (pm2's documentation is pretty nice and has tons of examples)
+you can, of course, mix things up and change the port, the script, add more params (pm2's documentation is pretty nice and has tons of examples)
 
 You stop it like this :
 
