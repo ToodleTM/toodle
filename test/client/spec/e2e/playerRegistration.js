@@ -15,11 +15,8 @@ describe('User having the registration URL', function () {
         var engine = element(by.model('tournamentInfo.engine'));
         //console.log(element(by.id('playersList')).getTagName());
         var playersList = element(by.id('playersList'));
-        expect(game.getAttribute('value')).toEqual('');
         expect(game.getAttribute('disabled')).toBeTruthy();
-        expect(description.getAttribute('value')).toEqual('');
         expect(description.getAttribute('disabled')).toBeTruthy();
-        expect(engine.getAttribute('value')).toEqual('');
         expect(engine.getAttribute('disabled')).toBeTruthy();
         expect(playersList.getText()).toEqual('Registered players (0)\nNo registered players at the moment');
         var nickInput = element(by.id("inputNick"));

@@ -34,7 +34,7 @@ describe('Homepage', function () {
     it('Should display an error if the user tries to register a tournament w/ an empty name', function () {
         browser.get(homeAddress);
         element(by.id('registerTournamentButton')).click();
-        expect(element(by.id('tourneyCreationKo')).getText()).toMatch(/×\nClose\nSomething bad happened, the tournament was not created. Please try again. \(Reason : Tournament name must not be blank\)/g);
+        expect(element(by.id('tourneyCreationKo')).getText()).toMatch(/×\nClose\nSomething bad happened, the tournament was not created. Please try again. \(Tournament name must not be blank\)/g);
         //.toEqual('×\nClose\nSomething bad happened, the tournament was not created. Please try again. (Reason : Tournament name must not be blank)');
     });
 

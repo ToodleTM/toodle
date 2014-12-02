@@ -19,7 +19,7 @@ describe('Start tournament', function () {
 
 
         var tourneyRunBox = element(by.id('tourneyRunKo'));
-        expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(Reason : No game engine was specified, can't start tournament until it's done\)/g);
+        expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(No game engine was specified, can't start tournament until it's done\)/g);
         expect(element(by.id("runTournament")).getText()).toBe('Start brackets');
         expect(element(by.id("runTournament")).getAttribute('class')).toMatch('btn btn-danger');
     });
@@ -37,7 +37,7 @@ describe('Start tournament', function () {
 
 
         var tourneyRunBox = element(by.id('tourneyRunKo'));
-        expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(Reason : No players registered, there's no point in initiating the bracket\)/g);
+        expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(No players registered, there's no point in initiating the bracket\)/g);
     });
 
     it('should correctly update the buttons classes when tournament starts', function(){
