@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "webdriver-manager",
+      "script": "/usr/bin/webdriver-manager",
+      "args": "['start', '--seleniumPort=4300']"
+    }
+  ]
+}
