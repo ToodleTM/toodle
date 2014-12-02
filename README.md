@@ -39,19 +39,9 @@ And you should be OK, provided the build fails if the return value of the comman
 
 For E2E tests, it's a little more tricky, as you have to run your server, start a selenium server and have a phantomjs lib installed if you want all the process to be headless and useable in a build.
 
-Starting the app shouldn't be a problem, unless you have configuration issues that break the CI. In my CI, we use : 
+Starting the app shouldn't be a problem, unless you have configuration issues that break the CI.
 
-    grunt serve --force
-
-The '--force' option is there because we don't care about compass at the moment and it's not yet installed on our CI server. You should be able to run the app without that flag though.
-
-You also need to have protractor / webdriver-manager installed :
-
-    npm install -g protractor
-
-And start it for protractor to be able to connect to it (it'll serve as an interface to the app).
-
-I recommend selenium driver and the app to be tested to run as services that you shutdown / reboot when needed.
+Right now we're using pm2 + some scripting to stop / build / deploy / restart the application we want to test. The e2e tests are then run on the recently deployed app. There are scripts in [https://github.com/hoshin/toodle/tree/master/test/client/spec/e2e/runner](https://github.com/hoshin/toodle/tree/master/test/client/spec/e2e/runner) that allow you to run pretty much everything you might need on your machine. if you want to go a little further and have, say, a CI w/ an ever running webdriver the page linked provides some info about how to do so.
 
 #What's up with the Piwik configuration?
 
@@ -72,6 +62,6 @@ Each Angular controller (besides of the navbar as it doesn't really make sense) 
 
 ##What if I don't care much about this ?
 
-Then open the app/views/index.html file and remove the code between the "<piwik>" tags ;) To avoid JS errors you might want to remove the _paq calls you'll find in the angular controllers.
+Then open the app/views/index.html file and remove the code between the "piwik" tags ;) To avoid JS errors you might want to remove the _paq calls you'll find in the angular controllers.
 
     
