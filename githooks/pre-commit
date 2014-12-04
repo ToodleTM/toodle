@@ -2,3 +2,4 @@
 
 grunt mochaTest:src
 npm run jshint
+protractor test/client/spec/e2e/protractor.conf.js
