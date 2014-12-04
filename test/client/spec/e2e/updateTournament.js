@@ -22,7 +22,7 @@ describe('User having the admin link of a tournament', function () {
         //browser.refresh(); // => seems to be broken w/ phantomjs, don't know why right now
         expect(game.getAttribute('value')).toEqual('sc2');
         expect(description.getAttribute('value')).toEqual('this is a test');
-        expect(engine.getAttribute('value')).toEqual('2');
+        expect(engine.getAttribute('value')).toEqual('singleElim');
     });
 
     it('Should be able to lock and unlock a tournament', function(){

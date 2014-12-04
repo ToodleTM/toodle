@@ -3,6 +3,13 @@ var homeAddress = 'http://localhost:9042';
 
 
 describe('Start tournament', function () {
+
+    function waitForElementToBeVisible(browser, elementId){
+        browser.wait(function(){
+            return element(by.id(elementId)).isDisplayed();
+        });
+    }
+
     it('Should not allow tournament start if no engine is selected', function () {
         browser.get(homeAddress);
         element(by.id('tournamentName')).sendKeys('protractor');
@@ -15,10 +22,11 @@ describe('Start tournament', function () {
         element(by.id('registerPlayerGo')).click();
 
         element(by.id('runTournament')).click();
+        waitForElementToBeVisible(browser, 'doStart');
         element(by.id('doStart')).click();
 
-
         var tourneyRunBox = element(by.id('tourneyRunKo'));
+        //console.log('we get here');
         expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(No game engine was specified, can't start tournament until it's done\)/g);
         expect(element(by.id("runTournament")).getText()).toBe('Start brackets');
         expect(element(by.id("runTournament")).getAttribute('class')).toMatch('btn btn-danger');
@@ -33,6 +41,7 @@ describe('Start tournament', function () {
         element(by.id('adminLink')).click();
 
         element(by.id('runTournament')).click();
+        waitForElementToBeVisible(browser, 'doStart');
         element(by.id('doStart')).click();
 
 
@@ -56,6 +65,7 @@ describe('Start tournament', function () {
         element(by.id('modifyTournament')).click();
 
         element(by.id('runTournament')).click();
+        waitForElementToBeVisible(browser, 'doStart');
         element(by.id('doStart')).click();
 
         var tourneyRunBox = element(by.id('tourneyRunOk'));

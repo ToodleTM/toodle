@@ -4,6 +4,11 @@
       "name": "webdriver-manager",
       "script": "/usr/bin/webdriver-manager",
       "args": "['start', '--seleniumPort=4300']"
+    },
+    {
+      "name": "phantomjs",
+      "script":"/usr/bin/phantomjs",
+      "args":"['--webdriver=4200']"
     }
   ]
 }

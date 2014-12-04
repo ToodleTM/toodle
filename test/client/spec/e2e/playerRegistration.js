@@ -27,6 +27,6 @@ describe('User having the registration URL', function () {
         nickInput.sendKeys('protractest_newRegistration');
         element(by.id('registerPlayerGo')).click();
         expect(element(by.id('playerList')).getText()).toEqual('protractest_newRegistration');
-        expect(element(by.id('registrationKo')).getText()).toEqual('×\nClose\nPlayer registration failed (Reason : A player with that name is already registered)');
+        expect(element(by.id('registrationKo')).getText()).toEqual('×\nClose\nPlayer registration failed (A player with that name is already registered)');
     });
 });
