@@ -9,9 +9,9 @@ describe('User having the admin link of a tournament', function () {
         var tourneyConfirmationBox = element(by.id('tourneyCreationOk'));
         expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g);
         element(by.id('adminLink')).click();
-        var game = element(by.model('tournamentInfo.game'));
-        var description = element(by.model('tournamentInfo.description'));
-        var engine = element(by.model('tournamentInfo.engine'));
+        var game = element(by.id('game'));
+        var description = element(by.id('description'));
+        var engine = element(by.id('engine'));
         expect(game.getAttribute('value')).toEqual('');
         expect(description.getAttribute('value')).toEqual('');
         expect(engine.getAttribute('value')).toEqual('');

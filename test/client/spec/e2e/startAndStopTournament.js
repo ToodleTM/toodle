@@ -53,7 +53,7 @@ describe('Start tournament', function () {
         element(by.id('inputNick')).sendKeys('test1');
         element(by.id('registerPlayerGo')).click();
 
-        var engine = element(by.model('tournamentInfo.engine'));
+        var engine = element(by.id('engine'));
         engine.sendKeys("Single elim. bracket");
         element(by.id('modifyTournament')).click();
 

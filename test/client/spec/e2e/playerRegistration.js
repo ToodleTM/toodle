@@ -10,9 +10,9 @@ describe('User having the registration URL', function () {
         var tourneyConfirmationBox = element(by.id('tourneyCreationOk'));
         expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g);
         element(by.id('signupLink')).click();
-        var game = element(by.model('tournamentInfo.game'));
-        var description = element(by.model('tournamentInfo.description'));
-        var engine = element(by.model('tournamentInfo.engine'));
+        var game = element(by.id('game'));
+        var description = element(by.id('description'));
+        var engine = element(by.id('engine'));
         //console.log(element(by.id('playersList')).getTagName());
         var playersList = element(by.id('playersList'));
         expect(game.getAttribute('disabled')).toBeTruthy();
