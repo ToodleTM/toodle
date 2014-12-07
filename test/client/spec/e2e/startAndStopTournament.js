@@ -1,15 +1,8 @@
 'use strict';
 var homeAddress = 'http://localhost:9042';
-
+var e2eUtils = require('./e2eUtils.js');
 
 describe('Start tournament', function () {
-
-    function waitForElementToBeVisible(browser, elementId){
-        browser.wait(function(){
-            return element(by.id(elementId)).isDisplayed();
-        });
-    }
-
     it('Should not allow tournament start if no engine is selected', function () {
         browser.get(homeAddress);
         element(by.id('tournamentName')).sendKeys('protractor');
@@ -22,7 +15,7 @@ describe('Start tournament', function () {
         element(by.id('registerPlayerGo')).click();
 
         element(by.id('runTournament')).click();
-        waitForElementToBeVisible(browser, 'doStart');
+        e2eUtils.waitForElementToBeVisible(browser, element, by, 'doStart');
         element(by.id('doStart')).click();
 
         var tourneyRunBox = element(by.id('tourneyRunKo'));
@@ -41,7 +34,7 @@ describe('Start tournament', function () {
         element(by.id('adminLink')).click();
 
         element(by.id('runTournament')).click();
-        waitForElementToBeVisible(browser, 'doStart');
+        e2eUtils.waitForElementToBeVisible(browser, element, by, 'doStart');
         element(by.id('doStart')).click();
 
 
@@ -65,7 +58,7 @@ describe('Start tournament', function () {
         element(by.id('modifyTournament')).click();
 
         element(by.id('runTournament')).click();
-        waitForElementToBeVisible(browser, 'doStart');
+        e2eUtils.waitForElementToBeVisible(browser, element, by, 'doStart');
         element(by.id('doStart')).click();
 
         var tourneyRunBox = element(by.id('tourneyRunOk'));
