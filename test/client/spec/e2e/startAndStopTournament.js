@@ -5,11 +5,7 @@ var e2eUtils = require('./e2eUtils.js');
 describe('Start tournament', function () {
     it('Should not allow tournament start if no engine is selected', function () {
         browser.get(homeAddress);
-        element(by.id('tournamentName')).sendKeys('protractor');
-        element(by.id('registerTournamentButton')).click();
-        var tourneyConfirmationBox = element(by.id('tourneyCreationOk'));
-        expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g);
-        element(by.id('adminLink')).click();
+        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
 
         element(by.id('inputNick')).sendKeys('test1');
         element(by.id('registerPlayerGo')).click();
@@ -27,11 +23,7 @@ describe('Start tournament', function () {
 
     it('Should not allow tournament start if tournament contains no players', function () {
         browser.get(homeAddress);
-        element(by.id('tournamentName')).sendKeys('protractor');
-        element(by.id('registerTournamentButton')).click();
-        var tourneyConfirmationBox = element(by.id('tourneyCreationOk'));
-        expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g);
-        element(by.id('adminLink')).click();
+        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
 
         element(by.id('runTournament')).click();
         e2eUtils.waitForElementToBeVisible(browser, element, by, 'doStart');
@@ -44,11 +36,7 @@ describe('Start tournament', function () {
 
     it('should correctly update the buttons classes when tournament starts', function(){
         browser.get(homeAddress);
-        element(by.id('tournamentName')).sendKeys('protractor');
-        element(by.id('registerTournamentButton')).click();
-        var tourneyConfirmationBox = element(by.id('tourneyCreationOk'));
-        expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g);
-        element(by.id('adminLink')).click();
+        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
 
         element(by.id('inputNick')).sendKeys('test1');
         element(by.id('registerPlayerGo')).click();

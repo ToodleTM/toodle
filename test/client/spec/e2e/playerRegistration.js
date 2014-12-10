@@ -1,29 +1,21 @@
 'use strict';
 var homeAddress = 'http://localhost:9042';
-
+var e2eUtils = require('./e2eUtils');
 describe('User having the registration URL', function () {
     it('Should be able to visualize all tournament details and to register once with the same nick', function () {
+        //setup
         browser.get(homeAddress);
-        element(by.id('tournamentName')).sendKeys('protractor');
-        element(by.id('registerTournamentButton')).click();
-
-        var tourneyConfirmationBox = element(by.id('tourneyCreationOk'));
-        expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g);
-        element(by.id('signupLink')).click();
-        var game = element(by.id('game'));
-        var description = element(by.id('description'));
-        var engine = element(by.id('engine'));
-        //console.log(element(by.id('playersList')).getTagName());
-        var playersList = element(by.id('playersList'));
-        expect(game.getAttribute('disabled')).toBeTruthy();
-        expect(description.getAttribute('disabled')).toBeTruthy();
-        expect(engine.getAttribute('disabled')).toBeTruthy();
-        expect(playersList.getText()).toEqual('Registered players (0)\nNo registered players at the moment');
+        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'signupLink');
+        e2eUtils.checkThatSignupPageContentsAreLockedAndEmpty(element, by);
         var nickInput = element(by.id("inputNick"));
+
+        //action / assert
+        //1st insert
         nickInput.sendKeys('protractest_newRegistration');
         element(by.id('registerPlayerGo')).click();
         expect(element(by.id('playerList')).getText()).toEqual('protractest_newRegistration');
         expect(element(by.id('registrationOk')).getText()).toEqual('×\nClose\nSuccessfully registered');
+        //checking that 2nd registration w/ same nick fails
         nickInput.sendKeys('protractest_newRegistration');
         element(by.id('registerPlayerGo')).click();
         expect(element(by.id('playerList')).getText()).toEqual('protractest_newRegistration');

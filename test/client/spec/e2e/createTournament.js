@@ -1,25 +1,10 @@
 'use strict';
 var homeAddress = 'http://localhost:9042';
-// spec.js
-// Add the custom locator.
-by.addLocator('label', function (labelText, opt_parentElement) {
-    // This function will be serialized as a string and will execute in the
-    // browser. The first argument is the text for the label. The second
-    // argument is the parent element, if any.
-    var using = opt_parentElement || document,
-        labels = using.querySelectorAll('label');
-
-    // Return an array of labels with the text.
-    return Array.prototype.filter.call(labels, function (label) {
-        return label.textContent === labelText;
-    });
-});
 
 
 describe('App tiitle', function () {
     it('Should be Toodle', function () {
         browser.get(homeAddress);
-
         expect(browser.getTitle()).toEqual('Toodle');
     });
 });
@@ -27,7 +12,6 @@ describe('App tiitle', function () {
 describe('Homepage', function () {
     it('Should show a form w/ one field and a go button', function () {
         browser.get(homeAddress);
-
         expect(element(by.id('registerLabel')).getText(), 'Register a new Tournament!');
     });
 
