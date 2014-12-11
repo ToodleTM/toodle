@@ -15,7 +15,7 @@ describe('Start tournament', function () {
         element(by.id('doStart')).click();
 
         var tourneyRunBox = element(by.id('tourneyRunKo'));
-        //console.log('we get here');
+
         expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(No game engine was specified, can't start tournament until it's done\)/g);
         expect(element(by.id("runTournament")).getText()).toBe('Start brackets');
         expect(element(by.id("runTournament")).getAttribute('class')).toMatch('btn btn-danger');
@@ -38,16 +38,7 @@ describe('Start tournament', function () {
         browser.get(homeAddress);
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
 
-        element(by.id('inputNick')).sendKeys('test1');
-        element(by.id('registerPlayerGo')).click();
-
-        var engine = element(by.id('engine'));
-        engine.sendKeys("Single elim. bracket");
-        element(by.id('modifyTournament')).click();
-
-        element(by.id('runTournament')).click();
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'doStart');
-        element(by.id('doStart')).click();
+        e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
 
         var tourneyRunBox = element(by.id('tourneyRunOk'));
         expect(tourneyRunBox.getText()).toMatch(/×\nClose\nTournament specs successfully updated/g);

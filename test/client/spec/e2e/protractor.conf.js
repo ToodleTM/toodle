@@ -1,6 +1,6 @@
 exports.config = {
     seleniumAddress: 'http://127.0.0.1:4200',
-    specs: ['accessTournament.js', 'createTournament.js', 'playerRegistration.js', 'updateTournament.js', 'startAndStopTournament.js'],
+    specs: ['updateTournament.js'],
     capabilities:{
         'browserName':'phantomjs'
     }

@@ -39,6 +39,9 @@ E2eUtils.prototype.createTournamentAndGoToPage = function(browser, element, by, 
     element(by.id(pageLinkId)).click();
     checkBaseFormElementValues(element, by, '', '', '', 'Registered players (0)\nNo registered players at the moment');
     checkBaseFormElementState(element, by, pageLinkId);
+    if(pageLinkId === 'adminLink'){
+        expect(element(by.id('playerSignupPageLink')).getText()).toBe('Player\'s signup form');
+    }
 };
 
 E2eUtils.prototype.checkThatSignupPageContentsAreLockedAndEmpty = function(element, by){
@@ -46,6 +49,19 @@ E2eUtils.prototype.checkThatSignupPageContentsAreLockedAndEmpty = function(eleme
     checkBaseFormElementState(element, by, true);
 };
 
+
+E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element, by){
+    element(by.id('inputNick')).sendKeys('test1');
+    element(by.id('registerPlayerGo')).click();
+
+    var engine = element(by.id('engine'));
+    engine.sendKeys("Single elim. bracket");
+    element(by.id('modifyTournament')).click();
+
+    element(by.id('runTournament')).click();
+    this.waitForElementToBeVisible(browser, element, by, 'doStart');
+    element(by.id('doStart')).click();
+};
 
 
 module.exports = new E2eUtils();
