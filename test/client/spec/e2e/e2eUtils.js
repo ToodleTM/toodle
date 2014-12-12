@@ -53,6 +53,8 @@ E2eUtils.prototype.checkThatSignupPageContentsAreLockedAndEmpty = function(eleme
 E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element, by){
     element(by.id('inputNick')).sendKeys('test1');
     element(by.id('registerPlayerGo')).click();
+    element(by.id('inputNick')).sendKeys('test2');
+    element(by.id('registerPlayerGo')).click();
 
     var engine = element(by.id('engine'));
     engine.sendKeys("Single elim. bracket");

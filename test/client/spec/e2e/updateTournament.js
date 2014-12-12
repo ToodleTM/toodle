@@ -76,6 +76,6 @@ describe('User having the admin link of a tournament', function () {
 
         expect(element(by.id('registerPlayerGo')).isDisplayed()).toEqual(false);
 
-        expect(element(by.id('playersList')).getText()).toEqual('Registered players (1)\ntest1');
+        expect(element(by.id('playersList')).getText()).toEqual('Registered players (2)\ntest1\ntest2');
     });
 });
