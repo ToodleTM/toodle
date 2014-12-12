@@ -2,6 +2,16 @@
 var homeAddress = 'http://localhost:9042';
 var e2eUtils = require('./e2eUtils');
 describe('Admin', function () {
+    beforeEach(function(){
+        browser.get(homeAddress);
+        var ptor = protractor.getInstance();
+        ptor.manage().deleteAllCookies();
+    });
+    afterEach(function(){
+        browser.get(homeAddress);
+        var ptor = protractor.getInstance();
+        ptor.manage().deleteAllCookies();
+    });
     it('should switch the language to french if user selects french in the top menu', function(){
         browser.get(homeAddress);
 
