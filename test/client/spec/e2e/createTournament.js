@@ -2,7 +2,7 @@
 var homeAddress = 'http://localhost:9042';
 
 
-describe('App tiitle', function () {
+describe('App title', function () {
     it('Should be Toodle', function () {
         browser.get(homeAddress);
         expect(browser.getTitle()).toEqual('Toodle');

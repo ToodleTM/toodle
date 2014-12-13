@@ -39,8 +39,12 @@ E2eUtils.prototype.createTournamentAndGoToPage = function(browser, element, by, 
     element(by.id(pageLinkId)).click();
     checkBaseFormElementValues(element, by, '', '', '', 'Registered players (0)\nNo registered players at the moment');
     checkBaseFormElementState(element, by, pageLinkId);
+    expect(element(by.id('tournamentBracketLink')).isDisplayed()).toBe(false);
     if(pageLinkId === 'adminLink'){
         expect(element(by.id('playerSignupPageLink')).getText()).toBe('Player\'s signup form');
+        element(by.id('playerSignupPageLink')).click();
+        expect(element(by.id('tournamentBracketLink')).isDisplayed()).toBe(false);
+        browser.navigate().back();
     }
 };
 

@@ -3,8 +3,10 @@ var homeAddress = 'http://localhost:9042';
 var e2eUtils = require('./e2eUtils.js');
 
 describe('Start tournament', function () {
-    it('Should not allow tournament start if no engine is selected', function () {
+    beforeEach(function(){
         browser.get(homeAddress);
+    });
+    it('Should not allow tournament start if no engine is selected', function () {
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
 
         element(by.id('inputNick')).sendKeys('test1');
@@ -22,7 +24,6 @@ describe('Start tournament', function () {
     });
 
     it('Should not allow tournament start if tournament contains no players', function () {
-        browser.get(homeAddress);
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
 
         element(by.id('runTournament')).click();
@@ -35,14 +36,22 @@ describe('Start tournament', function () {
     });
 
     it('should correctly update the buttons classes when tournament starts', function(){
-        browser.get(homeAddress);
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
 
         e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
 
         var tourneyRunBox = element(by.id('tourneyRunOk'));
         expect(tourneyRunBox.getText()).toMatch(/×\nClose\nTournament specs successfully updated/g);
-        expect(element(by.id("runTournament")).getText()).toBe('Stop brackets');
-        expect(element(by.id("runTournament")).getAttribute('class')).toMatch('btn btn-success');
+        expect(element(by.id('runTournament')).getText()).toBe('Stop brackets');
+        expect(element(by.id('runTournament')).getAttribute('class')).toMatch('btn btn-success');
     });
+
+    it('should correctly display the bracket link if tournament has started', function(){
+        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
+
+        e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
+        expect(element(by.id('tournamentBracketLink')).isDisplayed()).toBe(true);
+        element(by.id('playerSignupPageLink')).click();
+        expect(element(by.id('tournamentBracketLink')).isDisplayed()).toBe(true);
+    })
 });
