@@ -21,11 +21,11 @@ function player1Wins2Nil(element, by) {
 
     element(by.id('doReport')).click();
 }
-
+beforeEach(function(){
+    browser.get(homeAddress);
+});
 describe('Admin', function () {
     it('should not be able to unreport or unreport if tournament has not started', function(){
-        browser.get(homeAddress);
-
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
 
         expect(element(by.id('reportGame')).isDisplayed()).toBe(false);
@@ -34,10 +34,7 @@ describe('Admin', function () {
 
     describe('match reporting', function(){
         it('should be able to report a finished game', function () {
-            browser.get(homeAddress);
-
-            e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
-            e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
+            createAndStartATournament();
 
             checkTournamentState(element, by, 'test1 VS test2', '', true, false);
             player1Wins2Nil(element, by);
@@ -46,10 +43,7 @@ describe('Admin', function () {
         });
 
         it('should not touch anything if the user hits the cancel button while reporting', function(){
-            browser.get(homeAddress);
-
-            e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
-            e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
+            createAndStartATournament();
 
             checkTournamentState(element, by, 'test1 VS test2', '', true, false);
 
@@ -65,10 +59,7 @@ describe('Admin', function () {
     });
     describe('match unreporting', function(){
         it('should be able to unreport a game', function(){
-            browser.get(homeAddress);
-
-            e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
-            e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
+            createAndStartATournament();
 
             checkTournamentState(element, by, 'test1 VS test2', '', true, false);
 
@@ -83,10 +74,7 @@ describe('Admin', function () {
         });
 
         it('should not do anything if the user hits the cancel button while unreporting', function(){
-            browser.get(homeAddress);
-
-            e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
-            e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
+            createAndStartATournament();
 
             checkTournamentState(element, by, 'test1 VS test2', '', true, false);
 
@@ -104,8 +92,6 @@ describe('Admin', function () {
 
 describe('User', function () {
     it('should not be able to unreport or unreport if tournament has not started', function(){
-        browser.get(homeAddress);
-
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'signupLink');
 
         expect(element(by.id('reportGame')).isDisplayed()).toBe(false);
@@ -115,8 +101,6 @@ describe('User', function () {
     describe('players can report and unreport', function () {
         describe('match reporting', function () {
             it('should be able to report a finished game', function () {
-                browser.get(homeAddress);
-
                 createAndStartATournament();
                 element(by.id('playerSignupPageLink')).click();
 
@@ -126,8 +110,6 @@ describe('User', function () {
             });
 
             it('should not touch anything if the user hits the cancel button while reporting', function () {
-                browser.get(homeAddress);
-
                 createAndStartATournament();
                 element(by.id('playerSignupPageLink')).click();
 
@@ -142,8 +124,6 @@ describe('User', function () {
         });
         describe('match unreporting', function () {
             it('should be able to unreport a game', function () {
-                browser.get(homeAddress);
-
                 createAndStartATournament();
                 element(by.id('playerSignupPageLink')).click();
 
@@ -159,8 +139,6 @@ describe('User', function () {
             });
 
             it('should not do anything if the user hits the cancel button while unreporting', function () {
-                browser.get(homeAddress);
-
                 createAndStartATournament();
                 element(by.id('playerSignupPageLink')).click();
 
@@ -179,7 +157,6 @@ describe('User', function () {
 
     describe('players have restricted rights', function(){
        it('should not show the unreport section if admin forbids it', function(){
-           browser.get(homeAddress);
            createAndStartATournament();
            element(by.id('reportRights-1')).click();
            element(by.id('modifyTournament')).click();
@@ -192,7 +169,6 @@ describe('User', function () {
        });
 
         it('should not show any reporting sections if admin forbids it', function(){
-            browser.get(homeAddress);
             createAndStartATournament();
             element(by.id('reportRights-2')).click();
             element(by.id('modifyTournament')).click();
