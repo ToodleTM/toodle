@@ -35,7 +35,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'admin.actions.run.cancel' |
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelReport">{{ 'admin.actions.run.cancel' |
                     translate}}
                 </button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="reportMatch()"
@@ -68,7 +68,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'admin.actions.run.cancel' |
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelUnreport">{{ 'admin.actions.run.cancel' |
                     translate}}
                 </button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="unreportMatch()"
@@ -92,7 +92,7 @@
             <select id="reportGame" name="reportGame" class="form-control" ng-model="firstGameToReport"
                     ng-options="item as item.player1.name+' VS '+item.player2.name for item in gamesToReport track by item.number">
             </select>
-            <button id="reportGameButton" data-toggle="modal" data-target="#reportModal"
+            <button ng-show="gamesToReport.length" id="reportGameButton" data-toggle="modal" data-target="#reportModal"
                     class="btn btn-primary"
                     title="{{'admin.actions.reporting.reportButton'|translate}}">
                 {{'admin.actions.reporting.reportButton'|translate}}
@@ -106,7 +106,7 @@
             <select id="unreportGame" name="unreportGame" class="form-control" ng-model="gameToUnreport"
                     ng-options="item as item.player1.name+' VS '+item.player2.name for item in gamesToUnreport track by item.number">
             </select>
-            <button id="unreportGameButton" data-toggle="modal" data-target="#unreportModal"
+            <button ng-show="gamesToUnreport.length" id="unreportGameButton" data-toggle="modal" data-target="#unreportModal"
                     class="btn btn-primary"
                     title="{{'admin.actions.reporting.unreportButton'|translate}}">
                 {{'admin.actions.reporting.unreportButton'|translate}}

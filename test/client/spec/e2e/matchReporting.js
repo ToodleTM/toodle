@@ -1,6 +1,27 @@
 'use strict';
 var homeAddress = 'http://localhost:9042';
 var e2eUtils = require('./e2eUtils');
+
+function createAndStartATournament() {
+    e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
+    e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
+}
+
+function checkTournamentState(element, by, reportVisibleElement, unreportVisibileElement, reportButtonDisplay, unreportButtonDisplay) {
+    expect(element(by.xpath('//select[@id="reportGame"]')).getText()).toBe(reportVisibleElement);
+    expect(element(by.xpath('//select[@id="unreportGame"]')).getText()).toBe(unreportVisibileElement);
+    expect(element(by.id('reportGameButton')).isDisplayed()).toBe(reportButtonDisplay);
+    expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(unreportButtonDisplay);
+}
+
+function player1Wins2Nil(element, by) {
+    element(by.id('reportGameButton')).click();
+    e2eUtils.waitForElementToBeVisible(browser, element, by, 'score1');
+    element(by.id('score1')).sendKeys(2);
+
+    element(by.id('doReport')).click();
+}
+
 describe('Admin', function () {
     it('should not be able to unreport or unreport if tournament has not started', function(){
         browser.get(homeAddress);
@@ -18,19 +39,10 @@ describe('Admin', function () {
             e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
             e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
 
-            expect(element(by.xpath('//select[@id="reportGame"]')).getText()).toBe('test1 VS test2');
-            expect(element(by.xpath('//select[@id="unreportGame"]')).getText()).toBe('');
-            expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(false);
-            element(by.id('reportGameButton')).click();
-            e2eUtils.waitForElementToBeVisible(browser, element, by, 'score1');
-            element(by.id('score1')).sendKeys(2);
+            checkTournamentState(element, by, 'test1 VS test2', '', true, false);
+            player1Wins2Nil(element, by);
 
-            element(by.id('doReport')).click();
-
-            expect(element(by.xpath('//select[@id="reportGame"]')).getText()).toBe('');
-            expect(element(by.xpath('//select[@id="unreportGame"]')).getText()).toBe('test1 VS test2');
-            expect(element(by.id('reportGameButton')).isDisplayed()).toBe(false);
-            expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(true);
+            checkTournamentState(element, by, '', 'test1 VS test2', false, true);
         });
 
         it('should not touch anything if the user hits the cancel button while reporting', function(){
@@ -39,8 +51,7 @@ describe('Admin', function () {
             e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
             e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
 
-            expect(element(by.xpath('//select[@id="reportGame"]')).getText()).toBe('test1 VS test2');
-            expect(element(by.xpath('//select[@id="unreportGame"]')).getText()).toBe('');
+            checkTournamentState(element, by, 'test1 VS test2', '', true, false);
 
             element(by.id('reportGameButton')).click();
             e2eUtils.waitForElementToBeVisible(browser, element, by, 'score1');
@@ -48,10 +59,7 @@ describe('Admin', function () {
 
             element(by.id('cancelReport')).click();
 
-            expect(element(by.xpath('//select[@id="reportGame"]')).getText()).toBe('test1 VS test2');
-            expect(element(by.xpath('//select[@id="unreportGame"]')).getText()).toBe('');
-            expect(element(by.id('reportGameButton')).isDisplayed()).toBe(true);
-            expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(false);
+            checkTournamentState(element, by, 'test1 VS test2', '', true, false);
         });
 
     });
@@ -62,29 +70,16 @@ describe('Admin', function () {
             e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
             e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
 
-            expect(element(by.xpath('//select[@id="reportGame"]')).getText()).toBe('test1 VS test2');
-            expect(element(by.xpath('//select[@id="unreportGame"]')).getText()).toBe('');
-            expect(element(by.id('reportGameButton')).isDisplayed()).toBe(true);
-            expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(false);
+            checkTournamentState(element, by, 'test1 VS test2', '', true, false);
 
-            element(by.id('reportGameButton')).click();
-            e2eUtils.waitForElementToBeVisible(browser, element, by, 'score1');
-            element(by.id('score1')).sendKeys(2);
+            player1Wins2Nil(element, by);
 
-            element(by.id('doReport')).click();
-
-            expect(element(by.xpath('//select[@id="reportGame"]')).getText()).toBe('');
-            expect(element(by.xpath('//select[@id="unreportGame"]')).getText()).toBe('test1 VS test2');
-            expect(element(by.id('reportGameButton')).isDisplayed()).toBe(false);
-            expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(true);
+            checkTournamentState(element, by, '', 'test1 VS test2', false, true);
             element(by.id('unreportGameButton')).click();
             e2eUtils.waitForElementToBeVisible(browser, element, by, 'doUnreport');
             element(by.id('doUnreport')).click();
 
-            expect(element(by.xpath('//select[@id="reportGame"]')).getText()).toBe('test1 VS test2');
-            expect(element(by.xpath('//select[@id="unreportGame"]')).getText()).toBe('');
-            expect(element(by.id('reportGameButton')).isDisplayed()).toBe(true);
-            expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(false);
+            checkTournamentState(element, by, 'test1 VS test2', '', true, false);
         });
 
         it('should not do anything if the user hits the cancel button while unreporting', function(){
@@ -93,30 +88,120 @@ describe('Admin', function () {
             e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
             e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
 
-            expect(element(by.xpath('//select[@id="reportGame"]')).getText()).toBe('test1 VS test2');
-            expect(element(by.xpath('//select[@id="unreportGame"]')).getText()).toBe('');
-            expect(element(by.id('reportGameButton')).isDisplayed()).toBe(true);
-            expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(false);
+            checkTournamentState(element, by, 'test1 VS test2', '', true, false);
 
-            element(by.id('reportGameButton')).click();
-            e2eUtils.waitForElementToBeVisible(browser, element, by, 'score1');
-            element(by.id('score1')).sendKeys(2);
+            player1Wins2Nil(element, by);
 
-            element(by.id('doReport')).click();
-
-            expect(element(by.xpath('//select[@id="reportGame"]')).getText()).toBe('');
-            expect(element(by.xpath('//select[@id="unreportGame"]')).getText()).toBe('test1 VS test2');
-            expect(element(by.id('reportGameButton')).isDisplayed()).toBe(false);
-            expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(true);
+            checkTournamentState(element, by, '', 'test1 VS test2', false, true);
             element(by.id('unreportGameButton')).click();
             e2eUtils.waitForElementToBeVisible(browser, element, by, 'doUnreport');
             element(by.id('cancelUnreport')).click();
 
-            expect(element(by.xpath('//select[@id="reportGame"]')).getText()).toBe('');
-            expect(element(by.xpath('//select[@id="unreportGame"]')).getText()).toBe('test1 VS test2');
-            expect(element(by.id('reportGameButton')).isDisplayed()).toBe(false);
-            expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(true);
+            checkTournamentState(element, by, '', 'test1 VS test2', false, true);
+        });
+    });
+});
+
+describe('User', function () {
+    it('should not be able to unreport or unreport if tournament has not started', function(){
+        browser.get(homeAddress);
+
+        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'signupLink');
+
+        expect(element(by.id('reportGame')).isDisplayed()).toBe(false);
+        expect(element(by.id('unreportGame')).isDisplayed()).toBe(false);
+    });
+
+    describe('players can report and unreport', function () {
+        describe('match reporting', function () {
+            it('should be able to report a finished game', function () {
+                browser.get(homeAddress);
+
+                createAndStartATournament();
+                element(by.id('playerSignupPageLink')).click();
+
+                checkTournamentState(element, by, 'test1 VS test2', '', true, false);
+                player1Wins2Nil(element, by);
+                checkTournamentState(element, by, '', 'test1 VS test2', false, true);
+            });
+
+            it('should not touch anything if the user hits the cancel button while reporting', function () {
+                browser.get(homeAddress);
+
+                createAndStartATournament();
+                element(by.id('playerSignupPageLink')).click();
+
+                checkTournamentState(element, by, 'test1 VS test2', '', true, false);
+                element(by.id('reportGameButton')).click();
+                e2eUtils.waitForElementToBeVisible(browser, element, by, 'score1');
+                element(by.id('cancelReport')).click();
+
+                checkTournamentState(element, by, 'test1 VS test2', '', true, false);
+            });
+
+        });
+        describe('match unreporting', function () {
+            it('should be able to unreport a game', function () {
+                browser.get(homeAddress);
+
+                createAndStartATournament();
+                element(by.id('playerSignupPageLink')).click();
+
+                checkTournamentState(element, by, 'test1 VS test2', '', true, false);
+                player1Wins2Nil(element, by);
+
+                checkTournamentState(element, by, '', 'test1 VS test2', false, true);
+                element(by.id('unreportGameButton')).click();
+                e2eUtils.waitForElementToBeVisible(browser, element, by, 'doUnreport');
+                element(by.id('doUnreport')).click();
+
+                checkTournamentState(element, by, 'test1 VS test2', '', true, false);
+            });
+
+            it('should not do anything if the user hits the cancel button while unreporting', function () {
+                browser.get(homeAddress);
+
+                createAndStartATournament();
+                element(by.id('playerSignupPageLink')).click();
+
+                checkTournamentState(element, by, 'test1 VS test2', '', true, false);
+                player1Wins2Nil(element, by);
+
+                checkTournamentState(element, by, '', 'test1 VS test2', false, true);
+                element(by.id('unreportGameButton')).click();
+                e2eUtils.waitForElementToBeVisible(browser, element, by, 'doUnreport');
+                element(by.id('cancelUnreport')).click();
+
+                checkTournamentState(element, by, '', 'test1 VS test2', false, true);
+            });
         });
     });
 
+    describe('players have restricted rights', function(){
+       it('should not show the unreport section if admin forbids it', function(){
+           browser.get(homeAddress);
+           createAndStartATournament();
+           element(by.id('reportRights-1')).click();
+           element(by.id('modifyTournament')).click();
+           element(by.id('playerSignupPageLink')).click();
+
+           expect(element(by.id('reportGame')).isDisplayed()).toBe(true);
+           expect(element(by.id('unreportGame')).isDisplayed()).toBe(false);
+           expect(element(by.id('reportGameButton')).isDisplayed()).toBe(true);
+           expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(false);
+       });
+
+        it('should not show any reporting sections if admin forbids it', function(){
+            browser.get(homeAddress);
+            createAndStartATournament();
+            element(by.id('reportRights-2')).click();
+            element(by.id('modifyTournament')).click();
+            element(by.id('playerSignupPageLink')).click();
+
+            expect(element(by.id('reportGame')).isDisplayed()).toBe(false);
+            expect(element(by.id('unreportGame')).isDisplayed()).toBe(false);
+            expect(element(by.id('reportGameButton')).isDisplayed()).toBe(false);
+            expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(false);
+        });
+    });
 });
