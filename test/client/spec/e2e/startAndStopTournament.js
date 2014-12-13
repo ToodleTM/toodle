@@ -19,8 +19,8 @@ describe('Start tournament', function () {
         var tourneyRunBox = element(by.id('tourneyRunKo'));
 
         expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(No game engine was specified, can't start tournament until it's done\)/g);
-        expect(element(by.id("runTournament")).getText()).toBe('Start brackets');
-        expect(element(by.id("runTournament")).getAttribute('class')).toMatch('btn btn-danger');
+        expect(element(by.id('runTournament')).getText()).toBe('Start brackets');
+        expect(element(by.id('runTournament')).getAttribute('class')).toMatch('btn btn-danger');
     });
 
     it('Should not allow tournament start if tournament contains no players', function () {
@@ -53,5 +53,5 @@ describe('Start tournament', function () {
         expect(element(by.id('tournamentBracketLink')).isDisplayed()).toBe(true);
         element(by.id('playerSignupPageLink')).click();
         expect(element(by.id('tournamentBracketLink')).isDisplayed()).toBe(true);
-    })
+    });
 });

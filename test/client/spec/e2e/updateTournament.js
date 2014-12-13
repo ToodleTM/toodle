@@ -2,7 +2,7 @@
 var homeAddress = 'http://localhost:9042';
 var e2eUtils = require('./e2eUtils');
 describe('User having the admin link of a tournament', function () {
-    it("Should be able to edit all fields", function () {
+    it('should be able to edit all fields', function () {
         browser.get(homeAddress);
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
         var game = element(by.id('game'));

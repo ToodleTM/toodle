@@ -1,6 +1,5 @@
 'use strict';
 var homeAddress = 'http://localhost:9042';
-var e2eUtils = require('./e2eUtils');
 describe('Admin', function () {
     beforeEach(function(){
         browser.get(homeAddress);

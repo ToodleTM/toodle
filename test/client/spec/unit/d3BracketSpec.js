@@ -1,3 +1,4 @@
+'use strict';
 var D3Bracket = require('../../../../app/scripts/utils/d3Bracket.js').D3Bracket;
 var assert = require('chai').assert;
 var sinon = require('sinon');
@@ -276,7 +277,7 @@ describe('D3ToBracket', function () {
             //setup
             var d3Bracket = new D3Bracket();
             var bracket = {};
-            sinon.spy(d3Bracket, 'setViewDimensions')
+            sinon.spy(d3Bracket, 'setViewDimensions');
             //action
             d3Bracket.setViewDimensions(bracket);
             //assert
@@ -330,24 +331,23 @@ describe('D3ToBracket', function () {
                 player2: {name: 'donald'}
             }
         };
-        var firstAttrFunction = null;
         var append = null;
         var callCheck = null;
         beforeEach(function () {
             d3.layout =
             {
                 tree: function () {
-                    function tree() {
+                    var tree = function() {
                     };
                     var size = function () {
                         var result = function () {
                         };
                         result.nodes = function () {
                             var result = function () {
-                            }
+                            };
                             result.reverse = function () {
                                 return [];
-                            }
+                            };
                             return result;
                         };
                         result.links = function () {
@@ -363,7 +363,7 @@ describe('D3ToBracket', function () {
 
             d3.svg = {
                 diagonal: function () {
-                    function result() {
+                    var result = function() {
                     };
                     result.projection = function () {
                     };
@@ -388,12 +388,12 @@ describe('D3ToBracket', function () {
                             callCheck(a, b);
 
                             var appendFunc = function () {
-                            }
+                            };
 
                             appendFunc.append = function (a) {
                                 callCheck(a);
                                 var thirdAttrFunc = function () {
-                                }
+                                };
                                 thirdAttrFunc.attr = function (a, b) {
                                     callCheck(a, b);
                                 };

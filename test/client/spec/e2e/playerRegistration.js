@@ -9,7 +9,7 @@ describe('User having the registration URL', function () {
         //setup
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'signupLink');
         e2eUtils.checkThatSignupPageContentsAreLockedAndEmpty(element, by);
-        var nickInput = element(by.id("inputNick"));
+        var nickInput = element(by.id('inputNick'));
 
         //action / assert
         //1st insert

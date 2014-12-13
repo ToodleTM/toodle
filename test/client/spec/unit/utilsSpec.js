@@ -1,3 +1,4 @@
+'use strict';
 var Utils = require('../../../../app/scripts/utils/utils.js').Utils;
 var assert = require('chai').assert;
 

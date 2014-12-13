@@ -1,5 +1,4 @@
 'use strict';
-var assert = require('chai').assert;
 var E2eUtils = function(){};
 
 function checkBaseFormElementValues(element, by, gameValue, descriptionValue, engineValue, registeredPlayersValue){
@@ -61,7 +60,7 @@ E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element,
     element(by.id('registerPlayerGo')).click();
 
     var engine = element(by.id('engine'));
-    engine.sendKeys("Single elim. bracket");
+    engine.sendKeys('Single elim. bracket');
     element(by.id('modifyTournament')).click();
 
     element(by.id('runTournament')).click();

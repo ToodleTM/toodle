@@ -75,9 +75,9 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test",
+    "test": "grunt mochaTest && cd ./test/client/spec/e2e/runner && ./runProtractor.sh",
     "postinstall": "./node_modules/bower/bin/bower install",
     "qualimetry": "plato -l ./.jshintrc -r -d qualimetry/platoReport -x app/bower_components/  lib/ app/ test && istanbul cover _mocha --dir qualimetry/cover -- -R spec test/server/**/* test/client/spec/unit/*",
-    "jshint":"jshint lib/ app/scripts --exclude-path .jshintignore"
+    "jshint":"jshint --config ./.jshintrc lib/ app/scripts ./test/ --exclude-path .jshintignore"
   }
 }

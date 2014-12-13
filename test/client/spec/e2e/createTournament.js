@@ -22,13 +22,13 @@ describe('Homepage', function () {
         //.toEqual('×\nClose\nSomething bad happened, the tournament was not created. Please try again. (Reason : Tournament name must not be blank)');
     });
 
-    it("Sould display an OK message if the tournament has been successfully created", function () {
+    it('Sould display an OK message if the tournament has been successfully created', function () {
         browser.get(homeAddress);
         element(by.id('tournamentName')).sendKeys('protractor');
         element(by.id('registerTournamentButton')).click();
 
         var tourneyConfirmationBox = element(by.id('tourneyCreationOk'));
-        expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g)
+        expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g);
     });
 
 });
