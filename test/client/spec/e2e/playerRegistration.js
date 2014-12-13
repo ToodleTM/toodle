@@ -5,7 +5,7 @@ describe('User having the registration URL', function () {
     beforeEach(function(){
         browser.get(homeAddress);
     });
-    it('Should be able to visualize all tournament details and to register once with the same nick', function () {
+    it('should not allow the user to register a player w/ the same nick twice', function () {
         //setup
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'signupLink');
         e2eUtils.checkThatSignupPageContentsAreLockedAndEmpty(element, by);
