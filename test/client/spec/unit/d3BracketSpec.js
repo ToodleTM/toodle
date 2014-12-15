@@ -4,10 +4,13 @@ var assert = require('chai').assert;
 var sinon = require('sinon');
 
 describe('D3ToBracket', function () {
+    var d3Bracket = null;
+    beforeEach(function(){
+        d3Bracket = new D3Bracket();
+    });
     describe('Bracket conversion from toodle to D3', function () {
         it('should return an empty object if no data exists', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var bracket = {};
             //action
             var actual = d3Bracket.convertBracketToD3Tree(bracket);
@@ -17,7 +20,6 @@ describe('D3ToBracket', function () {
 
         it('should return an object w/ a single element if initial bracket contains one', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var bracket = {
                 1: {
                     number: 1,
@@ -36,7 +38,6 @@ describe('D3ToBracket', function () {
 
         it('should correctly position a node and its children, children should refer to parent (1 level)', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var bracket = {
                 1: {
                     number: 1,
@@ -81,7 +82,6 @@ describe('D3ToBracket', function () {
 
         it('should enable match report if all previous matches are completed and current match is not', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var bracket = {
                 1: {
                     number: 1,
@@ -122,7 +122,6 @@ describe('D3ToBracket', function () {
 
         it('should allow reporting if current match is in the first round of the bracket and it has not yet been reported', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var bracket = {
                 1: {
                     number: 1,
@@ -138,7 +137,6 @@ describe('D3ToBracket', function () {
 
         it('should be able to link children to parents on multiple levels', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var bracket = {
                 1: {
                     number: 1,
@@ -213,50 +211,44 @@ describe('D3ToBracket', function () {
         });
     });
     describe('Bracket sizing according to bracket depth', function () {
-        it('should define a length of 400px and a height of 200px if the bracket is of depth = 1', function () {
-            //setup
-            var d3Bracket = new D3Bracket();
-            var bracket = {
-                1: {}
-            };
+        function testBracketDimnsions(bracket, expectedWidth, expectedHeight){
             //action
             d3Bracket.setViewDimensions(bracket);
             //assert
-            assert.equal(d3Bracket.getWidth(), 400);
-            assert.equal(d3Bracket.getHeight(), 200);
+            assert.equal(d3Bracket.getWidth(), expectedWidth);
+            assert.equal(d3Bracket.getHeight(), expectedHeight);
+        }
+
+        it('should define a length of 400px and a height of 200px if the bracket is of depth = 1', function () {
+            //setup
+            var bracket = {
+                1: {}
+            };
+
+            testBracketDimnsions(bracket, 400, 200);
         });
 
         it('should define a canvas height that is _depth_ times the calculated length if the total number of matches to play is above 127', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var bracket = {};
             for (var i = 1; i <= 127; i++) {
                 bracket[i] = {};
             }
-            //action
-            d3Bracket.setViewDimensions(bracket);
-            //assert
-            assert.equal(d3Bracket.getWidth(), 2800);
-            assert.equal(d3Bracket.getHeight(), 19600);
+
+            testBracketDimnsions(bracket, 2800, 19600);
         });
 
         it('should define a canvas height that is _depth_/2 times the calculated length if the total number to matches to play lies between 31 and 127', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var bracket = {};
             for (var i = 1; i <= 63; i++) {
                 bracket[i] = {};
             }
-            //action
-            d3Bracket.setViewDimensions(bracket);
-            //assert
-            assert.equal(d3Bracket.getWidth(), 2400);
-            assert.equal(d3Bracket.getHeight(), 7200);
+            testBracketDimnsions(bracket, 2400, 7200);
         });
 
         it('should define dimensions L1200 / H600 if the bracket is of depth 3', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var bracket = {
                 1: {},
                 2: {},
@@ -266,23 +258,14 @@ describe('D3ToBracket', function () {
                 6: {},
                 7: {}
             };
-            //action
-            d3Bracket.setViewDimensions(bracket);
-            //assert
-            assert.equal(d3Bracket.getWidth(), 1200);
-            assert.equal(d3Bracket.getHeight(), 600);
+            testBracketDimnsions(bracket, 1200, 600);
         });
 
         it('should define dimensions as 0/0 if bracket is empty', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var bracket = {};
             sinon.spy(d3Bracket, 'setViewDimensions');
-            //action
-            d3Bracket.setViewDimensions(bracket);
-            //assert
-            assert.equal(d3Bracket.getWidth(), 0);
-            assert.equal(d3Bracket.getHeight(), 0);
+            testBracketDimnsions(bracket, 0, 0);
         });
     });
     describe('drawbracket function', function () {
@@ -424,7 +407,6 @@ describe('D3ToBracket', function () {
         });
         it('sets the canvas dimensions by calling setViewDimensions', function () {
             //setup
-            var d3Bracket = new D3Bracket();
 
             d3Bracket.appendSvgCanvas = function () {
             };
@@ -453,7 +435,6 @@ describe('D3ToBracket', function () {
 
         it('should set the svg canvas with the appropriate properties (width, height, margins) for a depth 3 bracket', function () {
             //setup
-            var d3Bracket = new D3Bracket();
 
             d3Bracket.translateOrigin = function () {
             };
@@ -486,71 +467,61 @@ describe('D3ToBracket', function () {
         });
     });
     describe('GetTextToDraw', function () {
-        it('should return TBD if if we don t want player1 data and no data about player 2 is available', function () {
-            //setup
-            var d3Bracket = new D3Bracket();
-            var data = {};
+
+        function testTextToDraw(data, isPlayer1, expectedText){
             //action
-            var actual = d3Bracket.getTextToDraw(data, false);
+            var actual = d3Bracket.getTextToDraw(data, isPlayer1);
             //assert
-            assert.equal(actual, ' -  TBD');
+            assert.equal(actual, expectedText);
+        }
+        it('should return TBD if if we don t want player1 data and no data about player 2 is available', function () {
+            testTextToDraw({}, false, ' -  TBD');
         });
 
         it('should return player2 s nick if we don t want player1 data and data about player2 is available', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var data = {
                 player2: {name: 'Bob'}
             };
-            //action
-            var actual = d3Bracket.getTextToDraw(data, false);
-            //assert
-            assert.equal(actual, ' -  Bob');
+            testTextToDraw(data, false, ' -  Bob');
         });
 
         it('should return player1 s nick if we want player1 data and data about player1 is available', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var data = {
                 player1: {name: 'Billy Bob'}
             };
-            //action
-            var actual = d3Bracket.getTextToDraw(data, true);
-            //assert
-            assert.equal(actual, ' -  Billy Bob');
+            testTextToDraw(data,  true, ' -  Billy Bob');
         });
 
         it('should return player1 s nick w/ score if we want player1 data and his score is available', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var data = {
                 player1: {name: 'Billy Bob'},
                 score1: 42
             };
-            //action
-            var actual = d3Bracket.getTextToDraw(data, true);
-            //assert
-            assert.equal(actual, '42 Billy Bob');
+            testTextToDraw(data, true, '42 Billy Bob');
         });
 
         it('should return player2 s nick w/ score if we don t want player2 data and player2 s score is available', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var data = {
                 player2: {name: 'Bob'},
                 score2: 24
             };
-            //action
-            var actual = d3Bracket.getTextToDraw(data, false);
-            //assert
-            assert.equal(actual, '24 Bob');
+            testTextToDraw(data, false, '24 Bob');
         });
     });
 
     describe('Faction icon display', function () {
+        function testIconToShow(data, firstPlayerWanted, expectedIcon){
+            //action
+            var actual = d3Bracket.getIconToShow(data, firstPlayerWanted);
+            //assert
+            assert.equal(actual, expectedIcon);
+        }
         it('should return player1 s icon in a correctly formatted string if we re interested in player1', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var d = {
                 player1: {
                     faction: 'player1'
@@ -559,14 +530,10 @@ describe('D3ToBracket', function () {
                     faction: 'player2'
                 }
             };
-            //action
-            var actual = d3Bracket.getIconToShow(d, true);
-            //assert
-            assert.equal(actual, '/images/icon-player1.png');
+            testIconToShow(d, true, '/images/icon-player1.png');
         });
         it('should return player2 s icon in a correctly formatted string if we re not interested in player1', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var d = {
                 player1: {
                     faction: 'player1'
@@ -575,52 +542,73 @@ describe('D3ToBracket', function () {
                     faction: 'player2'
                 }
             };
-            //action
-            var actual = d3Bracket.getIconToShow(d, false);
-            //assert
-            assert.equal(actual, '/images/icon-player2.png');
+            testIconToShow(d, false, '/images/icon-player2.png');
         });
         it('should return a default icon if no player1 faction is specified', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var d = {
                 player1: {}
             };
-            //action
-            var actual = d3Bracket.getIconToShow(d, true);
-            //assert
-            assert.equal(actual, '/images/icon-default.png');
+            testIconToShow(d, true, '/images/icon-default.png');
         });
 
         it('should return a default icon if no player2 faction is specified', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var d = {
                 player2: {}
             };
-            //action
-            var actual = d3Bracket.getIconToShow(d, false);
-            //assert
-            assert.equal(actual, '/images/icon-default.png');
+            testIconToShow(d, false, '/images/icon-default.png');
         });
 
         it('should return the default icon if no player1 is defined and we re trying to display player1', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var d = {};
-            //action
-            var actual = d3Bracket.getIconToShow(d, true);
-            //assert
-            assert.equal(actual, '/images/icon-default.png');
+            testIconToShow(d, true, '/images/icon-default.png');
         });
         it('should return the default icon if no player2 is defined and we re trying to display player2', function () {
             //setup
-            var d3Bracket = new D3Bracket();
             var d = {};
+            testIconToShow(d, false, '/images/icon-default.png');
+        });
+    });
+
+    describe('ChooseOuterNodeColor', function () {
+        function testColor(node, expectedColor) {
+            //setup
             //action
-            var actual = d3Bracket.getIconToShow(d, false);
+            var actual = d3Bracket.chooseOuterNodeColor(node);
             //assert
-            assert.equal(actual, '/images/icon-default.png');
+            assert.equal(actual, expectedColor);
+        }
+
+        it('should use a green border color if the match is finished', function () {
+            testColor({complete: true}, '#8c8');
+        });
+
+        it('should use an orange border color if the match is ongoing', function () {
+            testColor({canReport: true}, 'orange');
+        });
+
+        it('should use a default border color if the match is upcoming', function () {
+            testColor({}, '#ccd');
+        });
+
+        it('should display a green border if for some reason the match is "finished"_and_ "ongoing" (should not happen)', function () {
+            testColor({complete: true, canReport: true}, '#8c8');
+        });
+    });
+
+    describe('GetLineDots', function () {
+        it('should provide a path w/ sharp angles as in most bracket frameworks', function () {
+            //setup
+            var nodeData = { source:{x:10, y:20}, target:{x:100, y:200}};
+            //action
+            var actual = d3Bracket.getLineDots(nodeData);
+            //assert
+            assert.deepEqual(actual[0], {x:20, y:10});
+            assert.deepEqual(actual[1], {x:-55, y:10});
+            assert.deepEqual(actual[2], {x:-55, y:100});
+            assert.deepEqual(actual[3], {x:350, y:100});
         });
     });
 });

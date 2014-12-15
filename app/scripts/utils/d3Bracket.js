@@ -65,6 +65,10 @@ var NODE_OUTER_COLOR = '#ccd';
 
 var TREE_LEVELS_HORIZONTAL_DEPTH = 300;
 
+D3Bracket.prototype. chooseOuterNodeColor = function(d){
+    return (d.complete ? NODE_OUTER_COLOR_FINISHED :
+                d.canReport ? NODE_OUTER_COLOR_ONGOING : NODE_OUTER_COLOR);
+};
 
 D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction) {
     var pathForDrawingCell = [
@@ -74,10 +78,9 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction) {
         {x: 0, y: NODE_HEIGHT / 2},
         {x: 0, y: -NODE_HEIGHT / 2}
     ];
-    console.log(nodeEnter);
     nodeEnter.append('path')
         .attr('d', lineFunction(pathForDrawingCell))
-        .attr('stroke', function(d){console.log(d);return (d.complete ? NODE_OUTER_COLOR_FINISHED : d.canReport ? NODE_OUTER_COLOR_ONGOING : NODE_OUTER_COLOR);})
+        .attr('stroke', this.chooseOuterNodeColor)
         .attr('stroke-width', 2)
         .attr('fill', NODE_FILL_COLOR);
 
@@ -141,26 +144,34 @@ D3Bracket.prototype.drawPlayerNameInNode = function (node, player1) {
         .attr('height', '20px');
 };
 
+D3Bracket.prototype.getLineDots = function(nodeData){
+    var nextMatch = {x: nodeData.source.y, y: nodeData.source.x};
+    var joiningPoint = {x: nodeData.source.y-NODE_WIDTH/2, y: nodeData.source.x};
+    var lineFromLowerMatch = {x:nodeData.source.y-NODE_WIDTH/2, y:nodeData.target.x};
+    var originMatch = {x: nodeData.target.y+NODE_WIDTH, y: nodeData.target.x};
+    return [nextMatch, joiningPoint, lineFromLowerMatch, originMatch];
+};
+
 D3Bracket.prototype.drawLinesBetweenNodes = function (svg, links) {
     var link = svg.selectAll('path.link')
         .data(links, function (d) {
             return d.target.id;
         });
-
-    var lineFunction = d3.svg.line().
-        x(function (d) {
+    var self = this;
+    var lineFunction = d3.svg.line()
+        .x(function (d) {
             return d.x;
-        }).
-        y(function (d) {
+        })
+        .y(function (d) {
             return d.y;
-        }).
-        interpolate('linerar');
+        })
+        .interpolate('linerar');
     link.enter().insert('path', 'g')
         .attr('class', 'link')
         .attr('d', function(d) {
-            return lineFunction([{x: d.source.y, y: d.source.x}, {x: d.source.y-NODE_WIDTH/2, y: d.source.x}, {x:d.source.y-NODE_WIDTH/2, y:d.target.x}, {x: d.target.y+NODE_WIDTH, y: d.target.x}]);
+            var lineDots = self.getLineDots(d);
+            return lineFunction(lineDots);
         });
-        //.attr('d', diagonal);
 };
 D3Bracket.prototype.drawLine = function (d3) {
     var lineFunction = d3.svg.line().
