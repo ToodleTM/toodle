@@ -59,22 +59,25 @@ var TEXT_IN_NODE_VALIGN_TOP = -5;
 var TEXT_IN_NODE_VALIGN_BOTTOM = 15;
 var NODE_FILL_COLOR = '#fff';
 var NODE_INNER_SEPARATION_COLOR = '#ddd';
-var NODE_OUTER_COLOR = '#aad';
+var NODE_OUTER_COLOR_FINISHED = '#8c8';
+var NODE_OUTER_COLOR_ONGOING = 'orange';
+var NODE_OUTER_COLOR = '#ccd';
 
-var TREE_LEVELS_HORIZONTAL_DEPTH = 400;
+var TREE_LEVELS_HORIZONTAL_DEPTH = 300;
 
 
 D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction) {
-    var lineData = [
+    var pathForDrawingCell = [
         {x: 0, y: -NODE_HEIGHT / 2},
         {x: NODE_WIDTH, y: -NODE_HEIGHT / 2},
         {x: NODE_WIDTH, y: NODE_HEIGHT / 2},
         {x: 0, y: NODE_HEIGHT / 2},
         {x: 0, y: -NODE_HEIGHT / 2}
     ];
+    console.log(nodeEnter);
     nodeEnter.append('path')
-        .attr('d', lineFunction(lineData))
-        .attr('stroke', NODE_OUTER_COLOR)
+        .attr('d', lineFunction(pathForDrawingCell))
+        .attr('stroke', function(d){console.log(d);return (d.complete ? NODE_OUTER_COLOR_FINISHED : d.canReport ? NODE_OUTER_COLOR_ONGOING : NODE_OUTER_COLOR);})
         .attr('stroke-width', 2)
         .attr('fill', NODE_FILL_COLOR);
 
@@ -138,14 +141,26 @@ D3Bracket.prototype.drawPlayerNameInNode = function (node, player1) {
         .attr('height', '20px');
 };
 
-D3Bracket.prototype.drawLinesBetweenNodes = function (svg, links, diagonal) {
+D3Bracket.prototype.drawLinesBetweenNodes = function (svg, links) {
     var link = svg.selectAll('path.link')
         .data(links, function (d) {
             return d.target.id;
         });
+
+    var lineFunction = d3.svg.line().
+        x(function (d) {
+            return d.x;
+        }).
+        y(function (d) {
+            return d.y;
+        }).
+        interpolate('linerar');
     link.enter().insert('path', 'g')
         .attr('class', 'link')
-        .attr('d', diagonal);
+        .attr('d', function(d) {
+            return lineFunction([{x: d.source.y, y: d.source.x}, {x: d.source.y-NODE_WIDTH/2, y: d.source.x}, {x:d.source.y-NODE_WIDTH/2, y:d.target.x}, {x: d.target.y+NODE_WIDTH, y: d.target.x}]);
+        });
+        //.attr('d', diagonal);
 };
 D3Bracket.prototype.drawLine = function (d3) {
     var lineFunction = d3.svg.line().
@@ -208,11 +223,6 @@ D3Bracket.prototype.drawBracket = function (bracket, d3) {
     var tree = d3.layout.tree()
         .size([this.HEIGHT, this.WIDTH]);
 
-    var diagonal = d3.svg.diagonal()
-        .projection(function (d) {
-            return [d.y, d.x];
-        });
-
     var nodes = tree.nodes(d3Nodes).reverse(),
         links = tree.links(nodes);
 
@@ -229,7 +239,7 @@ D3Bracket.prototype.drawBracket = function (bracket, d3) {
     this.drawSingleNode(node, this.drawLine(d3));
     this.drawPlayerNameInNode(node, true);
     this.drawPlayerNameInNode(node, false);
-    this.drawLinesBetweenNodes(svg, links, diagonal);
+    this.drawLinesBetweenNodes(svg, links);
 };
 
 module.exports.D3Bracket = D3Bracket;

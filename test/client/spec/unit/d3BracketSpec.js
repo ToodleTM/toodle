@@ -337,7 +337,7 @@ describe('D3ToBracket', function () {
             d3.layout =
             {
                 tree: function () {
-                    var tree = function() {
+                    var tree = function () {
                     };
                     var size = function () {
                         var result = function () {
@@ -363,11 +363,20 @@ describe('D3ToBracket', function () {
 
             d3.svg = {
                 diagonal: function () {
-                    var result = function() {
+                    var diagonal = function () {
                     };
-                    result.projection = function () {
+                    var source = function () {
+                        var source = function () {
+                        };
+                        var target = function () {
+                            return function () {
+                            };
+                        };
+                        source.target = target;
+                        return source;
                     };
-                    return result;
+                    diagonal.source = source;
+                    return diagonal;
                 }
             };
             callCheck = sinon.spy();
@@ -538,16 +547,16 @@ describe('D3ToBracket', function () {
         });
     });
 
-    describe('Faction icon display', function(){
-        it('should return player1 s icon in a correctly formatted string if we re interested in player1', function(){
+    describe('Faction icon display', function () {
+        it('should return player1 s icon in a correctly formatted string if we re interested in player1', function () {
             //setup
             var d3Bracket = new D3Bracket();
             var d = {
                 player1: {
                     faction: 'player1'
                 },
-                player2:{
-                    faction:'player2'
+                player2: {
+                    faction: 'player2'
                 }
             };
             //action
@@ -555,15 +564,15 @@ describe('D3ToBracket', function () {
             //assert
             assert.equal(actual, '/images/icon-player1.png');
         });
-        it('should return player2 s icon in a correctly formatted string if we re not interested in player1', function(){
+        it('should return player2 s icon in a correctly formatted string if we re not interested in player1', function () {
             //setup
             var d3Bracket = new D3Bracket();
             var d = {
                 player1: {
                     faction: 'player1'
                 },
-                player2:{
-                    faction:'player2'
+                player2: {
+                    faction: 'player2'
                 }
             };
             //action
@@ -571,25 +580,23 @@ describe('D3ToBracket', function () {
             //assert
             assert.equal(actual, '/images/icon-player2.png');
         });
-        it('should return a default icon if no player1 faction is specified', function(){
+        it('should return a default icon if no player1 faction is specified', function () {
             //setup
             var d3Bracket = new D3Bracket();
             var d = {
-                player1: {
-                }
+                player1: {}
             };
             //action
             var actual = d3Bracket.getIconToShow(d, true);
             //assert
             assert.equal(actual, '/images/icon-default.png');
-       });
+        });
 
-        it('should return a default icon if no player2 faction is specified', function(){
+        it('should return a default icon if no player2 faction is specified', function () {
             //setup
             var d3Bracket = new D3Bracket();
             var d = {
-                player2: {
-                }
+                player2: {}
             };
             //action
             var actual = d3Bracket.getIconToShow(d, false);
@@ -597,21 +604,19 @@ describe('D3ToBracket', function () {
             assert.equal(actual, '/images/icon-default.png');
         });
 
-        it('should return the default icon if no player1 is defined and we re trying to display player1', function(){
+        it('should return the default icon if no player1 is defined and we re trying to display player1', function () {
             //setup
             var d3Bracket = new D3Bracket();
-            var d = {
-            };
+            var d = {};
             //action
             var actual = d3Bracket.getIconToShow(d, true);
             //assert
             assert.equal(actual, '/images/icon-default.png');
         });
-        it('should return the default icon if no player2 is defined and we re trying to display player2', function(){
+        it('should return the default icon if no player2 is defined and we re trying to display player2', function () {
             //setup
             var d3Bracket = new D3Bracket();
-            var d = {
-            };
+            var d = {};
             //action
             var actual = d3Bracket.getIconToShow(d, false);
             //assert
