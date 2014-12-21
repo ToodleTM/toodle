@@ -11,10 +11,58 @@ angular.module('toodleApp')
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;
             if($scope.tournamentInfo.running){
-                renderer.drawBracket(data.bracket, d3);
+                renderer.drawBracket(data, d3, $scope);
             } else {
                 $('#notRunning').show();
             }
         });
+
+        $scope.report = function(match){
+            $scope.firstGameToReport = match;
+            $scope.$apply();
+            $('#reportModal').modal();
+        };
+
+        $scope.unreport = function(match){
+            $scope.gameToUnreport = match;
+            $scope.$apply();
+            $('#unreportModal').modal();
+        };
+
+        $scope.reportMatch = function () {
+            $('#tourneyReportingOk').hide();
+            $('#tourneyReportingKo').hide();
+            $http.post('/api/tournament/reportMatch/', {
+                signupID: $scope.tournamentInfo.signupID,
+                number: $scope.firstGameToReport.name,
+                score1: $scope.score1,
+                score2: $scope.score2
+            }).success(function (data) {
+                $('#tourneyReportingOk').show();
+                $scope.tournamentInfo = data;
+                $('#bracket').html('');
+                renderer.drawBracket(data, d3, $scope);
+            }).error(function (data) {
+                $scope.errorMessage = data;
+                $('#tourneyReportingKo').fadeIn();
+            });
+        };
+
+        $scope.unreportMatch = function () {
+            $('#tourneyReportingOk').hide();
+            $('#tourneyReportingKo').hide();
+            $http.post('/api/tournament/unreportMatch/', {
+                signupID: $scope.tournamentInfo.signupID,
+                number: $scope.gameToUnreport.name
+            }).success(function (data) {
+                $('#tourneyReportingOk').show();
+                $scope.tournamentInfo = data;
+                $('#bracket').html('');
+                renderer.drawBracket(data, d3, $scope);
+            }).error(function (data) {
+                $scope.errorMessage = data;
+                $('#tourneyReportingKo').fadeIn();
+            });
+        };
     }
 );

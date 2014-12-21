@@ -4,7 +4,6 @@ var D3Bracket = function () {
 var _ = require('../../../node_modules/lodash/lodash.js');
 
 
-
 //recursively runs through the bracket until initial matches are found,
 // then places these matches in the 'children' array of their upcoming match
 // in the tree structure, and so on
@@ -65,12 +64,36 @@ var NODE_OUTER_COLOR = '#ccd';
 
 var TREE_LEVELS_HORIZONTAL_DEPTH = 300;
 
-D3Bracket.prototype. chooseOuterNodeColor = function(d){
+var TOURNAMENT_PRIVILEGES_ALL = 3;
+var TOURNAMENT_PRIVILEGES_REPORT_ONLY = 2;
+
+D3Bracket.prototype.chooseOuterNodeColor = function (d) {
     return (d.complete ? NODE_OUTER_COLOR_FINISHED :
-                d.canReport ? NODE_OUTER_COLOR_ONGOING : NODE_OUTER_COLOR);
+        d.canReport ? NODE_OUTER_COLOR_ONGOING : NODE_OUTER_COLOR);
 };
 
-D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction) {
+function matchCanBeUnreported(d) {
+    return d.complete && (!d.parent || (d.parent && !d.parent.complete));
+}
+D3Bracket.prototype.getReportingButtonIcon = function (d, reportingRights) {
+    var icon = '';
+    if (d.canReport && (reportingRights === TOURNAMENT_PRIVILEGES_ALL || reportingRights === TOURNAMENT_PRIVILEGES_REPORT_ONLY)) {
+        icon = '/images/circle-green.png';
+    } else if (matchCanBeUnreported(d) && reportingRights === TOURNAMENT_PRIVILEGES_ALL) {
+        icon = '/images/circle-red.png';
+    }
+    return icon;
+};
+
+D3Bracket.prototype.triggerReportingEvent = function (node, reportingTrigger, unreportingTrigger) {
+    if(node.canReport){
+        reportingTrigger(node);
+    } else if(matchCanBeUnreported(node)) {
+        unreportingTrigger(node);
+    }
+};
+
+D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction, reportingTrigger, unreportingTrigger, reportingRights) {
     var pathForDrawingCell = [
         {x: 0, y: -NODE_HEIGHT / 2},
         {x: NODE_WIDTH, y: -NODE_HEIGHT / 2},
@@ -78,6 +101,7 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction) {
         {x: 0, y: NODE_HEIGHT / 2},
         {x: 0, y: -NODE_HEIGHT / 2}
     ];
+    var self = this;
     nodeEnter.append('path')
         .attr('d', lineFunction(pathForDrawingCell))
         .attr('stroke', this.chooseOuterNodeColor)
@@ -91,6 +115,20 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction) {
         ]))
         .attr('stroke', NODE_INNER_SEPARATION_COLOR)
         .attr('stroke-width', 1);
+
+    nodeEnter.append('svg:image')
+        .attr('class', 'circle')
+        .attr('xlink:href', function (d) {
+            return self.getReportingButtonIcon(d, reportingRights);
+        })
+        .attr('x', (NODE_WIDTH - 7) + 'px')
+        .attr('y', '-27px')
+        .attr('width', '15px')
+        .attr('height', '15px')
+        .on('click', function (d) {
+            self.triggerReportingEvent(d, reportingTrigger, unreportingTrigger);
+        });
+
 };
 
 D3Bracket.prototype.getTextToDraw = function (d, player1) {
@@ -102,7 +140,7 @@ D3Bracket.prototype.getTextToDraw = function (d, player1) {
 
 D3Bracket.prototype.getIconToShow = function (d, player1) {
     if (player1) {
-        if(d.player1 && d.player1.faction) {
+        if (d.player1 && d.player1.faction) {
             return '/images/icon-' + d.player1.faction + '.png';
         }
     } else if (d.player2 && d.player2.faction) {
@@ -110,6 +148,8 @@ D3Bracket.prototype.getIconToShow = function (d, player1) {
     }
     return '/images/icon-default.png';
 };
+
+
 D3Bracket.prototype.drawPlayerNameInNode = function (node, player1) {
     var that = this;
     node.append('text')
@@ -144,11 +184,11 @@ D3Bracket.prototype.drawPlayerNameInNode = function (node, player1) {
         .attr('height', '20px');
 };
 
-D3Bracket.prototype.getLineDots = function(nodeData){
+D3Bracket.prototype.getLineDots = function (nodeData) {
     var nextMatch = {x: nodeData.source.y, y: nodeData.source.x};
-    var joiningPoint = {x: nodeData.source.y-NODE_WIDTH/2, y: nodeData.source.x};
-    var lineFromLowerMatch = {x:nodeData.source.y-NODE_WIDTH/2, y:nodeData.target.x};
-    var originMatch = {x: nodeData.target.y+NODE_WIDTH, y: nodeData.target.x};
+    var joiningPoint = {x: nodeData.source.y - NODE_WIDTH / 2, y: nodeData.source.x};
+    var lineFromLowerMatch = {x: nodeData.source.y - NODE_WIDTH / 2, y: nodeData.target.x};
+    var originMatch = {x: nodeData.target.y + NODE_WIDTH, y: nodeData.target.x};
     return [nextMatch, joiningPoint, lineFromLowerMatch, originMatch];
 };
 
@@ -168,7 +208,7 @@ D3Bracket.prototype.drawLinesBetweenNodes = function (svg, links) {
         .interpolate('linerar');
     link.enter().insert('path', 'g')
         .attr('class', 'link')
-        .attr('d', function(d) {
+        .attr('d', function (d) {
             var lineDots = self.getLineDots(d);
             return lineFunction(lineDots);
         });
@@ -227,7 +267,8 @@ D3Bracket.prototype.setViewDimensions = function (bracket) {
         this.HEIGHT = this.WIDTH * Math.ceil(depth);
     }
 };
-D3Bracket.prototype.drawBracket = function (bracket, d3) {
+D3Bracket.prototype.drawBracket = function (data, d3, controllerReference) {
+    var bracket = data.bracket;
     var d3Nodes = this.convertBracketToD3Tree(bracket);
     var that = this;
     this.setViewDimensions(bracket);
@@ -246,8 +287,7 @@ D3Bracket.prototype.drawBracket = function (bracket, d3) {
     var margin = {top: 0, right: 0, bottom: 0, left: 0};
     var svg = this.appendSvgCanvas(margin, d3);
     var node = this.translateOrigin(this.giveAnIdToEachNode(svg, nodes));
-
-    this.drawSingleNode(node, this.drawLine(d3));
+    this.drawSingleNode(node, this.drawLine(d3), function(d){controllerReference.report(d);}, function(d){controllerReference.unreport(d);}, data.userPrivileges);
     this.drawPlayerNameInNode(node, true);
     this.drawPlayerNameInNode(node, false);
     this.drawLinesBetweenNodes(svg, links);

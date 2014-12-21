@@ -5,7 +5,7 @@ var sinon = require('sinon');
 
 describe('D3ToBracket', function () {
     var d3Bracket = null;
-    beforeEach(function(){
+    beforeEach(function () {
         d3Bracket = new D3Bracket();
     });
     describe('Bracket conversion from toodle to D3', function () {
@@ -211,7 +211,7 @@ describe('D3ToBracket', function () {
         });
     });
     describe('Bracket sizing according to bracket depth', function () {
-        function testBracketDimnsions(bracket, expectedWidth, expectedHeight){
+        function testBracketDimnsions(bracket, expectedWidth, expectedHeight) {
             //action
             d3Bracket.setViewDimensions(bracket);
             //assert
@@ -426,7 +426,7 @@ describe('D3ToBracket', function () {
             };
             sinon.spy(d3Bracket, 'setViewDimensions');
             //action
-            d3Bracket.drawBracket(bracket, d3);
+            d3Bracket.drawBracket({bracket:bracket}, d3);
             //assert
             assert.equal(d3Bracket.setViewDimensions.calledOnce, true);
             assert.equal(treeSize.getCall(0).args[0][0], 600);
@@ -454,7 +454,7 @@ describe('D3ToBracket', function () {
             sinon.spy(d3Bracket, 'appendSvgCanvas');
 
             //action
-            d3Bracket.drawBracket(bracket, d3);
+            d3Bracket.drawBracket({bracket:bracket}, d3);
             //assert
             assert.equal(d3Bracket.appendSvgCanvas.calledOnce, true);
             assert.equal(callCheck.getCall(1).args[0], 'svg');
@@ -468,12 +468,13 @@ describe('D3ToBracket', function () {
     });
     describe('GetTextToDraw', function () {
 
-        function testTextToDraw(data, isPlayer1, expectedText){
+        function testTextToDraw(data, isPlayer1, expectedText) {
             //action
             var actual = d3Bracket.getTextToDraw(data, isPlayer1);
             //assert
             assert.equal(actual, expectedText);
         }
+
         it('should return TBD if if we don t want player1 data and no data about player 2 is available', function () {
             testTextToDraw({}, false, ' -  TBD');
         });
@@ -491,7 +492,7 @@ describe('D3ToBracket', function () {
             var data = {
                 player1: {name: 'Billy Bob'}
             };
-            testTextToDraw(data,  true, ' -  Billy Bob');
+            testTextToDraw(data, true, ' -  Billy Bob');
         });
 
         it('should return player1 s nick w/ score if we want player1 data and his score is available', function () {
@@ -514,12 +515,13 @@ describe('D3ToBracket', function () {
     });
 
     describe('Faction icon display', function () {
-        function testIconToShow(data, firstPlayerWanted, expectedIcon){
+        function testIconToShow(data, firstPlayerWanted, expectedIcon) {
             //action
             var actual = d3Bracket.getIconToShow(data, firstPlayerWanted);
             //assert
             assert.equal(actual, expectedIcon);
         }
+
         it('should return player1 s icon in a correctly formatted string if we re interested in player1', function () {
             //setup
             var d = {
@@ -601,14 +603,116 @@ describe('D3ToBracket', function () {
     describe('GetLineDots', function () {
         it('should provide a path w/ sharp angles as in most bracket frameworks', function () {
             //setup
-            var nodeData = { source:{x:10, y:20}, target:{x:100, y:200}};
+            var nodeData = {source: {x: 10, y: 20}, target: {x: 100, y: 200}};
             //action
             var actual = d3Bracket.getLineDots(nodeData);
             //assert
-            assert.deepEqual(actual[0], {x:20, y:10});
-            assert.deepEqual(actual[1], {x:-55, y:10});
-            assert.deepEqual(actual[2], {x:-55, y:100});
-            assert.deepEqual(actual[3], {x:350, y:100});
+            assert.deepEqual(actual[0], {x: 20, y: 10});
+            assert.deepEqual(actual[1], {x: -55, y: 10});
+            assert.deepEqual(actual[2], {x: -55, y: 100});
+            assert.deepEqual(actual[3], {x: 350, y: 100});
         });
     });
+    describe('TriggerReportingEvent', function () {
+        var reportTriggerSpy = null;
+        var unreportTriggerSpy = null;
+        beforeEach(function () {
+            reportTriggerSpy = sinon.spy();
+            unreportTriggerSpy = sinon.spy();
+        });
+
+        it('should trigger a report action if match can be reported', function () {
+            //setup
+            //action
+            d3Bracket.triggerReportingEvent({canReport: true}, reportTriggerSpy, unreportTriggerSpy, 3);
+            //assert
+            assert.equal(reportTriggerSpy.calledOnce, true);
+            assert.equal(unreportTriggerSpy.called, false);
+        });
+        it('should trigger an unreport action if match can be unreported', function () {
+            //setup
+            //action
+            d3Bracket.triggerReportingEvent({complete: true, parent: {}}, reportTriggerSpy, unreportTriggerSpy);
+            //assert
+            assert.equal(unreportTriggerSpy.calledOnce, true);
+            assert.equal(reportTriggerSpy.called, false);
+        });
+
+        it('should not trigger anything if match cant be reported or unreported', function () {
+            //setup
+            //action
+            d3Bracket.triggerReportingEvent({}, reportTriggerSpy, unreportTriggerSpy);
+            //assert
+            assert.equal(unreportTriggerSpy.called, false);
+            assert.equal(reportTriggerSpy.called, false);
+        });
+
+    });
+
+    describe('GetReportingButtonIcon', function () {
+        it('should return green if match can be reported', function () {
+            //setup
+            //action
+            var actual = d3Bracket.getReportingButtonIcon({canReport: true}, 3);
+            //assert
+            assert.equal(actual, '/images/circle-green.png');
+        });
+
+        it('should return red if match can be unreported', function () {
+            //setup
+            //action
+            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}}, 3);
+            //assert
+            assert.equal(actual, '/images/circle-red.png');
+        });
+
+        it('should return nothing if match cant be reported / unreported', function () {
+            //setup
+            //action
+            var actual = d3Bracket.getReportingButtonIcon({});
+            //assert
+            assert.equal(actual, '');
+        });
+
+        it('should display the unreporting button for the last match of a bracket', function () {
+            //setup
+            //action
+            var actual = d3Bracket.getReportingButtonIcon({complete:true, parent:null}, 3);
+            //assert
+            assert.equal(actual, '/images/circle-red.png');
+        });
+
+        it('should not show the reporting button if admins did not give any reporting rights to the user', function(){
+            //setup
+            //action
+            var actual = d3Bracket.getReportingButtonIcon({canReport:true}, 1);
+            //assert
+            assert.equal(actual, '');
+        });
+
+        it('should show the reporting button if admins gave "only reporting" rights to the user', function(){
+            //setup
+            //action
+            var actual = d3Bracket.getReportingButtonIcon({canReport:true}, 2);
+            //assert
+            assert.equal(actual, '/images/circle-green.png');
+        });
+
+        it('should not show the unreporting button only if admins gave simple reporting rights to users', function(){
+            //setup
+            //action
+            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}}, 2);
+            //assert
+            assert.equal(actual, '');
+        });
+
+        it('should not show the unreporting button only if admins gave no reporting rights to users', function(){
+            //setup
+            //action
+            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}}, 1);
+            //assert
+            assert.equal(actual, '');
+        });
+    });
+
 });
