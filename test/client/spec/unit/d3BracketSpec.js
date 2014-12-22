@@ -418,9 +418,9 @@ describe('D3ToBracket', function () {
             };
             d3Bracket.drawLine = function () {
             };
-            d3Bracket.drawPlayerNameInNode = function () {
+            d3Bracket.drawFirstPlayerNameInNode = function () {
             };
-            d3Bracket.drawPlayerNameInNode = function () {
+            d3Bracket.drawSecondPlayerNameInNode = function () {
             };
             d3Bracket.drawLinesBetweenNodes = function () {
             };
@@ -444,9 +444,9 @@ describe('D3ToBracket', function () {
             };
             d3Bracket.drawLine = function () {
             };
-            d3Bracket.drawPlayerNameInNode = function () {
+            d3Bracket.drawFirstPlayerNameInNode = function () {
             };
-            d3Bracket.drawPlayerNameInNode = function () {
+            d3Bracket.drawSecondPlayerNameInNode = function () {
             };
             d3Bracket.drawLinesBetweenNodes = function () {
             };
@@ -468,49 +468,23 @@ describe('D3ToBracket', function () {
     });
     describe('GetTextToDraw', function () {
 
-        function testTextToDraw(data, isPlayer1, expectedText) {
+        function testTextToDraw(playerData, playerScore, expectedText) {
             //action
-            var actual = d3Bracket.getTextToDraw(data, isPlayer1);
+            var actual = d3Bracket.getTextToDraw(playerData, playerScore);
             //assert
             assert.equal(actual, expectedText);
         }
 
-        it('should return TBD if if we don t want player1 data and no data about player 2 is available', function () {
-            testTextToDraw({}, false, ' -  TBD');
+        it('should return a TBD placeholder if playerData is null', function(){
+            testTextToDraw(null, null, ' -  TBD');
         });
 
-        it('should return player2 s nick if we don t want player1 data and data about player2 is available', function () {
-            //setup
-            var data = {
-                player2: {name: 'Bob'}
-            };
-            testTextToDraw(data, false, ' -  Bob');
+        it('should return a player name next to an empty score placeholder if player exists but there is no score yet', function(){
+            testTextToDraw({name:'player name'}, null, ' -  player name');
         });
 
-        it('should return player1 s nick if we want player1 data and data about player1 is available', function () {
-            //setup
-            var data = {
-                player1: {name: 'Billy Bob'}
-            };
-            testTextToDraw(data, true, ' -  Billy Bob');
-        });
-
-        it('should return player1 s nick w/ score if we want player1 data and his score is available', function () {
-            //setup
-            var data = {
-                player1: {name: 'Billy Bob'},
-                score1: 42
-            };
-            testTextToDraw(data, true, '42 Billy Bob');
-        });
-
-        it('should return player2 s nick w/ score if we don t want player2 data and player2 s score is available', function () {
-            //setup
-            var data = {
-                player2: {name: 'Bob'},
-                score2: 24
-            };
-            testTextToDraw(data, false, '24 Bob');
+        it('should return a player name _and_ a score if both exist', function(){
+            testTextToDraw({name:'player name'}, 1, '1  player name');
         });
     });
 
@@ -551,7 +525,7 @@ describe('D3ToBracket', function () {
             var d = {
                 player1: {}
             };
-            testIconToShow(d, true, '/images/icon-default.png');
+            testIconToShow(d, true, '');
         });
 
         it('should return a default icon if no player2 faction is specified', function () {
@@ -559,18 +533,18 @@ describe('D3ToBracket', function () {
             var d = {
                 player2: {}
             };
-            testIconToShow(d, false, '/images/icon-default.png');
+            testIconToShow(d, false, '');
         });
 
         it('should return the default icon if no player1 is defined and we re trying to display player1', function () {
             //setup
             var d = {};
-            testIconToShow(d, true, '/images/icon-default.png');
+            testIconToShow(d, true, '');
         });
         it('should return the default icon if no player2 is defined and we re trying to display player2', function () {
             //setup
             var d = {};
-            testIconToShow(d, false, '/images/icon-default.png');
+            testIconToShow(d, false, '');
         });
     });
 
@@ -713,6 +687,25 @@ describe('D3ToBracket', function () {
             //assert
             assert.equal(actual, '');
         });
+    });
+
+    describe('GetFontWidthForPlayerName', function(){
+        it('should return an empty string if match is not complete', function(){
+            //setup
+
+            //action
+            var actual = d3Bracket.getFontWeightForPlayerName({});
+            //assert
+            assert.equal(actual, '');
+        });
+        it('should return 900 for player 1 if match is complete and player 1 has won', function(){
+            //setup
+            //action
+            var actual = d3Bracket.getFontWeightForPlayerName(true, 1, 0);
+            //assert
+            assert.equal(actual, '900');
+        });
+
     });
 
 });

@@ -30,7 +30,6 @@ angular.module('toodleApp')
         };
 
         $scope.reportMatch = function () {
-            $('#tourneyReportingOk').hide();
             $('#tourneyReportingKo').hide();
             $http.post('/api/tournament/reportMatch/', {
                 signupID: $scope.tournamentInfo.signupID,
@@ -38,7 +37,6 @@ angular.module('toodleApp')
                 score1: $scope.score1,
                 score2: $scope.score2
             }).success(function (data) {
-                $('#tourneyReportingOk').show();
                 $scope.tournamentInfo = data;
                 $('#bracket').html('');
                 renderer.drawBracket(data, d3, $scope);
@@ -49,13 +47,11 @@ angular.module('toodleApp')
         };
 
         $scope.unreportMatch = function () {
-            $('#tourneyReportingOk').hide();
             $('#tourneyReportingKo').hide();
             $http.post('/api/tournament/unreportMatch/', {
                 signupID: $scope.tournamentInfo.signupID,
                 number: $scope.gameToUnreport.name
             }).success(function (data) {
-                $('#tourneyReportingOk').show();
                 $scope.tournamentInfo = data;
                 $('#bracket').html('');
                 renderer.drawBracket(data, d3, $scope);

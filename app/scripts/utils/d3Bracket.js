@@ -86,9 +86,9 @@ D3Bracket.prototype.getReportingButtonIcon = function (d, reportingRights) {
 };
 
 D3Bracket.prototype.triggerReportingEvent = function (node, reportingTrigger, unreportingTrigger) {
-    if(node.canReport){
+    if (node.canReport) {
         reportingTrigger(node);
-    } else if(matchCanBeUnreported(node)) {
+    } else if (matchCanBeUnreported(node)) {
         unreportingTrigger(node);
     }
 };
@@ -131,11 +131,14 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction, reportin
 
 };
 
-D3Bracket.prototype.getTextToDraw = function (d, player1) {
-    var playerData = player1 ? d.player1 : d.player2;
-    var playerScore = player1 ? d.score1 : d.score2;
-    var playerName = playerData ? playerData.name : 'TBD';
-    return playerScore || playerScore === 0 ? playerScore + ' ' + playerName : ' -  ' + playerName;
+D3Bracket.prototype.getTextToDraw = function (playerData, playerScore) {
+    if(!playerData){
+        return ' -  TBD';
+    } else if (!playerScore){
+        return ' -  '+playerData.name;
+    } else {
+        return playerScore+'  '+playerData.name;
+    }
 };
 
 D3Bracket.prototype.getIconToShow = function (d, player1) {
@@ -146,40 +149,70 @@ D3Bracket.prototype.getIconToShow = function (d, player1) {
     } else if (d.player2 && d.player2.faction) {
         return '/images/icon-' + d.player2.faction + '.png';
     }
-    return '/images/icon-default.png';
+    return '';
 };
 
+D3Bracket.prototype.getFontWeightForPlayerName = function (matchCompleted, playerScore, opponentScore) {
+    if (matchCompleted) {
+        if (playerScore > opponentScore) {
+            return '900';
+        }
+    }
+    return '';
+};
 
-D3Bracket.prototype.drawPlayerNameInNode = function (node, player1) {
-    var that = this;
-    node.append('text')
+function appendTextToNode(node, textVAlign){
+    return node.append('text')
         .attr('x', function () {
             return NODE_TEXT_LEFT_MARGIN;
         })
         .attr('y', function () {
-            return player1 ? TEXT_IN_NODE_VALIGN_TOP : TEXT_IN_NODE_VALIGN_BOTTOM;
+            return textVAlign;
         })
         .attr('text-anchor', function () {
             return 'start';
         })
-        .text(function (d) {
-            return that.getTextToDraw(d, player1);
-        })
         .style('fill-opacity', 1);
+}
 
-    node.append('svg:image')
+D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes) {
+    var that = this;
+    var appendedText = appendTextToNode(nodes, TEXT_IN_NODE_VALIGN_TOP, that);
+    appendedText
+        .text(function (d) {
+            return that.getTextToDraw(d.player1, d.score1);
+        })
+        .style('font-weight', function (d) {
+            return that.getFontWeightForPlayerName(d.complete, d.score1, d.score2);
+        });
+    nodes.append('svg:image')
         .attr('class', 'circle')
         .attr('xlink:href', function (d) {
-            return that.getIconToShow(d, player1);
+            return that.getIconToShow(d, true);
         })
         .attr('x', '0px')
-        .attr('y', function () {
-            if (player1) {
-                return '-20px';
-            } else {
-                return '0px';
-            }
+        .attr('y', '-20px')
+        .attr('width', '20px')
+        .attr('height', '20px');
+};
+
+D3Bracket.prototype.drawSecondPlayerNameInNode = function (nodes) {
+    var that = this;
+    var appendedText = appendTextToNode(nodes, TEXT_IN_NODE_VALIGN_BOTTOM, that);
+    appendedText
+        .text(function (d) {
+            return that.getTextToDraw(d.player2, d.score2);
         })
+        .style('font-weight', function (d) {
+            return that.getFontWeightForPlayerName(d.complete, d.score2, d.score1);
+        });
+    nodes.append('svg:image')
+        .attr('class', 'circle')
+        .attr('xlink:href', function (d) {
+            return that.getIconToShow(d, false);
+        })
+        .attr('x', '0px')
+        .attr('y', '0px')
         .attr('width', '20px')
         .attr('height', '20px');
 };
@@ -287,9 +320,13 @@ D3Bracket.prototype.drawBracket = function (data, d3, controllerReference) {
     var margin = {top: 0, right: 0, bottom: 0, left: 0};
     var svg = this.appendSvgCanvas(margin, d3);
     var node = this.translateOrigin(this.giveAnIdToEachNode(svg, nodes));
-    this.drawSingleNode(node, this.drawLine(d3), function(d){controllerReference.report(d);}, function(d){controllerReference.unreport(d);}, data.userPrivileges);
-    this.drawPlayerNameInNode(node, true);
-    this.drawPlayerNameInNode(node, false);
+    this.drawSingleNode(node, this.drawLine(d3), function (d) {
+        controllerReference.report(d);
+    }, function (d) {
+        controllerReference.unreport(d);
+    }, data.userPrivileges);
+    this.drawFirstPlayerNameInNode(node);
+    this.drawSecondPlayerNameInNode(node);
     this.drawLinesBetweenNodes(svg, links);
 };
 
