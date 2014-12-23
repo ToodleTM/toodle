@@ -627,7 +627,7 @@ describe('D3ToBracket', function () {
         it('should return green if match can be reported', function () {
             //setup
             //action
-            var actual = d3Bracket.getReportingButtonIcon({canReport: true}, 3);
+            var actual = d3Bracket.getReportingButtonIcon({canReport: true, player1:{}, player2:{}}, 3);
             //assert
             assert.equal(actual, '/images/circle-green.png');
         });
@@ -635,9 +635,25 @@ describe('D3ToBracket', function () {
         it('should return red if match can be unreported', function () {
             //setup
             //action
-            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}}, 3);
+            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1:{}, player2:{}}, 3);
             //assert
             assert.equal(actual, '/images/circle-red.png');
+        });
+
+        it('should not return red if match is in fact a defwin (1st player not defined)', function(){
+            //setup
+            //action
+            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1:null, player2:{}}, 3);
+            //assert
+            assert.equal(actual, '');
+        });
+
+        it('should not return red if match is in fact a defwin (2nd player not defined)', function(){
+            //setup
+            //action
+            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1:{}, player2:null}, 3);
+            //assert
+            assert.equal(actual, '');
         });
 
         it('should return nothing if match cant be reported / unreported', function () {
@@ -651,7 +667,7 @@ describe('D3ToBracket', function () {
         it('should display the unreporting button for the last match of a bracket', function () {
             //setup
             //action
-            var actual = d3Bracket.getReportingButtonIcon({complete:true, parent:null}, 3);
+            var actual = d3Bracket.getReportingButtonIcon({complete:true, parent:null, player1:{}, player2:{}}, 3);
             //assert
             assert.equal(actual, '/images/circle-red.png');
         });

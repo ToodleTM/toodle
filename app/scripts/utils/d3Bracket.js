@@ -75,11 +75,14 @@ D3Bracket.prototype.chooseOuterNodeColor = function (d) {
 function matchCanBeUnreported(d) {
     return d.complete && (!d.parent || (d.parent && !d.parent.complete));
 }
+function matchIsNotADefWin(player1, player2) {
+    return player1 && player2;
+}
 D3Bracket.prototype.getReportingButtonIcon = function (d, reportingRights) {
     var icon = '';
     if (d.canReport && (reportingRights === TOURNAMENT_PRIVILEGES_ALL || reportingRights === TOURNAMENT_PRIVILEGES_REPORT_ONLY)) {
         icon = '/images/circle-green.png';
-    } else if (matchCanBeUnreported(d) && reportingRights === TOURNAMENT_PRIVILEGES_ALL) {
+    } else if (matchCanBeUnreported(d) && matchIsNotADefWin(d.player1, d.player2) && reportingRights === TOURNAMENT_PRIVILEGES_ALL) {
         icon = '/images/circle-red.png';
     }
     return icon;
