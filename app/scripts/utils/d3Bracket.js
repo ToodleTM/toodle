@@ -294,13 +294,13 @@ D3Bracket.prototype.setViewDimensions = function (bracket) {
     var numPlayers = _.keys(bracket).length;
     var depth = Math.log(numPlayers + 1) / Math.log(2);
     //debugger;
-    this.WIDTH = 400 * Math.round(depth);
+    this.WIDTH = 300 * Math.round(depth);
     if (numPlayers < 32) {
         this.HEIGHT = this.WIDTH / 2;
     } else if (numPlayers < 127) {
         this.HEIGHT = this.WIDTH * Math.round(depth / 2);
     } else {
-        this.HEIGHT = this.WIDTH * Math.ceil(depth);
+        this.HEIGHT = this.WIDTH * Math.ceil(depth)*1.25;
     }
 };
 D3Bracket.prototype.drawBracket = function (data, d3, controllerReference) {

@@ -225,7 +225,7 @@ describe('D3ToBracket', function () {
                 1: {}
             };
 
-            testBracketDimnsions(bracket, 400, 200);
+            testBracketDimnsions(bracket, 300, 150);
         });
 
         it('should define a canvas height that is _depth_ times the calculated length if the total number of matches to play is above 127', function () {
@@ -235,7 +235,7 @@ describe('D3ToBracket', function () {
                 bracket[i] = {};
             }
 
-            testBracketDimnsions(bracket, 2800, 19600);
+            testBracketDimnsions(bracket, 2100, 18375);
         });
 
         it('should define a canvas height that is _depth_/2 times the calculated length if the total number to matches to play lies between 31 and 127', function () {
@@ -244,7 +244,7 @@ describe('D3ToBracket', function () {
             for (var i = 1; i <= 63; i++) {
                 bracket[i] = {};
             }
-            testBracketDimnsions(bracket, 2400, 7200);
+            testBracketDimnsions(bracket, 1800, 5400);
         });
 
         it('should define dimensions L1200 / H600 if the bracket is of depth 3', function () {
@@ -258,7 +258,7 @@ describe('D3ToBracket', function () {
                 6: {},
                 7: {}
             };
-            testBracketDimnsions(bracket, 1200, 600);
+            testBracketDimnsions(bracket, 900, 450);
         });
 
         it('should define dimensions as 0/0 if bracket is empty', function () {
@@ -429,8 +429,8 @@ describe('D3ToBracket', function () {
             d3Bracket.drawBracket({bracket:bracket}, d3);
             //assert
             assert.equal(d3Bracket.setViewDimensions.calledOnce, true);
-            assert.equal(treeSize.getCall(0).args[0][0], 600);
-            assert.equal(treeSize.getCall(0).args[0][1], 1200);
+            assert.equal(treeSize.getCall(0).args[0][0], 450);
+            assert.equal(treeSize.getCall(0).args[0][1], 900);
         });
 
         it('should set the svg canvas with the appropriate properties (width, height, margins) for a depth 3 bracket', function () {
@@ -459,9 +459,9 @@ describe('D3ToBracket', function () {
             assert.equal(d3Bracket.appendSvgCanvas.calledOnce, true);
             assert.equal(callCheck.getCall(1).args[0], 'svg');
             assert.equal(callCheck.getCall(2).args[0], 'width');
-            assert.equal(callCheck.getCall(2).args[1], 1200);
+            assert.equal(callCheck.getCall(2).args[1], 900);
             assert.equal(callCheck.getCall(3).args[0], 'height');
-            assert.equal(callCheck.getCall(3).args[1], 600);
+            assert.equal(callCheck.getCall(3).args[1], 450);
             assert.equal(callCheck.getCall(5).args[0], 'transform');
             assert.equal(callCheck.getCall(5).args[1], 'translate(0,0)');
         });
