@@ -263,6 +263,25 @@ describe('SingleElim engine', function () {
                 //assert
                 assert.equal(callbackSpy.getCall(1).args[0].message, 'numberlessMatchNotAllowed');
             });
+
+            describe('defwin situation', function(){
+                it('should not allow unreporting if match is complete but 2nd player has no opponent', function(){
+                    //setup
+                    //action
+                    engine.unreport(1, {'1':{number:1, complete:true}}, callbackSpy);
+                    //assert
+                    assert.equal(callbackSpy.getCall(0).args[0].message, 'defWinCantBeUnreported');
+                });
+
+                it('should not allow unreporting if match is complete but 1st player has no opponent', function(){
+                    //setup
+                    //action
+                    engine.unreport(1, {'1':{number:1, complete:true, player1:{}}}, callbackSpy);
+                    //assert
+                    assert.equal(callbackSpy.getCall(0).args[0].message, 'defWinCantBeUnreported');
+                });
+            });
+
         });
         describe('Report match', function () {
             it('should update next match with match winner', function () {
@@ -531,7 +550,7 @@ describe('SingleElim engine', function () {
                 //setup
                 var unreportableMatchesSpy = sinon.spy();
                 //action
-                engine.getUnreportableMatches([{complete:true, player1:null, player2:{}}], unreportableMatchesSpy);
+                engine.getUnreportableMatches({'1':{complete:true, player1:null, player2:{}}}, unreportableMatchesSpy);
                 //assert
                 assert.equal(unreportableMatchesSpy.getCall(0).args[0], null);
                 assert.equal(unreportableMatchesSpy.getCall(0).args[1].length, 0);
@@ -541,7 +560,7 @@ describe('SingleElim engine', function () {
                 //setup
                 var unreportableMatchesSpy = sinon.spy();
                 //action
-                engine.getUnreportableMatches([{complete:true, player1:{}, player2:null}], unreportableMatchesSpy);
+                engine.getUnreportableMatches({'1':{complete:true, player1:{}, player2:null}}, unreportableMatchesSpy);
                 //assert
                 assert.equal(unreportableMatchesSpy.getCall(0).args[0], null);
                 assert.equal(unreportableMatchesSpy.getCall(0).args[1].length, 0);

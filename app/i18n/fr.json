@@ -88,14 +88,15 @@
                     "invalidScores":"Utilises des entiers pour inscrire le score.",
                     "nextMatchDoesNotExist":"Impossible de trouver le match suivant",
                     "winnerMustHaveHigherScore":"Le gagnant doit avoir un meilleur score que le perdant",
-                    "insufficientPrivileges":"Vous n'avez pas le droit de faire ça"
+                    "insufficientPrivileges":"Tu n'as pas le droit de faire ça"
+                    "defWinCantBeUnreported":"Tu ne peux pas annuler une defwin !"
                 }
             },
             "addPlayer": "Ajouter un joueur au tournoi",
             "addMultiplePlayers":"Ajouter des joueurs depuis une liste",
             "playerNickPlaceholder": "Pseudo du joueur",
             "multipleRegistrationSuccessful":"Les nouveaux joueurs ont été ajoutés",
-            "multipleSeedTooltip":"Ici, vous pouvez utiliser un fichier CSV (avec des virgules comme séparateurs). La première ligne est un entête et doit contenir les noms des propriétés (ex : 'name, faction') désignées par les colonnes. L'ordre des colonnes n'importe pas mais il devrait toujours y avoir la colonne 'name'.",
+            "multipleSeedTooltip":"Ici, tu peux utiliser un fichier CSV (avec des virgules comme séparateurs). La première ligne est un entête et doit contenir les noms des propriétés (ex : 'name, faction') désignées par les colonnes. L'ordre des colonnes n'importe pas mais il devrait toujours y avoir la colonne 'name'.",
             "removePlayer":"Retirer le joueur de ce tournoi",
             "cantRemovePlayerWhileRunning":"Impossible de retirer un joueur d'un tournoi actif!",
             "unableToChangeOrderWhileTournamentIsLive":"Impossible de changer l'ordre quand le tournoi est en cours."

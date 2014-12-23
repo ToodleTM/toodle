@@ -88,7 +88,8 @@
           "invalidScores": "Please use integers when reporting score",
           "nextMatchDoesNotExist": "Could not find the next match",
           "winnerMustHaveHigherScore":"Winning player must have a higher score",
-          "insufficientPrivileges":"You are not allowed do that"
+          "insufficientPrivileges":"You are not allowed do that",
+          "defWinCantBeUnreported":"You can't unreport a defwin !"
         }
       },
       "addPlayer": "Add a new player",
