@@ -526,6 +526,26 @@ describe('SingleElim engine', function () {
                 assert.equal(unreportableMatchesSpy.getCall(0).args[1][0].player2.name, 'bob');
                 assert.equal(unreportableMatchesSpy.getCall(0).args[1][0].number, 3);
             });
+
+            it('should not consider a defwin as an unreportable match (2nd player defwin)', function(){
+                //setup
+                var unreportableMatchesSpy = sinon.spy();
+                //action
+                engine.getUnreportableMatches([{complete:true, player1:null, player2:{}}], unreportableMatchesSpy);
+                //assert
+                assert.equal(unreportableMatchesSpy.getCall(0).args[0], null);
+                assert.equal(unreportableMatchesSpy.getCall(0).args[1].length, 0);
+            });
+
+            it('should not consider a defwin as an unreportable match (1st player defwin)', function(){
+                //setup
+                var unreportableMatchesSpy = sinon.spy();
+                //action
+                engine.getUnreportableMatches([{complete:true, player1:{}, player2:null}], unreportableMatchesSpy);
+                //assert
+                assert.equal(unreportableMatchesSpy.getCall(0).args[0], null);
+                assert.equal(unreportableMatchesSpy.getCall(0).args[1].length, 0);
+            });
         });
     });
 });
