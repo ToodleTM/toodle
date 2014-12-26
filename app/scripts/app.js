@@ -39,6 +39,7 @@ angular.module('toodleApp', [
         });
 
         $translateProvider.preferredLanguage('en');
+        $translateProvider.useCookieStorage();
 
         // Intercept 401s and redirect you to login
         $httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {
