@@ -40,7 +40,8 @@ The version that we deploy on our test instance ([http://www.toodle.it](http://w
 # What do I need to run all tests in a CI tool ?
 It's fairly straightforward to run the unit tests, you just need to add a build step that runs : 
 
-    grunt mochaTest
+    grunt mochaTest # will run al unit tests
+    npm test #will run unit and e2e tests (much longer than previous command, will need to have a toodle server running + webdriver driver and protractor)
 
 And you should be OK, provided the build fails if the return value of the command is != 0
 

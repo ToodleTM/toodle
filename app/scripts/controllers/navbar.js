@@ -6,7 +6,6 @@ angular.module('toodleApp')
         $scope.switchLanguage = function(newLang){
             $translate.use(newLang);
             $cookieStore.put('toodle-lang', newLang);
-            $scope.$apply();
         };
         $scope.switchLanguage($scope.selectedLanguage);
         $('#language').on('change', function(evt){ $scope.switchLanguage(evt.currentTarget.value);$scope.$apply();});
