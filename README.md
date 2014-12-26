@@ -25,7 +25,14 @@ although most cloud based platforms like Heroku / Nodejitsu should do this for y
 
 The app runs on 'development' settings by default, if you want to enable gzip compression you need to set the NODE_ENV variable to 'production'. This is easily done in the NodeJitsu admin interface, and I guess it's as simple in the Heroku one. If you're just making some tests on a VM, you can enable the option as easily as changing the port :
 
+    # the good ol' way
     user@host:/toodleRoot$ PORT=8080 NODE_ENV=production node server
+    # if you're using pm2, you can use the pm2.conf.json of the source, adding "NODE_ENV=production" to the env array and the run pm2 :
+    pm2 start pm2.conf.json
+    # caution : if pm2 is already running the server, you probably will want to change the configuration another way and then restart
+    NODE_ENV=production pm2 restart <your toodle instance name>
+    # ... or
+    pm2 delete <your toodle instance name> && pm2 start pm2.conf.json #w/ a conf file modified to suit your needs
 
 will start a toodle instance on port 8080 in with the NODE_ENV variable set to 'production'
 
