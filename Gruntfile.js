@@ -394,7 +394,8 @@ module.exports = function (grunt) {
                             'app/scripts/app.js',
                             'app/views/resources/factions.json',
                             'app/views/maintenance/index.html',
-                            'app/config/piwik.config.js'
+                            'app/config/piwik.config.js',
+                            'app/config/index.html'
                         ]
                     }
                 ]
@@ -590,7 +591,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('softBuild', [
         'clean:dist',
-        'bower-install',
         'concurrent:dist',
         'compass',
         'shell:duo',
