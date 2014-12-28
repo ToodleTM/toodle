@@ -78,7 +78,12 @@
         </div>
     </div>
 </div>
-<div>
+
+<div id="notFound" class="alert alert-danger ng-binding" role="alert" hidden="" style="display: none;">
+    <button type="button" class="close alert-fix-close" data-dismiss="alert" style="display: none;"><span aria-hidden="true" style="display: none;">×</span><span class="sr-only" style="display: none;">Close</span></button>
+    {{ 'play.notFound' | translate}}
+</div>
+<div id="content">
     <h1>{{ 'play.header.tournament' | translate }} {{tournamentInfo.tournamentName}} {{ 'play.header.playPage' |
         translate}}</h1>
 

@@ -7,6 +7,7 @@ angular.module('toodleApp')
         $scope.playerList = null;
         _paq.push(['setDocumentTitle', 'Bracket page']);
         _paq.push(['trackPageView']);
+        $('#tourneyReportingKo').hide();
         $http.get('api/play/' + tournamentId).success(function (data) {
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;
@@ -15,6 +16,9 @@ angular.module('toodleApp')
             } else {
                 $('#notRunning').show();
             }
+        }).error(function(){
+            $('#content').hide();
+            $('#notFound').show();
         });
 
         $scope.report = function(match){

@@ -150,7 +150,8 @@
         "noGame": "Pas de jeu renseigné",
         "noGameType": "Pas de type d'arbre renseigné",
         "infos": "Voici les infos de ce tournoi",
-        "bracket":"L'arbre"
+        "bracket":"L'arbre",
+        "notFound":"Aucun tournoi avec cet identifiant n'a été trouvé. Est-ce bien la bonne URL?"
     },
     "bracket":{
         "header":"Voici l'état actuel du tournoi",

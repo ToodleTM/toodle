@@ -34,13 +34,13 @@
       "submit": "Submit changes",
       "game": "Game",
       "startDate": "Start date",
-      "userPrivileges":{
-        "title":"Non-admin user privileges",
-        "atWill":"Report / unreport at will",
-        "reportOnly":"Report only",
-        "nothing":"Neither report nor unreport"
+      "userPrivileges": {
+        "title": "Non-admin user privileges",
+        "atWill": "Report / unreport at will",
+        "reportOnly": "Report only",
+        "nothing": "Neither report nor unreport"
       },
-      "cantUpdateEngineWhileRunning":"You can't update the tournament engine while tournament is live."
+      "cantUpdateEngineWhileRunning": "You can't update the tournament engine while tournament is live."
     },
     "actions": {
       "lock": "Lock registrations",
@@ -87,19 +87,19 @@
           "numberlessMatchNotAllowed": "No match number was provided, unable to report.",
           "invalidScores": "Please use integers when reporting score",
           "nextMatchDoesNotExist": "Could not find the next match",
-          "winnerMustHaveHigherScore":"Winning player must have a higher score",
-          "insufficientPrivileges":"You are not allowed do that",
-          "defWinCantBeUnreported":"You can't unreport a defwin !"
+          "winnerMustHaveHigherScore": "Winning player must have a higher score",
+          "insufficientPrivileges": "You are not allowed do that",
+          "defWinCantBeUnreported": "You can't unreport a defwin !"
         }
       },
       "addPlayer": "Add a new player",
       "addMultiplePlayers": "Add a group of players",
       "playerNickPlaceholder": "Player nick",
-      "multipleRegistrationSuccessful":"All new players added",
-      "multipleSeedTooltip":"Here, you can upload a csv file (with commas as separators) the 1st line is the header and must contain properties names (like 'name, faction') rather than actual data. Column ordering does not matter but you should always have a 'name' column.",
-      "removePlayer":"Remove player from this tournament",
-      "cantRemovePlayerWhileRunning":"Can't remove a player while the tournament is running!",
-      "unableToChangeOrderWhileTournamentIsLive":"Unable reorder players while tournament is live."
+      "multipleRegistrationSuccessful": "All new players added",
+      "multipleSeedTooltip": "Here, you can upload a csv file (with commas as separators) the 1st line is the header and must contain properties names (like 'name, faction') rather than actual data. Column ordering does not matter but you should always have a 'name' column.",
+      "removePlayer": "Remove player from this tournament",
+      "cantRemovePlayerWhileRunning": "Can't remove a player while the tournament is running!",
+      "unableToChangeOrderWhileTournamentIsLive": "Unable reorder players while tournament is live."
     },
     "misc": {
       "links": "Links to other related pages for your tournament",
@@ -114,7 +114,7 @@
     "error": {
       "noSuchTournament": "No such tournament has been registered, check your URL or go back to the main page to create a new tournament.",
       "serverError": "A server error has occurred, wait for a bit to retry and if nothing gets better, get in touch with the admin",
-      "notACSVFile":"File does not seem to be a CSV file"
+      "notACSVFile": "File does not seem to be a CSV file"
     }
   },
   "play": {
@@ -138,7 +138,7 @@
         "noDuplicateNick": "A player with that name is already registered",
         "noEmptyNick": "Empty nicks are not allowed",
         "registrationLocked": "You can't enter this tournament, registration is locked",
-        "noSuchTournament":"No such tournament has been registered, check your URL or go back to the main page to create a new tournament."
+        "noSuchTournament": "No such tournament has been registered, check your URL or go back to the main page to create a new tournament."
       }
     },
     "report": {
@@ -150,11 +150,12 @@
     "noGame": "No game specified",
     "noGameType": "No game type specified",
     "infos": "Info about this tournament",
-    "bracket": "The bracket"
+    "bracket": "The bracket",
+    "notFound": "No such tournament seems to exist, are you sure it's the right URL ?"
   },
   "bracket": {
     "header": "This is the current state of tournament",
-    "tournamentNotRunningWarning":"Tournament is not currently running, please come back later!"
+    "tournamentNotRunningWarning": "Tournament is not currently running, please come back later!"
   },
   "common": {
     "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported."

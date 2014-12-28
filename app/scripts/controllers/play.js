@@ -17,6 +17,9 @@ angular.module('toodleApp')
             }
             updateMatchesToReport();
             updateMatchesToUnreport();
+        }).error(function(){
+            $('#content').hide();
+            $('#notFound').show();
         });
 
         function updateMatchesToReport() {
