@@ -589,14 +589,6 @@ module.exports = function (grunt) {
         'usemin'
     ]);
 
-    grunt.registerTask('softBuild', [
-        'clean:dist',
-        'concurrent:dist',
-        'compass',
-        'shell:duo',
-        'copy:softDist'
-    ]);
-
     grunt.registerTask('heroku', function () {
         grunt.log.warn('The `heroku` task has been deprecated. Use `grunt build` to build for deployment.');
         grunt.task.run(['build']);

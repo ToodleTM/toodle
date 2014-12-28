@@ -36,7 +36,7 @@ The app runs on 'development' settings by default, if you want to enable gzip co
 
 will start a toodle instance on port 8080 in with the NODE_ENV variable set to 'production'
 
-The version that we deploy on our test instance ([http://www.toodle.it](http://www.toodle.it)) is actually the result of the 'softBuild' grunt task which is then run through pm2 with production configuration (gzip compression enabled, no livereload ...). When run, this build outputs a 'dist' directory to the root of the project that can be scp-ed or sent to heroku/nodejitsu/what-have-you (the post-install task already runs bower install so deployment should not be an issue).
+The version that we deploy on our test instance ([http://www.toodle.it](http://www.toodle.it)) is actually the result of running the _./scripts/appPackager.sh_ script (run from the project root) which is then run through pm2 with production configuration (gzip compression enabled, no livereload ...). When run, this build outputs a 'dist' directory to the root of the project that can be scp-ed or sent to heroku/nodejitsu/what-have-you (the post-install task already runs bower install so deployment should not be an issue).
 # What do I need to run all tests in a CI tool ?
 It's fairly straightforward to run the unit tests, you just need to add a build step that runs : 
 
