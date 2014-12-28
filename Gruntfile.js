@@ -539,7 +539,6 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'bower-install',
             'concurrent:server',
             'autoprefixer',
             'shell:duo',
