@@ -153,8 +153,16 @@ body {
   }
 }
 
-.toodle-select-language{
-  position:absolute;
-  right:0;
-  top:5px;
+.navbar-title{
+  float:left;
+  max-width:25%;
+}
+
+.navbar-container{
+  position:relative;
+}
+
+.navbar-language-select {
+  float:right;
+  max-width:35%;
 }
