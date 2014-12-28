@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TARGET=../newDist
+TARGET=../dist
 #rm -rf $TARGET
 #'concurrent:dist',
 echo "TODO : concurrent:dist"
