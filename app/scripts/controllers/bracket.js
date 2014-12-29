@@ -71,6 +71,7 @@ angular.module('toodleApp')
             } else {
                 $scope.playerToHighlight = player;
             }
+            $scope.$apply();
             $('#bracket').html('');
             renderer.drawBracket($scope.tournamentInfo, d3, $scope, $scope.playerToHighlight);
         };

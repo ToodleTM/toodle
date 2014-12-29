@@ -175,7 +175,8 @@ function appendTextToNode(node, textVAlign) {
         .attr('text-anchor', function () {
             return 'start';
         })
-        .style('fill-opacity', 1);
+        .style('fill-opacity', 1)
+        .style('cursor', 'pointer');
 }
 
 D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes, callback) {
