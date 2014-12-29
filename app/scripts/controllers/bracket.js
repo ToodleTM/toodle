@@ -64,5 +64,15 @@ angular.module('toodleApp')
                 $('#tourneyReportingKo').fadeIn();
             });
         };
+
+        $scope.togglePlayerHighlight = function(player){
+            if($scope.playerToHighlight && player && $scope.playerToHighlight.name === player.name){
+                $scope.playerToHighlight = null;
+            } else {
+                $scope.playerToHighlight = player;
+            }
+            $('#bracket').html('');
+            renderer.drawBracket($scope.tournamentInfo, d3, $scope, $scope.playerToHighlight);
+        };
     }
 );

@@ -426,7 +426,7 @@ describe('D3ToBracket', function () {
             };
             sinon.spy(d3Bracket, 'setViewDimensions');
             //action
-            d3Bracket.drawBracket({bracket:bracket}, d3);
+            d3Bracket.drawBracket({bracket: bracket}, d3, function(){});
             //assert
             assert.equal(d3Bracket.setViewDimensions.calledOnce, true);
             assert.equal(treeSize.getCall(0).args[0][0], 450);
@@ -454,7 +454,7 @@ describe('D3ToBracket', function () {
             sinon.spy(d3Bracket, 'appendSvgCanvas');
 
             //action
-            d3Bracket.drawBracket({bracket:bracket}, d3);
+            d3Bracket.drawBracket({bracket: bracket}, d3, function(){});
             //assert
             assert.equal(d3Bracket.appendSvgCanvas.calledOnce, true);
             assert.equal(callCheck.getCall(1).args[0], 'svg');
@@ -475,16 +475,16 @@ describe('D3ToBracket', function () {
             assert.equal(actual, expectedText);
         }
 
-        it('should return a TBD placeholder if playerData is null', function(){
+        it('should return a TBD placeholder if playerData is null', function () {
             testTextToDraw(null, null, ' -  TBD');
         });
 
-        it('should return a player name next to an empty score placeholder if player exists but there is no score yet', function(){
-            testTextToDraw({name:'player name'}, null, ' -  player name');
+        it('should return a player name next to an empty score placeholder if player exists but there is no score yet', function () {
+            testTextToDraw({name: 'player name'}, null, ' -  player name');
         });
 
-        it('should return a player name _and_ a score if both exist', function(){
-            testTextToDraw({name:'player name'}, 1, '1  player name');
+        it('should return a player name _and_ a score if both exist', function () {
+            testTextToDraw({name: 'player name'}, 1, '1  player name');
         });
     });
 
@@ -627,7 +627,7 @@ describe('D3ToBracket', function () {
         it('should return green if match can be reported', function () {
             //setup
             //action
-            var actual = d3Bracket.getReportingButtonIcon({canReport: true, player1:{}, player2:{}}, 3);
+            var actual = d3Bracket.getReportingButtonIcon({canReport: true, player1: {}, player2: {}}, 3);
             //assert
             assert.equal(actual, '/images/circle-green.png');
         });
@@ -635,23 +635,23 @@ describe('D3ToBracket', function () {
         it('should return red if match can be unreported', function () {
             //setup
             //action
-            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1:{}, player2:{}}, 3);
+            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1: {}, player2: {}}, 3);
             //assert
             assert.equal(actual, '/images/circle-red.png');
         });
 
-        it('should not return red if match is in fact a defwin (1st player not defined)', function(){
+        it('should not return red if match is in fact a defwin (1st player not defined)', function () {
             //setup
             //action
-            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1:null, player2:{}}, 3);
+            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1: null, player2: {}}, 3);
             //assert
             assert.equal(actual, '');
         });
 
-        it('should not return red if match is in fact a defwin (2nd player not defined)', function(){
+        it('should not return red if match is in fact a defwin (2nd player not defined)', function () {
             //setup
             //action
-            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1:{}, player2:null}, 3);
+            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1: {}, player2: null}, 3);
             //assert
             assert.equal(actual, '');
         });
@@ -667,28 +667,28 @@ describe('D3ToBracket', function () {
         it('should display the unreporting button for the last match of a bracket', function () {
             //setup
             //action
-            var actual = d3Bracket.getReportingButtonIcon({complete:true, parent:null, player1:{}, player2:{}}, 3);
+            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: null, player1: {}, player2: {}}, 3);
             //assert
             assert.equal(actual, '/images/circle-red.png');
         });
 
-        it('should not show the reporting button if admins did not give any reporting rights to the user', function(){
+        it('should not show the reporting button if admins did not give any reporting rights to the user', function () {
             //setup
             //action
-            var actual = d3Bracket.getReportingButtonIcon({canReport:true}, 1);
+            var actual = d3Bracket.getReportingButtonIcon({canReport: true}, 1);
             //assert
             assert.equal(actual, '');
         });
 
-        it('should show the reporting button if admins gave "only reporting" rights to the user', function(){
+        it('should show the reporting button if admins gave "only reporting" rights to the user', function () {
             //setup
             //action
-            var actual = d3Bracket.getReportingButtonIcon({canReport:true}, 2);
+            var actual = d3Bracket.getReportingButtonIcon({canReport: true}, 2);
             //assert
             assert.equal(actual, '/images/circle-green.png');
         });
 
-        it('should not show the unreporting button only if admins gave simple reporting rights to users', function(){
+        it('should not show the unreporting button only if admins gave simple reporting rights to users', function () {
             //setup
             //action
             var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}}, 2);
@@ -696,7 +696,7 @@ describe('D3ToBracket', function () {
             assert.equal(actual, '');
         });
 
-        it('should not show the unreporting button only if admins gave no reporting rights to users', function(){
+        it('should not show the unreporting button only if admins gave no reporting rights to users', function () {
             //setup
             //action
             var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}}, 1);
@@ -705,8 +705,8 @@ describe('D3ToBracket', function () {
         });
     });
 
-    describe('GetFontWidthForPlayerName', function(){
-        it('should return an empty string if match is not complete', function(){
+    describe('GetFontWidthForPlayerName', function () {
+        it('should return an empty string if match is not complete', function () {
             //setup
 
             //action
@@ -714,7 +714,7 @@ describe('D3ToBracket', function () {
             //assert
             assert.equal(actual, '');
         });
-        it('should return 900 for player 1 if match is complete and player 1 has won', function(){
+        it('should return 900 for player 1 if match is complete and player 1 has won', function () {
             //setup
             //action
             var actual = d3Bracket.getFontWeightForPlayerName(true, 1, 0);
@@ -722,6 +722,51 @@ describe('D3ToBracket', function () {
             assert.equal(actual, '900');
         });
 
+    });
+
+    describe('mark highlighed nodes', function () {
+        function testHighlight(originalNode, playerToHighlight, expectedNode){
+            //action
+            var actual = d3Bracket.markHighlightedNodes(originalNode, playerToHighlight);
+            //assert
+            assert.deepEqual(actual, expectedNode);
+        }
+
+        it('should not mark any nodes if the node list is empty', function () {
+            testHighlight({'0':{parentNode:{childNodes:{}}}}, null,{'0':{parentNode:{childNodes:{}}}});
+        });
+
+        it('should not mark any nodes if the player to highlight is not in the node list', function(){
+            testHighlight({'0':{parentNode:{childNodes:{'0':{'__data__':{player1:{name:'tom'}, player2:{name:'john'}}}}}}}, {name:'bob'}, {'0':{parentNode:{childNodes:{'0':{'__data__':{player1:{name:'tom'}, player2:{name:'john'}}}}}}});
+        });
+
+        it('should mark a node if the player to highlight is a player1 in a match in the node list', function(){
+            testHighlight({'0':{parentNode:{childNodes:{'0':{'__data__':{player1:{name:'bob'}, player2:{name:'john'}}}}}}}, {name:'bob'}, {'0':{parentNode:{childNodes:{'0':{'__data__':{highlight:true,player1:{name:'bob'}, player2:{name:'john'}}}}}}});
+        });
+
+        it('should mark a node if the player to highlight is a player2 in a match in the node list', function(){
+            testHighlight({'0':{parentNode:{childNodes:{'0':{'__data__':{player1:{name:'bob'}, player2:{name:'john'}}}}}}}, {name:'john'}, {'0':{parentNode:{childNodes:{'0':{'__data__':{highlight:true,player1:{name:'bob'}, player2:{name:'john'}}}}}}});
+        });
+
+        it('should not mark any nodes if there is no player to highlight', function(){
+            testHighlight({'0':{parentNode:{childNodes:{'0':{'__data__':{player1:{name:'bob'}, player2:{name:'john'}}}}}}}, null, {'0':{parentNode:{childNodes:{'0':{'__data__':{player1:{name:'bob'}, player2:{name:'john'}}}}}}});
+        });
+
+        it('should be able to mark the last childnode', function(){
+            testHighlight({'0':{parentNode:{childNodes:{'1':{'__data__':{player1:{name:'martin'}, player2:{name:'alex'}}}, '2':{'__data__':{player1:{name:'julian'}, player2:{name:'guillaume'}}}, '3':{'__data__':{player1:{name:'bob'}, player2:{name:'john'}}}}}}}, {name:'john'}, {'0':{parentNode:{childNodes:{'1':{'__data__':{player1:{name:'martin'}, player2:{name:'alex'}}}, '2':{'__data__':{player1:{name:'julian'}, player2:{name:'guillaume'}}}, '3':{'__data__':{highlight:true,player1:{name:'bob'}, player2:{name:'john'}}}}}}});
+        });
+
+        it('should bypass nodes without __data__ properties', function(){
+            testHighlight({'0':{parentNode:{childNodes:{'0':{}, '1':{'__data__':{player1:{name:'bob'}, player2:{name:'john'}}}}}}}, {name:'bob'}, {'0':{parentNode:{childNodes:{'0':{}, '1':{'__data__':{highlight:true,player1:{name:'bob'}, player2:{name:'john'}}}}}}});
+        });
+
+        it('should be able to handle matches w/ a player1 missing', function(){
+            testHighlight({'0':{parentNode:{childNodes:{'1':{'__data__':{player2:{name:'john'}}}}}}}, {name:'bob'}, {'0':{parentNode:{childNodes:{'1':{'__data__':{player2:{name:'john'}}}}}}});
+        });
+
+        it('should be able to handle matches w/ a player2 missing', function(){
+            testHighlight({'0':{parentNode:{childNodes:{'1':{'__data__':{player1:{name:'john'}}}}}}}, {name:'bob'}, {'0':{parentNode:{childNodes:{'1':{'__data__':{player1:{name:'john'}}}}}}});
+        });
     });
 
 });

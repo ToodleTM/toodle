@@ -135,12 +135,12 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction, reportin
 };
 
 D3Bracket.prototype.getTextToDraw = function (playerData, playerScore) {
-    if(!playerData){
+    if (!playerData) {
         return ' -  TBD';
-    } else if (!playerScore){
-        return ' -  '+playerData.name;
+    } else if (!playerScore) {
+        return ' -  ' + playerData.name;
     } else {
-        return playerScore+'  '+playerData.name;
+        return playerScore + '  ' + playerData.name;
     }
 };
 
@@ -164,7 +164,7 @@ D3Bracket.prototype.getFontWeightForPlayerName = function (matchCompleted, playe
     return '';
 };
 
-function appendTextToNode(node, textVAlign){
+function appendTextToNode(node, textVAlign) {
     return node.append('text')
         .attr('x', function () {
             return NODE_TEXT_LEFT_MARGIN;
@@ -178,7 +178,7 @@ function appendTextToNode(node, textVAlign){
         .style('fill-opacity', 1);
 }
 
-D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes) {
+D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes, callback) {
     var that = this;
     var appendedText = appendTextToNode(nodes, TEXT_IN_NODE_VALIGN_TOP, that);
     appendedText
@@ -187,6 +187,9 @@ D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes) {
         })
         .style('font-weight', function (d) {
             return that.getFontWeightForPlayerName(d.complete, d.score1, d.score2);
+        })
+        .on('click', function (d) {
+            callback(d.player1);
         });
     nodes.append('svg:image')
         .attr('class', 'circle')
@@ -199,7 +202,7 @@ D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes) {
         .attr('height', '20px');
 };
 
-D3Bracket.prototype.drawSecondPlayerNameInNode = function (nodes) {
+D3Bracket.prototype.drawSecondPlayerNameInNode = function (nodes, callback) {
     var that = this;
     var appendedText = appendTextToNode(nodes, TEXT_IN_NODE_VALIGN_BOTTOM, that);
     appendedText
@@ -208,6 +211,9 @@ D3Bracket.prototype.drawSecondPlayerNameInNode = function (nodes) {
         })
         .style('font-weight', function (d) {
             return that.getFontWeightForPlayerName(d.complete, d.score2, d.score1);
+        })
+        .on('click', function (d) {
+            callback(d.player2);
         });
     nodes.append('svg:image')
         .attr('class', 'circle')
@@ -228,7 +234,41 @@ D3Bracket.prototype.getLineDots = function (nodeData) {
     return [nextMatch, joiningPoint, lineFromLowerMatch, originMatch];
 };
 
-D3Bracket.prototype.drawLinesBetweenNodes = function (svg, links) {
+D3Bracket.prototype.getUnhighlightedLineDots = function (nodeData) {
+    var joiningPoint = {x: nodeData.source.y - NODE_WIDTH / 2, y: nodeData.source.x + 2};//adjusted y coordinates to avoid overlapping of highlight / non-highlight arcs
+    var lineFromLowerMatch = {x: nodeData.source.y - NODE_WIDTH / 2, y: nodeData.target.x};
+    var originMatch = {x: nodeData.target.y + NODE_WIDTH, y: nodeData.target.x};
+    return [joiningPoint, lineFromLowerMatch, originMatch];
+};
+
+D3Bracket.prototype.computeArc = function (d) {
+    var lineDots = [];
+    if (d.source.highlight || d.target.highlight) {
+        if (d.source.highlight && d.target.highlight) {
+            lineDots = this.getLineDots(d);
+        } else {
+            lineDots = this.getUnhighlightedLineDots(d);
+        }
+    } else {
+        lineDots = this.getLineDots(d);
+    }
+    return lineDots;
+};
+
+D3Bracket.prototype.markHighlightedNodes = function (link, playerToHighlight) {
+    if (link[0].parentNode.childNodes && playerToHighlight) {
+        _.forEach(link[0].parentNode.childNodes, function (node) {
+            var actual = node.__data__;
+            if (actual) {
+                if (actual.player1 && actual.player1.name === playerToHighlight.name || actual.player2 && actual.player2.name === playerToHighlight.name) {
+                    actual.highlight = true;
+                }
+            }
+        });
+    }
+    return link;
+};
+D3Bracket.prototype.drawLinesBetweenNodes = function (svg, links, playerToHighlight) {
     var link = svg.selectAll('path.link')
         .data(links, function (d) {
             return d.target.id;
@@ -241,12 +281,17 @@ D3Bracket.prototype.drawLinesBetweenNodes = function (svg, links) {
         .y(function (d) {
             return d.y;
         })
-        .interpolate('linerar');
+        .interpolate('linear');
+    link = this.markHighlightedNodes(link, playerToHighlight);
     link.enter().insert('path', 'g')
-        .attr('class', 'link')
+        .attr('class', function (d) {
+            if (d.source.highlight && d.target.highlight) {
+                return 'bracket-highlight';
+            }
+            return 'bracket-normalLink';
+        })
         .attr('d', function (d) {
-            var lineDots = self.getLineDots(d);
-            return lineFunction(lineDots);
+            return lineFunction(self.computeArc(d));
         });
 };
 D3Bracket.prototype.drawLine = function (d3) {
@@ -300,10 +345,10 @@ D3Bracket.prototype.setViewDimensions = function (bracket) {
     } else if (numPlayers < 127) {
         this.HEIGHT = this.WIDTH * Math.round(depth / 2);
     } else {
-        this.HEIGHT = this.WIDTH * Math.ceil(depth)*1.25;
+        this.HEIGHT = this.WIDTH * Math.ceil(depth) * 1.25;
     }
 };
-D3Bracket.prototype.drawBracket = function (data, d3, controllerReference) {
+D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playerToHighlight) {
     var bracket = data.bracket;
     var d3Nodes = this.convertBracketToD3Tree(bracket);
     var that = this;
@@ -328,9 +373,9 @@ D3Bracket.prototype.drawBracket = function (data, d3, controllerReference) {
     }, function (d) {
         controllerReference.unreport(d);
     }, data.userPrivileges);
-    this.drawFirstPlayerNameInNode(node);
-    this.drawSecondPlayerNameInNode(node);
-    this.drawLinesBetweenNodes(svg, links);
+    this.drawFirstPlayerNameInNode(node, controllerReference.togglePlayerHighlight);
+    this.drawSecondPlayerNameInNode(node, controllerReference.togglePlayerHighlight);
+    this.drawLinesBetweenNodes(svg, links, playerToHighlight);
 };
 
 module.exports.D3Bracket = D3Bracket;
