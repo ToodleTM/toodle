@@ -1,5 +1,6 @@
 'use strict';
 var E2eUtils = function(){};
+var _ = require('lodash');
 
 function checkBaseFormElementValues(element, by, gameValue, descriptionValue, engineValue, registeredPlayersValue){
     var game = element(by.id('game'));
@@ -53,11 +54,15 @@ E2eUtils.prototype.checkThatSignupPageContentsAreLockedAndEmpty = function(eleme
 };
 
 
-E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element, by){
+E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element, by, extraPlayers){
     element(by.id('inputNick')).sendKeys('test1');
     element(by.id('registerPlayerGo')).click();
     element(by.id('inputNick')).sendKeys('test2');
     element(by.id('registerPlayerGo')).click();
+    _.forEach(extraPlayers, function(player){
+        element(by.id('inputNick')).sendKeys(player);
+        element(by.id('registerPlayerGo')).click();
+    });
 
     var engine = element(by.id('engine'));
     engine.sendKeys('Single elim. bracket');

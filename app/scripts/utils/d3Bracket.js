@@ -124,6 +124,9 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction, reportin
         .attr('xlink:href', function (d) {
             return self.getReportingButtonIcon(d, reportingRights);
         })
+        .attr('id', function(d){
+            return 'matchNumber-'+d.name;
+        })
         .attr('x', (NODE_WIDTH - 7) + 'px')
         .attr('y', '-27px')
         .attr('width', '15px')
