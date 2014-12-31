@@ -43,7 +43,7 @@ angular.module('toodleApp')
             }).success(function (data) {
                 $scope.tournamentInfo = data;
                 $('#bracket').html('');
-                renderer.drawBracket(data, d3, $scope);
+                renderer.drawBracket(data, d3, $scope, $scope.playerToHighlight);
             }).error(function (data) {
                 $scope.errorMessage = data;
                 $('#tourneyReportingKo').fadeIn();
@@ -58,7 +58,7 @@ angular.module('toodleApp')
             }).success(function (data) {
                 $scope.tournamentInfo = data;
                 $('#bracket').html('');
-                renderer.drawBracket(data, d3, $scope);
+                renderer.drawBracket(data, d3, $scope, $scope.playerToHighlight);
             }).error(function (data) {
                 $scope.errorMessage = data;
                 $('#tourneyReportingKo').fadeIn();

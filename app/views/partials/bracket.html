@@ -101,7 +101,7 @@
 </div>
 <div id="content">
     <h1>{{ 'bracket.header' | translate }} <a href="/play/{{tournamentInfo.signupID}}">{{tournamentInfo.tournamentName}}</a></h1>
-    <div style="height:1em"><span ng-show="playerToHighlight">{{'bracket.playerToHighlight'|translate}} : {{playerToHighlight.name}}</span></div>
+    <div style="height:1em"><span id="highlightedPlayerText" ng-show="playerToHighlight">{{'bracket.playerToHighlight'|translate}} : {{playerToHighlight.name}}</span></div>
     <div id="bracket">
     </div>
     <div id="notRunning" style="display:none;">

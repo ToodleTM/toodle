@@ -201,6 +201,9 @@ D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes, callback) {
         .style('font-weight', function (d) {
             return that.getFontWeightForPlayerName(d.complete, d.score1, d.score2);
         })
+        .attr('id', function(d){
+            return 'player1-for-match-'+ d.name;
+        })
         .on('click', function (d) {
             callback(d.player1);
         });
@@ -224,6 +227,9 @@ D3Bracket.prototype.drawSecondPlayerNameInNode = function (nodes, callback) {
         })
         .style('font-weight', function (d) {
             return that.getFontWeightForPlayerName(d.complete, d.score2, d.score1);
+        })
+        .attr('id', function(d){
+            return 'player2-for-match-'+ d.name;
         })
         .on('click', function (d) {
             callback(d.player2);
@@ -297,6 +303,9 @@ D3Bracket.prototype.drawLinesBetweenNodes = function (svg, links, playerToHighli
         .interpolate('linear');
     link = this.markHighlightedNodes(link, playerToHighlight);
     link.enter().insert('path', 'g')
+        .attr('id', function(d){
+            return 'linkfrom-'+ d.source.name+'-to-'+ d.target.name;
+        })
         .attr('class', function (d) {
             if (d.source.highlight && d.target.highlight) {
                 return 'bracket-highlight';
