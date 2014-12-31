@@ -6,10 +6,11 @@ beforeEach(function(){
     browser.get(homeAddress);
 });
 
-function clickOnNodeReportButtonAndAssertBracketStatus(buttonIdToCheckAndClick, expectedFirstNodeIcon, expectedSecondNodeIcon, expectedThirdNodeIcon, expectedFourthNodeIcon){
+function reportAMatchAndAssertBracketStatus(buttonIdToCheckAndClick, expectedFirstNodeIcon, expectedSecondNodeIcon, expectedThirdNodeIcon, expectedFourthNodeIcon){
     e2eUtils.waitForElementToBeVisible(browser, element, by, buttonIdToCheckAndClick);
     element(by.id(buttonIdToCheckAndClick)).click();
     e2eUtils.waitForElementToBeVisible(browser, element, by, 'doReport');
+    expect(element(by.id('reportModal')).isDisplayed()).toBe(true);
     element(by.id('score1')).sendKeys('2');
     element(by.id('score1')).sendKeys('2');
     element(by.id('score2')).sendKeys('1');
@@ -39,7 +40,7 @@ describe('Match reporting through the interactive bracket', function () {
         e2eUtils.waitForElementToBeVisible(browser, element, by, 'tournamentBracketLink');
         element(by.id('tournamentBracketLink')).click();
 
-        clickOnNodeReportButtonAndAssertBracketStatus('matchNumber-1', '/images/circle-red.png', '/images/circle-green.png', '', '');
+        reportAMatchAndAssertBracketStatus('matchNumber-1', '/images/circle-red.png', '/images/circle-green.png', '', '');
         assertFinalStateOfBracket('/images/circle-red.png', '/images/circle-green.png', '/images/circle-green.png', '/images/circle-green.png', '', '', '');
     });
 
@@ -53,7 +54,7 @@ describe('Match reporting through the interactive bracket', function () {
         expect(element(by.id('matchNumber-1')).getAttribute('href')).toBe('/images/circle-green.png');
         element(by.id('matchNumber-1')).click();
 
-        clickOnNodeReportButtonAndAssertBracketStatus('matchNumber-1', '/images/circle-red.png', '/images/circle-green.png', '', '');
+        reportAMatchAndAssertBracketStatus('matchNumber-1', '/images/circle-red.png', '/images/circle-green.png', '', '');
 
         element(by.id('matchNumber-1')).click();
         e2eUtils.waitForElementToBeVisible(browser, element, by, 'doUnreport');
@@ -72,13 +73,41 @@ describe('Match reporting through the interactive bracket', function () {
         e2eUtils.waitForElementToBeVisible(browser, element, by, 'matchNumber-1');
         expect(element(by.id('matchNumber-1')).getAttribute('href')).toBe('/images/circle-green.png');
 
-        clickOnNodeReportButtonAndAssertBracketStatus('matchNumber-1', '/images/circle-red.png', '/images/circle-green.png', '', '');
+        reportAMatchAndAssertBracketStatus('matchNumber-1', '/images/circle-red.png', '/images/circle-green.png', '', '');
 
-        clickOnNodeReportButtonAndAssertBracketStatus('matchNumber-2', '/images/circle-red.png', '/images/circle-red.png', '/images/circle-green.png', '');
+        reportAMatchAndAssertBracketStatus('matchNumber-2', '/images/circle-red.png', '/images/circle-red.png', '/images/circle-green.png', '');
 
-        clickOnNodeReportButtonAndAssertBracketStatus('matchNumber-5', '', '', '/images/circle-red.png', '');
+        reportAMatchAndAssertBracketStatus('matchNumber-5', '', '', '/images/circle-red.png', '');
 
         assertFinalStateOfBracket('', '', '/images/circle-green.png', '/images/circle-green.png', '/images/circle-red.png', '', '');
     });
 
+    it('should not display the reporting dialog if the user does not have any reporting rights and he clicks on the button (which should not be visible)', function(){
+        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
+        e2eUtils.configureTheTournamentAndStartIt(browser, element, by, ['player3', 'player4', 'player5', 'player6', 'player7', 'player8'], 2);
+
+        e2eUtils.waitForElementToBeVisible(browser, element, by, 'tournamentBracketLink');
+        element(by.id('tournamentBracketLink')).click();
+
+        expect(element(by.id('matchNumber-1')).getAttribute('href')).toBe('');
+        element(by.id('matchNumber-1')).click();
+        expect(element(by.id('reportModal')).isDisplayed()).toBe(false);
+    });
+
+    it('should not display the unreporting dialog if user has report-only rights and tries to click on an unreport button (which should not be visible)', function(){
+        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
+        e2eUtils.configureTheTournamentAndStartIt(browser, element, by, ['player3', 'player4', 'player5', 'player6', 'player7', 'player8'], 1);
+
+        e2eUtils.waitForElementToBeVisible(browser, element, by, 'tournamentBracketLink');
+        element(by.id('tournamentBracketLink')).click();
+
+        reportAMatchAndAssertBracketStatus('matchNumber-1', '', '/images/circle-green.png', '', '');
+        reportAMatchAndAssertBracketStatus('matchNumber-2', '', '', '/images/circle-green.png', '');
+        reportAMatchAndAssertBracketStatus('matchNumber-5', '', '', '', '');
+
+        expect(element(by.id('matchNumber-1')).getAttribute('href')).toBe('');
+        element(by.id('matchNumber-1')).click();
+        expect(element(by.id('reportModal')).isDisplayed()).toBe(false);
+    });
+//Added e2e tests to check interactive bracket behaviour (reporting dialogs that should not display)
 });

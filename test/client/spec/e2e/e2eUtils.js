@@ -54,7 +54,7 @@ E2eUtils.prototype.checkThatSignupPageContentsAreLockedAndEmpty = function(eleme
 };
 
 
-E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element, by, extraPlayers){
+E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element, by, extraPlayers, playersRights){
     element(by.id('inputNick')).sendKeys('test1');
     element(by.id('registerPlayerGo')).click();
     element(by.id('inputNick')).sendKeys('test2');
@@ -63,6 +63,11 @@ E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element,
         element(by.id('inputNick')).sendKeys(player);
         element(by.id('registerPlayerGo')).click();
     });
+
+    if(playersRights){
+        element(by.id('reportRights-'+playersRights)).click();
+        element(by.id('modifyTournament')).click();
+    }
 
     var engine = element(by.id('engine'));
     engine.sendKeys('Single elim. bracket');
