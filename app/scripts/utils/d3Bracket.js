@@ -78,11 +78,19 @@ function matchCanBeUnreported(d) {
 function matchIsNotADefWin(player1, player2) {
     return player1 && player2;
 }
+
+function playerCanAtLeastReport(d, reportingRights) {
+    return d.canReport && (reportingRights === TOURNAMENT_PRIVILEGES_ALL || reportingRights === TOURNAMENT_PRIVILEGES_REPORT_ONLY);
+}
+function playerCanReportAndUnreport(d, reportingRights) {
+    return matchCanBeUnreported(d) && matchIsNotADefWin(d.player1, d.player2) && reportingRights === TOURNAMENT_PRIVILEGES_ALL;
+}
+
 D3Bracket.prototype.getReportingButtonIcon = function (d, reportingRights) {
     var icon = '';
-    if (d.canReport && (reportingRights === TOURNAMENT_PRIVILEGES_ALL || reportingRights === TOURNAMENT_PRIVILEGES_REPORT_ONLY)) {
+    if (playerCanAtLeastReport(d, reportingRights)) {
         icon = '/images/circle-green.png';
-    } else if (matchCanBeUnreported(d) && matchIsNotADefWin(d.player1, d.player2) && reportingRights === TOURNAMENT_PRIVILEGES_ALL) {
+    } else if (playerCanReportAndUnreport(d, reportingRights)) {
         icon = '/images/circle-red.png';
     }
     return icon;
@@ -119,22 +127,23 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction, reportin
         .attr('stroke', NODE_INNER_SEPARATION_COLOR)
         .attr('stroke-width', 1);
 
-    nodeEnter.append('svg:image')
-        .attr('class', 'circle')
-        .attr('xlink:href', function (d) {
-            return self.getReportingButtonIcon(d, reportingRights);
-        })
-        .attr('id', function(d){
-            return 'matchNumber-'+d.name;
-        })
-        .attr('x', (NODE_WIDTH - 7) + 'px')
-        .attr('y', '-27px')
-        .attr('width', '15px')
-        .attr('height', '15px')
-        .on('click', function (d) {
-            self.triggerReportingEvent(d, reportingTrigger, unreportingTrigger);
-        });
-
+        nodeEnter.append('svg:image')
+            .attr('class', 'circle')
+            .attr('xlink:href', function (d) {
+                return self.getReportingButtonIcon(d, reportingRights);
+            })
+            .attr('id', function (d) {
+                return 'matchNumber-' + d.name;
+            })
+            .attr('x', (NODE_WIDTH - 7) + 'px')
+            .attr('y', '-27px')
+            .attr('width', '15px')
+            .attr('height', '15px')
+            .on('click', function (d) {
+                if (playerCanAtLeastReport(d, reportingRights) || playerCanReportAndUnreport(d, reportingRights)) {
+                    self.triggerReportingEvent(d, reportingTrigger, unreportingTrigger);
+                }
+            });
 };
 
 D3Bracket.prototype.getTextToDraw = function (playerData, playerScore) {
