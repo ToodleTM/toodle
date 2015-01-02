@@ -10,6 +10,8 @@ function minifyAppAndGenerateIndex {
     ./scripts/appMinifier.sh ./app ./.minifyTmp $1 || exit 1
     echo "Generating index to use the minified app"
     ./scripts/indexGenerator.sh ./app ./.minifyTmp || exit 1
+    echo "CSS minification + regrouping"
+    ./scripts/cssConcat.sh ./app ./.minifyTmp ./.sass-tmp || exit 1
     rm -rf .minifyTmp
 }
 
@@ -24,7 +26,7 @@ function copyAppSource {
         echo "copying $pattern to $TARGET/app/$pattern"
         cp -r $pattern $TARGET/app/$pattern
     done
-    cp ../.sass-tmp/main.css $TARGET/app/styles/
+    cp styles/style.css $TARGET/app/styles/
     echo "...done"
 }
 
