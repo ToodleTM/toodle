@@ -7,9 +7,9 @@ duo app/scripts/utils/pack.js > app/scripts/utils/packed.js
 function minifyAppAndGenerateIndex {
     mkdir .minifyTmp
     echo "Minifying the app"
-    ./scripts/appMinifier.sh ./app ./.minifyTmp ./scripts
+    ./scripts/appMinifier.sh ./app ./.minifyTmp $1 || exit 1
     echo "Generating index to use the minified app"
-    ./scripts/indexGenerator.sh ./app ./.minifyTmp
+    ./scripts/indexGenerator.sh ./app ./.minifyTmp || exit 1
     rm -rf .minifyTmp
 }
 
@@ -45,10 +45,10 @@ function cleanup {
 }
 
 function copySource {
-    minifyAppAndGenerateIndex
+    minifyAppAndGenerateIndex $1
     copyAppSource
     copyServerSource
     cleanup
 }
 
-copySource
+copySource $1
