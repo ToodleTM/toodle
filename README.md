@@ -22,8 +22,8 @@ To be able to run the packager script you'll first need to download [Google's cl
 
 the dist directory generated can be run via a simple :
 
-    user@host:/toodleRoot$ npm install
-    user@host:/toodleRoot$ npm start #you can prefix this w/ the PORT or NODE_ENV variables if need be
+    user@host:/toodleRoot/dist$ npm install
+    user@host:/toodleRoot/dist$ npm start #you can prefix this w/ the PORT or NODE_ENV variables if need be
 
 or using pm2.
 
