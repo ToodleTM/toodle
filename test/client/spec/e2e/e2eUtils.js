@@ -65,7 +65,7 @@ E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element,
         element(by.id('registerPlayerGo')).click();
     });
 
-    expect(element(by.css('.glyphicon-trash')).isDisplayed()).toBe(true);
+    expect(element.all(by.css('.glyphicon-trash')).first().isDisplayed()).toBe(true);
     if(playersRights){
         element(by.id('reportRights-'+playersRights)).click();
         element(by.id('modifyTournament')).click();
@@ -79,7 +79,7 @@ E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element,
     this.waitForElementToBeVisible(browser, element, by, 'doStart');
     element(by.id('doStart')).click();
     expect(element(by.id('lockTournament')).isDisplayed()).toBe(false);
-    expect(element(by.css('.glyphicon-trash')).isDisplayed()).toBe(false);
+    expect(element.all(by.css('.glyphicon-trash')).first().isDisplayed()).toBe(false);
 
 };
 
