@@ -211,61 +211,34 @@ describe('D3ToBracket', function () {
         });
     });
     describe('Bracket sizing according to bracket depth', function () {
-        function testBracketDimnsions(bracket, expectedWidth, expectedHeight) {
+        function testBracketDimensions(bracket, expectedWidth, expectedHeight) {
             //action
             d3Bracket.setViewDimensions(bracket);
             //assert
             assert.equal(d3Bracket.getWidth(), expectedWidth);
             assert.equal(d3Bracket.getHeight(), expectedHeight);
         }
+        it('should define dimensions as 0/0 if bracket is empty (depth=0)', function () {
+            //setup
+            var bracket = {};
+            sinon.spy(d3Bracket, 'setViewDimensions');
+            testBracketDimensions(bracket, 0, 0);
+        });
 
-        it('should define a length of 400px and a height of 200px if the bracket is of depth = 1', function () {
+        it('should define a height that is directly proportional to the number of initial matches (depth=1)', function () {
             //setup
             var bracket = {
                 1: {}
             };
 
-            testBracketDimnsions(bracket, 300, 150);
+            testBracketDimensions(bracket, 300, 67.5);
         });
 
-        it('should define a canvas height that is _depth_ times the calculated length if the total number of matches to play is above 127', function () {
-            //setup
-            var bracket = {};
-            for (var i = 1; i <= 127; i++) {
-                bracket[i] = {};
-            }
-
-            testBracketDimnsions(bracket, 2100, 6300);
-        });
-
-        it('should define a canvas height that is _depth_/2 times the calculated length if the total number to matches to play lies between 31 and 127', function () {
-            //setup
-            var bracket = {};
-            for (var i = 1; i <= 63; i++) {
-                bracket[i] = {};
-            }
-            testBracketDimnsions(bracket, 1800, 3600);
-        });
-
-        it('should define dimensions L1200 / H600 if the bracket is of depth 3', function () {
-            //setup
+        it('should define a height that is directly proportional to the number of initial matches (depth=3)', function(){
             var bracket = {
-                1: {},
-                2: {},
-                3: {},
-                4: {},
-                5: {},
-                6: {},
-                7: {}
+                1:{},2:{},3:{},4:{},5:{},6:{},7:{}
             };
-            testBracketDimnsions(bracket, 900, 450);
-        });
-
-        it('should define dimensions as 0/0 if bracket is empty', function () {
-            //setup
-            var bracket = {};
-            sinon.spy(d3Bracket, 'setViewDimensions');
-            testBracketDimnsions(bracket, 0, 0);
+            testBracketDimensions(bracket, 900, 292.5);
         });
     });
     describe('drawbracket function', function () {
@@ -429,7 +402,7 @@ describe('D3ToBracket', function () {
             d3Bracket.drawBracket({bracket: bracket}, d3, function(){});
             //assert
             assert.equal(d3Bracket.setViewDimensions.calledOnce, true);
-            assert.equal(treeSize.getCall(0).args[0][0], 450);
+            assert.equal(treeSize.getCall(0).args[0][0], 292.5);
             assert.equal(treeSize.getCall(0).args[0][1], 900);
         });
 
@@ -461,7 +434,7 @@ describe('D3ToBracket', function () {
             assert.equal(callCheck.getCall(2).args[0], 'width');
             assert.equal(callCheck.getCall(2).args[1], 900);
             assert.equal(callCheck.getCall(3).args[0], 'height');
-            assert.equal(callCheck.getCall(3).args[1], 450);
+            assert.equal(callCheck.getCall(3).args[1], 292.5);
             assert.equal(callCheck.getCall(5).args[0], 'transform');
             assert.equal(callCheck.getCall(5).args[1], 'translate(0,0)');
         });

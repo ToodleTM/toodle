@@ -360,15 +360,12 @@ D3Bracket.prototype.getHeight = function () {
 D3Bracket.prototype.setViewDimensions = function (bracket) {
     var numNodes = _.keys(bracket).length;
     var depth = Math.log(numNodes + 1) / Math.log(2);
-    //debugger;
     this.WIDTH = 300 * Math.round(depth);
-    if (numNodes < 31) {
-        this.HEIGHT = this.WIDTH / 2;
-    } else if (numNodes < 127) {
-        this.HEIGHT = this.WIDTH * Math.floor(depth / 3);
-    } else {
-        this.HEIGHT = this.WIDTH * Math.ceil(depth / 3);
-    }
+
+    var baseHeight = NODE_HEIGHT+5;
+    var numberOfLeaves = numNodes? numNodes/2 +1 : 0;
+    var numberOfSpacesBetweenMatchSlots = Math.floor(numberOfLeaves / 2);
+    this.HEIGHT = (numberOfLeaves + numberOfSpacesBetweenMatchSlots) * baseHeight;
 };
 D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playerToHighlight) {
     var bracket = data.bracket;
