@@ -94,7 +94,7 @@ angular.module('toodleApp')
             $('#tourneyUpdateOk').hide();
             $('#tourneyUpdateKo').hide();
             $scope.tournamentInfo.startDate = $scope.tournamentStartDate;
-            $http.put('/api/tournament/admin/update/?id=' + tournamentId, $scope.tournamentInfo)
+            $http.put('/api/tournament/admin/update/?id=' + tournamentId, {_id:$scope.tournamentInfo._id, game:$scope.tournamentInfo.game, engine:$scope.tournamentInfo.engine, description:$scope.tournamentInfo.description, startDate:$scope.tournamentStartDate, userPrivileges:$scope.tournamentInfo.userPrivileges})
                 .success(function (data) {
                     $scope.tournamentInfo = data;
                     $('#tourneyUpdateOk').fadeIn();
