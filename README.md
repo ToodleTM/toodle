@@ -14,14 +14,20 @@ At first, straight up single elimination tournament brackets, then we'll integra
 Chances are, we'll only implement tournament formats we're familiar with. This means we'll focus on various formats that can be seen in Starcraft 2 competitions. To fix this, you can let us know about what you need, or better, write your own tournament management module (using the ones available as a reference) and submit us a pull request, we'll be happy to integrate it.
 
 # What do I need to run this ?
-This is an app based on a MEAN stack, so you'll need a machine with: NodeJS, grunt (and grunt-cli !), bower and MongoDB installed globally.
+This is an app based on a MEAN stack, so you'll need a machine with: NodeJS, bower and MongoDB installed globally. If you mean to run the app in "development" mode, I suggest you use grunt (and grunt-cli !) to easily have an up and running server.
+If what you're looking for is a packaged application to run I suggest to make the configuration adjustments needed (like mongodb connection settings) and then run the _scripts/appPackager.sh_ script (from the project root), it should package/minify/whatever the server and app in a ready-to-use _dist_ directory.
+To be able to run the packager script you'll first need to download [Google's closure compiler](https://developers.google.com/closure/compiler/) ([link to the latest version](http://dl.google.com/closure-compiler/compiler-latest.zip)) when you've got the Closure Compiler jar, you can pack your application using :
 
-Then, once the app is configured to access your mongodb instance (via _/lib/config/env/<your environments>_) you should be able to install everything by running :
+    user@host:/toodleRoot$ ./scripts/appPackager.sh <path to the directory containing your closure compiler jar>
 
-* npm i
-* bower i
+the dist directory generated can be run via a simple :
 
-although most cloud based platforms like Heroku / Nodejitsu should do this for you when you deploy, if you choose to use such a platform.
+    user@host:/toodleRoot$ npm install
+    user@host:/toodleRoot$ npm start #you can prefix this w/ the PORT or NODE_ENV variables if need be
+
+or using pm2.
+
+The app should also be deploy-able on platforms such as heroku / nodejitsu without too much trouble provided you follow their instructions.
 
 The app runs on 'development' settings by default, if you want to enable gzip compression you need to set the NODE_ENV variable to 'production'. This is easily done in the NodeJitsu admin interface, and I guess it's as simple in the Heroku one. If you're just making some tests on a VM, you can enable the option as easily as changing the port :
 
