@@ -448,8 +448,8 @@ describe('D3ToBracket', function () {
             assert.equal(actual, expectedText);
         }
 
-        it('should return a TBD placeholder if playerData is null', function () {
-            testTextToDraw(null, null, ' -  TBD');
+        it('should return an empty placeholder if playerData is null', function () {
+            testTextToDraw(null, null, ' - ');
         });
 
         it('should return a player name next to an empty score placeholder if player exists but there is no score yet', function () {
