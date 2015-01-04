@@ -358,16 +358,16 @@ D3Bracket.prototype.getHeight = function () {
     return this.HEIGHT;
 };
 D3Bracket.prototype.setViewDimensions = function (bracket) {
-    var numPlayers = _.keys(bracket).length;
-    var depth = Math.log(numPlayers + 1) / Math.log(2);
+    var numNodes = _.keys(bracket).length;
+    var depth = Math.log(numNodes + 1) / Math.log(2);
     //debugger;
     this.WIDTH = 300 * Math.round(depth);
-    if (numPlayers < 32) {
+    if (numNodes < 31) {
         this.HEIGHT = this.WIDTH / 2;
-    } else if (numPlayers < 127) {
-        this.HEIGHT = this.WIDTH * Math.round(depth / 2);
+    } else if (numNodes < 127) {
+        this.HEIGHT = this.WIDTH * Math.floor(depth / 3);
     } else {
-        this.HEIGHT = this.WIDTH * Math.ceil(depth) * 1.25;
+        this.HEIGHT = this.WIDTH * Math.ceil(depth / 3);
     }
 };
 D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playerToHighlight) {

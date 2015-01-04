@@ -235,7 +235,7 @@ describe('D3ToBracket', function () {
                 bracket[i] = {};
             }
 
-            testBracketDimnsions(bracket, 2100, 18375);
+            testBracketDimnsions(bracket, 2100, 6300);
         });
 
         it('should define a canvas height that is _depth_/2 times the calculated length if the total number to matches to play lies between 31 and 127', function () {
@@ -244,7 +244,7 @@ describe('D3ToBracket', function () {
             for (var i = 1; i <= 63; i++) {
                 bracket[i] = {};
             }
-            testBracketDimnsions(bracket, 1800, 5400);
+            testBracketDimnsions(bracket, 1800, 3600);
         });
 
         it('should define dimensions L1200 / H600 if the bracket is of depth 3', function () {
