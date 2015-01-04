@@ -9,9 +9,9 @@
     </div>
     <h1>{{ 'admin.header.tournament' | translate }} {{tournamentInfo.tournamentName}} {{ 'admin.header.adminPage' |
         translate}}</h1>
-    <button id="lockTournament" class="btn {{ tournamentInfo.locked ? 'btn-success' : 'btn-danger'}}"
+    <button ng-hide="tournamentInfo.running" id="lockTournament" class="btn {{ tournamentInfo.locked ? 'btn-success' : 'btn-danger'}}"
             title="{{ tournamentInfo.locked ? 'admin.actions.openTooltip' : 'admin.actions.lockTooltip' | translate }}"
-            ng-click="toggleRegistrationLock()">{{ tournamentInfo.locked ? 'admin.actions.open' : 'admin.actions.lock' |
+            ng-click="toggleRegistrationLock()" id="lockTournamentButton">{{ tournamentInfo.locked ? 'admin.actions.open' : 'admin.actions.lock' |
         translate }}
     </button>
 
@@ -354,7 +354,7 @@
                 <span style="float:left"><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png"
                                                                            height="20px"></span>{{player.name}} </span>
                 <span class="playerInListInfo" id="notes-{{stripped(player.name)}}">{{ 'admin.actions.'+errorMessage | translate }}</span><i
-                    title="{{'admin.actions.removePlayer'|translate}}" class="glyphicon glyphicon-trash"
+                    ng-hide="tournamentInfo.running" title="{{'admin.actions.removePlayer'|translate}}" class="glyphicon glyphicon-trash"
                     ng-click="removePlayer(player.name)"></i>
             </li>
         </ul>

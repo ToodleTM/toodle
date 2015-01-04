@@ -55,6 +55,7 @@ E2eUtils.prototype.checkThatSignupPageContentsAreLockedAndEmpty = function(eleme
 
 
 E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element, by, extraPlayers, playersRights){
+    expect(element(by.id('lockTournament')).isDisplayed()).toBe(true);
     element(by.id('inputNick')).sendKeys('test1');
     element(by.id('registerPlayerGo')).click();
     element(by.id('inputNick')).sendKeys('test2');
@@ -64,6 +65,7 @@ E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element,
         element(by.id('registerPlayerGo')).click();
     });
 
+    expect(element(by.css('.glyphicon-trash')).isDisplayed()).toBe(true);
     if(playersRights){
         element(by.id('reportRights-'+playersRights)).click();
         element(by.id('modifyTournament')).click();
@@ -76,6 +78,9 @@ E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element,
     element(by.id('runTournament')).click();
     this.waitForElementToBeVisible(browser, element, by, 'doStart');
     element(by.id('doStart')).click();
+    expect(element(by.id('lockTournament')).isDisplayed()).toBe(false);
+    expect(element(by.css('.glyphicon-trash')).isDisplayed()).toBe(false);
+
 };
 
 
