@@ -178,3 +178,62 @@ body {
   stroke: green;
   stroke-width:3px;
 }
+
+
+nav.navbar-language-select{
+  padding-left:0;
+}
+
+#activeLanguage {
+  padding-left:40px;
+}
+
+nav ul {
+  list-style: none;
+  position: relative;
+  display: inline-table;
+
+  & ul {
+    display: none;
+    position: absolute; top: 100%;
+  }
+
+  & li:hover > ul {
+    display: block;
+  }
+
+  &:after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+
+  & li {
+    float: left;
+    min-width:55px;
+    & ul {
+      margin-left:-30px;
+    }
+
+    &:hover a {
+      color: #757575;
+      text-decoration: none;
+      background-color:#fff;
+    }
+
+    & ul li a {
+      float:right;
+    }
+
+    & a img {
+      margin-right:5px;
+    }
+  }
+
+  & a {
+    display: block;
+    color: #757575;
+    text-decoration: none;
+    float:right;
+  }
+}

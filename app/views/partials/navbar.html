@@ -1,16 +1,26 @@
 <div class="header toodle-header" ng-controller="NavbarCtrl">
     <div class="row">
-
         <div class="navbar-container">
             <div class="form-group col-sm-9 navbar-title">
                 <a href="/" class="toodle-title text-muted" translate="header.title"></a>
             </div>
-            <div class="form-group col-sm-2 navbar-language-select">
-                <select class="form-control ng-pristine" id="language" ng-model="selectedLanguage">
-                    <option value="en">EN</option>
-                    <option value="fr">FR</option>
-                </select>
-            </div>
+            <!--<div class="form-group col-sm-2 navbar-language-select">-->
+            <!--<select class="form-control ng-pristine" id="language" ng-model="selectedLanguage">-->
+            <!--<option value="en">EN</option>-->
+            <!--<option value="fr">FR</option>-->
+            <!--</select>-->
+            <!--</div>-->
+
+            <nav class="form-group col-sm-2 navbar-language-select">
+                <ul>
+                    <li id="languageSelector"><a href="#"><img id='activeLanguage' src="./images/flags/{{selectedLanguage+'-'+selectedLanguage.toUpperCase()}}.svg" height="15"/></a>
+                        <ul>
+                            <li><a href="#" language="en"><img src="./images/flags/en-EN.svg" height="15"/>EN</a></li>
+                            <li><a href="#" language="fr"><img src="./images/flags/fr-FR.svg" height="15"/>FR</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
