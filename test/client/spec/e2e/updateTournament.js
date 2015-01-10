@@ -18,14 +18,14 @@ describe('User having the admin link of a tournament', function () {
 
         element(by.id('modifyTournament')).click();
         //browser.refresh(); // => seems to be broken w/ phantomjs, don't know why right now
-        //e2eUtils.waitForElementToBeVisible(browser, element, by, 'description');
-        //expect(game.getAttribute('value')).toEqual('sc2');
-        //expect(description.getAttribute('value')).toEqual('this is a test');
-        //expect(engine.getAttribute('value')).toEqual('singleElim');
-        //expect(datePicker.getAttribute('value')).toEqual('12/01/2014');
-        //expect(element(by.xpath('//div[@id="reportRights"]//input[@id="reportRights-0"]')).getAttribute('checked')).toEqual(null);
-        //expect(element(by.xpath('//div[@id="reportRights"]//input[@id="reportRights-1"]')).getAttribute('checked')).toEqual('true');
-        //expect(element(by.xpath('//div[@id="reportRights"]//input[@id="reportRights-2"]')).getAttribute('checked')).toEqual(null);
+        e2eUtils.waitForElementToBeVisible(browser, element, by, 'description');
+        expect(game.getAttribute('value')).toEqual('sc2');
+        expect(description.getAttribute('value')).toEqual('this is a test');
+        expect(engine.getAttribute('value')).toEqual('singleElim');
+        expect(datePicker.getAttribute('value')).toEqual('12/01/2014');
+        expect(element(by.xpath('//div[@id="reportRights"]//input[@id="reportRights-0"]')).getAttribute('checked')).toEqual(null);
+        expect(element(by.xpath('//div[@id="reportRights"]//input[@id="reportRights-1"]')).getAttribute('checked')).toEqual('true');
+        expect(element(by.xpath('//div[@id="reportRights"]//input[@id="reportRights-2"]')).getAttribute('checked')).toEqual(null);
         expect(element(by.id('tourneyUpdateOk')).getText()).toMatch(/×\nClose\nTournament specs successfully updated/g);
 
     });
@@ -44,8 +44,6 @@ describe('User having the admin link of a tournament', function () {
 
         e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
 
-        element(by.id('lockTournament')).click();
-
-        expect(element(by.id('tourneyRunKo')).getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(You can't unlock registrations to a running tournament.\)/g);
+        expect(element(by.id('lockTournament')).isDisplayed()).toBe(false);
     });
 });

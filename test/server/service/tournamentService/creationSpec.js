@@ -96,6 +96,27 @@ describe('Tournament Creation ', function () {
             assert.equal(res.json.calledOnce, true);
         });
 
+        it('should reject tournament start request if no engine is specified', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var tournament = {
+                engine: 'none', players: [
+                    {name: 'john'}
+                ]
+            };
+            var res = {
+                json: function () {
+                }
+            };
+            sinon.spy(res, 'json');
+            //action
+            tournamentService.startTournament({}, res, tournament);
+            //assert
+            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[1].message, 'noEngineSpecified');
+            assert.equal(res.json.calledOnce, true);
+        });
+
         it('should save tournament bracket if bracket creation succeeds', function () {
             //setup
             var tournamentService = new TournamentService();

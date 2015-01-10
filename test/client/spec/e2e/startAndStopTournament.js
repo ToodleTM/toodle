@@ -1,7 +1,6 @@
 'use strict';
 var homeAddress = 'http://localhost:9042';
 var e2eUtils = require('./e2eUtils.js');
-
 describe('Start tournament', function () {
     beforeEach(function(){
         browser.get(homeAddress);
@@ -12,6 +11,11 @@ describe('Start tournament', function () {
         element(by.id('inputNick')).sendKeys('test1');
         element(by.id('registerPlayerGo')).click();
 
+        e2eUtils.waitForElementToBeVisible(browser, element, by, 'modifyTournament');
+        var engine = element(by.id('engine'));
+        engine.sendKeys('---');
+        element(by.id('modifyTournament')).click();
+        e2eUtils.waitForElementToBeVisible(browser, element, by, 'tourneyUpdateOk');
         element(by.id('runTournament')).click();
         e2eUtils.waitForElementToBeVisible(browser, element, by, 'doStart');
         element(by.id('doStart')).click();
@@ -29,7 +33,6 @@ describe('Start tournament', function () {
         element(by.id('runTournament')).click();
         e2eUtils.waitForElementToBeVisible(browser, element, by, 'doStart');
         element(by.id('doStart')).click();
-
 
         var tourneyRunBox = element(by.id('tourneyRunKo'));
         expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(No players registered, there's no point in initiating the bracket\)/g);

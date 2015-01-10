@@ -215,7 +215,7 @@
 
                     <select id="engine" name="engine" class="form-control" ng-model="tournamentInfo.engine"
                             required="required">
-                        <option value=""></option>
+                        <option value="none"> --- </option>
                         <option value="singleElim">Single elim. bracket</option>
                     </select>
                 </div>
@@ -322,15 +322,7 @@
                         title="{{'admin.actions.multipleSeedTooltip'|translate}}"></i></legend>
                 <div class="row">
                     <div class="form-group col-sm-12">
-                        <!--<input type="text" ng-model="myModelObj">-->
                         <input id="multiSeedInput" type="file" ng-file-select="onFileSelect($files)">
-                        <!--<input type="file" ng-file-select="onFileSelect($files)" multiple accept="image/*">-->
-                        <!--<div class="button" ng-file-select="onFileSelect($files)" data-multiple="true"></div>-->
-                        <!--<div ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class-name-or-function"-->
-                        <!--ng-show="dropSupported">drop files here</div>-->
-                        <!--<div ng-file-drop-available="dropSupported=true"-->
-                        <!--ng-show="!dropSupported">HTML5 Drop File is not supported!</div>-->
-                        <!--<button ng-click="upload.abort()">Cancel Upload</button>-->
                         <p>* : {{ 'admin.misc.fileMustBeCSV' | translate }}</p>
                     </div>
                 </div>
