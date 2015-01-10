@@ -7,13 +7,13 @@ angular.module('toodleApp')
             $scope.selectedLanguage = newLang;
             $translate.use(newLang);
             $cookieStore.put('toodle-lang', newLang);
-            $('#activeLanguage').attr('src', './images/flags/'+$scope.selectedLanguage+'-'+$scope.selectedLanguage.toUpperCase()+'.svg');
-            console.log($('#activeLanguage').attr('src'));
+            $('#activeLanguage').attr('src', './images/flags/'+$scope.selectedLanguage+'.svg');
         };
         $scope.switchLanguage($scope.selectedLanguage);
 
         $('#languageSelector ul li a').click(function(e){
             e.preventDefault();
-            $scope.switchLanguage($(this).attr('language'));$scope.$apply();
+            $scope.switchLanguage($(this).attr('language'));
+            $scope.$apply();
         });
     });
