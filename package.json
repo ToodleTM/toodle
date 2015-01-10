@@ -47,16 +47,20 @@
     "grunt-mocha": "^0.4.11",
     "grunt-mocha-test": "~0.8.1",
     "grunt-newer": "~0.5.4",
-    "grunt-ngmin": "~0.0.2",
+    "grunt-ng-annotate": "^0.8.0",
     "grunt-node-inspector": "~0.1.3",
     "grunt-nodemon": "~0.2.0",
     "grunt-open": "~0.2.0",
     "grunt-rev": "~0.1.0",
+    "grunt-shell": "~1.0.1",
     "grunt-svgmin": "~0.2.0",
     "grunt-usemin": "~2.0.0",
+    "jscover": "~0.2.4",
     "jshint-stylish": "~0.1.3",
     "load-grunt-tasks": "~0.2.0",
     "mocha": "^1.21.3",
+    "mocha-istanbul": "~0.2.0",
+    "mocha-lcov-reporter": "0.0.1",
     "open": "~0.0.4",
     "phantomjs": "^1.9.7-15",
     "protractor": "^1.0.0",
@@ -64,11 +68,7 @@
     "should": "~2.1.0",
     "sinon": "^1.10.3",
     "supertest": "~0.8.2",
-    "time-grunt": "~0.2.1",
-    "grunt-shell": "~1.0.1",
-    "mocha-lcov-reporter": "0.0.1",
-    "jscover": "~0.2.4",
-    "mocha-istanbul": "~0.2.0"
+    "time-grunt": "~0.2.1"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -77,6 +77,6 @@
     "test": "grunt mochaTest && cd ./test/client/spec/e2e/runner && ./runProtractor.sh",
     "postinstall": "./node_modules/bower/bin/bower install",
     "qualimetry": "plato -l ./.jshintrc -r -d qualimetry/platoReport -x app/bower_components/  lib/ app/ test && istanbul cover _mocha --dir qualimetry/cover -- -R spec test/server/**/* test/client/spec/unit/*",
-    "jshint":"jshint --config ./.jshintrc lib/ app/scripts ./test/ --exclude-path .jshintignore"
+    "jshint": "jshint --config ./.jshintrc lib/ app/scripts ./test/ --exclude-path .jshintignore"
   }
 }
