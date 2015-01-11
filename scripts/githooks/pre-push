@@ -1,3 +1,10 @@
 #!/bin/sh
 
-protractor test/client/spec/e2e/protractor.conf.js
+#protractor test/client/spec/e2e/protractor.conf.js
+rm -f ./npmoutdated --depth=1
+npm outdated > ./npmoutdated
+OUTDATED=`grep ^.*[0-9]\.[0-9]\.[0-9].*$ ./outdated.txt`
+if [ "${OUTDATED}" != "" ]; then
+    echo ">>>>>>>> WARNING ! Some dependencies are outdated, you might want to consider updating them !"
+    echo ">>>>>>>> Look at the outdated.txt file"
+fi
