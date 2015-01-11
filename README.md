@@ -78,4 +78,9 @@ Each Angular controller (besides of the navbar as it doesn't really make sense) 
 
 Then open the app/views/index.html file and remove the code between the "piwik" tags ;) To avoid JS errors you might want to remove the _paq calls you'll find in the angular controllers.
 
+# Some more info
+## Status of NPM dependencies (from [DavidDM](https://david-dm.org))
+
+<a href="https://david-dm.org/hoshin/toodle"><img src="https://david-dm.org/hoshin/toodle.png"/></a>
+
     
