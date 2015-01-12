@@ -3,6 +3,8 @@ Toodle
 
 Modular online tournament management tool.
 
+<a href="https://david-dm.org/hoshin/toodle"><img src="https://david-dm.org/hoshin/toodle.png"/></a> (courtesy of [DavidDM](https://david-dm.org))
+
 # What is this ?
 Toodle aims to be a tournament management app that'll be able to get you started on your new super awesome tournament in a matter of minutes and as few clicks as possible.
 No login required, you just need to keep the admin URL close to you and send the participation url to the other participants.
@@ -77,10 +79,4 @@ Each Angular controller (besides of the navbar as it doesn't really make sense) 
 ##What if I don't care much about this ?
 
 Then open the app/views/index.html file and remove the code between the "piwik" tags ;) To avoid JS errors you might want to remove the _paq calls you'll find in the angular controllers.
-
-# Some more info
-## Status of NPM dependencies (from [DavidDM](https://david-dm.org))
-
-<a href="https://david-dm.org/hoshin/toodle"><img src="https://david-dm.org/hoshin/toodle.png"/></a>
-
     
