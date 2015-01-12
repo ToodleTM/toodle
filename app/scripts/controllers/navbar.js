@@ -15,6 +15,7 @@ angular.module('toodleApp')
             e.preventDefault();
             $scope.switchLanguage($(this).attr('language'));
             $scope.$apply();
+            window.location.reload();
         });
 
         $('#languageSelector a').click(function(e){
