@@ -431,6 +431,68 @@ describe('SingleElim engine', function () {
         });
     });
     describe('Bracket infos', function(){
+
+        describe('Get winner', function () {
+            it('should return an error if match has not started yet', function () {
+                //setup
+
+                //action
+                engine.winners({}, callbackSpy);
+                //assert
+                assert.equal(callbackSpy.getCall(0).args[0].message, 'noWinnerTournamentNotStarted');
+            });
+
+            it('should return an error if tournament has started but is not yet finished', function(){
+                //setup
+                engine.initBracket([john, jane, bob, alice], callbackSpy);
+                var tournament = {running:true, bracket:actualBracket};
+                //action
+                engine.winners(tournament, callbackSpy);
+                //assert
+                assert.equal(callbackSpy.getCall(1).args[0].message, 'noWinnerTournamentNotFinished');
+            });
+
+            it('should return an error if bracket is in an intermediate state', function(){
+                //setup
+                engine.initBracket([john, jane, bob, alice], callbackSpy);
+                var tournament = {running:true, bracket:actualBracket};
+                engine.reportWin(1, 2, 0, tournament.bracket, callbackSpy);
+                engine.reportWin(2, 2, 0, tournament.bracket, callbackSpy);
+                //action
+                engine.winners(tournament, callbackSpy);
+                //assert
+                assert.equal(callbackSpy.getCall(3).args[0].message, 'noWinnerTournamentNotFinished');
+            });
+
+            it('should return the player1 of the last match in the bracket if player1 wins', function(){
+                //setup
+                engine.initBracket([john, jane, bob, alice], callbackSpy);
+                var tournament = {running:true, bracket:actualBracket};
+                engine.reportWin(1, 2, 0, tournament.bracket, callbackSpy);
+                engine.reportWin(2, 2, 0, tournament.bracket, callbackSpy);
+                engine.reportWin(3, 2, 0, tournament.bracket, callbackSpy);
+                //action
+                engine.winners(tournament, callbackSpy);
+                //assert
+                assert.equal(callbackSpy.getCall(4).args[0], null);
+                assert.deepEqual(callbackSpy.getCall(4).args[1], [{name:'john'}]);
+            });
+
+            it('should return the player2 of the last match in the bracket if player2 wins', function(){
+                //setup
+                engine.initBracket([john, jane, bob, alice], callbackSpy);
+                var tournament = {running:true, bracket:actualBracket};
+                engine.reportWin(1, 2, 0, tournament.bracket, callbackSpy);
+                engine.reportWin(2, 2, 0, tournament.bracket, callbackSpy);
+                engine.reportWin(3, 2, 4, tournament.bracket, callbackSpy);
+                //action
+                engine.winners(tournament, callbackSpy);
+                //assert
+                assert.equal(callbackSpy.getCall(4).args[0], null);
+                assert.deepEqual(callbackSpy.getCall(4).args[1], [{name:'bob'}]);
+            });
+        });
+
         describe('Matches to report', function(){
             it('should be an empty list if bracket is empty', function(){
                 //setup
