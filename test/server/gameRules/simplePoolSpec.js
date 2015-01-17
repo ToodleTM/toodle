@@ -48,12 +48,12 @@ describe('SimplePool engine', function () {
             //setup
             var callbackSpy = sinon.spy();
             //action
-            engine.initBracket([{name:'player1'}, {name:'player2'}, {name:'player3'}, {name:'player4'}], callbackSpy);
+            engine.initBracket([john, jane, bob, alice], callbackSpy);
             //assert
             assert.equal(callbackSpy.getCall(0).args[0], null);
-            assert.deepEqual(callbackSpy.getCall(0).args[1][1].players, [{name:'player1'}, {name:'player2'}, {name:'player3'}, {name:'player4'}]);
-            assert.deepEqual(callbackSpy.getCall(0).args[1][1].matches[1], {player1:{name:'player1'}, player2:{name:'player4'}, number:1, round:1});
-            assert.deepEqual(callbackSpy.getCall(0).args[1][1].matches[2], {player1:{name:'player2'}, player2:{name:'player3'}, number:2, round:1});
+            assert.deepEqual(callbackSpy.getCall(0).args[1][1].players, [john, jane, bob, alice]);
+            assert.deepEqual(callbackSpy.getCall(0).args[1][1].matches[1], {player1:john, player2:alice, number:1, round:1});
+            assert.deepEqual(callbackSpy.getCall(0).args[1][1].matches[2], {player1:jane, player2:bob, number:2, round:1});
         });
 
         it('should create as many groups as needed to fit all registered players into pools', function(){
