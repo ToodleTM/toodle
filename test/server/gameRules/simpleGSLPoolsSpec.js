@@ -109,17 +109,17 @@ describe('SimplePool engine', function () {
             assert.equal(callbackSpy.getCall(0).args[1][1].matches[3], null);
             assert.equal(callbackSpy.getCall(0).args[1][1].matches[4], null);
 
-            assert.deepEqual(callbackSpy.getCall(0).args[1][2].matches[5], {
+            assert.deepEqual(callbackSpy.getCall(0).args[1][2].matches[6], {
                 player1: cole,
                 player2: patrick,
-                number: 5,
+                number: 6,
                 round: 1,
                 group: '2'
             });
-            assert.deepEqual(callbackSpy.getCall(0).args[1][2].matches[6], {
+            assert.deepEqual(callbackSpy.getCall(0).args[1][2].matches[7], {
                 player1: peter,
                 player2: franz,
-                number: 6,
+                number: 7,
                 round: 1,
                 group: '2'
             });
