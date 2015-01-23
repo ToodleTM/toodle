@@ -260,83 +260,125 @@ describe('SimpleGSLPool engine', function () {
             assert.deepEqual(groups[1].matches[4].group, '1');
         });
 
-        //reste la logique de progression dans le groupe + conditions de reportinng (état des matchs précédents ?)
-        //it('should define')
+        it('should put the loser of round 2 s winner match into the 1st slot of the decider match', function(){
+            //setup
+            var reportWinSpy = sinon.spy();
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, initBracketCallback);
+            engine.reportWin(1, 0, 2, groups, reportWinSpy);
+            engine.reportWin(2, 0, 2, groups, reportWinSpy);
+            //action
+            engine.reportWin(3, 0, 2, groups, reportWinSpy);
+            //assert
+            assert.deepEqual(groups[1].matches[5].player1, alice);
+            assert.deepEqual(groups[1].matches[5].round, 3);
+            assert.deepEqual(groups[1].matches[5].group, '1');
+        });
+
+        it('should put the winner of round 2 s loser match into the 2nd slot of the decider match', function(){
+            //setup
+            var reportWinSpy = sinon.spy();
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, initBracketCallback);
+            engine.reportWin(1, 0, 2, groups, reportWinSpy);
+            engine.reportWin(2, 0, 2, groups, reportWinSpy);
+            //action
+            engine.reportWin(4, 0, 2, groups, reportWinSpy);
+            //assert
+            assert.deepEqual(groups[1].matches[5].player2, jane);
+            assert.deepEqual(groups[1].matches[5].round, 3);
+            assert.deepEqual(groups[1].matches[5].group, '1');
+        });
+
+        it('should correctly set both players of the decider match when all previous matches have been played out', function(){
+            //setup
+            var reportWinSpy = sinon.spy();
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, initBracketCallback);
+            engine.reportWin(1, 0, 2, groups, reportWinSpy);
+            engine.reportWin(2, 0, 2, groups, reportWinSpy);
+            engine.reportWin(3, 0, 2, groups, reportWinSpy);
+            //action
+            engine.reportWin(4, 0, 2, groups, reportWinSpy);
+            //assert
+            assert.deepEqual(groups[1].matches[5].player1, alice);
+            assert.deepEqual(groups[1].matches[5].player2, jane);
+            assert.deepEqual(groups[1].matches[5].round, 3);
+            assert.deepEqual(groups[1].matches[5].group, '1');
+        });
+
+        describe('if some or all round 1 matches have not been played', function(){
+
+            function testIncompleteRound1(matchNumberToTest, matchNumberToCheck){
+                //setup
+                var reportWinSpy = sinon.spy();
+                var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+                engine.initBracket(players, initBracketCallback);
+                engine.reportWin(matchNumberToTest, 0, 2, groups, reportWinSpy);
+                //action
+                engine.reportWin(matchNumberToCheck, 0, 2, groups, reportWinSpy);
+                //assert
+                assert.equal(reportWinSpy.getCall(1).args[0].message, 'previousMatchesNotComplete');
+            }
+            it('should return an error if trying to report round2 s winner match (round1 1st match incomplete)', function(){
+                testIncompleteRound1(2,3);
+            });
+
+            it('should return an error if trying to report round2 s winner match (round1 2nd match incomplete)', function(){
+                testIncompleteRound1(1,3);
+            });
+
+            it('should return an error if trying to report round2 s loser match (round1 1st match incomplete)', function(){
+                testIncompleteRound1(2,4);
+            });
+
+            it('should return an error if trying to report round2 s loser match (round1 2nd match incomplete)', function(){
+                testIncompleteRound1(1,4);
+            });
+        });
     });
 
     describe('getMatchByNumber', function () {
-        it('should return null if no groups are specified', function () {
-            //setup
+        function getMatchByNumberTest(groups, matchNumber, expectedMatchValue){
             //action
-            var actual = engine.getMatchByNumber(null, null);
+            var actual = engine.getMatchByNumber(groups, matchNumber);
             //assert
-            assert.equal(actual, null);
+            assert.deepEqual(actual, expectedMatchValue);
+        }
+        it('should return null if no groups are specified', function () {
+            getMatchByNumberTest(null, null, null);
         });
 
         it('should return null if matchNumber is NaN', function(){
-            //setup
-            //action
-            var actual = engine.getMatchByNumber({1:{matches:{2:{player1:'p1'}}}}, 'dfb');
-            //assert
-            assert.deepEqual(actual, null);
+            getMatchByNumberTest({1:{matches:{2:{player1:'p1'}}}}, 'dfb', null);
         });
 
         it('should return match 2 from the 1st group if match id is 2', function(){
-            //setup
-            //action
-            var actual = engine.getMatchByNumber({1:{matches:{2:{player1:'p1'}}}}, 2);
-            //assert
-            assert.deepEqual(actual, {player1:'p1'});
+            getMatchByNumberTest({1:{matches:{2:{player1:'p1'}}}}, 2, {player1:'p1'});
         });
 
         it('should return match 5 from the 1st group if match id is 5', function(){
-            //setup
-            //action
-            var actual = engine.getMatchByNumber({1:{matches:{5:{player1:'p1'}}}}, 5);
-            //assert
-            assert.deepEqual(actual, {player1:'p1'});
+            getMatchByNumberTest({1:{matches:{5:{player1:'p1'}}}}, 5, {player1:'p1'});
         });
 
         it('should return match 1 from the 1st group if match id is 6', function(){
-            //setup
-            //action
-            var actual = engine.getMatchByNumber({2:{matches:{6:{player1:'p1'}}}}, 6);
-            //assert
-            assert.deepEqual(actual, {player1:'p1'});
+            getMatchByNumberTest({2:{matches:{6:{player1:'p1'}}}}, 6, {player1:'p1'});
         });
 
         it('should return match 12 located in group 3 if match id is 12', function(){
-            //setup
-            //action
-            var actual = engine.getMatchByNumber({1:{matches:{2:{player1:'p1'}}}, 3:{matches:{12:{player1:'p12'}, 13:{player1:'p13'}}}}, 12);
-            //assert
-            assert.deepEqual(actual, {player1:'p12'});
+            getMatchByNumberTest({1:{matches:{2:{player1:'p1'}}}, 3:{matches:{12:{player1:'p12'}, 13:{player1:'p13'}}}}, 12, {player1:'p12'});
         });
 
         it('should return null if match id is 0', function(){
-            //setup
-            //action
-            var actual = engine.getMatchByNumber({1:{matches:{2:{player1:'p1'}}}, 3:{matches:{12:{player1:'p12'}, 13:{player1:'p13'}}}}, 0);
-            //assert
-            assert.equal(actual, null);
+            getMatchByNumberTest({1:{matches:{2:{player1:'p1'}}}, 3:{matches:{12:{player1:'p12'}, 13:{player1:'p13'}}}}, 0, null);
         });
 
         it('should return null if match id is negative', function(){
-            //setup
-            //action
-            var actual = engine.getMatchByNumber({1:{matches:{2:{player1:'p1'}}}, 3:{matches:{12:{player1:'p12'}, 13:{player1:'p13'}}}}, -42);
-            //assert
-            assert.equal(actual, null);
+            getMatchByNumberTest({1:{matches:{2:{player1:'p1'}}}, 3:{matches:{12:{player1:'p12'}, 13:{player1:'p13'}}}}, -42, null);
         });
 
         it('should return null when requesting a group that does not exist', function(){
-            //setup
-            //action
-            var actual = engine.getMatchByNumber({1:{matches:{2:{player1:'p1'}}}, 3:{matches:{12:{player1:'p12'}, 13:{player1:'p13'}}}}, 1234);
-            //assert
-            assert.equal(actual, null);
+            getMatchByNumberTest({1:{matches:{2:{player1:'p1'}}}, 3:{matches:{12:{player1:'p12'}, 13:{player1:'p13'}}}}, 1234, null);
         });
     });
 });
-
-
