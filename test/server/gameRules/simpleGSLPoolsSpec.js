@@ -3,7 +3,7 @@ var assert = require('chai').assert;
 var sinon = require('sinon');
 var SimplePool = require('../../../lib/gameRules/simpleGSLPools').Engine;
 
-describe('SimplePool engine', function () {
+describe('SimpleGSLPool engine', function () {
     var engine, callbackSpy, actualBracket;
     var john = {name: 'john'};
     var jane = {name: 'jane'};
@@ -204,6 +204,61 @@ describe('SimplePool engine', function () {
             assert.equal(reportWinSpy.getCall(1).args[0].message, 'alreadyReported');
         });
 
+        it('should move the winner of the 1st round1 match to the round2 s winner match player1 slot', function(){
+            //setup
+            var reportWinSpy = sinon.spy();
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, initBracketCallback);
+            //action
+            engine.reportWin(1, 0, 2, groups, reportWinSpy);
+            //assert
+            assert.equal(reportWinSpy.getCall(0).args[0], null);
+            assert.deepEqual(groups[1].matches[3].player1, alice);
+            assert.deepEqual(groups[1].matches[3].round, 2);
+            assert.deepEqual(groups[1].matches[3].group, '1');
+        });
+
+        it('should move the loser of the 1st round1 match to the round2 s loser match player1 slot', function(){
+            //setup
+            var reportWinSpy = sinon.spy();
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, initBracketCallback);
+            //action
+            engine.reportWin(1, 0, 2, groups, reportWinSpy);
+            //assert
+            assert.equal(reportWinSpy.getCall(0).args[0], null);
+            assert.deepEqual(groups[1].matches[4].player1, john);
+            assert.deepEqual(groups[1].matches[4].round, 2);
+            assert.deepEqual(groups[1].matches[4].group, '1');
+        });
+
+        it('should move the winner of the 2nd round1 match to the round2 s winner match player2 slot', function(){
+            //setup
+            var reportWinSpy = sinon.spy();
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, initBracketCallback);
+            //action
+            engine.reportWin(2, 0, 2, groups, reportWinSpy);
+            //assert
+            assert.equal(reportWinSpy.getCall(0).args[0], null);
+            assert.deepEqual(groups[1].matches[3].player2, bob);
+            assert.deepEqual(groups[1].matches[3].round, 2);
+            assert.deepEqual(groups[1].matches[3].group, '1');
+        });
+
+        it('should move the winner of the 2nd round1 match to the round2 s winner match player2 slot', function(){
+            //setup
+            var reportWinSpy = sinon.spy();
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, initBracketCallback);
+            //action
+            engine.reportWin(2, 0, 2, groups, reportWinSpy);
+            //assert
+            assert.equal(reportWinSpy.getCall(0).args[0], null);
+            assert.deepEqual(groups[1].matches[4].player2, jane);
+            assert.deepEqual(groups[1].matches[4].round, 2);
+            assert.deepEqual(groups[1].matches[4].group, '1');
+        });
 
         //reste la logique de progression dans le groupe + conditions de reportinng (état des matchs précédents ?)
         //it('should define')
@@ -230,6 +285,22 @@ describe('SimplePool engine', function () {
             //setup
             //action
             var actual = engine.getMatchByNumber({1:{matches:{2:{player1:'p1'}}}}, 2);
+            //assert
+            assert.deepEqual(actual, {player1:'p1'});
+        });
+
+        it('should return match 5 from the 1st group if match id is 5', function(){
+            //setup
+            //action
+            var actual = engine.getMatchByNumber({1:{matches:{5:{player1:'p1'}}}}, 5);
+            //assert
+            assert.deepEqual(actual, {player1:'p1'});
+        });
+
+        it('should return match 1 from the 1st group if match id is 6', function(){
+            //setup
+            //action
+            var actual = engine.getMatchByNumber({2:{matches:{6:{player1:'p1'}}}}, 6);
             //assert
             assert.deepEqual(actual, {player1:'p1'});
         });
