@@ -1,7 +1,7 @@
 'use strict';
 var D3Bracket = function () {
 };
-var _ = require('../../../node_modules/lodash/lodash.js');
+var _ = require('../../../node_modules/lodash/index.js');
 
 
 //recursively runs through the bracket until initial matches are found,

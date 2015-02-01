@@ -941,4 +941,106 @@ describe('SimpleGSLPool engine', function () {
             assert.deepEqual(unreportCallbackSpy.getCall(0).args[1], [{round:3, group:2, number:10, complete:true, player1:{name:'cole', loss:1, lossCount:6, win:2, winCount:8}, player2:{name:'patrick', loss:2, lossCount:9, win:1, winCount:6}, player1Score:5, player2Score:3}]);
         });
     });
+
+    describe('getPlayersOrderedByScore', function(){
+        it('should return an error if the players list does not exist', function(){
+            //setup
+            var getPlayersOrderedByScoreCallback = sinon.spy();
+            //action
+            engine.getPlayersOrderedByScore({}, getPlayersOrderedByScoreCallback);
+            //assert
+            assert.equal(getPlayersOrderedByScoreCallback.calledOnce, true);
+            assert.equal(getPlayersOrderedByScoreCallback.getCall(0).args[0].message, 'playersNotFound');
+        });
+
+        it('should return an error if the number of players in the group is higher than expected', function(){
+            //setup
+            var getPlayersOrderedByScoreCallback = sinon.spy();
+            var group = {players:[john, cole, patrick, alice, giulietta]};
+            //action
+            engine.getPlayersOrderedByScore(group, getPlayersOrderedByScoreCallback);
+            //assert
+            assert.equal(getPlayersOrderedByScoreCallback.calledOnce, true);
+            assert.equal(getPlayersOrderedByScoreCallback.getCall(0).args[0].message, 'tooManyPlayers');
+        });
+
+        it('should return an error if the number of players is lower than expected', function(){
+            //setup
+            var getPlayersOrderedByScoreCallback = sinon.spy();
+            var group = {players:[john, cole, patrick]};
+            //action
+            engine.getPlayersOrderedByScore(group, getPlayersOrderedByScoreCallback);
+            //assert
+            assert.equal(getPlayersOrderedByScoreCallback.calledOnce, true);
+            assert.equal(getPlayersOrderedByScoreCallback.getCall(0).args[0].message, 'tooFewPlayers');
+        });
+
+        it('should return an ordered list of players based on their goal-average (all no-matches)', function(){
+            //setup
+            var getPlayersOrderedByScoreCallback = sinon.spy();
+            var group = {players:[john, cole, patrick, alice]};
+            group.players[3].winCount = 4;
+            group.players[3].lossCount = 0;
+            group.players[2].winCount = 4;
+            group.players[2].lossCount = 2;
+            group.players[0].winCount = 2;
+            group.players[0].lossCount = 4;
+            group.players[1].winCount = 0;
+            group.players[1].lossCount = 4;
+            //action
+            engine.getPlayersOrderedByScore(group, getPlayersOrderedByScoreCallback);
+            //assert
+            assert.equal(getPlayersOrderedByScoreCallback.calledOnce, true);
+            assert.equal(getPlayersOrderedByScoreCallback.getCall(0).args[0], null);
+            assert.deepEqual(getPlayersOrderedByScoreCallback.getCall(0).args[1], [alice, patrick, john, cole]);
+        });
+    });
+
+    describe('getWinnersFromGroup', function(){
+        it('should return the winners of a group if all matches have been played', function(){
+            //setup
+            var getWinnersFropGroupCallbackSpy = sinon.spy();
+            engine.initBracket([john, jane, bob, alice], initBracketCallback);
+            engine.reportWin(1, 2, 0, groups, function(){});
+            engine.reportWin(2, 2, 0, groups, function(){});
+            engine.reportWin(3, 2, 0, groups, function(){});
+            engine.reportWin(4, 2, 0, groups, function(){});
+            engine.reportWin(5, 2, 0, groups, function(){});
+            //action
+            engine.getWinnersFromGroup(groups[1], 1, getWinnersFropGroupCallbackSpy);
+            //assert
+            assert.equal(getWinnersFropGroupCallbackSpy.calledOnce, true);
+            assert.equal(getWinnersFropGroupCallbackSpy.getCall(0).args[0], null);
+            assert.deepEqual(getWinnersFropGroupCallbackSpy.getCall(0).args[1], [john, jane]);
+        });
+        it('should return an empty array if matches are not over for the current group', function(){
+            //setup
+            var getWinnersFropGroupCallbackSpy = sinon.spy();
+            engine.initBracket([john, jane, bob, alice], initBracketCallback);
+            engine.reportWin(1, 2, 0, groups, function(){});
+            engine.reportWin(2, 2, 0, groups, function(){});
+            engine.reportWin(3, 2, 0, groups, function(){});
+            engine.reportWin(4, 2, 0, groups, function(){});
+            //action
+            engine.getWinnersFromGroup(groups[1], 1, getWinnersFropGroupCallbackSpy);
+            //assert
+            assert.equal(getWinnersFropGroupCallbackSpy.calledOnce, true);
+            assert.equal(getWinnersFropGroupCallbackSpy.getCall(0).args[0], null);
+            assert.deepEqual(getWinnersFropGroupCallbackSpy.getCall(0).args[1], []);
+        });
+
+        it('should bubble incoming errors up to the caller', function(){
+            //setup
+            var getWinnersFropGroupCallbackSpy = sinon.spy();
+            engine.initBracket([john, jane, bob, alice], initBracketCallback);
+            engine.getPlayersOrderedByScore = function(data, callback){
+                callback({message:'someError'});
+            };
+            //action
+            engine.getWinnersFromGroup(groups[1], 1, getWinnersFropGroupCallbackSpy);
+            //assert
+            assert.equal(getWinnersFropGroupCallbackSpy.calledOnce, true);
+            assert.equal(getWinnersFropGroupCallbackSpy.getCall(0).args[0].message, 'someError');
+        });
+    });
 });
