@@ -76,14 +76,14 @@ describe('SimpleGSLPool engine', function () {
                 player2: alice,
                 number: 1,
                 round: 1,
-                group: '1'
+                group: 1
             });
             assert.deepEqual(callbackSpy.getCall(0).args[1][1].matches[2], {
                 player1: jane,
                 player2: bob,
                 number: 2,
                 round: 1,
-                group: '1'
+                group: 1
             });
         });
 
@@ -102,6 +102,16 @@ describe('SimpleGSLPool engine', function () {
             assert.deepEqual(callbackSpy.getCall(0).args[1][3].players, [lilah, yuri, giulietta, manolo]);
         });
 
+        function checkMatchData(match, expectedPlayer1, expectedPlayer2, expectedNumber, expectedRound, expectedGroup){
+            assert.deepEqual(match, {
+                player1: expectedPlayer1,
+                player2: expectedPlayer2,
+                number: expectedNumber,
+                round: expectedRound,
+                group: expectedGroup
+            });
+        }
+
         it('should give a unique match identifier to each match in-between the groups', function () {
             //setup
             var callbackSpy = sinon.spy();
@@ -111,86 +121,58 @@ describe('SimpleGSLPool engine', function () {
             engine.initBracket(players, callbackSpy);
             //assert
             assert.equal(callbackSpy.getCall(0).args[0], null);
-            assert.deepEqual(callbackSpy.getCall(0).args[1][1].matches[1], {
-                player1: john,
-                player2: alice,
-                number: 1,
-                round: 1,
-                group: '1'
-            });
-            assert.deepEqual(callbackSpy.getCall(0).args[1][1].matches[2], {
-                player1: jane,
-                player2: bob,
-                number: 2,
-                round: 1,
-                group: '1'
-            });
-            assert.equal(callbackSpy.getCall(0).args[1][1].matches[3], null);
-            assert.equal(callbackSpy.getCall(0).args[1][1].matches[4], null);
+            checkMatchData(callbackSpy.getCall(0).args[1][1].matches[1], john, alice, 1, 1, 1);
+            checkMatchData(callbackSpy.getCall(0).args[1][1].matches[2], jane, bob, 2, 1, 1);
+            checkMatchData(callbackSpy.getCall(0).args[1][2].matches[6], cole, patrick, 6, 1, 2);
+            checkMatchData(callbackSpy.getCall(0).args[1][2].matches[7], peter, franz, 7, 1, 2);
+        });
 
-            assert.deepEqual(callbackSpy.getCall(0).args[1][2].matches[6], {
-                player1: cole,
-                player2: patrick,
-                number: 6,
-                round: 1,
-                group: '2'
-            });
-            assert.deepEqual(callbackSpy.getCall(0).args[1][2].matches[7], {
-                player1: peter,
-                player2: franz,
-                number: 7,
-                round: 1,
-                group: '2'
-            });
+        it('should init multiple groups using the unique number of a match as the index in the group matches array', function () {
+            //setup
+            //action
+            engine.initBracket([john, jane, bob, alice, cole, peter, franz, patrick], initBracketCallback);
+            //assert
+            assert.equal(groups[1].matches[1].number, 1);
+            assert.equal(groups[1].matches[2].number, 2);
+            assert.equal(groups[2].matches[6].number, 6);
+            assert.equal(groups[2].matches[7].number, 7);
+
+            assert.equal(groups[1].matches[3], null);
+            assert.equal(groups[1].matches[4], null);
+            assert.equal(groups[1].matches[5], null);
+            assert.equal(groups[2].matches[8], null);
+            assert.equal(groups[2].matches[9], null);
+            assert.equal(groups[2].matches[10], null);
         });
     });
 
     describe('reportwin', function () {
-
-
         describe('error handling', function () {
+
+            function testReportingErrors(players, matchNumber, score1, score2, expectedErrorMessage){
+                //setup
+                var reportWinSpy = sinon.spy();
+                engine.initBracket(players, initBracketCallback);
+                //action
+                engine.reportWin(matchNumber, score1, score2, groups, reportWinSpy);
+                //assert
+                assert.equal(reportWinSpy.getCall(0).args[0].message, expectedErrorMessage);
+            }
+
             it('should return an error if the two scores are equal', function () {
-                //setup
-                var reportWinSpy = sinon.spy();
-                var players = [john, jane, bob, alice, cole, peter, franz, patrick];
-                engine.initBracket(players, initBracketCallback);
-                //action
-                engine.reportWin(1, 2, 2, groups, reportWinSpy);
-                //assert
-                assert.equal(reportWinSpy.getCall(0).args[0].message, 'winnerMustHaveHigherScore');
+                testReportingErrors([john, jane, bob, alice, cole, peter, franz, patrick],1, 2, 2, 'winnerMustHaveHigherScore');
             });
 
             it('should return an error if the 1st score is invalid', function () {
-                //setup
-                var reportWinSpy = sinon.spy();
-                var players = [john, jane, bob, alice, cole, peter, franz, patrick];
-                engine.initBracket(players, initBracketCallback);
-                //action
-                engine.reportWin(1, null, 2, groups, reportWinSpy);
-                //assert
-                assert.equal(reportWinSpy.getCall(0).args[0].message, 'invalidScores');
+                testReportingErrors([john, jane, bob, alice, cole, peter, franz, patrick],1, null, 2, 'invalidScores');
             });
 
             it('should return an error if the 1st score is invalid', function () {
-                //setup
-                var reportWinSpy = sinon.spy();
-                var players = [john, jane, bob, alice, cole, peter, franz, patrick];
-                engine.initBracket(players, initBracketCallback);
-                //action
-                engine.reportWin(1, 2, null, groups, reportWinSpy);
-                //assert
-                assert.equal(reportWinSpy.getCall(0).args[0].message, 'invalidScores');
+                testReportingErrors([john, jane, bob, alice, cole, peter, franz, patrick],1, 2, null,'invalidScores');
             });
 
             it('should return an error if match to report could not be found', function () {
-                //setup
-                var reportWinSpy = sinon.spy();
-                var players = [john, jane, bob, alice, cole, peter, franz, patrick];
-                engine.initBracket(players, initBracketCallback);
-                //action
-                engine.reportWin(123, 2, 0, groups, reportWinSpy);
-                //assert
-                assert.equal(reportWinSpy.getCall(0).args[0].message, 'notFound');
+                testReportingErrors([john, jane, bob, alice, cole, peter, franz, patrick],123, 2, 0, 'notFound');
             });
 
             it('should not allow reporting if match is already complete', function () {
@@ -223,7 +205,7 @@ describe('SimpleGSLPool engine', function () {
                 round: 1,
                 player1: john,
                 player2: alice,
-                group: '1',
+                group: 1,
                 number: 1
             });
         });
@@ -241,7 +223,7 @@ describe('SimpleGSLPool engine', function () {
                 assert.deepEqual(groups[1].matches[matchToCheck].player1, expectedPlayer1);
                 assert.deepEqual(groups[1].matches[matchToCheck].player2, expectedPlayer2);
                 assert.deepEqual(groups[1].matches[matchToCheck].round, 2);
-                assert.deepEqual(groups[1].matches[matchToCheck].group, '1');
+                assert.deepEqual(groups[1].matches[matchToCheck].group, 1);
             }
 
             it('should move the winner of the 1st round1 match to the round2 s winner match player1 slot', function () {
@@ -273,7 +255,7 @@ describe('SimpleGSLPool engine', function () {
                 assert.deepEqual(groups[1].matches[5].player1, expectedPlayer1);
                 assert.deepEqual(groups[1].matches[5].player2, expectedPlayer2);
                 assert.deepEqual(groups[1].matches[5].round, 3);
-                assert.deepEqual(groups[1].matches[5].group, '1');
+                assert.deepEqual(groups[1].matches[5].group, 1);
             }
 
             it('should put the loser of round 2 s winner match into the 1st slot of the decider match', function () {
@@ -298,7 +280,7 @@ describe('SimpleGSLPool engine', function () {
                 assert.deepEqual(groups[1].matches[5].player1, alice);
                 assert.deepEqual(groups[1].matches[5].player2, jane);
                 assert.deepEqual(groups[1].matches[5].round, 3);
-                assert.deepEqual(groups[1].matches[5].group, '1');
+                assert.deepEqual(groups[1].matches[5].group, 1);
             });
         });
 
@@ -340,6 +322,20 @@ describe('SimpleGSLPool engine', function () {
                 engine.reportWin(1, 0, 2, groups, reportWinSpy);
                 engine.reportWin(2, 0, 2, groups, reportWinSpy);
                 engine.reportWin(3, 0, 2, groups, reportWinSpy);
+                //action
+                engine.reportWin(5, 0, 2, groups, reportWinSpy);
+                //assert
+                assert.equal(reportWinSpy.getCall(3).args[0].message, 'previousMatchesNotComplete');
+            });
+
+            it('should not be able to report the deciders match if one of the round2 matches is incomplete', function(){
+                //setup
+                var reportWinSpy = sinon.spy();
+                var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+                engine.initBracket(players, initBracketCallback);
+                engine.reportWin(1, 0, 2, groups, reportWinSpy);
+                engine.reportWin(2, 0, 2, groups, reportWinSpy);
+                engine.reportWin(4, 0, 2, groups, reportWinSpy);
                 //action
                 engine.reportWin(5, 0, 2, groups, reportWinSpy);
                 //assert
@@ -422,7 +418,6 @@ describe('SimpleGSLPool engine', function () {
                 //assert
                 assert.equal(alice.lossCount, 5);
             });
-
         });
 
         describe('player update triggering', function () {
@@ -465,7 +460,7 @@ describe('SimpleGSLPool engine', function () {
             getMatchByNumberTest({1: {matches: {5: {player1: 'p1'}}}}, 5, {player1: 'p1'});
         });
 
-        it('should return match 1 from the 1st group if match id is 6', function () {
+        it('should return match 1 from the 2nd group if match id is 6', function () {
             getMatchByNumberTest({2: {matches: {6: {player1: 'p1'}}}}, 6, {player1: 'p1'});
         });
 
@@ -508,7 +503,7 @@ describe('SimpleGSLPool engine', function () {
         var peterVSfranz = {};
         beforeEach(function () {
             johnVSalice = {
-                'group': '1',
+                'group': 1,
                 'number': 1,
                 'player1': {
                     'win':0,
@@ -527,7 +522,7 @@ describe('SimpleGSLPool engine', function () {
                 'round': 1
             };
             janeVSbob = {
-                'group': '1',
+                'group': 1,
                 'number': 2,
                 'player1': {
                     'win':0,
@@ -547,7 +542,7 @@ describe('SimpleGSLPool engine', function () {
             };
 
             coleVSpatrick = {
-                'group': '2',
+                'group': 2,
                 'number': 6,
                 'player1': {
                     'win':0,
@@ -566,7 +561,7 @@ describe('SimpleGSLPool engine', function () {
                 'round': 1
             };
             peterVSfranz = {
-                'group': '2',
+                'group': 2,
                 'number': 7,
                 'player1': {
                     'win':0,
@@ -585,7 +580,7 @@ describe('SimpleGSLPool engine', function () {
                 'round': 1
             };
             johnVSjane = {
-                'group': '1',
+                'group': 1,
                 'number': 3,
                 'player1': {
                     'lossCount': 0,
@@ -604,7 +599,7 @@ describe('SimpleGSLPool engine', function () {
                 'round': 2
             };
             aliceVSbob = {
-                'group': '1',
+                'group': 1,
                 'number': 4,
                 'player1': {
                     'loss': 1,
@@ -624,7 +619,7 @@ describe('SimpleGSLPool engine', function () {
             };
 
             janeVSalice = {
-                'group': '1',
+                'group': 1,
                 'number': 5,
                 'player1': {
                     'loss': 1,
@@ -757,7 +752,7 @@ describe('SimpleGSLPool engine', function () {
                 //assert
                 assert.equal(unreportCallbackSpy.calledOnce, true);
                 assert.equal(unreportCallbackSpy.getCall(0).args[0], null);
-                assert.deepEqual(unreportCallbackSpy.getCall(0).args[1][1].matches[1], {round:1,complete:false,player1:null, player2:null, group:'1', number:1});
+                assert.deepEqual(unreportCallbackSpy.getCall(0).args[1][1].matches[1], {round:1,complete:false,player1:null, player2:null, group:1, number:1});
             });
 
             it('should reset 1st players in round2 matches when unreporting the 1st round1 match', function(){
@@ -853,6 +848,97 @@ describe('SimpleGSLPool engine', function () {
                 assert.equal(unreportCallbackSpy.getCall(0).args[1][1].matches[2].player2.winCount, 3);
                 assert.equal(unreportCallbackSpy.getCall(0).args[1][1].matches[2].player2.lossCount, 0);
             });
+        });
+    });
+
+    describe('getUnreportableMatches', function(){
+        it('should return an empty list if no matches can be unreported', function(){
+            //setup
+            var unreportCallbackSpy = sinon.spy();
+            engine.initBracket([john, jane, bob, alice], initBracketCallback);
+
+            //action
+            engine.getUnreportableMatches(groups, unreportCallbackSpy);
+            //assert
+            assert.equal(unreportCallbackSpy.calledOnce, true);
+            assert.equal(unreportCallbackSpy.getCall(0).args[0], null);
+            assert.deepEqual(unreportCallbackSpy.getCall(0).args[1], []);
+        });
+
+        it('should return match1 of group 1 if match1 is the only complete one', function(){
+            //setup
+            var unreportCallbackSpy = sinon.spy();
+            engine.initBracket([john, jane, bob, alice], initBracketCallback);
+            engine.reportWin(1, 2, 0, groups, function(){});
+
+            //action
+            engine.getUnreportableMatches(groups, unreportCallbackSpy);
+            //assert
+            assert.equal(unreportCallbackSpy.calledOnce, true);
+            assert.equal(unreportCallbackSpy.getCall(0).args[0], null);
+            assert.deepEqual(unreportCallbackSpy.getCall(0).args[1], [{round:1, group:1, number:1, complete:true, player1:{name:'john', loss:0, lossCount:0, win:1, winCount:2}, player2:{name:'alice', loss:1, lossCount:2, win:0, winCount:0}, player1Score:2, player2Score:0}]);
+        });
+
+        it('should return match1 of groups 1 and 2 if match1 is the only complete one in the 2 groups', function(){
+            //setup
+            var unreportCallbackSpy = sinon.spy();
+            engine.initBracket([john, jane, bob, alice, cole, peter, franz, patrick], initBracketCallback);
+            engine.reportWin(1, 2, 0, groups, function(){});
+            engine.reportWin(6, 1, 3, groups, function(){});
+            //action
+            engine.getUnreportableMatches(groups, unreportCallbackSpy);
+            //assert
+            assert.equal(unreportCallbackSpy.calledOnce, true);
+            assert.equal(unreportCallbackSpy.getCall(0).args[0], null);
+            assert.deepEqual(unreportCallbackSpy.getCall(0).args[1], [{round:1, group:1, number:1, complete:true, player1:{name:'john', loss:0, lossCount:0, win:1, winCount:2}, player2:{name:'alice', loss:1, lossCount:2, win:0, winCount:0}, player1Score:2, player2Score:0},{round:1, group:2, number:6, complete:true, player1:{name:'cole', loss:1, lossCount:3, win:0, winCount:1}, player2:{name:'patrick', loss:0, lossCount:1, win:1, winCount:3}, player1Score:1, player2Score:3}]);
+        });
+
+        it('should return match3 of group 2 if its the only valid match to unreport', function(){
+            //setup
+            var unreportCallbackSpy = sinon.spy();
+            engine.initBracket([john, jane, bob, alice, cole, peter, franz, patrick], initBracketCallback);
+            engine.reportWin(6, 2, 0, groups, function(){});
+            engine.reportWin(7, 1, 3, groups, function(){});
+            engine.reportWin(8, 1, 3, groups, function(){});
+            //action
+            engine.getUnreportableMatches(groups, unreportCallbackSpy);
+            //assert
+            assert.equal(unreportCallbackSpy.calledOnce, true);
+            assert.equal(unreportCallbackSpy.getCall(0).args[0], null);
+            assert.deepEqual(unreportCallbackSpy.getCall(0).args[1], [{round:2, group:2, number:8, complete:true, player1:{name:'cole', loss:1, lossCount:3, win:1, winCount:3}, player2:{name:'franz', loss:0, lossCount:2, win:2, winCount:6}, player1Score:1, player2Score:3}]);
+        });
+
+        it('should return match4 of group 2 if its the only valid match to unreport', function(){
+            //setup
+            var unreportCallbackSpy = sinon.spy();
+            engine.initBracket([john, jane, bob, alice, cole, peter, franz, patrick], initBracketCallback);
+            engine.reportWin(6, 2, 0, groups, function(){});
+            engine.reportWin(7, 1, 3, groups, function(){});
+            engine.reportWin(9, 3, 2, groups, function(){});
+            //action
+            engine.getUnreportableMatches(groups, unreportCallbackSpy);
+            //assert
+            assert.equal(unreportCallbackSpy.calledOnce, true);
+            assert.equal(unreportCallbackSpy.getCall(0).args[0], null);
+            assert.deepEqual(unreportCallbackSpy.getCall(0).args[1], [{round:2, group:2, number:9, complete:true, player1:{name:'patrick', loss:1, lossCount:4, win:1, winCount:3}, player2:{name:'peter', loss:2, lossCount:6, win:0, winCount:3}, player1Score:3, player2Score:2}]);
+        });
+
+        it('should return the decider match only if it is marked as complete', function(){
+            //setup
+            var unreportCallbackSpy = sinon.spy();
+            engine.initBracket([john, jane, bob, alice, cole, peter, franz, patrick], initBracketCallback);
+            engine.reportWin(6, 2, 0, groups, function(){});
+            engine.reportWin(7, 1, 3, groups, function(){});
+            engine.reportWin(8, 1, 3, groups, function(){});
+
+            engine.reportWin(9, 3, 2, groups, function(){});
+            engine.reportWin(10, 5, 3, groups, function(){});
+            //action
+            engine.getUnreportableMatches(groups, unreportCallbackSpy);
+            //assert
+            assert.equal(unreportCallbackSpy.calledOnce, true);
+            assert.equal(unreportCallbackSpy.getCall(0).args[0], null);
+            assert.deepEqual(unreportCallbackSpy.getCall(0).args[1], [{round:3, group:2, number:10, complete:true, player1:{name:'cole', loss:1, lossCount:6, win:2, winCount:8}, player2:{name:'patrick', loss:2, lossCount:9, win:1, winCount:6}, player1Score:5, player2Score:3}]);
         });
     });
 });
