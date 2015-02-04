@@ -2,7 +2,7 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var _ = require('lodash');
-var SimplePool = require('../../../lib/gameRules/simpleGSLPools').Engine;
+var SimpleGSLGroups = require('../../../lib/gameRules/simpleGSLGroups').Engine;
 
 describe('SimpleGSLPool engine', function () {
     var engine, callbackSpy, actualBracket;
@@ -24,7 +24,7 @@ describe('SimpleGSLPool engine', function () {
         groups = generatedGroups;
     };
     beforeEach(function () {
-        engine = new SimplePool();
+        engine = new SimpleGSLGroups();
         groups = {};
         callbackSpy = sinon.spy(function (err, data) {
             actualBracket = data;
