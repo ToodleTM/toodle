@@ -1007,12 +1007,13 @@ describe('SimpleGSLPool engine', function () {
             engine.reportWin(4, 2, 0, groups, function(){});
             engine.reportWin(5, 2, 0, groups, function(){});
             //action
-            engine.getWinnersFromGroup(groups[1], 1, getWinnersFropGroupCallbackSpy);
+            engine.getWinnersFromGroup(groups[1], engine, getWinnersFropGroupCallbackSpy);
             //assert
             assert.equal(getWinnersFropGroupCallbackSpy.calledOnce, true);
             assert.equal(getWinnersFropGroupCallbackSpy.getCall(0).args[0], null);
             assert.deepEqual(getWinnersFropGroupCallbackSpy.getCall(0).args[1], [john, jane]);
         });
+
         it('should return an empty array if matches are not over for the current group', function(){
             //setup
             var getWinnersFropGroupCallbackSpy = sinon.spy();
@@ -1022,7 +1023,7 @@ describe('SimpleGSLPool engine', function () {
             engine.reportWin(3, 2, 0, groups, function(){});
             engine.reportWin(4, 2, 0, groups, function(){});
             //action
-            engine.getWinnersFromGroup(groups[1], 1, getWinnersFropGroupCallbackSpy);
+            engine.getWinnersFromGroup(groups[1], engine, getWinnersFropGroupCallbackSpy);
             //assert
             assert.equal(getWinnersFropGroupCallbackSpy.calledOnce, true);
             assert.equal(getWinnersFropGroupCallbackSpy.getCall(0).args[0], null);
@@ -1037,10 +1038,58 @@ describe('SimpleGSLPool engine', function () {
                 callback({message:'someError'});
             };
             //action
-            engine.getWinnersFromGroup(groups[1], 1, getWinnersFropGroupCallbackSpy);
+            engine.getWinnersFromGroup(groups[1], engine, getWinnersFropGroupCallbackSpy);
             //assert
             assert.equal(getWinnersFropGroupCallbackSpy.calledOnce, true);
             assert.equal(getWinnersFropGroupCallbackSpy.getCall(0).args[0].message, 'someError');
+        });
+    });
+
+    describe('winners', function(){
+        it('should return an empty array if there are no finished groups', function(){
+            //setup
+            var winnersCallback = sinon.spy();
+            engine.initBracket([john, jane, bob, alice], initBracketCallback);
+            //action
+            engine.winners(groups, winnersCallback);
+            //assert
+            assert.equal(winnersCallback.calledOnce, true);
+            assert.equal(winnersCallback.getCall(0).args[0], null);
+            assert.deepEqual(winnersCallback.getCall(0).args[1], []);
+        });
+
+        it('should return an array w/ the winners of group 1 if group1 is over', function(){
+            //setup
+            var winnersCallback = sinon.spy();
+            engine.initBracket([john, jane, bob, alice], initBracketCallback);
+            bob.winCount = 1;
+            alice.winCount = 1;
+            groups[1].matches[5].player1 = bob;
+            groups[1].matches[5].player2 = alice;
+            groups[1].matches[5].complete = true;
+            //action
+            engine.winners(groups, winnersCallback);
+            //assert
+            assert.equal(winnersCallback.calledOnce, true);
+            assert.equal(winnersCallback.getCall(0).args[0], null);
+            assert.deepEqual(winnersCallback.getCall(0).args[1], [bob, alice]);
+        });
+
+        it('should return an array w/ only the winners of group 2 if group2 is over but not group1', function(){
+            //setup
+            var winnersCallback = sinon.spy();
+            engine.initBracket([john, jane, bob, alice, cole, franz, giulietta, peter], initBracketCallback);
+            peter.winCount = 1;
+            franz.winCount = 1;
+            groups[2].matches[10].player1 = peter;
+            groups[2].matches[10].player2 = franz;
+            groups[2].matches[10].complete = true;
+            //action
+            engine.winners(groups, winnersCallback);
+            //assert
+            assert.equal(winnersCallback.calledOnce, true);
+            assert.equal(winnersCallback.getCall(0).args[0], null);
+            assert.deepEqual(winnersCallback.getCall(0).args[1], [franz, peter]);
         });
     });
 });
