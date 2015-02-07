@@ -428,12 +428,18 @@ describe('SimpleGSLPool engine', function () {
                 var reportWinSpy = sinon.spy();
                 var players = [john, jane, bob, alice, cole, peter, franz, patrick];
                 sinon.spy(engine, 'updatePlayersScores');
+                sinon.spy(engine, 'updatePlayerInGroupList');
                 engine.initBracket(players, initBracketCallback);
                 //action
                 engine.reportWin(1, 2, 0, groups, reportWinSpy);
                 //assert
                 assert.equal(engine.updatePlayersScores.calledOnce, true);
+                assert.equal(engine.updatePlayerInGroupList.calledTwice, true);
                 assert.deepEqual(engine.updatePlayersScores.getCall(0).args, [john, 2, alice, 0]);
+                assert.deepEqual(engine.updatePlayerInGroupList.getCall(0).args[1], john);
+                assert.deepEqual(engine.updatePlayerInGroupList.getCall(1).args[1], alice);
+                assert.deepEqual(groups[1].players[0], {name:'john', loss:0, lossCount:0, win:1, winCount:2});
+                assert.deepEqual(groups[1].players[3], {name:'alice', loss:1, lossCount:2, win:0, winCount:0});
             });
         });
     });
