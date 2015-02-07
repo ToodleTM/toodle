@@ -693,6 +693,10 @@ describe('SimpleGSLPool engine', function () {
             testMatchesToReportLookup([john, jane, bob, alice], [janeVSalice], [1, 2, 3, 4]);
         });
 
+        it('should return an empty list if all matches (including decider) for the only group are complete', function () {
+            testMatchesToReportLookup([john, jane, bob, alice], [], [1, 2, 3, 4, 5]);
+        });
+
         it('should return matches from all groups if there is more than 1 group', function () {
             testMatchesToReportLookup([john, jane, bob, alice, cole, peter, franz, patrick], [janeVSalice, coleVSpatrick, peterVSfranz], [1, 2, 3, 4]);
         });
