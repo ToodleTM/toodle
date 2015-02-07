@@ -66,8 +66,9 @@ describe('SimpleGSLPool engine', function () {
         it('should create a tournament w/ one pool and the list of 1st matches to play in it if the list of players contains 4 players', function () {
             //setup
             var callbackSpy = sinon.spy();
+            var playersToInitGroups = [john, jane, bob, alice];
             //action
-            engine.initBracket([john, jane, bob, alice], callbackSpy);
+            engine.initBracket(playersToInitGroups, callbackSpy);
             //assert
             assert.equal(callbackSpy.getCall(0).args[0], null);
             assert.deepEqual(callbackSpy.getCall(0).args[1][1].players, [john, jane, bob, alice]);
@@ -85,6 +86,7 @@ describe('SimpleGSLPool engine', function () {
                 round: 1,
                 group: 1
             });
+            assert.deepEqual(playersToInitGroups, [john, jane, bob, alice]); //ensure the init function did not modify the players array
         });
 
         it('should create as many groups as needed to fit all registered players into pools', function () {
