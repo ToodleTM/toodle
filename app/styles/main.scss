@@ -111,7 +111,7 @@ body {
 }
 
 .playerInList span span img {
-  margin-top:-4px;
+  margin-top: -4px;
   margin-right: 8px;
 }
 
@@ -128,64 +128,63 @@ body {
   width: 100%;
 }
 
-.toodle-header{
-  position:relative;
+.toodle-header {
+  position: relative;
 }
 
 .toodle-title {
-  margin-top:0;
-  margin-bottom:0;
-  line-height:40px;
-  padding-bottom:19px;
-  font-size:24px;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+  font-size: 24px;
   text-decoration: none;
-  &:hover{
+  &:hover {
     text-decoration: none;
   }
-  &:link{
+  &:link {
     text-decoration: none;
   }
-  &:visited{
+  &:visited {
     text-decoration: none;
   }
-  &:active{
+  &:active {
     text-decoration: none;
   }
 }
 
-.navbar-title{
-  float:left;
-  max-width:25%;
+.navbar-title {
+  float: left;
+  max-width: 25%;
 }
 
-.navbar-container{
-  position:relative;
+.navbar-container {
+  position: relative;
 }
 
 .navbar-language-select {
-  float:right;
-  max-width:35%;
+  float: right;
+  max-width: 35%;
 }
 
-.bracket-normalLink{
-  fill:none;
+.bracket-normalLink {
+  fill: none;
   stroke: #ccc;
-  stroke-width:2px;
+  stroke-width: 2px;
 }
 
 .bracket-highlight {
-  fill:none;
+  fill: none;
   stroke: green;
-  stroke-width:3px;
+  stroke-width: 3px;
 }
 
-
-nav.navbar-language-select{
-  padding-left:0;
+nav.navbar-language-select {
+  padding-left: 0;
 }
 
 #activeLanguage {
-  padding-left:40px;
+  padding-left: 40px;
 }
 
 nav ul {
@@ -195,7 +194,8 @@ nav ul {
 
   & ul {
     display: none;
-    position: absolute; top: 100%;
+    position: absolute;
+    top: 100%;
   }
 
   & li:hover > ul {
@@ -210,23 +210,23 @@ nav ul {
 
   & li {
     float: left;
-    min-width:55px;
+    min-width: 55px;
     & ul {
-      margin-left:-30px;
+      margin-left: -30px;
     }
 
     &:hover a {
       color: #757575;
       text-decoration: none;
-      background-color:#fff;
+      background-color: #fff;
     }
 
     & ul li a {
-      float:right;
+      float: right;
     }
 
     & a img {
-      margin-right:5px;
+      margin-right: 5px;
     }
   }
 
@@ -234,6 +234,83 @@ nav ul {
     display: block;
     color: #757575;
     text-decoration: none;
-    float:right;
+    float: right;
+  }
+}
+
+.group-table-container {
+  display: inline-block;
+}
+
+.group-block {
+  min-width: 280px;
+  margin-right: 4em;
+  margin-bottom: 2em;
+  background-color: #f2f2f2;
+  border: 1px solid gray;
+
+  & .group-player-line {
+    & td {
+      border: 1px solid gray;
+    }
+
+    & .group-rank{
+      width:20px;
+      text-align:center;
+    }
+    & .group-player-tag {
+      padding-left:3px;
+      width: 180px;
+    }
+
+    & .group-player-score {
+      width: 30px;
+      text-align:center;
+      font-weight: bold;
+    }
+
+    & .group-player-totals {
+      width: 30px;
+      text-align:center;
+    }
+  }
+
+  & .group-title {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid gray;
+  }
+
+  & tr td table.group-matches {
+    width:100%;
+    & tr {
+      border-bottom:1px solid gray;
+    }
+    & tr td {
+      &.player1 {
+        padding-right:3px;
+        border-right:1px solid gray;
+        width:120px;
+        text-align: right;
+      }
+
+      &.score1 {
+        text-align: center;
+        border-right:1px solid gray;
+        width:15px;
+      }
+
+      &.score2 {
+        text-align: center;
+        width: 15px;
+      }
+
+      &.player2 {
+        padding-left:3px;
+        border-left:1px solid gray;
+        width:115px;
+      }
+    }
+
   }
 }

@@ -3,4 +3,4 @@ var utils = new (require('./utils.js').Utils)();
 
 
 genericUtils = utils;
-renderer = d3b;
+binaryBracketRenderer = d3b;
