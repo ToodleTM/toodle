@@ -744,17 +744,25 @@ describe('SimpleGSLPool engine', function () {
         });
 
         describe('actual player unreporting', function(){
-            it('should reset a match data when it is unreported', function(){
+            it('should not reset player data when unreporting a match', function(){
                 //setup
                 var unreportCallbackSpy = sinon.spy();
                 engine.initBracket([john, jane, bob, alice], initBracketCallback);
+                john.loss = 0;
+                john.lossCount = 0;
+                john.winCount = 0;
+                john.win = 0;
+                alice.loss = 0;
+                alice.lossCount = 0;
+                alice.winCount = 0;
+                alice.win = 0;
                 engine.reportWin(1, 2, 0, groups, function(){});
                 //action
                 engine.unreport(1, groups, unreportCallbackSpy);
                 //assert
                 assert.equal(unreportCallbackSpy.calledOnce, true);
                 assert.equal(unreportCallbackSpy.getCall(0).args[0], null);
-                assert.deepEqual(unreportCallbackSpy.getCall(0).args[1][1].matches[1], {round:1,complete:false,player1:null, player2:null, group:1, number:1});
+                assert.deepEqual(unreportCallbackSpy.getCall(0).args[1][1].matches[1], {round:1,complete:false,player1:john, player2:alice, group:1, number:1});
             });
 
             it('should reset 1st players in round2 matches when unreporting the 1st round1 match', function(){
@@ -785,7 +793,7 @@ describe('SimpleGSLPool engine', function () {
                 assert.deepEqual(unreportCallbackSpy.getCall(0).args[1][1].matches[4].player2, null);
             });
 
-            it('should reset 2nd players in round2 matches when unreporting the 2nd round1 match', function(){
+            it('should reset 1st player in decider match when unreporting the winners match', function(){
                 //setup
                 var unreportCallbackSpy = sinon.spy();
                 engine.initBracket([john, jane, bob, alice], initBracketCallback);
@@ -801,7 +809,7 @@ describe('SimpleGSLPool engine', function () {
                 assert.deepEqual(unreportCallbackSpy.getCall(0).args[1][1].matches[5].player1, null);
             });
 
-            it('should reset 2nd players in round2 matches when unreporting the 2nd round1 match', function(){
+            it('should reset 2nd player in decider match when unreporting the losers match', function(){
                 //setup
                 var unreportCallbackSpy = sinon.spy();
                 engine.initBracket([john, jane, bob, alice], initBracketCallback);
