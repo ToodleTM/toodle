@@ -868,6 +868,99 @@ describe('SimpleGSLPool engine', function () {
                 assert.equal(unreportCallbackSpy.getCall(0).args[1][1].matches[2].player2.winCount, 3);
                 assert.equal(unreportCallbackSpy.getCall(0).args[1][1].matches[2].player2.lossCount, 0);
             });
+
+            it('should be able to unreport decider matches from all groups', function(){
+                //setup
+                var unreportSpy = sinon.spy();
+                engine.initBracket([john, jane, bob, alice, cole, peter, franz, giulietta], initBracketCallback);
+                engine.reportWin(6, 2, 0, groups, function(){});
+                engine.reportWin(7, 2, 0, groups, function(){});
+                engine.reportWin(8, 2, 0, groups, function(){});
+                engine.reportWin(9, 2, 0, groups, function(){});
+                engine.reportWin(10, 2, 0, groups, function(){});
+                //action
+                engine.unreport(10, groups, unreportSpy);
+                //assert
+                assert.equal(unreportSpy.getCall(0).args[0], null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[10].player1, peter);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[10].player2, giulietta);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[10].player1Score, null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[10].player2Score, null);
+            });
+
+            it('should be able to unreport winner matches from all groups and update the appropriate matches', function(){
+                //setup
+                var unreportSpy = sinon.spy();
+                engine.initBracket([john, jane, bob, alice, cole, peter, franz, giulietta], initBracketCallback);
+                engine.reportWin(6, 2, 0, groups, function(){});
+                engine.reportWin(7, 2, 0, groups, function(){});
+                engine.reportWin(8, 2, 0, groups, function(){});
+                engine.reportWin(9, 2, 0, groups, function(){});
+                //action
+                engine.unreport(8, groups, unreportSpy);
+                //assert
+                assert.equal(unreportSpy.getCall(0).args[0], null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[8].player1, cole);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[8].player2, peter);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[10].player1, null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[8].player1Score, null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[8].player2Score, null);
+            });
+
+            it('should be able to unreport loser matches from all groups and update the appropriate matches', function(){
+                //setup
+                var unreportSpy = sinon.spy();
+                engine.initBracket([john, jane, bob, alice, cole, peter, franz, giulietta], initBracketCallback);
+                engine.reportWin(6, 2, 0, groups, function(){});
+                engine.reportWin(7, 2, 0, groups, function(){});
+                engine.reportWin(8, 2, 0, groups, function(){});
+                engine.reportWin(9, 2, 0, groups, function(){});
+                //action
+                engine.unreport(9, groups, unreportSpy);
+                //assert
+                assert.equal(unreportSpy.getCall(0).args[0], null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[9].player1, giulietta);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[9].player2, franz);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[10].player2, null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[9].player1Score, null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[9].player2Score, null);
+            });
+
+            it('should be able to unreport 1st round1 matches from all groups and update the appropriate matches', function(){
+                //setup
+                var unreportSpy = sinon.spy();
+                engine.initBracket([john, jane, bob, alice, cole, peter, franz, giulietta], initBracketCallback);
+                engine.reportWin(6, 2, 0, groups, function(){});
+                engine.reportWin(7, 2, 0, groups, function(){});
+                //action
+                engine.unreport(6, groups, unreportSpy);
+                //assert
+                assert.equal(unreportSpy.getCall(0).args[0], null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[6].player1, cole);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[6].player2, giulietta);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[8].player1, null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[9].player1, null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[6].player1Score, null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[6].player2Score, null);
+            });
+
+            it('should be able to unreport 2nd round1 matches from all groups and update the appropriate matches', function(){
+                //setup
+                var unreportSpy = sinon.spy();
+                engine.initBracket([john, jane, bob, alice, cole, peter, franz, giulietta], initBracketCallback);
+                engine.reportWin(6, 2, 0, groups, function(){});
+                engine.reportWin(7, 2, 0, groups, function(){});
+                //action
+                engine.unreport(7, groups, unreportSpy);
+                //assert
+                assert.equal(unreportSpy.getCall(0).args[0], null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[7].player1, peter);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[7].player2, franz);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[8].player2, null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[9].player2, null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[7].player1Score, null);
+                assert.equal(unreportSpy.getCall(0).args[1][2].matches[7].player2Score, null);
+            });
         });
     });
 
