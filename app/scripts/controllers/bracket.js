@@ -1,5 +1,5 @@
 'use strict';
-
+//
 angular.module('toodleApp')
     .controller('BracketCtrl', function ($scope, $location, $http) {
         var tournamentId = $location.$$path.split('/')[2];
@@ -8,28 +8,52 @@ angular.module('toodleApp')
         _paq.push(['setDocumentTitle', 'Bracket page']);
         _paq.push(['trackPageView']);
         $('#tourneyReportingKo').hide();
+
+        $scope.getPlayersOrderedByScore = function(group){
+            if(group.players && lodashForApp.find(group.matches, function(match){return match.complete;})){
+                if(group.players.length === 4){
+                    var orderedList = lodashForApp.sortBy(group.players, function(player){
+                        return player.lossCount - player.winCount;
+                    });
+                    return orderedList;
+                }
+            }
+            return group.players;
+        };
+
         $http.get('api/play/' + tournamentId).success(function (data) {
             $scope.tournamentInfo = data;
             console.log(data);
             $scope.playerList = data.players;
-            if($scope.tournamentInfo.running && $scope.tournamentInfo.engine === 'singleElim'){
+            if ($scope.tournamentInfo.running && $scope.tournamentInfo.engine === 'singleElim') {
                 binaryBracketRenderer.drawBracket(data, d3, $scope);
-                console.log('pouet');
+            } else if ($scope.tournamentInfo.running && $scope.tournamentInfo.engine === 'simpleGSLGroups') {
+                $scope.groups = [];
+                lodashForApp.forEach($scope.tournamentInfo.bracket, function (group) {
+                    var matches = [];
+                    lodashForApp.forEach(group.matches, function(match){
+                        matches.push(match);
+                    });
+                    group.players = $scope.getPlayersOrderedByScore(group);
+                    group.matches = matches;
+                    $scope.groups.push(group);
+                });
+
             } else {
                 $('#notRunning').show();
             }
-        }).error(function(){
+        }).error(function () {
             $('#content').hide();
             $('#notFound').show();
         });
 
-        $scope.report = function(match){
+        $scope.report = function (match) {
             $scope.firstGameToReport = match;
             $scope.$apply();
             $('#reportModal').modal();
         };
 
-        $scope.unreport = function(match){
+        $scope.unreport = function (match) {
             $scope.gameToUnreport = match;
             $scope.$apply();
             $('#unreportModal').modal();
@@ -45,7 +69,7 @@ angular.module('toodleApp')
             }).success(function (data) {
                 $scope.tournamentInfo = data;
                 $('#bracket').html('');
-                if($scope.tournamentInfo.engine === 'singleElim') {
+                if ($scope.tournamentInfo.engine === 'singleElim') {
                     binaryBracketRenderer.drawBracket(data, d3, $scope, $scope.playerToHighlight);
                 }
             }).error(function (data) {
@@ -62,7 +86,7 @@ angular.module('toodleApp')
             }).success(function (data) {
                 $scope.tournamentInfo = data;
                 $('#bracket').html('');
-                if($scope.tournamentInfo.engine === 'singleElim') {
+                if ($scope.tournamentInfo.engine === 'singleElim') {
                     binaryBracketRenderer.drawBracket(data, d3, $scope, $scope.playerToHighlight);
                 }
             }).error(function (data) {
@@ -71,15 +95,15 @@ angular.module('toodleApp')
             });
         };
 
-        $scope.togglePlayerHighlight = function(player){
-            if($scope.playerToHighlight && player && $scope.playerToHighlight.name === player.name){
+        $scope.togglePlayerHighlight = function (player) {
+            if ($scope.playerToHighlight && player && $scope.playerToHighlight.name === player.name) {
                 $scope.playerToHighlight = null;
             } else {
                 $scope.playerToHighlight = player;
             }
             $scope.$apply();
             $('#bracket').html('');
-            if($scope.tournamentInfo.engine === 'singleElim') {
+            if ($scope.tournamentInfo.engine === 'singleElim') {
                 binaryBracketRenderer.drawBracket($scope.tournamentInfo, d3, $scope, $scope.playerToHighlight);
             }
         };

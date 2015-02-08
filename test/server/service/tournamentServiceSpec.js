@@ -43,4 +43,21 @@ describe('Tournament Service', function () {
         assert.match(res.json.getCall(0).args[0].signupURL, /^tournamentName[0-9]+$/);
         assert.equal(res.json.calledOnce, true);
     });
+
+    it('should return a correctly structured message when unreport wrapper catches an exception', function(){
+        //setup
+        var tournamentService = new TournamentService();
+        tournamentService.getTournamentEngine = function(){
+            return {unreport:function(){
+                throw new Error('new exception');
+            }};
+        };
+        var res = {json:sinon.spy()};
+        //action
+        tournamentService.unreportMatch(null, res, {engine:'someEngine'}, null);
+        //assert
+        assert.equal(res.json.calledOnce, true);
+        assert.equal(res.json.getCall(0).args[0], 500);
+        assert.equal(res.json.getCall(0).args[1].message, 'errorUnreportingMatch');
+    });
 });

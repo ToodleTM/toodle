@@ -89,7 +89,8 @@
           "nextMatchDoesNotExist": "Could not find the next match",
           "winnerMustHaveHigherScore": "Winning player must have a higher score",
           "insufficientPrivileges": "You are not allowed do that",
-          "defWinCantBeUnreported": "You can't unreport a defwin !"
+          "defWinCantBeUnreported": "You can't unreport a defwin !",
+          "errorUnreportingMatch": "Service error. It can be temporary, try again in a few minutes and if the problem is still there you should get in touch w/ your admin or, if none is present, tweet the main dev (@ToodleTM)."
         }
       },
       "addPlayer": "Add a new player",

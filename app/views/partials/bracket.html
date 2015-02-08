@@ -113,16 +113,20 @@
 
     </div>
     <div ng-show="tournamentInfo.engine === 'simpleGSLGroups'" style="">
-        <div class="group-table-container" ng-repeat="group in tournamentInfo.bracket">
+        <div class="group-table-container" ng-repeat="group in groups">
             <table class="group-block">
                 <tr>
                     <th colspan="4" class="group-title">
                         <b>Group {{ group.number }}</b>
                     </th>
                 </tr>
+
                 <tr ng-repeat="player in group.players" class="group-player-line" style="width:100%;position:relative">
-                    <td class="group-rank"> <b>1.</b></td>
-                    <td class="group-player-tag">{{ player.name }}</td>
+                    <td class="group-rank"> <b>{{$index +1}}.</b></td>
+                    <td class="group-player-tag {{ $index == 0 || $index == 1 ? 'group-player-winner' : 'group-player-loser'}}">
+                        <span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px"></span>
+                        {{ player.name }}
+                    </td>
                     <td class="group-player-score">{{player.win ? player.win : 0 }}-{{ player.loss ? player.loss : 0}}
                     </td>
                     <td class="group-player-totals">{{player.winCount ? player.winCount : 0}}-{{player.lossCount ?
@@ -139,13 +143,11 @@
                     <td colspan="4">
                         <table class="group-matches">
                             <tr ng-repeat="match in group.matches">
-                                <td class="player1">{{match.player1.name ? match.player1.name : ''}}</td>
-                                <td class="score1">{{match.player1Score || match.player1Score === 0? match.player1Score : '-'}}</td>
-                                <td class="score2">{{match.player2Score || match.player2Score === 0 ? match.player2Score : '-'}}</td>
-                                <td class="player2">{{match.player2.name ? match.player2.name : ''}}</td>
-
+                                <td class="player1 {{match.player1Score > match.player2Score ? 'match-winner' : ''}}">{{match.player1.name ? match.player1.name : ''}}<span ng-if="match.player1.faction"><img src="/images/icon-{{match.player1.faction}}.png" height="20px"></span></td>
+                                <td class="score1 {{match.player1Score > match.player2Score ? 'match-winner' : ''}}">{{match.player1Score || match.player1Score === 0? match.player1Score : '-'}}</td>
+                                <td class="score2 {{match.player1Score < match.player2Score ? 'match-winner' : ''}}">{{match.player2Score || match.player2Score === 0 ? match.player2Score : '-'}}</td>
+                                <td class="player2 {{match.player1Score < match.player2Score ? 'match-winner' : ''}}"><span ng-if="match.player2.faction"><img src="/images/icon-{{match.player2.faction}}.png" height="20px"></span>{{match.player2.name ? match.player2.name : ''}}</td>
                             </tr>
-
                         </table>
 
                     </td>

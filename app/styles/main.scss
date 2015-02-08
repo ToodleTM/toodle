@@ -249,6 +249,11 @@ nav ul {
   background-color: #f2f2f2;
   border: 1px solid gray;
 
+  & .match-winner {
+    font-weight:bold;
+    background-color:#cfc;
+  }
+
   & .group-player-line {
     & td {
       border: 1px solid gray;
@@ -272,6 +277,14 @@ nav ul {
     & .group-player-totals {
       width: 30px;
       text-align:center;
+    }
+
+    & .group-player-winner{
+      background-color:#cfc;
+    }
+
+    & .group-player-loser{
+      background-color:#fda;
     }
   }
 

@@ -89,7 +89,9 @@
                     "nextMatchDoesNotExist":"Impossible de trouver le match suivant",
                     "winnerMustHaveHigherScore":"Le gagnant doit avoir un meilleur score que le perdant",
                     "insufficientPrivileges":"Tu n'as pas le droit de faire ça",
-                    "defWinCantBeUnreported":"Tu ne peux pas annuler une defwin !"
+                    "defWinCantBeUnreported":"Tu ne peux pas annuler une defwin !",
+                    "errorUnreportingMatch": "Erreur du service. C'est peut être temporaire, ré-essayes dans quelques minutes et si ća ne fonctionne toujours pas essayes de contacter l'admin ou, à défaut, le dev principal sur Twitter (@ToodleTM)"
+
                 }
             },
             "addPlayer": "Ajouter un joueur au tournoi",

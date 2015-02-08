@@ -6,6 +6,7 @@
   "camelcase": true,
   "curly": true,
   "eqeqeq": true,
+
   "immed": true,
   "indent": 2,
   "latedef": true,
@@ -21,5 +22,5 @@
   "globals": {
     "angular": false
   },
-  "predef":["$", "_paq", "genericUtils", "binaryBracketRenderer", "d3", "it", "describe", "beforeEach", "afterEach", "element", "by", "browser", "expect", "protractor", "angular"]
+  "predef":["lodashForApp", "$", "_paq", "genericUtils", "binaryBracketRenderer", "d3", "it", "describe", "beforeEach", "afterEach", "element", "by", "browser", "expect", "protractor", "angular"]
 }
