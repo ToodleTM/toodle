@@ -146,7 +146,10 @@
                                 <td class="player1 {{match.player1Score > match.player2Score ? 'match-winner' : ''}}">{{match.player1.name ? match.player1.name : ''}}<span ng-if="match.player1.faction"><img src="/images/icon-{{match.player1.faction}}.png" height="20px"></span></td>
                                 <td class="score1 {{match.player1Score > match.player2Score ? 'match-winner' : ''}}">{{match.player1Score || match.player1Score === 0? match.player1Score : '-'}}</td>
                                 <td class="score2 {{match.player1Score < match.player2Score ? 'match-winner' : ''}}">{{match.player2Score || match.player2Score === 0 ? match.player2Score : '-'}}</td>
-                                <td class="player2 {{match.player1Score < match.player2Score ? 'match-winner' : ''}}"><span ng-if="match.player2.faction"><img src="/images/icon-{{match.player2.faction}}.png" height="20px"></span>{{match.player2.name ? match.player2.name : ''}}</td>
+                                <td class="player2 {{match.player1Score < match.player2Score ? 'match-winner' : ''}}"><span ng-if="match.player2.faction"><img src="/images/icon-{{match.player2.faction}}.png" height="20px"></span>{{match.player2.name ? match.player2.name : ''}}
+                                    <span ng-show="match.canBeUnreported" ng-click="unreport(match)" style="position:relative;float:right;"><img src="./images/circle-red.png" class="match-unreport-button"/></span>
+                                    <span ng-show="match.canBeReported" ng-click="report(match)" style="position:relative;float:right;"><img src="./images/circle-green.png" class="match-report-button"/></span>
+                                </td>
                             </tr>
                         </table>
 

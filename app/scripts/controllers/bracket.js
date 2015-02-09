@@ -21,24 +21,39 @@ angular.module('toodleApp')
             return group.players;
         };
 
+        function noFollowingMatchComplete(group, matchToCheck){
+            var laterCompleteMatches = lodashForApp.find(group.matches, function(match){
+                return match.complete && match.round > matchToCheck.round;
+            });
+            return !laterCompleteMatches;
+        }
+
+        function updateGroupsForGSLGroups() {
+            lodashForApp.forEach($scope.tournamentInfo.bracket, function (group) {
+                var matches = [];
+                lodashForApp.forEach(group.matches, function (match) {
+                    console.log($scope.playerRights);
+                    match.canBeReported = !match.complete && match.player1 && match.player2 && $scope.playerRights >= 2;
+                    match.canBeUnreported = match.complete && noFollowingMatchComplete(group, match) && $scope.playerRights === 3;
+                    match.name = match.number;
+                    matches.push(match);
+                });
+                group.players = $scope.getPlayersOrderedByScore(group);
+                group.matches = matches;
+                $scope.groups.push(group);
+            });
+        }
+
         $http.get('api/play/' + tournamentId).success(function (data) {
             $scope.tournamentInfo = data;
-            console.log(data);
             $scope.playerList = data.players;
             if ($scope.tournamentInfo.running && $scope.tournamentInfo.engine === 'singleElim') {
                 binaryBracketRenderer.drawBracket(data, d3, $scope);
             } else if ($scope.tournamentInfo.running && $scope.tournamentInfo.engine === 'simpleGSLGroups') {
                 $scope.groups = [];
-                lodashForApp.forEach($scope.tournamentInfo.bracket, function (group) {
-                    var matches = [];
-                    lodashForApp.forEach(group.matches, function(match){
-                        matches.push(match);
-                    });
-                    group.players = $scope.getPlayersOrderedByScore(group);
-                    group.matches = matches;
-                    $scope.groups.push(group);
-                });
-
+                console.log(data);
+                $scope.playerRights = data.userPrivileges;
+                updateGroupsForGSLGroups();
             } else {
                 $('#notRunning').show();
             }
@@ -71,6 +86,9 @@ angular.module('toodleApp')
                 $('#bracket').html('');
                 if ($scope.tournamentInfo.engine === 'singleElim') {
                     binaryBracketRenderer.drawBracket(data, d3, $scope, $scope.playerToHighlight);
+                } else if ($scope.tournamentInfo.engine === 'simpleGSLGroups'){
+                    $scope.groups = [];
+                    updateGroupsForGSLGroups();
                 }
             }).error(function (data) {
                 $scope.errorMessage = data;
@@ -88,6 +106,9 @@ angular.module('toodleApp')
                 $('#bracket').html('');
                 if ($scope.tournamentInfo.engine === 'singleElim') {
                     binaryBracketRenderer.drawBracket(data, d3, $scope, $scope.playerToHighlight);
+                } else if ($scope.tournamentInfo.engine === 'simpleGSLGroups'){
+                    $scope.groups = [];
+                    updateGroupsForGSLGroups();
                 }
             }).error(function (data) {
                 $scope.errorMessage = data;

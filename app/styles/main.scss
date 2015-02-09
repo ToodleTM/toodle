@@ -323,6 +323,21 @@ nav ul {
         border-left:1px solid gray;
         width:115px;
       }
+
+      & img{
+        position:absolute;
+        top:-4px;
+        right:-8px;
+        height:15px;
+        &.match-unreport-button{
+        }
+        &.match-report-button{
+        }
+      }
+
+      & span{
+        height:1.5em;
+      }
     }
 
   }
