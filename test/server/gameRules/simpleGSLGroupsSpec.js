@@ -169,12 +169,20 @@ describe('SimpleGSLPool engine', function () {
                 testReportingErrors([john, jane, bob, alice, cole, peter, franz, patrick],1, null, 2, 'invalidScores');
             });
 
-            it('should return an error if the 1st score is invalid', function () {
+            it('should return an error if the 2nd score is invalid', function () {
                 testReportingErrors([john, jane, bob, alice, cole, peter, franz, patrick],1, 2, null,'invalidScores');
             });
 
+            it('should return an error if the 1st score is negative', function () {
+                testReportingErrors([john, jane, bob, alice, cole, peter, franz, patrick],1, -1, 1,'invalidScores');
+            });
+
+            it('should return an error if the 2ndt score is negative', function () {
+                testReportingErrors([john, jane, bob, alice, cole, peter, franz, patrick],1, 1, -1,'invalidScores');
+            });
+
             it('should return an error if match to report could not be found', function () {
-                testReportingErrors([john, jane, bob, alice, cole, peter, franz, patrick],123, 2, 0, 'notFound');
+                testReportingErrors([john, jane, bob, alice, cole, peter, franz, patrick],123, 2, 0, 'cantUnreportUnknownMatch');
             });
 
             it('should not allow reporting if match is already complete', function () {
