@@ -1,3 +1,4 @@
 app/scripts/utils/pack*.js
 app/scripts/utils/raphael*.js
 app/scripts/app.min.js
+lib/gameRules/engineTemplate/*
