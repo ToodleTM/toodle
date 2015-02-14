@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('AdminCtrl', function ($scope, $location, $http, $upload) {
+    .controller('AdminCtrl', function ($rootScope, $scope, $location, $http, $upload) {
         var tournamentId = $location.$$path.split('/')[2];
         $scope.nick = '';
         $scope.playerList = null;
@@ -91,8 +91,7 @@ angular.module('toodleApp')
             });
 
         $scope.updateTourney = function () {
-            $('#tourneyUpdateOk').hide();
-            $('#tourneyUpdateKo').hide();
+            $rootScope.hideAlerts();
             $scope.tournamentInfo.startDate = $scope.tournamentStartDate;
             $http.put('/api/tournament/admin/update/?id=' + tournamentId, {_id:$scope.tournamentInfo._id, game:$scope.tournamentInfo.game, engine:$scope.tournamentInfo.engine, description:$scope.tournamentInfo.description, startDate:$scope.tournamentStartDate, userPrivileges:$scope.tournamentInfo.userPrivileges})
                 .success(function (data) {
@@ -111,8 +110,7 @@ angular.module('toodleApp')
         };
 
         $scope.toggleRegistrationLock = function () {
-            $('#tourneyRunOk').hide();
-            $('#tourneyRunKo').hide();
+            $rootScope.hideAlerts();
             var previousLockedStatus = $scope.tournamentInfo.locked;
             $scope.tournamentInfo.locked = genericUtils.toggleState($scope.tournamentInfo.locked);
             $http.put('/api/tournament/admin/' + (!$scope.tournamentInfo.locked ? 'un' : '') + 'lockTournament?tournamentId=' + tournamentId, $scope.tournamentInfo)
@@ -159,8 +157,7 @@ angular.module('toodleApp')
                 .error(function () {});
         }
         $scope.toggleStart = function () {
-            $('#tourneyRunOk').hide();
-            $('#tourneyRunKo').hide();
+            $rootScope.hideAlerts();
             var originalValue = $scope.tournamentInfo.running;
             $scope.tournamentInfo.running = genericUtils.toggleState($scope.tournamentInfo.running);
             var urlSuffix = '';
@@ -184,8 +181,7 @@ angular.module('toodleApp')
         };
 
         $scope.addPlayer = function () {
-            $('#registrationKo').hide();
-            $('#registrationOk').hide();
+            $rootScope.hideAlerts();
             if ($scope.nick) {
                 $http.post('/api/tournament/addPlayer/', {
                     'tournamentId': $scope.tournamentInfo._id,
@@ -210,8 +206,7 @@ angular.module('toodleApp')
         };
 
         $scope.reportMatch = function () {
-            $('#tourneyReportingOk').hide();
-            $('#tourneyReportingKo').hide();
+            $rootScope.hideAlerts();
             $http.post('/api/tournament/reportMatch/', {
                 tournamentId: $scope.tournamentInfo._id,
                 number: $scope.firstGameToReport.number,
@@ -228,8 +223,7 @@ angular.module('toodleApp')
         };
 
         $scope.unreportMatch = function () {
-            $('#tourneyReportingOk').hide();
-            $('#tourneyReportingKo').hide();
+            $rootScope.hideAlerts();
             $http.post('/api/tournament/unreportMatch/', {
                 tournamentId: $scope.tournamentInfo._id,
                 number: $scope.gameToUnreport.number
