@@ -238,6 +238,23 @@ nav ul {
   }
 }
 
+.app-alert {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 0;
+  @media (max-width: 765px) {
+    width: 96%;
+  }
+  @media (min-width:766px){
+    width:700px;
+  }
+  z-index:5;
+
+  &.tournament-create{
+    position:relative;
+  }
+}
+
 .group-table-container {
   display: inline-block;
 }
@@ -339,6 +356,5 @@ nav ul {
         height:1.5em;
       }
     }
-
   }
 }

@@ -56,6 +56,8 @@ angular.module('toodleApp', [
             };
         }]);
     })
-    .run(function () { // $rootScope, $location
-
+    .run(function ($rootScope) { // $rootScope, $location
+        $rootScope.hideAlerts = function(){
+            $('.app-alert').fadeOut();
+        };
     });

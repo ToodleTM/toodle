@@ -2,7 +2,7 @@
 
 <div id="content">
     <div id="error" class="alert alert-danger" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
         {{ 'admin.error.'+error | translate}}
@@ -128,14 +128,14 @@
     </div>
 
 
-    <div id="tourneyRunOk" class="alert alert-success alert-dismissible" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+    <div id="tourneyRunOk" class="alert alert-success alert-dismissible app-alert" role="alert" hidden>
+        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
         {{ 'admin.update.success' | translate}}
     </div>
-    <div id="tourneyRunKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+    <div id="tourneyRunKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
+        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
         {{ 'admin.update.fail' | translate }} ({{ 'admin.actions.run.'+errorMessage | translate }})
@@ -179,14 +179,14 @@
             </button>
         </div>
         <div class="form-group col-sm-12">
-            <div id="tourneyReportingOk" class="alert alert-success alert-dismissible" role="alert" hidden>
-                <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+            <div id="tourneyReportingOk" class="alert alert-success alert-dismissible app-alert" role="alert" hidden>
+                <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                         aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
                 {{ 'admin.actions.reporting.reportingOk' | translate}}
             </div>
-            <div id="tourneyReportingKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
-                <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+            <div id="tourneyReportingKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
+                <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                         aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
                 {{ 'admin.actions.reporting.reportingKo' | translate }} ({{
@@ -267,14 +267,14 @@
             </div>
         </fieldset>
     </form>
-    <div id="tourneyUpdateOk" class="alert alert-success alert-dismissible" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+    <div id="tourneyUpdateOk" class="alert alert-success alert-dismissible app-alert" role="alert" hidden>
+        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
         {{ 'admin.update.success' | translate}}
     </div>
-    <div id="tourneyUpdateKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+    <div id="tourneyUpdateKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
+        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
         {{ 'admin.update.fail' | translate }} ({{ 'admin.form.'+errorMessage | translate}})
@@ -305,13 +305,13 @@
                         </div>
                     </form>
                 </div>
-                <div id="registrationOk" class="alert alert-success alert-dismissible" role="alert" hidden>
-                    <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+                <div id="registrationOk" class="alert alert-success alert-dismissible app-alert" role="alert" hidden>
+                    <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                             aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     {{ 'play.register.success' | translate}}
                 </div>
-                <div id="registrationKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
-                    <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
+                <div id="registrationKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
+                    <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                             aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     {{ 'play.register.fail' | translate }} ({{ 'play.register.errors.'+errorMessage | translate }})
                 </div>
@@ -327,17 +327,17 @@
                         <p>* : {{ 'admin.misc.fileMustBeCSV' | translate }}</p>
                     </div>
                 </div>
-                <div id="multipleRegistrationOk" class="alert alert-success alert-dismissible" role="alert" hidden>
-                    <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
-                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    {{ 'admin.actions.multipleRegistrationSuccessful' | translate}}
-                </div>
-                <div id="multipleRegistrationKo" class="alert alert-danger alert-dismissible" role="alert" hidden>
-                    <button type="button" class="close alert-fix-close" data-dismiss="alert"><span
-                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    {{ 'play.register.fail' | translate }} ({{ 'admin.error.'+errorMessage | translate }})
-                </div>
             </div>
+        </div>
+        <div id="multipleRegistrationOk" class="alert alert-success alert-dismissible app-alert" role="alert" hidden>
+            <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
+                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            {{ 'admin.actions.multipleRegistrationSuccessful' | translate}}
+        </div>
+        <div id="multipleRegistrationKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
+            <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
+                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            {{ 'play.register.fail' | translate }} ({{ 'admin.error.'+errorMessage | translate }})
         </div>
     </fieldset>
     <fieldset id="playersList" ng-model="playerList">
