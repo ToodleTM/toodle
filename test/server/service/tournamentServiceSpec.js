@@ -54,10 +54,36 @@ describe('Tournament Service', function () {
         };
         var res = {json:sinon.spy()};
         //action
-        tournamentService.unreportMatch(null, res, {engine:'someEngine'}, null);
+        tournamentService.unreportMatch(null, res, {running:true, engine:'someEngine'}, null);
         //assert
         assert.equal(res.json.calledOnce, true);
         assert.equal(res.json.getCall(0).args[0], 500);
         assert.equal(res.json.getCall(0).args[1].message, 'errorUnreportingMatch');
+    });
+
+    it('should return an error message if user wants to report a match on a tournament that has not started yet', function(){
+        //setup
+        var tournamentService = new TournamentService();
+
+        var res = {json:sinon.spy()};
+        //action
+        tournamentService.reportMatch(null, res, {running:false, engine:'singleElim'}, null);
+        //assert
+        assert.equal(res.json.calledOnce, true);
+        assert.equal(res.json.getCall(0).args[0], 409);
+        assert.equal(res.json.getCall(0).args[1].message, 'tournamentNotRunning');
+    });
+
+    it('should return an error message if user wants to report a match on a tournament that has not started yet', function(){
+        //setup
+        var tournamentService = new TournamentService();
+
+        var res = {json:sinon.spy()};
+        //action
+        tournamentService.unreportMatch(null, res, {running:false, engine:'singleElim'}, null);
+        //assert
+        assert.equal(res.json.calledOnce, true);
+        assert.equal(res.json.getCall(0).args[0], 409);
+        assert.equal(res.json.getCall(0).args[1].message, 'tournamentNotRunning');
     });
 });

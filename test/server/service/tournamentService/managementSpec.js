@@ -111,7 +111,7 @@ describe('Tournament management', function () {
                     };
                 };
                 //action
-                tournamentService.reportMatch(req, res, {engine: ''}, null);
+                tournamentService.reportMatch(req, res, {running:true, engine: ''}, null);
                 //assert
                 assert.equal(res.json.getCall(0).args[0], 409);
                 assert.equal(res.json.getCall(0).args[1].error, 'errorReportingMatch');
@@ -137,11 +137,36 @@ describe('Tournament management', function () {
                     }
                 };
                 //action
-                tournamentService.reportMatch(req, res, {engine: ''}, model);
+                tournamentService.reportMatch(req, res, {running:true, engine: ''}, model);
                 //assert
                 assert.equal(res.json.getCall(0).args[0], 500);
                 assert.equal(res.json.getCall(0).args[1].error, 'errorReportingMatch');
                 assert.equal(res.json.getCall(0).args[1].message, 'Tournament update failed!');
+                assert.equal(res.json.calledOnce, true);
+            });
+
+            it('should report a detailed error when engine throws an exception', function () {
+                //setup
+                tournamentService.getTournamentEngine = function () {
+                    return {
+                        initBracket: function () {
+                            return {};
+                        },
+                        reportWin: function () {
+                            throw new Error('Random engine error');
+                        }
+                    };
+                };
+                var model = {
+                    update: function (criteria, data, callback) {
+                        callback(true);
+                    }
+                };
+                //action
+                tournamentService.reportMatch(req, res, {running:true, engine: ''}, model);
+                //assert
+                assert.equal(res.json.getCall(0).args[0], 500);
+                assert.equal(res.json.getCall(0).args[1].message, 'errorReportingMatch');
                 assert.equal(res.json.calledOnce, true);
             });
         });
@@ -229,7 +254,7 @@ describe('Tournament management', function () {
                     };
                 };
                 //action
-                tournamentService.unreportMatch(req, res, {bracket: {}}, null);
+                tournamentService.unreportMatch(req, res, {running:true, bracket: {}}, null);
                 //assert
                 assert.equal(res.json.getCall(0).args[0], 409);
                 assert.equal(res.json.getCall(0).args[1].error, 'errorUnreportingMatch');
@@ -255,7 +280,7 @@ describe('Tournament management', function () {
                     }
                 };
                 //action
-                tournamentService.unreportMatch(req, res, {bracket: {}}, model);
+                tournamentService.unreportMatch(req, res, {running:true, bracket: {}}, model);
                 //assert
                 assert.equal(res.json.getCall(0).args[0], 500);
                 assert.equal(res.json.getCall(0).args[1].error, 'errorUnreportingMatch');
