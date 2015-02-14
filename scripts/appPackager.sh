@@ -33,7 +33,7 @@ function copyAppSource {
 function copyServerSource {
     echo "Copying server source files ..."
     mkdir -p $TARGET/lib/gameRules
-    for pattern in {package,bower}.json .bowerrc server.js lib/config lib/controllers lib/gameRules/singleElim.js lib/models lib/service lib/utils lib/{middleware,routes}.js; do
+    for pattern in {package,bower}.json .bowerrc server.js lib/config lib/controllers lib/gameRules/{singleElim,simpleGSLGroups}.js lib/models lib/service lib/utils lib/{middleware,routes}.js; do
         echo "copying ../$pattern to $TARGET/$pattern"
         cp -r ../$pattern $TARGET/$pattern
     done
