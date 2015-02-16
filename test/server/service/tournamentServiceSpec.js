@@ -86,4 +86,50 @@ describe('Tournament Service', function () {
         assert.equal(res.json.getCall(0).args[0], 409);
         assert.equal(res.json.getCall(0).args[1].message, 'tournamentNotRunning');
     });
+
+    it('should return an error message if user asked for winners of a stopped tournament', function(){
+        //setup
+        var tournamentService = new TournamentService();
+
+        var res = {json:sinon.spy()};
+        //action
+        tournamentService.getTournamentWinners(null, res, {running:false, engine:'singleElim'});
+        //assert
+        assert.equal(res.json.calledOnce, true);
+        assert.equal(res.json.getCall(0).args[0], 409);
+        assert.equal(res.json.getCall(0).args[1].message, 'tournamentNotRunning');
+    });
+
+    it('should return an array w/ the tournamentWinners if user asked for winners of a finished tournament', function(){
+        //setup
+        var tournamentService = new TournamentService();
+        tournamentService.getTournamentEngine = function(){
+            return {winners:function(tournament, callback){
+                callback(null, [{name:'john'}, {name:'jane'}]);
+            }};
+        };
+        var res = {json:sinon.spy()};
+        //action
+        tournamentService.getTournamentWinners(null, res, {running:true, engine:'singleElim'});
+        //assert
+        assert.equal(res.json.calledOnce, true);
+        assert.deepEqual(res.json.getCall(0).args[0], [{name:'john'}, {name:'jane'}]);
+    });
+
+    it('should return an error if user asked for winners of a tournament but the engine returned an error', function(){
+        //setup
+        var tournamentService = new TournamentService();
+        tournamentService.getTournamentEngine = function(){
+            return {winners:function(tournament, callback){
+                callback({message:'some error from the engine'});
+            }};
+        };
+        var res = {json:sinon.spy()};
+        //action
+        tournamentService.getTournamentWinners(null, res, {running:true, engine:'singleElim'});
+        //assert
+        assert.equal(res.json.calledOnce, true);
+        assert.deepEqual(res.json.getCall(0).args[0], 409);
+        assert.deepEqual(res.json.getCall(0).args[1].message, 'some error from the engine');
+    });
 });
