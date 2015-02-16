@@ -1205,5 +1205,18 @@ describe('SimpleGSLPool engine', function () {
             assert.equal(winnersCallback.getCall(0).args[0], null);
             assert.deepEqual(winnersCallback.getCall(0).args[1], [franz, peter]);
         });
+
+        it('should return a correctly formatted error if something goes wrong during one of the async calls', function(){
+            //setup
+            var winnersCallback = sinon.spy();
+            engine.getWinnersFromGroup = function(group, engine, callback){
+                callback(true);
+            };
+            //action
+            engine.winners({1:{}, 2:{}}, winnersCallback);
+            //assert
+            assert.equal(winnersCallback.calledOnce, true);
+            assert.deepEqual(winnersCallback.getCall(0).args[0], {message:'errorWhileGettingWinners'});
+        });
     });
 });
