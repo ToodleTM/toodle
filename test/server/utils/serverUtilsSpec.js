@@ -68,9 +68,11 @@ describe('Server Utils', function () {
                 json: function () {
                 }
             };
-            var tournament = {save:function(){
-                res.json({});
-            }};
+            var tournament = {
+                save: function () {
+                    res.json({});
+                }
+            };
             var model = {
                 findById: function (criteria, callback) {
                     callback(null, tournament);
@@ -153,7 +155,7 @@ describe('Server Utils', function () {
             assert.equal(actual, null);
         });
 
-        it('should return null for a null tournament name', function(){
+        it('should return null for a null tournament name', function () {
             //setup
 
             //action
@@ -188,5 +190,31 @@ describe('Server Utils', function () {
             assert.equal(actual, 'name123');
         });
     });
-})
-;
+    describe('winnersToCSV', function () {
+        it('should return a buffer w/ only headers if winners list is emtpy', function () {
+            //setup
+
+            //action
+            var actual = serverUtils.winnersToCSV([]);
+            //assert
+            assert.deepEqual(actual, new Buffer('name,faction\n'));
+        });
+
+        it('should return a buffer w/ the list of winners if there are players in the list', function(){
+            //setup
+
+            //action
+            var actual = serverUtils.winnersToCSV([{name:'john', faction:'terran'}, {name:'lisa', faction:'random'}]);
+            //assert
+            assert.deepEqual(actual, new Buffer('name,faction\njohn,terran\nlisa,random\n'));
+        });
+
+        it('should not write anything in the faction column if the player does not have one', function(){
+            //setup
+            //action
+            var actual = serverUtils.winnersToCSV([{name:'john'}, {name:'lisa', faction:'random'}]);
+            //assert
+            assert.deepEqual(actual, new Buffer('name,faction\njohn,\nlisa,random\n'));
+        });
+    });
+});
