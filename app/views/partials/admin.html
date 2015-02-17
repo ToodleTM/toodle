@@ -147,7 +147,7 @@
         <a ng-href="/play/{{tournamentInfo.signupID}}" id="playerSignupPageLink">{{ 'admin.misc.playLink' | translate}}</a><br/>
         <a ng-show="tournamentInfo.running" ng-href="/bracket/{{tournamentInfo.signupID}}" id="tournamentBracketLink">{{ 'admin.misc.brackets' |
             translate}}</a><br/>
-        <a ng-show="tournamentInfo.running" href="#" ng-click="downloadTournamentWinners()"> {{ 'admin.misc.winners' | translate}}</a>
+        <a ng-show="!gamesToReport.length" href="#" ng-click="downloadTournamentWinners()"> {{ 'admin.misc.winners' | translate}}</a>
     </fieldset>
 
     <fieldset ng-show="tournamentInfo.running">

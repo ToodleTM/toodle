@@ -1182,7 +1182,7 @@ describe('SimpleGSLPool engine', function () {
             groups[1].matches[5].player2 = alice;
             groups[1].matches[5].complete = true;
             //action
-            engine.winners(groups, winnersCallback);
+            engine.winners({bracket:groups}, winnersCallback);
             //assert
             assert.equal(winnersCallback.calledOnce, true);
             assert.equal(winnersCallback.getCall(0).args[0], null);
@@ -1199,7 +1199,7 @@ describe('SimpleGSLPool engine', function () {
             groups[2].matches[10].player2 = franz;
             groups[2].matches[10].complete = true;
             //action
-            engine.winners(groups, winnersCallback);
+            engine.winners({bracket:groups}, winnersCallback);
             //assert
             assert.equal(winnersCallback.calledOnce, true);
             assert.equal(winnersCallback.getCall(0).args[0], null);
@@ -1213,7 +1213,7 @@ describe('SimpleGSLPool engine', function () {
                 callback(true);
             };
             //action
-            engine.winners({1:{}, 2:{}}, winnersCallback);
+            engine.winners({bracket:{1:{}, 2:{}}}, winnersCallback);
             //assert
             assert.equal(winnersCallback.calledOnce, true);
             assert.deepEqual(winnersCallback.getCall(0).args[0], {message:'errorWhileGettingWinners'});
@@ -1226,7 +1226,7 @@ describe('SimpleGSLPool engine', function () {
                 throw new Error('some random engine error');
             };
             //action
-            engine.winners({1:{}, 2:{}}, winnersCallback);
+            engine.winners({bracket:{1:{}, 2:{}}}, winnersCallback);
             //assert
             assert.equal(winnersCallback.calledOnce, true);
             assert.deepEqual(winnersCallback.getCall(0).args[0], {message:'errorWhileGettingWinners'});

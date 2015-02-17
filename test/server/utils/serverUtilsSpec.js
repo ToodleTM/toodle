@@ -193,7 +193,6 @@ describe('Server Utils', function () {
     describe('winnersToCSV', function () {
         it('should return a buffer w/ only headers if winners list is emtpy', function () {
             //setup
-
             //action
             var actual = serverUtils.winnersToCSV([]);
             //assert
@@ -202,7 +201,6 @@ describe('Server Utils', function () {
 
         it('should return a buffer w/ the list of winners if there are players in the list', function(){
             //setup
-
             //action
             var actual = serverUtils.winnersToCSV([{name:'john', faction:'terran'}, {name:'lisa', faction:'random'}]);
             //assert
