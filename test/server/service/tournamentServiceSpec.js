@@ -154,8 +154,12 @@ describe('Tournament Service', function () {
                 callback(null, [{name:'john'}, {name:'jane'}]);
             }};
         };
-        tournamentService.utils.winnersToCSV = function(){
-            return new Buffer('');
+        tournamentService.utils = function(){
+            return {
+                winnersToCSV: function() {
+                    return new Buffer('');
+                }
+            };
         };
         var res = {send:sinon.spy(), set:sinon.spy()};
         //action
