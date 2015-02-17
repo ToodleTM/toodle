@@ -253,5 +253,9 @@ angular.module('toodleApp')
         $scope.stripped = function (nick) {
             return nick.replace(/\s/g, '');
         };
+
+        $scope.downloadTournamentWinners = function(){
+            window.open('/api/tournament/winners/csv/?tournamentId='+$scope.tournamentInfo._id, '_blank', '');
+        };
     }
 );

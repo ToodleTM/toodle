@@ -106,7 +106,8 @@
       "links": "Links to other related pages for your tournament",
       "playLink": "Player's signup form",
       "brackets": "Tournament's bracket",
-      "fileMustBeCSV": "file needs to be a CSV file"
+      "fileMustBeCSV": "file needs to be a CSV file",
+      "winners":"Tournament winners (CSV export)"
     },
     "update": {
       "success": "Tournament specs successfully updated",

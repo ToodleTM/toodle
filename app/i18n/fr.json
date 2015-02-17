@@ -107,7 +107,8 @@
             "links": "Liens vers d'autres pages concernant le tournoi",
             "playLink": "Le formulaire d'inscription des joueurs",
             "brackets": "L'arbre du tournoi",
-            "fileMustBeCSV":"le fichier doit être au format CSV"
+            "fileMustBeCSV":"le fichier doit être au format CSV",
+            "winners":"Liste des gagnants (export CSV)"
         },
         "update": {
             "success": "Les détails du tournoi ont été mis à jour",

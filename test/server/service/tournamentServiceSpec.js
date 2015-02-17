@@ -163,12 +163,14 @@ describe('Tournament Service', function () {
         };
         var res = {send:sinon.spy(), set:sinon.spy()};
         //action
-        tournamentService.exportTournamentWinners(null, res, {running:true, engine:'singleElim'});
+        tournamentService.exportTournamentWinners(null, res, {tournamentName:'some fancy tournament name', running:true, engine:'singleElim'});
         //assert
         assert.equal(res.send.calledOnce, true);
-        assert.equal(res.set.calledOnce, true);
+        assert.equal(res.set.calledTwice, true);
         assert.deepEqual(res.set.getCall(0).args[0], 'Content-Type');
         assert.deepEqual(res.set.getCall(0).args[1], 'text/csv');
+        assert.deepEqual(res.set.getCall(1).args[0], 'Content-Disposition');
+        assert.deepEqual(res.set.getCall(1).args[1], 'attachment; filename=some fancy tournament name.csv');
         assert.deepEqual(res.send.getCall(0).args[0], new Buffer(''));
     });
 
