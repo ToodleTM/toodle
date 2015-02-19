@@ -159,7 +159,8 @@
     "bracket":{
         "header":"Voici l'état actuel du tournoi",
         "tournamentNotRunningWarning":"Le tournoi n'a pas encore commencé, reviens plus tard!",
-        "playerToHighlight":"Parcours de joueur mis en valeur "
+        "playerToHighlight":"Parcours de joueur mis en valeur ",
+        "group":"Groupe"
     },
     "common":{
         "errorFindingMatchesToReport":"Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer."
