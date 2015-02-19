@@ -7,7 +7,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span
                         aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="reportModalLabel">{{ 'admin.actions.reporting.title' | translate }} - {{
+                <h4 class="modal-title" id="reportModalLabel"><span translate="admin.actions.reporting.title"></span> - {{
                     firstGameToReport.player1.name }} VS {{firstGameToReport.player2.name}}</h4>
             </div>
             <div class="modal-body">
@@ -39,7 +39,7 @@
                     translate}}
                 </button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="reportMatch()"
-                        id="doReport">{{ 'admin.actions.run.confirm' | translate }}
+                        id="doReport" translate="admin.actions.run.confirm">
                 </button>
             </div>
         </div>
@@ -61,7 +61,7 @@
                 <form class="form-horizontal">
                     <div class="row">
                         <div class="form-group col-sm-12">
-                            {{ 'admin.actions.reporting.warning' | translate }}
+                            <span translate="admin.actions.reporting.warning"></span>
                         </div>
                     </div>
                     <input type="hidden" ng-model="gameToUnreport.number">
@@ -72,7 +72,7 @@
                     translate}}
                 </button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="unreportMatch()"
-                        id="doUnreport">{{ 'admin.actions.run.confirm' | translate }}
+                        id="doUnreport" translate="admin.actions.run.confirm">
                 </button>
             </div>
         </div>
@@ -81,18 +81,18 @@
 
 <div id="notFound" class="alert alert-danger ng-binding" role="alert" hidden="" style="display: none;">
     <button type="button" class="close alert-fix-close" ng-click="hideAlerts()" style="display: none;"><span aria-hidden="true" style="display: none;">×</span><span class="sr-only" style="display: none;">Close</span></button>
-    {{ 'play.notFound' | translate}}
+    <span translate="play.notFound"></span>
 </div>
 <div id="content">
-    <h1>{{ 'play.header.tournament' | translate }} {{tournamentInfo.tournamentName}} {{ 'play.header.playPage' |
+    <h1><span translate="play.header.tournament"></span> {{tournamentInfo.tournamentName}} {{ 'play.header.playPage' |
         translate}}</h1>
 
-    <p>{{ 'play.intro' | translate }}</p>
+    <p translate="play.intro"></p>
 
     <fieldset ng-show="tournamentInfo.running">
-        <legend ng-show="playerCanReport()"> {{ 'admin.actions.reporting.title' | translate }}</legend>
+        <legend ng-show="playerCanReport()" translate="admin.actions.reporting.title"></legend>
         <div class="form-group col-sm-6" ng-show="playerCanReport()">
-            <label class="control-label" for="reportGame">{{ 'admin.actions.reporting.reportMatch' | translate }}</label>
+            <label class="control-label" for="reportGame" translate="admin.actions.reporting.reportMatch"></label>
 
             <select id="reportGame" name="reportGame" class="form-control" ng-model="firstGameToReport"
                     ng-options="item as item.player1.name+' VS '+item.player2.name for item in gamesToReport track by item.number">
@@ -122,13 +122,13 @@
                 <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                         aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
-                {{ 'admin.actions.reporting.reportingOk' | translate}}
+                <span translate="admin.actions.reporting.reportingOk"></span>
             </div>
             <div id="tourneyReportingKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
                 <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                         aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
-                {{ 'admin.actions.reporting.reportingKo' | translate }} ({{
+                <span translate="admin.actions.reporting.reportingKo"></span> ({{
                 'admin.actions.reporting.errors.'+errorMessage.message | translate}})
             </div>
         </div>
@@ -137,19 +137,19 @@
     <div class="form-horizontal">
         <fieldset>
 
-            <legend>{{ 'play.infos' | translate }}</legend>
+            <legend translate="play.infos"></legend>
             <p ng-show="tournamentInfo.running">
-                <a ng-href="/bracket/{{ tournamentInfo.signupID }}/" id="tournamentBracketLink">{{ 'play.bracket' | translate }}</a>
+                <a ng-href="/bracket/{{ tournamentInfo.signupID }}/" id="tournamentBracketLink" translate="play.bracket"></a>
             </p>
             <div class="row">
 
                 <div class="form-group col-sm-6">
-                    <label class="control-label" for="game">{{ 'admin.form.game' | translate }}</label>
+                    <label class="control-label" for="game" translate="admin.form.game"></label>
 
                     <select id="game" name="game" class="form-control" ng-model="tournamentInfo.game" disabled>
-                        <option value="">{{ 'play.noGame' | translate}}</option>
+                        <option value="" translate="play.noGame"></option>
                         <option value="sc2">Starcraft II</option>
-                        <option value="other">{{ 'admin.form.other' | translate}}</option>
+                        <option value="other" translate="admin.form.other"></option>
                     </select>
                 </div>
 
@@ -158,28 +158,28 @@
                     <label class="control-label" for="engine">{{'admin.form.engine' | translate}}</label>
 
                     <select id="engine" name="engine" class="form-control" ng-model="tournamentInfo.engine" disabled>
-                        <option value="">{{ 'play.noGameType' | translate}}</option>
+                        <option value="" translate="play.noGameType"></option>
                         <option value="singleElim">Single elim. bracket</option>
                     </select>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-sm-12">
-                    <label class="control-label" for="description">{{ 'admin.form.description' | translate }}</label>
+                    <label class="control-label" for="description" translate="admin.form.description"></label>
                     <textarea id="description" name="description" class="form-control"
                               ng-model="tournamentInfo.description" disabled></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-sm-12">
-                    <label class="control-label" for="startDate">{{ 'admin.form.startDate' | translate }}</label>
+                    <label class="control-label" for="startDate" translate="admin.form.startDate"></label>
                     <input type="text" id="startDate" name="startDate" class="form-control"
                               ng-model="tournamentInfo.startDate" disabled />
                 </div>
             </div>
         </fieldset>
         <fieldset ng-show="!tournamentInfo.locked">
-            <legend>{{ 'play.enter.register' | translate }}</legend>
+            <legend translate="play.enter.register"></legend>
             <div class="row">
                 <form ng-submit="enterTournament()">
                     <div class="form-group col-sm-6">
@@ -192,28 +192,28 @@
                         </select>
                     </div>
                     <div class="form-group col-sm-1">
-                        <button class="btn btn-primary" id="registerPlayerGo" type="submit">{{ 'play.enter.go' | translate }}</button>
+                        <button class="btn btn-primary" id="registerPlayerGo" type="submit" translate="play.enter.go"></button>
                     </div>
                 </form>
             </div>
             <div id="registrationOk" class="alert alert-success alert-dismissible app-alert" role="alert" hidden>
                 <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                {{ 'play.register.success' | translate}}
+                <span translate="play.register.success"></span>
             </div>
             <div id="registrationKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
                 <button type="button" class="close alert-fix-close" ng-click="hideAlerts()" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                {{ 'play.register.fail' | translate }} ({{ 'play.register.errors.'+errorMessage | translate }})
+                <span translate="play.register.fail"></span> ({{ 'play.register.errors.'+errorMessage | translate }})
             </div>
         </fieldset>
         <fieldset id="playersList" ng-model="playerList">
-            <legend>{{ 'play.register.registeredPlayers' | translate}} ({{playerList.length}})</legend>
+            <legend><span translate="play.register.registeredPlayers"></span> ({{playerList.length}})</legend>
             <div ng-repeat="player in playerList" id="playerList" class="playerInList">
                 <span>
                 <span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px" ></span>{{player.name}}
                 </span>
             </div>
             <div ng-show="playerList.length == 0">
-                <span> {{ 'play.register.noPlayers' | translate}} </span>
+                <span translate="play.register.noPlayers"></span>
             </div>
         </fieldset>
     </div>

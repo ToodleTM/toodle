@@ -16,10 +16,10 @@
 </div>
 <div id="tourneyCreationOk" class="alert alert-success alert-dismissible app-alert tournament-create" role="alert" hidden>
     <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    {{ 'quickAdd.success.pre' | translate}} <a ng-href='/admin/{{adminURL}}' class='alert-link' translate="quickAdd.success.thisLink" id="adminLink"></a> {{ 'quickAdd.success.mid' | translate}} <a ng-href='/play/{{signupURL}}' class='alert-link' translate="quickAdd.success.thisLink" id="signupLink">this link</a> {{ 'quickAdd.success.end' | translate}}
+    <span translate="quickAdd.success.pre"></span> <a ng-href='/admin/{{adminURL}}' class='alert-link' translate="quickAdd.success.thisLink" id="adminLink"></a> <span translate="quickAdd.success.mid"></span> <a ng-href='/play/{{signupURL}}' class='alert-link' translate="quickAdd.success.thisLink" id="signupLink"></a> <span translate="quickAdd.success.end"></span>
     </div>
 <div id="tourneyCreationKo" class="alert alert-danger alert-dismissible app-alert tournament-create" role="alert" hidden>
     <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    {{ 'quickAdd.fail' | translate }} ({{errorMessage}})
+    <span translate="quickAdd.fail"></span> ({{errorMessage}})
 </div>
 <div ng-include="'partials/footer'"></div>
