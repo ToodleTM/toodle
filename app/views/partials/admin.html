@@ -123,7 +123,7 @@
         <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
-        <span translate="admin.update.fail"></span> (<span translate="{{errorMessage}}"></span>)
+        <span translate="admin.update.fail"></span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
     </div>
 
     <p translate="admin.intro"></p>
@@ -170,7 +170,7 @@
                 <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                         aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
-                <span translate="admin.actions.reporting.reportingKo"></span> (<span translate="{{errorMessage}}"></span>)
+                <span translate="admin.actions.reporting.reportingKo"></span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
             </div>
         </div>
     </fieldset>
@@ -255,7 +255,7 @@
         <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
-        <span translate="admin.update.fail"></span> (<span translate="{{errorMessage}}"></span>)
+        <span translate="admin.update.fail"></span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
     </div>
     <fieldset ng-show="!tournamentInfo.running">
         <div class="row">
@@ -289,7 +289,7 @@
                 <div id="registrationKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
                     <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                             aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <span translate="play.register.fail"></span> (<span translate="{{errorMessage}}"></span>)
+                    <span translate="play.register.fail"></span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
                 </div>
             </div>
             <div class="form-group col-sm-6">
@@ -313,7 +313,7 @@
         <div id="multipleRegistrationKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
             <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                     aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <span translate="play.register.fail"></span> (<span translate="{{errorMessage}}"></span>)
+            <span translate="play.register.fail"></span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
         </div>
     </fieldset>
     <fieldset id="playersList" ng-model="playerList">

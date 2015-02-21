@@ -91,7 +91,7 @@ angular.module('toodleApp')
                     updateGroupsForGSLGroups();
                 }
             }).error(function (data) {
-                $scope.errorMessage = data;
+                $scope.errorMessage = 'admin.actions.reporting.errors.'+data.message;
                 $('#tourneyReportingKo').fadeIn();
             });
         };

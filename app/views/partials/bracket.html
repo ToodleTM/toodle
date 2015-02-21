@@ -10,8 +10,7 @@
         <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
-        <span translate="admin.actions.reporting.reportingKo"></span> ({{
-        'admin.actions.reporting.errors.'+errorMessage.message | translate}})
+        <span translate="admin.actions.reporting.reportingKo"></span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
     </div>
 </div>
 <!-- Reporting Modal -->
