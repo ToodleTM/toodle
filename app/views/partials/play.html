@@ -12,8 +12,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal">
-
-                    <legend>{{ 'admin.actions.reporting.describeReport'| translate}}</legend>
+                    <legend translate="admin.actions.reporting.describeReport"></legend>
                     <fieldset>
                         <div class="row">
                             <div class="form-group col-sm-4">
@@ -35,8 +34,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelReport">{{ 'admin.actions.run.cancel' |
-                    translate}}
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelReport" translate="admin.actions.run.cancel">
                 </button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="reportMatch()"
                         id="doReport" translate="admin.actions.run.confirm">
@@ -53,8 +51,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span
                         aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="unreportModalLabel">{{ 'admin.actions.reporting.unreportTitle' | translate
-                    }} - {{
+                <h4 class="modal-title" id="unreportModalLabel"><span translate="admin.actions.reporting.unreportTitle"></span> - {{
                     gameToUnreport.player1.name }} VS {{gameToUnreport.player2.name}}</h4>
             </div>
             <div class="modal-body">
@@ -99,22 +96,19 @@
             </select>
             <button ng-show="gamesToReport.length" id="reportGameButton" data-toggle="modal" data-target="#reportModal"
                     class="btn btn-primary"
-                    title="{{'admin.actions.reporting.reportButton'|translate}}">
-                {{'admin.actions.reporting.reportButton'|translate}}
+                    title="{{'admin.actions.reporting.reportButton'|translate}}" translate="admin.actions.reporting.reportButton">
             </button>
         </div>
 
         <div class="form-group col-sm-6" ng-show="playerCanUnreport()">
-            <label class="control-label" for="unreportGame">{{ 'admin.actions.reporting.unreportMatch' | translate
-                }}</label>
+            <label class="control-label" for="unreportGame" translate="admin.actions.reporting.unreportMatch"></label>
 
             <select id="unreportGame" name="unreportGame" class="form-control" ng-model="gameToUnreport"
                     ng-options="item as item.player1.name+' VS '+item.player2.name for item in gamesToUnreport track by item.number">
             </select>
             <button ng-show="gamesToUnreport.length" id="unreportGameButton" data-toggle="modal" data-target="#unreportModal"
                     class="btn btn-primary"
-                    title="{{'admin.actions.reporting.unreportButton'|translate}}">
-                {{'admin.actions.reporting.unreportButton'|translate}}
+                    title="{{'admin.actions.reporting.unreportButton'|translate}}" translate="admin.actions.reporting.unreportButton">
             </button>
         </div>
         <div class="form-group col-sm-12">
@@ -128,8 +122,7 @@
                 <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                         aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
-                <span translate="admin.actions.reporting.reportingKo"></span> ({{
-                'admin.actions.reporting.errors.'+errorMessage.message | translate}})
+                <span translate="admin.actions.reporting.reportingKo"></span> (<span translate="{{errorMessage}}"></span>)
             </div>
         </div>
     </fieldset>
@@ -155,7 +148,7 @@
 
 
                 <div class="form-group col-sm-6">
-                    <label class="control-label" for="engine">{{'admin.form.engine' | translate}}</label>
+                    <label class="control-label" for="engine" translate="admin.form.engine"></label>
 
                     <select id="engine" name="engine" class="form-control" ng-model="tournamentInfo.engine" disabled>
                         <option value="" translate="play.noGameType"></option>
@@ -202,7 +195,7 @@
             </div>
             <div id="registrationKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
                 <button type="button" class="close alert-fix-close" ng-click="hideAlerts()" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <span translate="play.register.fail"></span> ({{ 'play.register.errors.'+errorMessage | translate }})
+                <span translate="play.register.fail"></span> (<span translate="{{errorMessage}}">{{errorMessage | translate}}</span>)
             </div>
         </fieldset>
         <fieldset id="playersList" ng-model="playerList">

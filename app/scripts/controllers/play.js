@@ -65,8 +65,8 @@ angular.module('toodleApp')
                 $('#registrationOk').fadeIn();
                 $scope.playerList = data.players;
             }).error(function(error){
+                $scope.errorMessage = 'play.register.errors.'+error.message;
                 $('#registrationKo').fadeIn();
-                $scope.errorMessage = error.message;
             });
         };
 
@@ -84,7 +84,7 @@ angular.module('toodleApp')
                 $('#tourneyReportingOk').show();
                 $scope.tournamentInfo = data;
             }).error(function (data) {
-                $scope.errorMessage = data;
+                $scope.errorMessage = 'admin.actions.reporting.errors.'+data.message;
                 $('#tourneyReportingKo').fadeIn();
             });
         };
