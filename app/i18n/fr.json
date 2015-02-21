@@ -66,7 +66,7 @@
         "cantUnlockRunningTournament": "Il n'est pas possible d'accepter de nouveaux joueurs une fois le tournoi commencé."
       },
       "reporting": {
-        "title": "Reporting",
+        "title": "Enregistrer",
         "reportMatch": "Enregistrer un résultat",
         "unreportMatch": "Annuler un enregistrement",
         "reportButton": "Formulaire",
