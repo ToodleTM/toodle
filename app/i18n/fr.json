@@ -1,168 +1,169 @@
 {
-    "quickAdd": {
-        "registerMessage": "Créez un nouveau tournoi !",
-        "success": {
-            "pre": "Le tournoi a été créé! Vous pouvez l'administrer en utilisant",
-            "mid": ", et vous pouvez envoyer ",
-            "end": "pour permettre aux participants de d'inscrire.",
-            "thisLink": "ce lien"
-        },
-        "fail": "Une erreur est survenue, Le tournoi n'a pas été créé. Veuillez réessayer.",
-        "tournamentNamePlaceholder": "Votre nom de tournoi ici",
-        "go": "Go !"
+  "quickAdd": {
+    "registerMessage": "Créez un nouveau tournoi !",
+    "success": {
+      "pre": "Le tournoi a été créé! Vous pouvez l'administrer en utilisant",
+      "mid": ", et vous pouvez envoyer ",
+      "end": "pour permettre aux participants de d'inscrire.",
+      "thisLink": "ce lien"
     },
-    "footer": {
-        "love": "♥ de l'équipe Toodle"
-    },
+    "fail": "Une erreur est survenue, Le tournoi n'a pas été créé. Veuillez réessayer.",
+    "tournamentNamePlaceholder": "Votre nom de tournoi ici",
+    "go": "Go !"
+  },
+  "footer": {
+    "love": "♥ de l'équipe Toodle"
+  },
+  "header": {
+    "title": "Toodle"
+  },
+  "admin": {
+    "intro": "Ceci est la page d'administration de ton tournoi. Tu peux faire tous les changements que tu souhaites ici. Rappelles toi que n'importe qui avec l'URL d'admin peut faire la même chose.",
     "header": {
-        "title": "Toodle"
+      "tournament": "Tournoi",
+      "adminPage": " : page d'administration"
     },
-    "admin": {
-        "intro": "Ceci est la page d'administration de ton tournoi. Tu peux faire tous les changements que tu souhaites ici. Rappelles toi que n'importe qui avec l'URL d'admin peut faire la même chose.",
-        "header": {
-            "tournament": "Tournoi",
-            "adminPage": " : page d'administration"
-        },
-        "form": {
-            "configure": "Configure ton tournoi",
-            "pickGame": "-- Choisis un jeu --",
-            "other": "Autre",
-            "engine": "Règles à utiliser",
-            "description": "Courte description (optionnelle)",
-            "roundFormats": "Format des rounds",
-            "numberOfPlayers": "Nombre de joueurs",
-            "submit": "Valider les changements",
-            "game": "Jeu",
-            "startDate":"Date de début",
-            "userPrivileges":{
-                "title":"Privilèges pour les non-administrateurs",
-                "atWill":"Report / unreport",
-                "reportOnly":"Seulement report",
-                "nothing":"Aucun des deux"
-            },
-            "cantUpdateEngineWhileRunning":"Tu ne peux pas mettre à jour le moteur de tournoi alors que ce dernier a commencé."
-        },
-        "actions": {
-            "lock": "Fermer les inscriptions",
-            "lockTooltip": "Empêche de nouvelles personnes de s'inscrire au tournoi",
-            "open": "Ouvrir les inscriptions",
-            "openTooltip": "Autoriser de nouvelles personnes à s'inscrire au tournoi",
-            "run": {
-                "running": "Arrêter l'arbre",
-                "notRunning": "Démarrer l'arbre",
-                "runningTooltip": "Démarrer le tournoi. Les joueurs ne pourront plus s'inscrire",
-                "notRunningTooltip": "Arrêter le tournoi, les joueurs pourront a nouveau s'inscrire",
-                "confirm": "Confirmer",
-                "cancel": "Annuler",
-                "willStop": "Ceci va arrêter le tournoi et permettre à de nouveaux joueurs de s'inscrire. ATTENTION: Ceci _détruira_ l'arbre tel qu'il a été créé.",
-                "willStart": "Ceci va démarrer le tournoi et empêcher de nouveaux joueurs de s'inscrire",
-                "modalTitle": "Démarrer / Arrêter le tournoi",
-                "tournamentAlreadyRunning": "Le tournoi a déjà commencé",
-                "tournamentAlreadyStopped": "Le tournoi est déjà arrêté",
-                "noEngineSpecified": "Aucun moteur de jeu n'est spécifié, impossible de démarrer le tournoi tant que cela n'est pas fait",
-                "noPlayers": "Aucun joueur enregistré. Aucun intérêt à démarrer le tournoi.",
-                "invalidTournamentEngine":"le moteur de règles demandé n'est pas dsponible",
-                "notFound":"Tournament does not exist",
-                "cantUnlockRunningTournament":"Il n'est pas possible d'accepter de nouveaux joueurs une fois le tournoi commencé."
-            },
-            "reporting":{
-                "title":"Reporting",
-                "reportMatch":"Enregistrer un résultat",
-                "unreportMatch":"Annuler un enregistrement",
-                "reportButton":"Formulaire",
-                "unreportButton":"Annuler le match!",
-                "describeReport":"Remplis le formulaire pour enregistrer le résultat.",
-                "playerScore":" score",
-                "unreportTitle":"Annuler un enregistrement",
-                "warning":"En cliquant sur le bouton de confirmation tu vas valider l'annulation, ce qui aura pour effet d'effacer le résultat du match (score, replay ...). Cette action ne peut être annulée.",
-                "errorUnreportingMatch":"Une erreur s'est produite en annulant ce match",
-                "reportingOk":"Reporting complet",
-                "reportingKo":"Échec du reporting",
-                "errors":{
-                    "cantUnreportUnknownMatch":"Impossible de report un match qui n'existe pas pour ce tournoi",
-                    "cantUnreportIncompleteMatch":"Impossible d'annuler un match qui n'a pas encore été joué",
-                    "nextMatchAlreadyReported":"Le match suivant a déjà été joué, tu dois d'abord l'annuler pour pouvoir annuler le match qui t'intéresse.",
-                    "notAllPreviousMatchesAreComplete":"Certains matchs menant à celui là doivent être enregistrés avant de pouvoir enregistrer celui là!",
-                    "alreadyReported":"Ce match a déjà été enregistré. Pour pouvoir l'éditer, tu dois d'abord unreport le match puis le ré-enregistrer.",
-                    "numberlessMatchNotAllowed":"Aucun numéro de match fourni, impossible d'effectuer l'opération.",
-                    "invalidScores":"Utilises des entiers pour inscrire le score.",
-                    "nextMatchDoesNotExist":"Impossible de trouver le match suivant",
-                    "winnerMustHaveHigherScore":"Le gagnant doit avoir un meilleur score que le perdant",
-                    "insufficientPrivileges":"Tu n'as pas le droit de faire ça",
-                    "defWinCantBeUnreported":"Tu ne peux pas annuler une defwin !",
-                    "errorUnreportingMatch": "Erreur du service. C'est peut être temporaire, ré-essayes dans quelques minutes et si ća ne fonctionne toujours pas essayes de contacter l'admin ou, à défaut, le dev principal sur Twitter (@ToodleTM)"
-
-                }
-            },
-            "addPlayer": "Ajouter un joueur au tournoi",
-            "addMultiplePlayers":"Ajouter des joueurs depuis une liste",
-            "playerNickPlaceholder": "Pseudo du joueur",
-            "multipleRegistrationSuccessful":"Les nouveaux joueurs ont été ajoutés",
-            "multipleSeedTooltip":"Ici, tu peux utiliser un fichier CSV (avec des virgules comme séparateurs). La première ligne est un entête et doit contenir les noms des propriétés (ex : 'name, faction') désignées par les colonnes. L'ordre des colonnes n'importe pas mais il devrait toujours y avoir la colonne 'name'.",
-            "removePlayer":"Retirer le joueur de ce tournoi",
-            "cantRemovePlayerWhileRunning":"Impossible de retirer un joueur d'un tournoi actif!",
-            "unableToChangeOrderWhileTournamentIsLive":"Impossible de changer l'ordre quand le tournoi est en cours."
-        },
-        "misc": {
-            "links": "Liens vers d'autres pages concernant le tournoi",
-            "playLink": "Le formulaire d'inscription des joueurs",
-            "brackets": "L'arbre du tournoi",
-            "fileMustBeCSV":"le fichier doit être au format CSV",
-            "winners":"Liste des gagnants (export CSV)"
-        },
-        "update": {
-            "success": "Les détails du tournoi ont été mis à jour",
-            "fail": "Un problème est survenu en mettant à jour les détails du tournoi."
-        },
-        "error": {
-            "noSuchTournament": "Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi.",
-            "serverError": "Une erreur server s'est produite. Attends un peu avant de ré-essayer et si rien ne change contactes un admin.",
-            "notACSVFile":"Le fichier ne semble pas être au format CSV"
+    "form": {
+      "configure": "Configure ton tournoi",
+      "pickGame": "-- Choisis un jeu --",
+      "other": "Autre",
+      "engine": "Règles à utiliser",
+      "description": "Courte description (optionnelle)",
+      "roundFormats": "Format des rounds",
+      "numberOfPlayers": "Nombre de joueurs",
+      "submit": "Valider les changements",
+      "game": "Jeu",
+      "startDate": "Date de début",
+      "userPrivileges": {
+        "title": "Privilèges pour les non-administrateurs",
+        "atWill": "Report / unreport",
+        "reportOnly": "Seulement report",
+        "nothing": "Aucun des deux"
+      },
+      "cantUpdateEngineWhileRunning": "Tu ne peux pas mettre à jour le moteur de tournoi alors que ce dernier a commencé."
+    },
+    "actions": {
+      "lock": "Fermer les inscriptions",
+      "lockTooltip": "Empêche de nouvelles personnes de s'inscrire au tournoi",
+      "open": "Ouvrir les inscriptions",
+      "openTooltip": "Autoriser de nouvelles personnes à s'inscrire au tournoi",
+      "run": {
+        "running": "Arrêter l'arbre",
+        "notRunning": "Démarrer l'arbre",
+        "runningTooltip": "Démarrer le tournoi. Les joueurs ne pourront plus s'inscrire",
+        "notRunningTooltip": "Arrêter le tournoi, les joueurs pourront a nouveau s'inscrire",
+        "confirm": "Confirmer",
+        "cancel": "Annuler",
+        "willStop": "Ceci va arrêter le tournoi et permettre à de nouveaux joueurs de s'inscrire. ATTENTION: Ceci _détruira_ l'arbre tel qu'il a été créé.",
+        "willStart": "Ceci va démarrer le tournoi et empêcher de nouveaux joueurs de s'inscrire",
+        "modalTitle": "Démarrer / Arrêter le tournoi",
+        "tournamentAlreadyRunning": "Le tournoi a déjà commencé",
+        "tournamentAlreadyStopped": "Le tournoi est déjà arrêté",
+        "noEngineSpecified": "Aucun moteur de jeu n'est spécifié, impossible de démarrer le tournoi tant que cela n'est pas fait",
+        "noPlayers": "Aucun joueur enregistré. Aucun intérêt à démarrer le tournoi.",
+        "invalidTournamentEngine": "le moteur de règles demandé n'est pas dsponible",
+        "notFound": "Tournament does not exist",
+        "cantUnlockRunningTournament": "Il n'est pas possible d'accepter de nouveaux joueurs une fois le tournoi commencé."
+      },
+      "reporting": {
+        "title": "Reporting",
+        "reportMatch": "Enregistrer un résultat",
+        "unreportMatch": "Annuler un enregistrement",
+        "reportButton": "Formulaire",
+        "unreportButton": "Annuler le match!",
+        "describeReport": "Remplis le formulaire pour enregistrer le résultat.",
+        "playerScore": " score",
+        "unreportTitle": "Annuler un enregistrement",
+        "warning": "En cliquant sur le bouton de confirmation tu vas valider l'annulation, ce qui aura pour effet d'effacer le résultat du match (score, replay ...). Cette action ne peut être annulée.",
+        "errorUnreportingMatch": "Une erreur s'est produite en annulant ce match",
+        "reportingOk": "Reporting complet",
+        "reportingKo": "Échec du reporting",
+        "errors": {
+          "cantUnreportUnknownMatch": "Impossible de report un match qui n'existe pas pour ce tournoi",
+          "cantUnreportIncompleteMatch": "Impossible d'annuler un match qui n'a pas encore été joué",
+          "nextMatchAlreadyReported": "Le match suivant a déjà été joué, tu dois d'abord l'annuler pour pouvoir annuler le match qui t'intéresse.",
+          "notAllPreviousMatchesAreComplete": "Certains matchs menant à celui là doivent être enregistrés avant de pouvoir enregistrer celui là!",
+          "alreadyReported": "Ce match a déjà été enregistré. Pour pouvoir l'éditer, tu dois d'abord unreport le match puis le ré-enregistrer.",
+          "numberlessMatchNotAllowed": "Aucun numéro de match fourni, impossible d'effectuer l'opération.",
+          "invalidScores": "Utilises des entiers pour inscrire le score.",
+          "nextMatchDoesNotExist": "Impossible de trouver le match suivant",
+          "winnerMustHaveHigherScore": "Le gagnant doit avoir un meilleur score que le perdant",
+          "insufficientPrivileges": "Tu n'as pas le droit de faire ça",
+          "defWinCantBeUnreported": "Tu ne peux pas annuler une defwin !",
+          "errorUnreportingMatch": "Erreur du service. C'est peut être temporaire, ré-essayes dans quelques minutes et si ća ne fonctionne toujours pas essayes de contacter l'admin ou, à défaut, le dev principal sur Twitter (@ToodleTM)"
         }
+      },
+      "addPlayer": "Ajouter un joueur au tournoi",
+      "addMultiplePlayers": "Ajouter des joueurs depuis une liste",
+      "playerNickPlaceholder": "Pseudo du joueur",
+      "multipleRegistrationSuccessful": "Les nouveaux joueurs ont été ajoutés",
+      "multipleSeedTooltip": "Ici, tu peux utiliser un fichier CSV (avec des virgules comme séparateurs). La première ligne est un entête et doit contenir les noms des propriétés (ex : 'name, faction') désignées par les colonnes. L'ordre des colonnes n'importe pas mais il devrait toujours y avoir la colonne 'name'.",
+      "removePlayer": "Retirer le joueur de ce tournoi",
+      "cantRemovePlayerWhileRunning": "Impossible de retirer un joueur d'un tournoi actif!",
+      "unableToChangeOrderWhileTournamentIsLive": "Impossible de changer l'ordre quand le tournoi est en cours."
     },
-    "play": {
-        "intro": "Ceci est la page de tournoi. Tu peux t'y inscrire tant qu'il n'est pas commencé et consulter la liste des joueurs. Une fois le tournoi commencé tu peux aussi y revenir pour enregistrer tes résultats ou t'informer sur son déroulement.",
-        "header": {
-            "tournament": "Page d'informations du tournoi",
-            "playPage": ""
-        },
-        "enter": {
-            "go": "Go!",
-            "nick": "Pseudo",
-            "nickPlaceholder": "Ton pseudo",
-            "register": "S'inscrire au tournoi!"
-        },
-        "register": {
-            "registeredPlayers": "Joueurs inscrits",
-            "noPlayers": "Aucun joueur inscrit pour l'instant",
-            "success": "Enregistrement OK",
-            "fail": "Impossible de s'enregistrer",
-            "errors": {
-                "noDuplicateNick": "Un joueur avec ce nom là s'est déjà enregistré pour ce tournoi",
-                "noEmptyNick": "Le pseudo ne doit ni être vide, ni ne contenir que des espaces.",
-                "registrationLocked": "Les inscriptions sont désactivées pour ce tournoi.",
-                "noSuchTournament":"Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi."
-            }
-        },
-        "report": {
-            "success": "Match enregistré",
-            "fail": "Une erreur s'est produite en enregistrant le match",
-            "buttonCaption": "Enregistrer le match",
-            "description": "Enregistres le résultat d'un match que tu as joué pendant le tournoi"
-        },
-        "noGame": "Pas de jeu renseigné",
-        "noGameType": "Pas de type d'arbre renseigné",
-        "infos": "Voici les infos de ce tournoi",
-        "bracket":"L'arbre",
-        "notFound":"Aucun tournoi avec cet identifiant n'a été trouvé. Est-ce bien la bonne URL?"
+    "misc": {
+      "links": "Liens vers d'autres pages concernant le tournoi",
+      "playLink": "Le formulaire d'inscription des joueurs",
+      "brackets": "L'arbre du tournoi",
+      "fileMustBeCSV": "le fichier doit être au format CSV",
+      "winners": "Liste des gagnants (export CSV)"
     },
-    "bracket":{
-        "header":"Voici l'état actuel du tournoi",
-        "tournamentNotRunningWarning":"Le tournoi n'a pas encore commencé, reviens plus tard!",
-        "playerToHighlight":"Parcours de joueur mis en valeur ",
-        "group":"Groupe"
+    "update": {
+      "success": "Les détails du tournoi ont été mis à jour",
+      "fail": "Un problème est survenu en mettant à jour les détails du tournoi."
     },
-    "common":{
-        "errorFindingMatchesToReport":"Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer."
+    "error": {
+      "noSuchTournament": "Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi.",
+      "serverError": "Une erreur server s'est produite. Attends un peu avant de ré-essayer et si rien ne change contactes un admin.",
+      "notACSVFile": "Le fichier ne semble pas être au format CSV",
+      "noNameField": "Pas de colonne spécifiée pour les pseudos. N'oublies pas que dans le fichier CSV à fournir la première ligne doit définir les colonnes. Par exemple : 'name, faction'"
     }
+  },
+  "play": {
+    "intro": "Ceci est la page de tournoi. Tu peux t'y inscrire tant qu'il n'est pas commencé et consulter la liste des joueurs. Une fois le tournoi commencé tu peux aussi y revenir pour enregistrer tes résultats ou t'informer sur son déroulement.",
+    "header": {
+      "tournament": "Page d'informations du tournoi",
+      "playPage": ""
+    },
+    "enter": {
+      "go": "Go!",
+      "nick": "Pseudo",
+      "nickPlaceholder": "Ton pseudo",
+      "register": "S'inscrire au tournoi!"
+    },
+    "register": {
+      "registeredPlayers": "Joueurs inscrits",
+      "noPlayers": "Aucun joueur inscrit pour l'instant",
+      "success": "Enregistrement OK",
+      "fail": "Impossible de s'enregistrer",
+      "errors": {
+        "noDuplicateNick": "Un joueur avec ce nom là s'est déjà enregistré pour ce tournoi",
+        "noEmptyNick": "Le pseudo ne doit ni être vide, ni ne contenir que des espaces.",
+        "registrationLocked": "Les inscriptions sont désactivées pour ce tournoi.",
+        "noSuchTournament": "Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi.",
+        "tournamentAlreadyRunning": "Le tournoi a déjà commencé"
+      }
+    },
+    "report": {
+      "success": "Match enregistré",
+      "fail": "Une erreur s'est produite en enregistrant le match",
+      "buttonCaption": "Enregistrer le match",
+      "description": "Enregistres le résultat d'un match que tu as joué pendant le tournoi"
+    },
+    "noGame": "Pas de jeu renseigné",
+    "noGameType": "Pas de type d'arbre renseigné",
+    "infos": "Voici les infos de ce tournoi",
+    "bracket": "L'arbre",
+    "notFound": "Aucun tournoi avec cet identifiant n'a été trouvé. Est-ce bien la bonne URL?"
+  },
+  "bracket": {
+    "header": "Voici l'état actuel du tournoi",
+    "tournamentNotRunningWarning": "Le tournoi n'a pas encore commencé, reviens plus tard!",
+    "playerToHighlight": "Parcours de joueur mis en valeur ",
+    "group": "Groupe"
+  },
+  "common": {
+    "errorFindingMatchesToReport": "Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer."
+  }
 }

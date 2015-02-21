@@ -107,7 +107,7 @@
       "playLink": "Player's signup form",
       "brackets": "Tournament's bracket",
       "fileMustBeCSV": "file needs to be a CSV file",
-      "winners":"Tournament winners (CSV export)"
+      "winners": "Tournament winners (CSV export)"
     },
     "update": {
       "success": "Tournament specs successfully updated",
@@ -116,7 +116,8 @@
     "error": {
       "noSuchTournament": "No such tournament has been registered, check your URL or go back to the main page to create a new tournament.",
       "serverError": "A server error has occurred, wait for a bit to retry and if nothing gets better, get in touch with the admin",
-      "notACSVFile": "File does not seem to be a CSV file"
+      "notACSVFile": "File does not seem to be a CSV file",
+      "noNameField": "No Column for player nicks in this file. Remember that the 1st line of your CSV should define the columns. A valid 1st line here is : 'name, faction'"
     }
   },
   "play": {
@@ -140,7 +141,8 @@
         "noDuplicateNick": "A player with that name is already registered",
         "noEmptyNick": "Empty nicks are not allowed",
         "registrationLocked": "You can't enter this tournament, registration is locked",
-        "noSuchTournament": "No such tournament has been registered, check your URL or go back to the main page to create a new tournament."
+        "noSuchTournament": "No such tournament has been registered, check your URL or go back to the main page to create a new tournament.",
+        "tournamentAlreadyRunning": "Tournament is already running"
       }
     },
     "report": {
@@ -158,8 +160,8 @@
   "bracket": {
     "header": "This is the current state of tournament",
     "tournamentNotRunningWarning": "Tournament is not currently running, please come back later!",
-    "playerToHighlight":"Player actually highlighted ",
-    "group":"Group"
+    "playerToHighlight": "Player actually highlighted ",
+    "group": "Group"
   },
   "common": {
     "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported."
