@@ -8,14 +8,14 @@
         {{ 'admin.error.'+error | translate}}
     </div>
     <h1><span translate="admin.header.tournament"></span> {{tournamentInfo.tournamentName}} <span translate="admin.header.adminPage"></span></h1>
-    <button ng-hide="tournamentInfo.running" id="lockTournament" class="btn {{ tournamentInfo.locked ? 'btn-success' : 'btn-danger'}}"
+    <button ng-hide="tournamentInfo.running" class="btn {{ tournamentInfo.locked ? 'btn-success' : 'btn-danger'}}"
             title="{{ tournamentInfo.locked ? 'admin.actions.openTooltip' : 'admin.actions.lockTooltip' | translate }}"
-            ng-click="toggleRegistrationLock()" id="lockTournamentButton" translate="{{ tournamentInfo.locked ? 'admin.actions.open' : 'admin.actions.lock'}}">
+            ng-click="toggleRegistrationLock()" id="lockTournament" translate="{{ tournamentInfo.locked ? 'admin.actions.open' : 'admin.actions.lock'}}">{{ tournamentInfo.locked ? 'admin.actions.open' : 'admin.actions.lock' | translate}}
     </button>
 
     <button id="runTournament" data-toggle="modal" data-target="#runModal"
             class="btn {{ tournamentInfo.running ? 'btn-success' : 'btn-danger'}}"
-            title="{{ !tournamentInfo.running ? 'admin.actions.run.runningTooltip' : 'admin.actions.run.notRunningTooltip' | translate }}" translate="{{tournamentInfo.running ? 'admin.actions.run.running' : 'admin.actions.run.notRunning'}}">
+            title="{{ !tournamentInfo.running ? 'admin.actions.run.runningTooltip' : 'admin.actions.run.notRunningTooltip' | translate }}" translate="{{tournamentInfo.running ? 'admin.actions.run.running' : 'admin.actions.run.notRunning'}}">{{tournamentInfo.running ? 'admin.actions.run.running' : 'admin.actions.run.notRunning' | translate}}
     </button>
 
     <!-- Start / Stop Modal -->

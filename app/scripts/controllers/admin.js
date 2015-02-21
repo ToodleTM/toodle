@@ -125,7 +125,7 @@ angular.module('toodleApp')
                 })
                 .error(function (error) {
                     $scope.tournamentInfo.locked = previousLockedStatus;
-                    $scope.errorMessage = error.message;
+                    $scope.errorMessage = 'admin.actions.run.'+error.message;
                     $('#tourneyRunKo').fadeIn();
                 });
         };
@@ -175,7 +175,7 @@ angular.module('toodleApp')
                 })
                 .error(function (data) {
                     $scope.tournamentInfo.running = originalValue;
-                    $scope.errorMessage = data.message;
+                    $scope.errorMessage = 'admin.actions.run.'+data.message;
                     $('#tourneyRunKo').fadeIn();
                 });
         };

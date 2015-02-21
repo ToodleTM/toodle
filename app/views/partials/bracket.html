@@ -99,7 +99,7 @@
     <h1> <span translate="bracket.header"></span> <a
             href="/play/{{tournamentInfo.signupID}}">{{tournamentInfo.tournamentName}}</a></h1>
 
-    <div style="height:1em"><span id="highlightedPlayerText" ng-show="playerToHighlight" translate="bracket.playerToHighlight"></span> : <span>{{playerToHighlight.name}}</span>
+    <div style="height:1em"><span id="highlightedPlayerText" ng-show="playerToHighlight">  <span translate="bracket.playerToHighlight"></span> : {{playerToHighlight.name}}</span>
     </div>
     <div ng-show="tournamentInfo.engine !== 'simpleGSLGroups'" id="bracket">
 
