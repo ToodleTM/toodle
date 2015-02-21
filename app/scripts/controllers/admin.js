@@ -19,9 +19,9 @@ angular.module('toodleApp')
 
         var multipleRegistrationFailed = function (err, status) {
             if (status === 404) {
-                $scope.errorMessage = 'noSuchTournament';
+                $scope.errorMessage = 'admin.error.noSuchTournament';
             } else {
-                $scope.errorMessage = err.message;
+                $scope.errorMessage = 'admin.error.'+err.message;
             }
             $('#multiSeedInput').val('');
             $('#multipleRegistrationKo').fadeIn();
@@ -66,7 +66,7 @@ angular.module('toodleApp')
                         })
                         .success(function () {})
                         .error(function (message) {
-                            $scope.errorMessage = message.message;
+                            $scope.errorMessage = 'admin.actions.'+message.message;
                             $('#notes-' + $scope.stripped(movedPlayer)).show();
                         });
                     }
@@ -104,7 +104,7 @@ angular.module('toodleApp')
                     }
                 })
                 .error(function (err) {
-                    $scope.errorMessage = err.message;
+                    $scope.errorMessage = 'admin.form.'+err.message;
                     $('#tourneyUpdateKo').fadeIn();
                 });
         };
@@ -117,7 +117,7 @@ angular.module('toodleApp')
                 .success(function (code) {
                     if (code === 404) {
                         $scope.tournamentInfo.locked = previousLockedStatus;
-                        $scope.errorMessage = 'notFound';
+                        $scope.errorMessage = 'admin.actions.run.notFound';
                         $('#tourneyRunKo').fadeIn();
                     } else {
                         $('#tourneyRunOk').fadeIn();
@@ -195,9 +195,9 @@ angular.module('toodleApp')
                     })
                     .error(function (data, statusCode) {
                         if (statusCode === '404') {
-                            $scope.errorMessage = 'noSuchTournament';
+                            $scope.errorMessage = 'play.register.errors.noSuchTournament';
                         } else {
-                            $scope.errorMessage = data.message;
+                            $scope.errorMessage = 'play.register.errors.'+data.message;
                         }
                         $('#registrationKo').fadeIn();
                     });
@@ -217,7 +217,7 @@ angular.module('toodleApp')
                 updateMatchesToUnreport();
                 $scope.tournamentInfo = data;
             }).error(function (data) {
-                $scope.errorMessage = data;
+                $scope.errorMessage = 'admin.actions.reporting.errors.'+data.message;
                 $('#tourneyReportingKo').fadeIn();
             });
         };

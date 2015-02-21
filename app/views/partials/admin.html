@@ -170,8 +170,7 @@
                 <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                         aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
-                <span translate="admin.actions.reporting.reportingKo"></span> ({{
-                'admin.actions.reporting.errors.'+errorMessage.message | translate}})
+                <span translate="admin.actions.reporting.reportingKo"></span> (<span translate="{{errorMessage}}"></span>)
             </div>
         </div>
     </fieldset>
@@ -256,7 +255,7 @@
         <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
-        <span translate="admin.update.fail"></span> ({{ 'admin.form.'+errorMessage | translate}})
+        <span translate="admin.update.fail"></span> (<span translate="{{errorMessage}}"></span>)
     </div>
     <fieldset ng-show="!tournamentInfo.running">
         <div class="row">
@@ -290,7 +289,7 @@
                 <div id="registrationKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
                     <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                             aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <span translate="play.register.fail"></span> ({{ 'play.register.errors.'+errorMessage | translate }})
+                    <span translate="play.register.fail"></span> (<span translate="{{errorMessage}}"></span>)
                 </div>
             </div>
             <div class="form-group col-sm-6">
@@ -314,7 +313,7 @@
         <div id="multipleRegistrationKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
             <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                     aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <span translate="play.register.fail"></span> ({{ 'admin.error.'+errorMessage | translate }})
+            <span translate="play.register.fail"></span> (<span translate="{{errorMessage}}"></span>)
         </div>
     </fieldset>
     <fieldset id="playersList" ng-model="playerList">
@@ -323,7 +322,7 @@
             <li ng-repeat="player in playerList" class="playerInList">
                 <span style="float:left"><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png"
                                                                            height="20px"></span>{{player.name}} </span>
-                <span class="playerInListInfo" id="notes-{{stripped(player.name)}}">{{ 'admin.actions.'+errorMessage | translate }}</span><i
+                <span class="playerInListInfo" id="notes-{{stripped(player.name)}}" translate="{{errorMessage}}"></span><i
                     ng-hide="tournamentInfo.running" title="{{'admin.actions.removePlayer'|translate}}" class="glyphicon glyphicon-trash"
                     ng-click="removePlayer(player.name)"></i>
             </li>
