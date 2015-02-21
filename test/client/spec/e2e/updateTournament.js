@@ -26,7 +26,7 @@ describe('User having the admin link of a tournament', function () {
         expect(element(by.xpath('//div[@id="reportRights"]//input[@id="reportRights-0"]')).getAttribute('checked')).toEqual(null);
         expect(element(by.xpath('//div[@id="reportRights"]//input[@id="reportRights-1"]')).getAttribute('checked')).toEqual('true');
         expect(element(by.xpath('//div[@id="reportRights"]//input[@id="reportRights-2"]')).getAttribute('checked')).toEqual(null);
-        expect(element(by.id('tourneyUpdateOk')).getText()).toMatch(/×\nClose\nTournament specs successfully updated/g);
+        expect(element(by.id('updateOk')).getText()).toMatch(/×\nClose\nTournament specs successfully updated/g);
 
     });
 
