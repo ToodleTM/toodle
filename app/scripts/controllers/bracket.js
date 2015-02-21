@@ -5,6 +5,8 @@ angular.module('toodleApp')
         var tournamentId = $location.$$path.split('/')[2];
         $scope.nick = '';
         $scope.playerList = null;
+        $scope.score1 = 0;
+        $scope.score2 = 0;
         _paq.push(['setDocumentTitle', 'Bracket page']);
         _paq.push(['trackPageView']);
         $('#tourneyReportingKo').hide();
@@ -84,6 +86,8 @@ angular.module('toodleApp')
             }).success(function (data) {
                 $scope.tournamentInfo = data;
                 $('#bracket').html('');
+                $scope.score1 = 0;
+                $scope.score2 = 0;
                 if ($scope.tournamentInfo.engine === 'singleElim') {
                     binaryBracketRenderer.drawBracket(data, d3, $scope, $scope.playerToHighlight);
                 } else if ($scope.tournamentInfo.engine === 'simpleGSLGroups'){
