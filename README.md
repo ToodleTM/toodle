@@ -10,10 +10,23 @@ Toodle aims to be a tournament management app that'll be able to get you started
 No login required, you just need to keep the admin URL close to you and send the participation url to the other participants.
 
 # Which games / tournaments will it be designed for ?
-At first, straight up single elimination tournament brackets, then we'll integrate other sets of rules such as the possibility of a 3rd place decider match, group stages ... and more (at least we hope ^^') !
+
+## Available engines at the moment
+Right now, 2 different engines are available :
+
+* **Simple elimination brackets**. Your standart binary brackets. When a player loses a match he gets eliminated, winner is the last man standing
+* **<a href="http://wiki.teamliquid.net/starcraft2/GOMTV_Global_StarCraft_II_League">GSL</a> Groups (as of early 2015)**. Groups w/ encounter rules like the ones we see for the GSL. Each group consists of 4 players.
+The 1st one fights 4th, 2nd fights the 3rd, both winners fight each other, losers do too, and then there's a tie-breaker match between the winner's match loser and the loser's match winner
+
+In order to, say, have a tournament w/ a 1st phase that consists of groups (for a round of 32 for example) and then it's a straight up bracket w/ the group winners, there's a link that pops up when the tournament seems to be over (no more matches to report) that exports the winners list to the format toodle uses to insert multiple players at a time.
 
 # My tournament format isn't in there! How could you forget it !?
-Chances are, we'll only implement tournament formats we're familiar with. This means we'll focus on various formats that can be seen in Starcraft 2 competitions. To fix this, you can let us know about what you need, or better, write your own tournament management module (using the ones available as a reference) and submit us a pull request, we'll be happy to integrate it.
+Chances are, we'll only implement tournament formats we're familiar with. This means we'll focus on various formats that can be seen in Starcraft 2 competitions (or general purpose ones). To fix this, you can let us know about what you need, or better, write your own tournament management module (using the ones available as a reference) and submit us a pull request, we'll be happy to integrate it.
+
+## What if I do want to write my own engine then ?
+We'd be more than happy to include new engines. What we advise right now is to follow the template engine that can be found in _/lib/gameRules/engineTemplate/engineInterfaceTemplate_. This file acts as an interface that, should your engine comply with it, should render it pretty much "plug and play" in Toodle (at least server-side wise, there's still a bit of work to be done on the app part of things).
+
+The second requirement we ask is that the engine should be unit tested. We won't ask for 100% coverage because that makes no sense but to be added to the Toodle library you'll have to put some effort in testing the engine. We can help a bit if you think we can be of assistance, and there's already plenty of engine testing in the project's tests =).
 
 # What do I need to run this ?
 This is an app based on a MEAN stack, so you'll need a machine with: NodeJS, bower and MongoDB installed globally. If you mean to run the app in "development" mode, I suggest you use grunt (and grunt-cli !) to easily have an up and running server.
