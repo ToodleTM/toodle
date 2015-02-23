@@ -10,7 +10,6 @@ angular.module('toodleApp')
         _paq.push(['setDocumentTitle', 'Bracket page']);
         _paq.push(['trackPageView']);
         $('#tourneyReportingKo').hide();
-
         $scope.getPlayersOrderedByScore = function(group){
             if(group.players && lodashForApp.find(group.matches, function(match){return match.complete;})){
                 if(group.players.length === 4){
@@ -49,6 +48,8 @@ angular.module('toodleApp')
         $http.get('api/play/' + tournamentId).success(function (data) {
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;
+            $scope.engineTemplate = '/partials/engineTemplates/'+data.engine;
+            console.log($scope.engineTemplate);
             if ($scope.tournamentInfo.running && $scope.tournamentInfo.engine === 'singleElim') {
                 binaryBracketRenderer.drawBracket(data, d3, $scope);
             } else if ($scope.tournamentInfo.running && $scope.tournamentInfo.engine === 'simpleGSLGroups') {
