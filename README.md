@@ -93,3 +93,9 @@ Each Angular controller (besides of the navbar as it doesn't really make sense) 
 
 Then open the app/views/index.html file and remove the code between the "piwik" tags ;) To avoid JS errors you might want to remove the _paq calls you'll find in the angular controllers.
     
+##Some of the things to come :
+
+* Ability to rearrange players in a started tournament
+* Player seeding in a started tournament
+* Tournament export / restore
+* "How-to" quickly deploy a standalone server / use toodle as a regular desktop app
