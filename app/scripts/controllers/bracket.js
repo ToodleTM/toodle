@@ -49,7 +49,6 @@ angular.module('toodleApp')
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;
             $scope.engineTemplate = '/partials/engineTemplates/'+data.engine;
-            console.log($scope.engineTemplate);
             if ($scope.tournamentInfo.running && $scope.tournamentInfo.engine === 'singleElim') {
                 binaryBracketRenderer.drawBracket(data, d3, $scope);
             } else if ($scope.tournamentInfo.running && $scope.tournamentInfo.engine === 'simpleGSLGroups') {
@@ -99,6 +98,14 @@ angular.module('toodleApp')
                 $scope.errorMessage = 'admin.actions.reporting.errors.'+data.message;
                 $('#tourneyReportingKo').fadeIn();
             });
+        };
+
+        $scope.renderBracket = function(){
+            binaryBracketRenderer.drawBracket($scope.tournamentInfo, d3, $scope, $scope.playerToHighlight);
+        };
+
+        $scope.checkIfReady = function(){
+            return true; // we basically just want to ensure the correct DOM element is loaded, once it has been dynamically included, we're basically good ...
         };
 
         $scope.unreportMatch = function () {
