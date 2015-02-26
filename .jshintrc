@@ -22,5 +22,5 @@
   "globals": {
     "angular": false
   },
-  "predef":["lodashForApp", "$", "_paq", "genericUtils", "binaryBracketRenderer", "d3", "it", "describe", "beforeEach", "afterEach", "element", "by", "browser", "expect", "protractor", "angular"]
+  "predef":["availableRenderers", "lodashForApp", "$", "_paq", "genericUtils", "binaryBracketRenderer", "d3", "it", "describe", "beforeEach", "afterEach", "element", "by", "browser", "expect", "protractor", "angular"]
 }

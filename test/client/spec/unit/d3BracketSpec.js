@@ -1,9 +1,9 @@
 'use strict';
-var D3Bracket = require('../../../../app/scripts/utils/d3Bracket.js').D3Bracket;
+var D3Bracket = require('../../../../app/scripts/utils/d3Bracket.js').Renderer;
 var assert = require('chai').assert;
 var sinon = require('sinon');
 
-describe('D3ToBracket', function () {
+describe('D3ToBracket renderer', function () {
     var d3Bracket = null;
     beforeEach(function () {
         d3Bracket = new D3Bracket();

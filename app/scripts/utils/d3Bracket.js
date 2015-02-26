@@ -397,4 +397,8 @@ D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playe
     this.drawLinesBetweenNodes(svg, links, playerToHighlight);
 };
 
-module.exports.D3Bracket = D3Bracket;
+D3Bracket.prototype.render = function(tournamentData, customRenderer, controllerCallbacks, playerToHighlight){
+    this.drawBracket(tournamentData, customRenderer, controllerCallbacks, playerToHighlight);
+};
+
+module.exports.Renderer = D3Bracket;
