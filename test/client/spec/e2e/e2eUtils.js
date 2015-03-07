@@ -24,10 +24,7 @@ function checkBaseFormElementState(element, by, pageLinkId){
     expect(engine.isEnabled()).toBe(shouldBeEnabled);
 }
 
-E2eUtils.prototype.waitForElementToBeVisible = function(browser, element, by, elementId){
-    browser.wait(function(){
-        return element(by.id(elementId)).isDisplayed();
-    });
+E2eUtils.prototype.waitForElementToBeVisible = function(){
 };
 
 E2eUtils.prototype.createTournamentAndGoToPage = function(browser, element, by, pageLinkId){
@@ -78,7 +75,7 @@ E2eUtils.prototype.configureTheTournamentAndStartIt = function(browser, element,
     element(by.id('runTournament')).click();
     this.waitForElementToBeVisible(browser, element, by, 'doStart');
     element(by.id('doStart')).click();
-    expect(element(by.id('lockTournament')).isDisplayed()).toBe(false);
+    expect(element(by.id('lockTournament')).isPresent()).toBe(false);
     expect(element.all(by.css('.glyphicon-trash')).first().isDisplayed()).toBe(false);
 
 };

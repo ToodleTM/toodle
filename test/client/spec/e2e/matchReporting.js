@@ -23,6 +23,7 @@ function player1Wins2Nil(element, by) {
 }
 beforeEach(function(){
     browser.get(homeAddress);
+    browser.get(homeAddress);
 });
 describe('Admin', function () {
     it('should not be able to unreport or unreport if tournament has not started', function(){
@@ -41,7 +42,6 @@ describe('Admin', function () {
 
             checkTournamentState(element, by, '', 'test1 VS test2', false, true);
         });
-
         it('should not touch anything if the user hits the cancel button while reporting', function(){
             createAndStartATournament();
 
@@ -57,6 +57,7 @@ describe('Admin', function () {
         });
 
     });
+
     describe('match unreporting', function(){
         it('should be able to unreport a game', function(){
             createAndStartATournament();

@@ -8,18 +8,27 @@
         {{ 'admin.error.'+error | translate}}
     </div>
     <h1><span translate="admin.header.tournament"></span> {{tournamentInfo.tournamentName}} <span translate="admin.header.adminPage"></span></h1>
-    <button ng-hide="tournamentInfo.running" class="btn {{ tournamentInfo.locked ? 'btn-success' : 'btn-danger'}}"
-            title="{{ tournamentInfo.locked ? 'admin.actions.openTooltip' : 'admin.actions.lockTooltip' | translate }}"
-            ng-click="toggleRegistrationLock()" id="lockTournament" translate="{{ tournamentInfo.locked ? 'admin.actions.open' : 'admin.actions.lock'}}">{{ tournamentInfo.locked ? 'admin.actions.open' : 'admin.actions.lock' | translate}}
+    <button ng-if="!tournamentInfo.running && tournamentInfo.locked" class="btn btn-success"
+            title="{{ 'admin.actions.openTooltip' | translate }}"
+            ng-click="toggleRegistrationLock()" id="lockTournament" translate="admin.actions.open">
+    </button>
+    <button ng-if="!tournamentInfo.running && !tournamentInfo.locked" class="btn btn-danger"
+            title="{{'admin.actions.lockTooltip' | translate }}"
+            ng-click="toggleRegistrationLock()" id="lockTournament" translate="admin.actions.lock">
     </button>
 
-    <button id="runTournament" data-toggle="modal" data-target="#runModal"
-            class="btn {{ tournamentInfo.running ? 'btn-success' : 'btn-danger'}}"
-            title="{{ !tournamentInfo.running ? 'admin.actions.run.runningTooltip' : 'admin.actions.run.notRunningTooltip' | translate }}" translate="{{tournamentInfo.running ? 'admin.actions.run.running' : 'admin.actions.run.notRunning'}}">{{tournamentInfo.running ? 'admin.actions.run.running' : 'admin.actions.run.notRunning' | translate}}
+    <button ng-if="tournamentInfo.running" id="runTournament" data-toggle="modal" data-target="#runModal"
+            class="btn btn-success"
+            title="{{ 'admin.actions.run.runningTooltip' | translate }}" translate="admin.actions.run.running">{{'admin.actions.run.running' | translate}}
+    </button>
+
+    <button ng-if="!tournamentInfo.running" id="runTournament" data-toggle="modal" data-target="#runModal"
+            class="btn btn-danger"
+            title="{{'admin.actions.run.notRunningTooltip' | translate }}" translate="admin.actions.run.notRunning">{{'admin.actions.run.notRunning' | translate}}
     </button>
 
     <!-- Start / Stop Modal -->
-    <div class="modal fade" id="runModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal" id="runModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -41,7 +50,7 @@
     </div>
 
     <!-- Reporting Modal -->
-    <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel"
+    <div class="modal" id="reportModal" role="dialog" aria-labelledby="reportModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -81,7 +90,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="unreportModal" tabindex="-1" role="dialog" aria-labelledby="unreportModalLabel"
+    <div class="modal" id="unreportModal" role="dialog" aria-labelledby="unreportModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -273,13 +282,13 @@
     </fieldset>
 
     <div id="updateOk" class="alert alert-success alert-dismissible app-alert" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
+        <button type="button" class="close alert-fix-close" id="dismissAlertOk" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
         <p translate="{{alertMessage}}">{{alertMessage |translate}}</p>
     </div>
     <div id="updateKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
+        <button type="button" class="close alert-fix-close" id="dismissAlertKo" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
         <span translate="{{alertMessage}}">{{alertMessage |translate}}</span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)

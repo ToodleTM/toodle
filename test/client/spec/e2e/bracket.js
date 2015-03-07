@@ -33,17 +33,6 @@ function assertFinalStateOfBracket(match1Icon, match2Icon, match3Icon, match4Ico
 }
 
 describe('Match reporting through the interactive bracket', function () {
-    it('sould be able to report a match using the interactive bracket', function(){
-        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
-        e2eUtils.configureTheTournamentAndStartIt(browser, element, by, ['player3', 'player4', 'player5', 'player6', 'player7', 'player8']);
-
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'tournamentBracketLink');
-        element(by.id('tournamentBracketLink')).click();
-
-        reportAMatchAndAssertBracketStatus('matchNumber-1', '/images/circle-red.png', '/images/circle-green.png', '', '');
-        assertFinalStateOfBracket('/images/circle-red.png', '/images/circle-green.png', '/images/circle-green.png', '/images/circle-green.png', '', '', '');
-    });
-
     it('should be able to unreport a reported match', function(){
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
         e2eUtils.configureTheTournamentAndStartIt(browser, element, by, ['player3', 'player4', 'player5', 'player6', 'player7', 'player8']);
@@ -62,6 +51,17 @@ describe('Match reporting through the interactive bracket', function () {
 
         assertFinalStateOfBracket('/images/circle-green.png', '/images/circle-green.png', '/images/circle-green.png', '/images/circle-green.png', '', '', '');
         expect(element(by.id('highlightedPlayerText')).getText()).toBe('');
+    });
+
+    it('sould be able to report a match using the interactive bracket', function(){
+        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
+        e2eUtils.configureTheTournamentAndStartIt(browser, element, by, ['player3', 'player4', 'player5', 'player6', 'player7', 'player8']);
+
+        e2eUtils.waitForElementToBeVisible(browser, element, by, 'tournamentBracketLink');
+        element(by.id('tournamentBracketLink')).click();
+
+        reportAMatchAndAssertBracketStatus('matchNumber-1', '/images/circle-red.png', '/images/circle-green.png', '', '');
+        assertFinalStateOfBracket('/images/circle-red.png', '/images/circle-green.png', '/images/circle-green.png', '/images/circle-green.png', '', '', '');
     });
 
     it('should not display the unreport button if the next match has already been reported', function(){
@@ -92,8 +92,8 @@ describe('Match reporting through the interactive bracket', function () {
 
         expect(element(by.id('matchNumber-1')).getAttribute('href')).toBe('');
         element(by.id('matchNumber-1')).click();
-        expect(element(by.id('reportModal')).isDisplayed()).toBe(false);        expect(element(by.id('highlightedPlayerText')).getText()).toBe('');
-
+        expect(element(by.id('reportModal')).isDisplayed()).toBe(false);
+        expect(element(by.id('highlightedPlayerText')).getText()).toBe('');
     });
 
     it('should not display the unreporting dialog if user has report-only rights and tries to click on an unreport button (which should not be visible)', function(){

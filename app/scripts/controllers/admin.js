@@ -124,6 +124,7 @@ angular.module('toodleApp')
                         $scope.errorMessage = 'admin.actions.run.notFound';
                         $('#updateKo').fadeIn();
                     } else {
+                        $scope.alertMessage = 'admin.update.success';
                         $('#updateOk').fadeIn();
                     }
                 })

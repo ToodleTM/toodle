@@ -44,6 +44,6 @@ describe('User having the admin link of a tournament', function () {
 
         e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
 
-        expect(element(by.id('lockTournament')).isDisplayed()).toBe(false);
+        expect(element(by.id('lockTournament')).isPresent()).toBe(false);
     });
 });

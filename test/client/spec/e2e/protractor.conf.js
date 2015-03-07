@@ -1,6 +1,6 @@
 exports.config = {
-    seleniumAddress: 'http://127.0.0.1:4200',
-    specs: ['bracket.js', 'matchReporting.js', 'accessTournament.js', 'createTournament.js', 'playerRegistration.js', 'updateTournament.js', 'startAndStopTournament.js'],
+    seleniumAddress: 'http://127.0.0.1:4200/wd/hub',
+    specs: ['bracket.js'],
     capabilities:{
         'browserName':'phantomjs'
     }

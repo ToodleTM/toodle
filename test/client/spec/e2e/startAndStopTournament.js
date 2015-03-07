@@ -11,7 +11,6 @@ describe('Start tournament', function () {
         element(by.id('inputNick')).sendKeys('test1');
         element(by.id('registerPlayerGo')).click();
 
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'modifyTournament');
         var engine = element(by.id('engine'));
         engine.sendKeys('---');
         element(by.id('modifyTournament')).click();
@@ -44,7 +43,7 @@ describe('Start tournament', function () {
         e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
 
         var tourneyRunBox = element(by.id('updateOk'));
-        expect(tourneyRunBox.getText()).toMatch(/×\nClose\nTournament specs successfully updated/g);
+        expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSuccessfully registered/g);
         expect(element(by.id('runTournament')).getText()).toBe('Stop brackets');
         expect(element(by.id('runTournament')).getAttribute('class')).toMatch('btn btn-success');
     });
