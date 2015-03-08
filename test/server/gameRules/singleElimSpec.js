@@ -152,7 +152,7 @@ describe('SingleElim engine', function () {
             });
         });
         describe('Additonal operations on init', function () {
-            it('should update upcoming matches upon initialization if there are empty slots', function(){
+            it('should update upcoming matches upon initialization if there are empty slots', function () {
                 //setup / action
                 engine.initBracket([john, jane, bob, alice, franz], callbackSpy);
                 //assert
@@ -165,7 +165,7 @@ describe('SingleElim engine', function () {
                 assert.equal(actualBracket[4].complete, true);
             });
 
-            it('should register the round number of a match upon initialization', function(){
+            it('should register the round number of a match upon initialization', function () {
                 //setup / action
                 engine.initBracket([john, jane, bob, alice, franz], callbackSpy);
                 //assert
@@ -224,9 +224,10 @@ describe('SingleElim engine', function () {
                 assert.equal(callbackSpy.getCall(1).args[0].message, 'cantUnreportIncompleteMatch');
             });
 
-            it('should allow to unreport the completed finals of a bracket', function(){
+            it('should allow to unreport the completed finals of a bracket', function () {
                 //seiup
-                var reportWinCallback = function(){};
+                var reportWinCallback = function () {
+                };
                 var reportWinCallbackSpy = sinon.spy(reportWinCallback);
                 engine.initBracket([john, jane], callbackSpy);
                 engine.reportWin(1, 2, 0, actualBracket, reportWinCallbackSpy);
@@ -239,23 +240,23 @@ describe('SingleElim engine', function () {
                 assert.equal(reportWinCallbackSpy.getCall(0).args[1][1].score2, 0);
             });
 
-            it('should not rely on player names for the next match in order to update it', function(){
+            it('should not rely on player names for the next match in order to update it', function () {
                 //setup
                 var bracket = {
-                    '1':{},
-                    '2':{player1:bob, player2:alice, score1:0, score2:2, complete:true, next:3},
-                    '3':{complete:false,player1:null, player2:alice}
+                    '1': {},
+                    '2': {player1: bob, player2: alice, score1: 0, score2: 2, complete: true, next: 3},
+                    '3': {complete: false, player1: null, player2: alice}
                 };
                 try {
                     //action
                     engine.unreport(2, bracket, callbackSpy);
-                } catch(exception){
+                } catch (exception) {
                     //assert
                     assert.ok(false);
                 }
             });
 
-            it('should return an error if we try to report a match without number', function(){
+            it('should return an error if we try to report a match without number', function () {
                 //setup
                 engine.initBracket([john, jane], callbackSpy);
                 //action
@@ -264,19 +265,19 @@ describe('SingleElim engine', function () {
                 assert.equal(callbackSpy.getCall(1).args[0].message, 'numberlessMatchNotAllowed');
             });
 
-            describe('defwin situation', function(){
-                it('should not allow unreporting if match is complete but 2nd player has no opponent', function(){
+            describe('defwin situation', function () {
+                it('should not allow unreporting if match is complete but 2nd player has no opponent', function () {
                     //setup
                     //action
-                    engine.unreport(1, {'1':{number:1, complete:true}}, callbackSpy);
+                    engine.unreport(1, {'1': {number: 1, complete: true}}, callbackSpy);
                     //assert
                     assert.equal(callbackSpy.getCall(0).args[0].message, 'defWinCantBeUnreported');
                 });
 
-                it('should not allow unreporting if match is complete but 1st player has no opponent', function(){
+                it('should not allow unreporting if match is complete but 1st player has no opponent', function () {
                     //setup
                     //action
-                    engine.unreport(1, {'1':{number:1, complete:true, player1:{}}}, callbackSpy);
+                    engine.unreport(1, {'1': {number: 1, complete: true, player1: {}}}, callbackSpy);
                     //assert
                     assert.equal(callbackSpy.getCall(0).args[0].message, 'defWinCantBeUnreported');
                 });
@@ -358,7 +359,7 @@ describe('SingleElim engine', function () {
                 assert.equal(callbackSpy.getCall(1).args[2], false);
             });
 
-            it('should not be able to update a match with uncomplete previous matches', function(){
+            it('should not be able to update a match with uncomplete previous matches', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 //action
@@ -367,7 +368,7 @@ describe('SingleElim engine', function () {
                 assert.equal(callbackSpy.getCall(1).args[0].message, 'notAllPreviousMatchesAreComplete');
             });
 
-            it('should return an error if we try to report a match without number', function(){
+            it('should return an error if we try to report a match without number', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 //action
@@ -376,7 +377,7 @@ describe('SingleElim engine', function () {
                 assert.equal(callbackSpy.getCall(1).args[0].message, 'numberlessMatchNotAllowed');
             });
 
-            function testInvalidScoresWhenReporting(score1, score2){
+            function testInvalidScoresWhenReporting(score1, score2) {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 //action
@@ -386,31 +387,31 @@ describe('SingleElim engine', function () {
             }
 
 
-            it('should only allow integers for score inputs', function(){
+            it('should only allow integers for score inputs', function () {
                 testInvalidScoresWhenReporting('hello', 0);
             });
 
-            it('should only allow integers for score inputs', function(){
+            it('should only allow integers for score inputs', function () {
                 testInvalidScoresWhenReporting(null, 1);
             });
 
-            it('should only allow integers for score inputs', function(){
+            it('should only allow integers for score inputs', function () {
                 testInvalidScoresWhenReporting(undefined, 1);
             });
 
-            it('should only allow integers for score inputs', function(){
+            it('should only allow integers for score inputs', function () {
                 testInvalidScoresWhenReporting(0, 'hello');
             });
 
-            it('should only allow integers for score inputs', function(){
+            it('should only allow integers for score inputs', function () {
                 testInvalidScoresWhenReporting(1, null);
             });
 
-            it('should only allow integers for score inputs', function(){
+            it('should only allow integers for score inputs', function () {
                 testInvalidScoresWhenReporting(1, undefined);
             });
 
-            it('should handle not being able to lookup next match (match has a "next" property but no such match exists in the bracket)', function (){
+            it('should handle not being able to lookup next match (match has a "next" property but no such match exists in the bracket)', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 delete actualBracket[3];
@@ -420,7 +421,7 @@ describe('SingleElim engine', function () {
                 assert.equal(callbackSpy.getCall(1).args[0].message, 'nextMatchDoesNotExist');
             });
 
-            it('should return an error if we report a match of players w/ the same score', function(){
+            it('should return an error if we report a match of players w/ the same score', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 //action
@@ -430,7 +431,7 @@ describe('SingleElim engine', function () {
             });
         });
     });
-    describe('Bracket infos', function(){
+    describe('Bracket infos', function () {
 
         describe('Get winner', function () {
             it('should return an error if match has not started yet', function () {
@@ -442,20 +443,20 @@ describe('SingleElim engine', function () {
                 assert.equal(callbackSpy.getCall(0).args[0].message, 'noWinnerTournamentNotStarted');
             });
 
-            it('should return an error if tournament has started but is not yet finished', function(){
+            it('should return an error if tournament has started but is not yet finished', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
-                var tournament = {running:true, bracket:actualBracket};
+                var tournament = {running: true, bracket: actualBracket};
                 //action
                 engine.winners(tournament, callbackSpy);
                 //assert
                 assert.equal(callbackSpy.getCall(1).args[0].message, 'noWinnerTournamentNotFinished');
             });
 
-            it('should return an error if bracket is in an intermediate state', function(){
+            it('should return an error if bracket is in an intermediate state', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
-                var tournament = {running:true, bracket:actualBracket};
+                var tournament = {running: true, bracket: actualBracket};
                 engine.reportWin(1, 2, 0, tournament.bracket, callbackSpy);
                 engine.reportWin(2, 2, 0, tournament.bracket, callbackSpy);
                 //action
@@ -464,10 +465,10 @@ describe('SingleElim engine', function () {
                 assert.equal(callbackSpy.getCall(3).args[0].message, 'noWinnerTournamentNotFinished');
             });
 
-            it('should return the player1 of the last match in the bracket if player1 wins', function(){
+            it('should return the player1 of the last match in the bracket if player1 wins', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
-                var tournament = {running:true, bracket:actualBracket};
+                var tournament = {running: true, bracket: actualBracket};
                 engine.reportWin(1, 2, 0, tournament.bracket, callbackSpy);
                 engine.reportWin(2, 2, 0, tournament.bracket, callbackSpy);
                 engine.reportWin(3, 2, 0, tournament.bracket, callbackSpy);
@@ -475,13 +476,13 @@ describe('SingleElim engine', function () {
                 engine.winners(tournament, callbackSpy);
                 //assert
                 assert.equal(callbackSpy.getCall(4).args[0], null);
-                assert.deepEqual(callbackSpy.getCall(4).args[1], [{name:'john'}]);
+                assert.deepEqual(callbackSpy.getCall(4).args[1], [{name: 'john'}]);
             });
 
-            it('should return the player2 of the last match in the bracket if player2 wins', function(){
+            it('should return the player2 of the last match in the bracket if player2 wins', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
-                var tournament = {running:true, bracket:actualBracket};
+                var tournament = {running: true, bracket: actualBracket};
                 engine.reportWin(1, 2, 0, tournament.bracket, callbackSpy);
                 engine.reportWin(2, 2, 0, tournament.bracket, callbackSpy);
                 engine.reportWin(3, 2, 4, tournament.bracket, callbackSpy);
@@ -489,38 +490,38 @@ describe('SingleElim engine', function () {
                 engine.winners(tournament, callbackSpy);
                 //assert
                 assert.equal(callbackSpy.getCall(4).args[0], null);
-                assert.deepEqual(callbackSpy.getCall(4).args[1], [{name:'bob'}]);
+                assert.deepEqual(callbackSpy.getCall(4).args[1], [{name: 'bob'}]);
             });
         });
 
-        describe('Matches to report', function(){
-            it('should be an empty list if bracket is empty', function(){
+        describe('Matches to report', function () {
+            it('should be an empty list if bracket is empty', function () {
                 //setup
                 engine.initBracket([], callbackSpy);
                 var remainingCallbackSpy = sinon.spy();
                 //action
                 engine.getMatchesToReport(actualBracket, remainingCallbackSpy);
                 //assert
-                assert.equal( remainingCallbackSpy.getCall(0).args[0], null);
-                assert.equal( remainingCallbackSpy.getCall(0).args[1].length, 0);
+                assert.equal(remainingCallbackSpy.getCall(0).args[0], null);
+                assert.equal(remainingCallbackSpy.getCall(0).args[1].length, 0);
             });
 
-            it('should return the 2 matches to report in a 2 match bracket w/ no previous reports', function(){
+            it('should return the 2 matches to report in a 2 match bracket w/ no previous reports', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 var remainingCallbackSpy = sinon.spy();
                 //action
                 engine.getMatchesToReport(actualBracket, remainingCallbackSpy);
                 //assert
-                assert.equal( remainingCallbackSpy.getCall(0).args[0], null);
-                assert.equal( remainingCallbackSpy.getCall(0).args[1].length, 2);
-                assert.equal( remainingCallbackSpy.getCall(0).args[1][0].player1.name, 'john');
-                assert.equal( remainingCallbackSpy.getCall(0).args[1][0].player2.name, 'jane');
-                assert.equal( remainingCallbackSpy.getCall(0).args[1][1].player1.name, 'bob');
-                assert.equal( remainingCallbackSpy.getCall(0).args[1][1].player2.name, 'alice');
+                assert.equal(remainingCallbackSpy.getCall(0).args[0], null);
+                assert.equal(remainingCallbackSpy.getCall(0).args[1].length, 2);
+                assert.equal(remainingCallbackSpy.getCall(0).args[1][0].player1.name, 'john');
+                assert.equal(remainingCallbackSpy.getCall(0).args[1][0].player2.name, 'jane');
+                assert.equal(remainingCallbackSpy.getCall(0).args[1][1].player1.name, 'bob');
+                assert.equal(remainingCallbackSpy.getCall(0).args[1][1].player2.name, 'alice');
             });
 
-            it('should return a single match to report in a 2 match bracket if one match has already been reported', function(){
+            it('should return a single match to report in a 2 match bracket if one match has already been reported', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 var remainingCallbackSpy = sinon.spy();
@@ -528,13 +529,13 @@ describe('SingleElim engine', function () {
                 //action
                 engine.getMatchesToReport(actualBracket, remainingCallbackSpy);
                 //assert
-                assert.equal( remainingCallbackSpy.getCall(0).args[0], null);
-                assert.equal( remainingCallbackSpy.getCall(0).args[1].length, 1);
-                assert.equal( remainingCallbackSpy.getCall(0).args[1][0].player1.name, 'john');
-                assert.equal( remainingCallbackSpy.getCall(0).args[1][0].player2.name, 'jane');
+                assert.equal(remainingCallbackSpy.getCall(0).args[0], null);
+                assert.equal(remainingCallbackSpy.getCall(0).args[1].length, 1);
+                assert.equal(remainingCallbackSpy.getCall(0).args[1][0].player1.name, 'john');
+                assert.equal(remainingCallbackSpy.getCall(0).args[1][0].player2.name, 'jane');
             });
 
-            it('should return the last match to report in a 2 match bracket if both initial matches have been reported', function(){
+            it('should return the last match to report in a 2 match bracket if both initial matches have been reported', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 var remainingCallbackSpy = sinon.spy();
@@ -543,14 +544,14 @@ describe('SingleElim engine', function () {
                 //action
                 engine.getMatchesToReport(actualBracket, remainingCallbackSpy);
                 //assert
-                assert.equal( remainingCallbackSpy.getCall(0).args[0], null);
-                assert.equal( remainingCallbackSpy.getCall(0).args[1].length, 1);
-                assert.equal( remainingCallbackSpy.getCall(0).args[1][0].player1.name, 'john');
-                assert.equal( remainingCallbackSpy.getCall(0).args[1][0].player2.name, 'bob');
+                assert.equal(remainingCallbackSpy.getCall(0).args[0], null);
+                assert.equal(remainingCallbackSpy.getCall(0).args[1].length, 1);
+                assert.equal(remainingCallbackSpy.getCall(0).args[1][0].player1.name, 'john');
+                assert.equal(remainingCallbackSpy.getCall(0).args[1][0].player2.name, 'bob');
             });
         });
-        describe('Matches to unreport', function(){
-            it('should be an empty array if bracket is empty', function(){
+        describe('Matches to unreport', function () {
+            it('should be an empty array if bracket is empty', function () {
                 //setup
                 engine.initBracket([], callbackSpy);
                 var unreportableMatchesSpy = sinon.spy();
@@ -560,7 +561,7 @@ describe('SingleElim engine', function () {
                 assert.equal(unreportableMatchesSpy.getCall(0).args[0], null);
                 assert.equal(unreportableMatchesSpy.getCall(0).args[1].length, 0);
             });
-            it('should return the completed match in a 2 match bracket', function(){
+            it('should return the completed match in a 2 match bracket', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 var unreportableMatchesSpy = sinon.spy();
@@ -574,7 +575,7 @@ describe('SingleElim engine', function () {
                 assert.equal(unreportableMatchesSpy.getCall(0).args[1][0].player2.name, 'jane');
                 assert.equal(unreportableMatchesSpy.getCall(0).args[1][0].number, 1);
             });
-            it('should only allow to unreport the most recently completed matches', function(){
+            it('should only allow to unreport the most recently completed matches', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice, peter, franz, cole, patrick], callbackSpy);
                 var unreportableMatchesSpy = sinon.spy();
@@ -591,7 +592,7 @@ describe('SingleElim engine', function () {
                 assert.equal(unreportableMatchesSpy.getCall(0).args[1][0].number, 5);
             });
 
-            it('should allow to unreport the last match of a bracket without trying to check its impossible next match', function(){
+            it('should allow to unreport the last match of a bracket without trying to check its impossible next match', function () {
                 //setup
                 engine.initBracket([john, jane, bob, alice], callbackSpy);
                 var unreportableMatchesSpy = sinon.spy();
@@ -608,25 +609,160 @@ describe('SingleElim engine', function () {
                 assert.equal(unreportableMatchesSpy.getCall(0).args[1][0].number, 3);
             });
 
-            it('should not consider a defwin as an unreportable match (2nd player defwin)', function(){
+            it('should not consider a defwin as an unreportable match (2nd player defwin)', function () {
                 //setup
                 var unreportableMatchesSpy = sinon.spy();
                 //action
-                engine.getUnreportableMatches({'1':{complete:true, player1:null, player2:{}}}, unreportableMatchesSpy);
+                engine.getUnreportableMatches({
+                    '1': {
+                        complete: true,
+                        player1: null,
+                        player2: {}
+                    }
+                }, unreportableMatchesSpy);
                 //assert
                 assert.equal(unreportableMatchesSpy.getCall(0).args[0], null);
                 assert.equal(unreportableMatchesSpy.getCall(0).args[1].length, 0);
             });
 
-            it('should not consider a defwin as an unreportable match (1st player defwin)', function(){
+            it('should not consider a defwin as an unreportable match (1st player defwin)', function () {
                 //setup
                 var unreportableMatchesSpy = sinon.spy();
                 //action
-                engine.getUnreportableMatches({'1':{complete:true, player1:{}, player2:null}}, unreportableMatchesSpy);
+                engine.getUnreportableMatches({
+                    '1': {
+                        complete: true,
+                        player1: {},
+                        player2: null
+                    }
+                }, unreportableMatchesSpy);
                 //assert
                 assert.equal(unreportableMatchesSpy.getCall(0).args[0], null);
                 assert.equal(unreportableMatchesSpy.getCall(0).args[1].length, 0);
             });
+        });
+    });
+
+    describe('SwapPlayers', function () {
+        it('should return an error if the first match we want to switch a player from is already over', function () {
+            //setup
+            var callbackSpy = sinon.spy();
+            //action
+            engine.swapPlayers({complete: true}, null, {}, null, null, callbackSpy);
+            //assert
+            assert.equal(callbackSpy.calledOnce, true);
+            assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerInMatchThatIsOver'});
+        });
+
+        it('should return an error if the first match we want to switch a player from does not have players in it', function () {
+            //setup
+            var callbackSpy = sinon.spy();
+            //action
+            engine.swapPlayers({}, null, {}, null, null, callbackSpy);
+            //assert
+            assert.equal(callbackSpy.calledOnce, true);
+            assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerInMatchThatDoesNotHaveBothPlayers'});
+        });
+
+        it('should return an error if the second match is complete and the 1st is not', function () {
+            //setup
+            var callbackSpy = sinon.spy();
+            //action
+            engine.swapPlayers({}, null, {complete: true}, null, null, callbackSpy);
+            //assert
+            assert.equal(callbackSpy.calledOnce, true);
+            assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerInMatchThatIsOver'});
+        });
+
+        it('should return an error if match1 has not been found', function () {
+            //setup
+            var callbackSpy = sinon.spy();
+            //action
+            engine.swapPlayers(null, null, null, null, null, callbackSpy);
+            //assert
+            assert.equal(callbackSpy.calledOnce, true);
+            assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerMatchNotFound'});
+        });
+
+        it('should return an error if match2 has not been found', function () {
+            //setup
+            var callbackSpy = sinon.spy();
+            //action
+            engine.swapPlayers({}, null, null, null, null, callbackSpy);
+            //assert
+            assert.equal(callbackSpy.calledOnce, true);
+            assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerMatchNotFound'});
+        });
+
+        it('should return an error if player to swap cannot be found in match1', function () {
+            //setup
+            var callbackSpy = sinon.spy();
+            //action
+            engine.swapPlayers({}, null, {}, null, null, callbackSpy);
+            //assert
+            assert.equal(callbackSpy.calledOnce, true);
+            assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerInMatchThatDoesNotHaveBothPlayers'});
+        });
+
+        it('should return an error if player to swap cannot be found in match2', function () {
+            //setup
+            var callbackSpy = sinon.spy();
+            //action
+            engine.swapPlayers({player: {}}, 'player', {}, null, null, callbackSpy);
+            //assert
+            assert.equal(callbackSpy.calledOnce, true);
+            assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerInMatchThatDoesNotHaveBothPlayers'});
+        });
+
+        it('should swap two players between matches if both matches are valid and players can be found', function () {
+            //setup
+            var callbackSpy = sinon.spy();
+            var bracket = {};
+            engine.initBracket([john, jane, bob, alice], function(error, data){
+                bracket = data;
+            });
+            //action
+            engine.swapPlayers({number: 1, player1: {name: 'john'}}, 'player1', {
+                number: 2,
+                player2: {name: 'alice'}
+            }, 'player2', bracket, callbackSpy);
+            //assert
+            assert.equal(callbackSpy.calledOnce, true);
+            assert.deepEqual(callbackSpy.getCall(0).args[0], null);
+            assert.deepEqual(callbackSpy.getCall(0).args[1],
+                {
+                    '1': {
+                        'next': 3,
+                        'nextFirst': true,
+                        'number': 1,
+                        'player1': {
+                            'name': 'alice'
+                        },
+                        'player2': {
+                            'name': 'jane'
+                        },
+                        'round': 2
+                    },
+                    '2': {
+                        'next': 3,
+                        'nextSecond': true,
+                        'number': 2,
+                        'player1': {
+                            'name': 'bob'
+                        },
+                        'player2': {
+                            'name': 'john'
+                        },
+                        'round': 2
+                    },
+                    '3': {
+                        'number': 3,
+                        'player1': null,
+                        'player2': null,
+                        'round': 1
+                    }
+                }
+            );
         });
     });
 });
