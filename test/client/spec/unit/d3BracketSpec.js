@@ -459,6 +459,10 @@ describe('D3ToBracket renderer', function () {
         it('should return a player name _and_ a score if both exist', function () {
             testTextToDraw({name: 'player name'}, 1, '1  player name');
         });
+
+        it('should display 0 if the score is actually 0', function (){
+            testTextToDraw({name: 'player name'}, 0, '0  player name');
+        });
     });
 
     describe('Faction icon display', function () {

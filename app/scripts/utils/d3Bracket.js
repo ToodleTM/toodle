@@ -149,7 +149,7 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction, reportin
 D3Bracket.prototype.getTextToDraw = function (playerData, playerScore) {
     if (!playerData) {
         return ' - ';
-    } else if (!playerScore) {
+    } else if (!playerScore && playerScore !== 0) {
         return ' -  ' + playerData.name;
     } else {
         return playerScore + '  ' + playerData.name;
