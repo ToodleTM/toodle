@@ -98,6 +98,39 @@
     <h1> <span translate="bracket.header"></span> <a
             href="/play/{{tournamentInfo.signupID}}">{{tournamentInfo.tournamentName}}</a></h1>
 
+    <div ng-show="tournamentId" style="position:relative;width:50%;left:25%">
+        <form class="form-horizontal ng-pristine ng-valid ng-valid-required" ng-submit="swapPlayers()">
+
+            <fieldset id="swapForm" style="font-size: 0.75em">
+                <legend translate="" class="ng-scope">Swap players</legend>
+                <div class="row">
+
+                    <div class="form-group col-sm-12">
+                        <label class="control-label ng-scope" for="game" translate="">1st player</label>
+
+                        <select id="game" name="game" class="form-control ng-pristine ng-untouched ng-valid" ng-model="player1ToSwap"
+                                ng-options="item as item.name for item in swappablePlayers track by item.name">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        <label class="control-label ng-scope" for="engine" translate="">2nd player</label>
+
+                        <select id="engine" name="engine" class="form-control ng-pristine ng-untouched ng-valid ng-valid-required" ng-model="player2ToSwap"
+                                ng-options="item as item.name for item in swappablePlayers track by item.name">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        <button id="swapPlayers" type="submit" class="btn btn-primary ng-scope" translate="">Swap players</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
     <div style="height:1em"><span id="highlightedPlayerText" ng-show="playerToHighlight">  <span translate="bracket.playerToHighlight"></span> : {{playerToHighlight.name}}</span>
     </div>
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('AdminCtrl', function ($rootScope, $scope, $location, $http, $upload) {
+    .controller('AdminCtrl', function ($rootScope, $scope, $location, $http, $upload, $cookies, $cookieStore) {
         var tournamentId = $location.$$path.split('/')[2];
         $scope.nick = '';
         $scope.playerList = null;
@@ -56,6 +56,7 @@ angular.module('toodleApp')
                 $scope.tournamentInfo = data;
                 $scope.playerList = $scope.tournamentInfo.players;
                 $scope.tournamentStartDate = $scope.tournamentInfo.startDate;
+                $cookieStore.put('toodle-'+$scope.tournamentInfo.signupID, data._id);
                 $('#sortablePlayerList').sortable({
                     revert: true,
                     stop: function (event, objectMoved) {
