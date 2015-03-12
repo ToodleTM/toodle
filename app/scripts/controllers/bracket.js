@@ -48,6 +48,7 @@ angular.module('toodleApp')
             $scope.renderer = availableRenderers[$scope.tournamentInfo.engine];
             $scope.groups = [];
             $scope.tournamentId = $cookies['toodle-' + $scope.tournamentInfo.signupID];
+            $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
             updateSwapPlayersForm(data);
             $scope.controllerReferencesForRenderer = {
                 togglePlayerHighlight: $scope.togglePlayerHighlight,
