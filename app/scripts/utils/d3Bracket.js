@@ -275,7 +275,7 @@ D3Bracket.prototype.computeArc = function (d) {
 };
 
 D3Bracket.prototype.markHighlightedNodes = function (link, playerToHighlight) {
-    if (link[0].parentNode.childNodes && playerToHighlight) {
+    if (link[0] && link[0].parentNode.childNodes && playerToHighlight) {
         _.forEach(link[0].parentNode.childNodes, function (node) {
             var actual = node.__data__;
             if (actual) {
