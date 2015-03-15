@@ -93,6 +93,14 @@
           "errorUnreportingMatch": "Erreur du service. C'est peut être temporaire, ré-essayes dans quelques minutes et si ća ne fonctionne toujours pas essayes de contacter l'admin ou, à défaut, le dev principal sur Twitter (@ToodleTM)"
         }
       },
+      "swapPlayers":{
+        "errorWhenGettingPlayersToSwap":"Tu as probablement oublié de sélectionner un des joueurs à échanger. Si ce n'est pas le cas, contacte l'admin.",
+        "noSwappablePlayersFound":"Les joueurs à échanger ne figurent pas dans ce tournoi",
+        "title":"Intervertir deux joueurs",
+        "firstPlayer":"1er joueur",
+        "secondPlayer":"2nd joueur",
+        "doSwap":"Échanger!"
+      },
       "addPlayer": "Ajouter un joueur au tournoi",
       "addMultiplePlayers": "Ajouter des joueurs depuis une liste",
       "playerNickPlaceholder": "Pseudo du joueur",

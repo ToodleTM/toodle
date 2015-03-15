@@ -93,6 +93,14 @@
           "errorUnreportingMatch": "Service error. It can be temporary, try again in a few minutes and if the problem is still there you should get in touch w/ your admin or, if none is present, tweet the main dev (@ToodleTM)."
         }
       },
+      "swapPlayers":{
+        "errorWhenGettingPlayersToSwap":"You probably forgot to select one of the players to swap. If that's not the case, get in touch with the admin",
+        "noSwappablePlayersFound":"Player nicks do not match players partaking in that tournament",
+        "title":"Swap players",
+        "firstPlayer":"1st player",
+        "secondPlayer":"2nd player",
+        "doSwap":"Go!"
+      },
       "addPlayer": "Add a new player",
       "addMultiplePlayers": "Add a group of players",
       "playerNickPlaceholder": "Player nick",

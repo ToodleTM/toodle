@@ -152,7 +152,7 @@ angular.module('toodleApp')
                     $scope.$apply();
                 })
                 .error(function (data) {
-                    $scope.errorMessage = data;
+                    $scope.errorMessage = 'admin.actions.swapPlayers.'+data.message;
                     resetPlayerNamesToSwap();
                     $('#tourneyReportingKo').fadeIn();
                 });

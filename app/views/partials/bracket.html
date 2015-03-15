@@ -102,11 +102,11 @@
         <form class="form-horizontal ng-pristine ng-valid ng-valid-required" ng-submit="swapPlayers()">
 
             <fieldset id="swapForm" style="font-size: 0.75em">
-                <legend translate="" class="ng-scope">Swap players</legend>
+                <legend class="ng-scope" translate="admin.actions.swapPlayers.title"></legend>
                 <div class="row">
 
                     <div class="form-group col-sm-12">
-                        <label class="control-label ng-scope" for="game" translate="">1st player</label>
+                        <label class="control-label ng-scope" for="game" translate="admin.actions.swapPlayers.firstPlayer"></label>
 
                         <select id="game" name="game" class="form-control ng-pristine ng-untouched ng-valid" ng-model="player1ToSwap"
                                 ng-options="item as item.name for item in swappablePlayers track by item.name">
@@ -115,7 +115,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-12">
-                        <label class="control-label ng-scope" for="engine" translate="">2nd player</label>
+                        <label class="control-label ng-scope" for="engine" translate="admin.actions.swapPlayers.secondPlayer"></label>
 
                         <select id="engine" name="engine" class="form-control ng-pristine ng-untouched ng-valid ng-valid-required" ng-model="player2ToSwap"
                                 ng-options="item as item.name for item in swappablePlayers track by item.name">
@@ -124,7 +124,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-12">
-                        <button id="swapPlayers" type="submit" class="btn btn-primary ng-scope" translate="">Swap players</button>
+                        <button id="swapPlayers" type="submit" class="btn btn-primary ng-scope" translate="admin.actions.swapPlayers.doSwap"></button>
                     </div>
                 </div>
             </fieldset>
