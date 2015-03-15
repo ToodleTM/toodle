@@ -82,6 +82,7 @@ angular.module('toodleApp')
         $scope.reportMatch = function () {
             $('#tourneyReportingKo').hide();
             $http.post('/api/tournament/reportMatch/', {
+                tournamentId: JSON.parse($scope.tournamentId),
                 signupID: $scope.tournamentInfo.signupID,
                 number: $scope.firstGameToReport.name,
                 score1: $scope.score1,
@@ -91,6 +92,7 @@ angular.module('toodleApp')
                 $('#bracket').html('');
                 $scope.score1 = 0;
                 $scope.score2 = 0;
+                $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
                 updateSwapPlayersForm(data);
                 $scope.$apply();
@@ -112,11 +114,13 @@ angular.module('toodleApp')
         $scope.unreportMatch = function () {
             $('#tourneyReportingKo').hide();
             $http.post('/api/tournament/unreportMatch/', {
+                tournamentId: JSON.parse($scope.tournamentId),
                 signupID: $scope.tournamentInfo.signupID,
                 number: $scope.gameToUnreport.name
             }).success(function (data) {
                 $scope.tournamentInfo = data;
                 $('#bracket').html('');
+                $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
                 updateSwapPlayersForm(data);
                 $scope.$apply();
