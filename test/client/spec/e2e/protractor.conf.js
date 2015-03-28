@@ -1,8 +1,8 @@
 exports.config = {
-    seleniumAddress: 'http://127.0.0.1:4200/wd/hub',
-    specs: ['bracket.js'],
+    //seleniumAddress: 'http://127.0.0.1:4200/wd/hub',
+    specs: ['*.js'],
     capabilities:{
-        'browserName':'phantomjs'
+        'browserName':'firefox'
     }
 };
 // excluded file so that CI does not fail e2e tests
