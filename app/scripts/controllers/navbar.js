@@ -1,8 +1,28 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('NavbarCtrl', function ($scope, $location, $translate, $cookies, $cookieStore) {
+    .controller('NavbarCtrl', function ($scope, $location, $translate, $cookies, $cookieStore, $http, $window) {
         $scope.selectedLanguage = $cookies['toodle-lang'] && $cookies['toodle-lang'] !== 'undefined' ?JSON.parse($cookies['toodle-lang']):'en';
+        $scope.userName ='';
+        $scope.userIcon = '';
+        $scope.login = function(){
+            $window.location = '/login?returnUrl='+$location.$$absUrl;
+        };
+
+        $scope.logout = function(){
+            $window.location = '/logout?returnUrl='+$location.$$absUrl;
+        };
+        $http.get('get-session-data').success(function(data){
+            console.log(data);
+            $scope.userName = data.displayName;
+            $scope.userIcon = data._json['profile_image_url'];
+            $('.login-menu').hide();
+            $('#welcome').show();
+        }).error(function(){
+            $('#welcome').hide();
+            $('.login-menu').show();
+        });
+
         $scope.switchLanguage = function(newLang){
             $scope.selectedLanguage = newLang;
             $translate.use(newLang);

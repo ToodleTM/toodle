@@ -15,7 +15,10 @@
     "love": "♥ de l'équipe Toodle"
   },
   "header": {
-    "title": "Toodle"
+    "title": "Toodle",
+    "login": "Connexion",
+    "welcome":"Salut",
+    "logout":"Se déconnecter"
   },
   "admin": {
     "intro": "Ceci est la page d'administration de ton tournoi. Tu peux faire tous les changements que tu souhaites ici. Rappelles toi que n'importe qui avec l'URL d'admin peut faire la même chose.",

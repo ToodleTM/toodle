@@ -10,16 +10,34 @@
             <!--<option value="fr">FR</option>-->
             <!--</select>-->
             <!--</div>-->
+            <nav class="navbar-language-select">
+                <div class="navbar-menus">
+                    <ul class="login-menu">
+                        <li id="loginSelector" class="login-menu-item">
+                            <span translate="header.login"></span>
+                            <ul>
+                                <li>
+                                    <button ng-click="login()"><img
+                                            src="/images/social/twitter.png"></button>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="welcome"><span translate="header.welcome"></span> {{userName}} <img src="{{userIcon}}" height="16"/> ! <button ng-click="logout()" title="{{'header.logout'|translate}}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button></div>
 
-            <nav class="form-group col-sm-2 navbar-language-select">
-                <ul>
-                    <li id="languageSelector"><a href="#"><img id='activeLanguage' src="./images/flags/en.svg" height="15"/></a>
-                        <ul>
-                            <li><a href="#" language="en"><img src="../../images/flags/en.svg" height="15"/>EN</a></li>
-                            <li><a href="#" language="fr"><img src="../../images/flags/fr.svg" height="15"/>FR</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                    <ul style="">
+                        <li id="languageSelector"><a href="#"><img id='activeLanguage'
+                                                                   src="./images/flags/en.svg"
+                                                                   height="15"/></a>
+                            <ul>
+                                <li><a href="#" language="en"><img src="../../images/flags/en.svg" height="15"/></a>
+                                </li>
+                                <li><a href="#" language="fr"><img src="../../images/flags/fr.svg" height="15"/></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </nav>
         </div>
     </div>

@@ -164,7 +164,6 @@ body {
 
 .navbar-language-select {
   float: right;
-  max-width: 35%;
 }
 
 .bracket-normalLink {
@@ -181,60 +180,107 @@ body {
 
 nav.navbar-language-select {
   padding-left: 0;
+  margin-right: 15px;
 }
 
 #activeLanguage {
-  padding-left: 40px;
+  //  padding-left: 40px;
 }
 
-nav ul {
-  list-style: none;
-  position: relative;
-  display: inline-table;
+nav div {
+  &.navbar-menus {
+    & div#welcome {
+      float:left;
+      margin-right:5px;
+      display:none;
 
-  & ul {
-    display: none;
-    position: absolute;
-    top: 100%;
-  }
+      & button {
+        border:0;
+        background:none;
+      }
+    }
 
-  & li:hover > ul {
-    display: block;
-  }
 
-  &:after {
-    content: "";
-    clear: both;
-    display: block;
-  }
-
-  & li {
-    float: left;
-    min-width: 55px;
     & ul {
-      margin-left: -30px;
-    }
-
-    &:hover a {
-      color: #757575;
-      text-decoration: none;
-      background-color: #fff;
-    }
-
-    & ul li a {
+      list-style: none;
+      position: relative;
+      display: inline-table;
+      padding: 0;
       float: right;
-    }
+      &.login-menu{
+        float:left;
+      }
+      #languageSelector {
+        border-left: 1px solid #777;
+        min-width:55px;
+      }
 
-    & a img {
-      margin-right: 5px;
-    }
-  }
+      & li ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+      }
 
-  & a {
-    display: block;
-    color: #757575;
-    text-decoration: none;
-    float: right;
+      & li:hover > ul {
+        display: block;
+        margin-left: 0px;
+      }
+
+      &:after {
+        content: "";
+        clear: both;
+        display: block;
+      }
+
+      & li.login-menu-item {
+        cursor: pointer;
+        margin-right:7px;
+        &:hover > ul {
+          width:100%;
+        }
+        & ul {
+          width:inherit;
+          li {
+            width:inherit;
+          }
+        }
+        & ul li button{
+          background:none;
+          border:0;
+          width:100%;
+        }
+      }
+
+      & li {
+        float: left;
+        //min-width: 55px;
+        & ul {
+          margin-left: 0px;
+        }
+
+        &:hover a {
+          color: #757575;
+          text-decoration: none;
+          background-color: #fff;
+        }
+
+        & ul li a {
+          float: right;
+        }
+
+        & a img {
+          margin-right: 5px;
+        }
+      }
+
+      & a {
+        display: block;
+        color: #757575;
+        text-decoration: none;
+        //float: right;
+        margin-left:10px;
+      }
+    }
   }
 }
 
@@ -242,17 +288,17 @@ nav ul {
   position: fixed;
   bottom: 0;
   margin-bottom: 0;
-  height:5.5em;
+  height: 5.5em;
   @media (max-width: 765px) {
     width: 96%;
   }
-  @media (min-width:766px){
-    width:700px;
+  @media (min-width: 766px) {
+    width: 700px;
   }
-  z-index:5;
+  z-index: 5;
 
-  &.tournament-create{
-    position:relative;
+  &.tournament-create {
+    position: relative;
   }
 }
 
@@ -268,8 +314,8 @@ nav ul {
   border: 1px solid gray;
 
   & .match-winner {
-    font-weight:bold;
-    background-color:#cfc;
+    font-weight: bold;
+    background-color: #cfc;
   }
 
   & .group-player-line {
@@ -277,32 +323,32 @@ nav ul {
       border: 1px solid gray;
     }
 
-    & .group-rank{
-      width:20px;
-      text-align:center;
+    & .group-rank {
+      width: 20px;
+      text-align: center;
     }
     & .group-player-tag {
-      padding-left:3px;
+      padding-left: 3px;
       width: 180px;
     }
 
     & .group-player-score {
       width: 30px;
-      text-align:center;
+      text-align: center;
       font-weight: bold;
     }
 
     & .group-player-totals {
       width: 30px;
-      text-align:center;
+      text-align: center;
     }
 
-    & .group-player-winner{
-      background-color:#cfc;
+    & .group-player-winner {
+      background-color: #cfc;
     }
 
-    & .group-player-loser{
-      background-color:#fda;
+    & .group-player-loser {
+      background-color: #fda;
     }
   }
 
@@ -313,22 +359,22 @@ nav ul {
   }
 
   & tr td table.group-matches {
-    width:100%;
+    width: 100%;
     & tr {
-      border-bottom:1px solid gray;
+      border-bottom: 1px solid gray;
     }
     & tr td {
       &.player1 {
-        padding-right:3px;
-        border-right:1px solid gray;
-        width:120px;
+        padding-right: 3px;
+        border-right: 1px solid gray;
+        width: 120px;
         text-align: right;
       }
 
       &.score1 {
         text-align: center;
-        border-right:1px solid gray;
-        width:15px;
+        border-right: 1px solid gray;
+        width: 15px;
       }
 
       &.score2 {
@@ -337,24 +383,24 @@ nav ul {
       }
 
       &.player2 {
-        padding-left:3px;
-        border-left:1px solid gray;
-        width:115px;
+        padding-left: 3px;
+        border-left: 1px solid gray;
+        width: 115px;
       }
 
-      & img{
-        position:absolute;
-        top:-4px;
-        right:-8px;
-        height:15px;
-        &.match-unreport-button{
+      & img {
+        position: absolute;
+        top: -4px;
+        right: -8px;
+        height: 15px;
+        &.match-unreport-button {
         }
-        &.match-report-button{
+        &.match-report-button {
         }
       }
 
-      & span{
-        height:1.5em;
+      & span {
+        height: 1.5em;
       }
     }
   }

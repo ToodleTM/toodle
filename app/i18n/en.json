@@ -15,7 +15,10 @@
     "love": "♥ from the Toodle team"
   },
   "header": {
-    "title": "Toodle"
+    "title": "Toodle",
+    "login": "Login",
+    "welcome":"Hello",
+    "logout":"Logout"
   },
   "admin": {
     "intro": "This is your tournament administration page. You can edit everything related to your tournament here. Just remember that anyone with the URL will be able to do the same.",
