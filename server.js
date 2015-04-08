@@ -25,9 +25,6 @@ fs.readdirSync(modelsPath).forEach(function (file) {
     }
 });
 
-// Passport Configuration
-var passport = require('./lib/config/passport');
-
 // Setup Express
 var app = express();
 require('./lib/config/express')(app);
