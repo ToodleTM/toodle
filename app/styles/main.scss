@@ -190,16 +190,15 @@ nav.navbar-language-select {
 nav div {
   &.navbar-menus {
     & div#welcome {
-      float:left;
-      margin-right:5px;
-      display:none;
+      float: left;
+      margin-right: 5px;
+      display: none;
 
       & button {
-        border:0;
-        background:none;
+        border: 0;
+        background: none;
       }
     }
-
 
     & ul {
       list-style: none;
@@ -207,12 +206,12 @@ nav div {
       display: inline-table;
       padding: 0;
       float: right;
-      &.login-menu{
-        float:left;
+      &.login-menu {
+        float: left;
       }
       #languageSelector {
         border-left: 1px solid #777;
-        min-width:55px;
+        min-width: 55px;
       }
 
       & li ul {
@@ -234,20 +233,35 @@ nav div {
 
       & li.login-menu-item {
         cursor: pointer;
-        margin-right:7px;
+        margin-right: 7px;
         &:hover > ul {
-          width:100%;
+          width: 100%;
         }
         & ul {
-          width:inherit;
+          width: inherit;
           li {
-            width:inherit;
+            width: inherit;
+          }
+
+          &.loggedin-menu {
+            margin-left: 10px;
+            padding-right:10px;
+            & li {
+              & a {
+                width: 100%;
+                text-align: left;
+                background-color:#fcfcfc;
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+            }
           }
         }
-        & ul li button{
-          background:none;
-          border:0;
-          width:100%;
+        & ul li button {
+          background: none;
+          border: 0;
+          width: 100%;
         }
       }
 
@@ -277,8 +291,7 @@ nav div {
         display: block;
         color: #757575;
         text-decoration: none;
-        //float: right;
-        margin-left:10px;
+        margin-left: 10px;
       }
     }
   }

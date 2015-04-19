@@ -12,7 +12,7 @@
             <!--</div>-->
             <nav class="navbar-language-select">
                 <div class="navbar-menus">
-                    <ul class="login-menu">
+                    <ul ng-show="!userName" class="login-menu">
                         <li id="loginSelector" class="login-menu-item">
                             <span translate="header.login"></span>
                             <ul>
@@ -23,7 +23,26 @@
                             </ul>
                         </li>
                     </ul>
-                    <div id="welcome"><span translate="header.welcome"></span> {{userName}} <img src="{{userIcon}}" height="16"/> ! <button ng-click="logout()" title="{{'header.logout'|translate}}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button></div>
+
+                    <ul ng-show="userName" class="login-menu" id="welcome">
+                        <li  class="login-menu-item">
+                            <span translate="header.welcome"></span> {{userName}} <img src="{{userIcon}}" height="16"/> !
+                            <ul class="loggedin-menu">
+                                <li>
+                                    <a href="/tournaments?type=created">What I created</a>
+                                </li>
+                                <li>
+                                    <a href="/tournaments?type=admin">What I admin</a>
+                                </li>
+                                <!--<li>-->
+                                    <!--<a href="/">What I play</a>-->
+                                <!--</li>-->
+                                <li>
+                                    <a ng-click="logout()" title="{{'header.logout'|translate}}">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
 
                     <ul style="">
                         <li id="languageSelector"><a href="#"><img id='activeLanguage'

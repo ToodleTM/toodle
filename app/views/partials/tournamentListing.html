@@ -1,0 +1,21 @@
+<div ng-include="'partials/navbar'"></div>
+
+<div id="content">
+    <table class="table table-striped">
+        <tr>
+            <th>Tournament</th>
+            <th>Creator</th>
+            <th>Admin</th>
+            <th>Play</th>
+        </tr>
+
+        <tr ng-repeat="tournamentUser in tournamentUsersToDisplay">
+            <td><a ng-href="/admin/{{tournamentUser.tournamentId}}">{{tournamentUser.tournamentId}}</a></td>
+            <td><span ng-show="tournamentUser.creator" class="glyphicon glyphicon-check" aria-hidden="true"></span></td>
+            <td><span ng-show="tournamentUser.admin" class="glyphicon glyphicon-check" aria-hidden="true"></span></td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+<div ng-include="'partials/footer'"></div>
