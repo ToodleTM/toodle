@@ -27,6 +27,53 @@ describe('Tournament Service', function () {
         assert.equal(res.json.calledOnce, true);
     });
 
+    it('should save the tournament / user association when creating a tournament if user is logged in', function () {
+        //setup
+        var tournamentService = new TournamentService();
+        var tournamentModel = {
+            save: function (callback) {
+                callback(null);
+            }
+        };
+        tournamentModel._id = 'tid';
+        var originalCreateTournamentId = tournamentService.utils().createTournamentId;
+        tournamentService.utils().createTournamentId = function () {
+            return 'sid';
+        };
+
+        var tournamentUserModel = {
+            save: function (callback) {
+                callback(null);
+            }
+        };
+        var req = {
+            body: {tournamentName: 'tournamentName'},
+            session: {
+                passport: {user: {id: 'userId'}}
+            }
+        };
+
+        var res = {
+            json: function () {
+            }
+        };
+
+        sinon.spy(res, 'json');
+        sinon.spy(tournamentUserModel, 'save');
+        //action
+        tournamentService.saveTournament(req, res, tournamentModel, tournamentUserModel);
+        //assert
+        assert.equal(tournamentUserModel.save.calledOnce, true);
+        assert.equal(tournamentUserModel.tournamentId, 'tid');
+        assert.equal(tournamentUserModel.socialId, 'userId');
+        assert.equal(tournamentUserModel.creator, true);
+        assert.equal(tournamentUserModel.admin, true);
+        assert.equal(tournamentUserModel.name, 'tournamentName');
+        assert.equal(res.json.calledOnce, true);
+        assert.deepEqual(res.json.getCall(0).args[0], {adminURL: 'tid', signupURL: 'sid'});
+        tournamentService.utils().createTournamentId = originalCreateTournamentId;
+    });
+
     it('should return admin and user URLs if save succeeds', function () {
         //setup
         var tournamentService = new TournamentService();
@@ -42,10 +89,16 @@ describe('Tournament Service', function () {
         };
         sinon.spy(res, 'json');
 
-        var req = {body: {tournamentName: 'tournamentName'}};
+        var req = {
+            body: {tournamentName: 'tournamentName'}
+        };
 
         //action
-        tournamentService.saveTournament(req, res, model);
+        tournamentService.saveTournament(req, res, model, {
+            save: function (callback) {
+                callback(null);
+            }
+        });
         //assert
         assert.equal(res.json.getCall(0).args[0].adminURL, 'abc');
         assert.match(res.json.getCall(0).args[0].signupURL, /^tournamentName[0-9]+$/);
@@ -217,103 +270,141 @@ describe('Tournament Service', function () {
         it('should return an error if engine.getMatchesToReportFails', function () {
             //setup
             var tournamentService = new TournamentService();
-            tournamentService.getTournamentEngine = function(){
-                return {getMatchesToReport: function(bracket, callback){
-                    callback({});
-                }};
+            tournamentService.getTournamentEngine = function () {
+                return {
+                    getMatchesToReport: function (bracket, callback) {
+                        callback({});
+                    }
+                };
             };
             var req = {};
-            var res = {json:sinon.spy()};
+            var res = {json: sinon.spy()};
             //action
             tournamentService.swapPlayers(req, res, {}, {});
             //assert
             assert.equal(res.json.calledOnce, true);
             assert.deepEqual(res.json.getCall(0).args[0], 409);
-            assert.deepEqual(res.json.getCall(0).args[1], {message:'errorWhenGettingPlayersToSwap'});
+            assert.deepEqual(res.json.getCall(0).args[1], {message: 'errorWhenGettingPlayersToSwap'});
         });
 
-        it('should return an error if there are no valid matches to get players to swap', function(){
+        it('should return an error if there are no valid matches to get players to swap', function () {
             //setup
             var tournamentService = new TournamentService();
-            tournamentService.getTournamentEngine = function(){
-                return {getMatchesToReport: function(bracket, callback){
-                    callback(null, []);
-                }};
+            tournamentService.getTournamentEngine = function () {
+                return {
+                    getMatchesToReport: function (bracket, callback) {
+                        callback(null, []);
+                    }
+                };
             };
-            var req = {body:{playerInMatch1:{}, playerInMatch2:{}}};
-            var res = {json:sinon.spy()};
+            var req = {body: {playerInMatch1: {}, playerInMatch2: {}}};
+            var res = {json: sinon.spy()};
             //action
             tournamentService.swapPlayers(req, res, {}, {});
             //assert
             assert.equal(res.json.calledOnce, true);
             assert.deepEqual(res.json.getCall(0).args[0], 409);
-            assert.deepEqual(res.json.getCall(0).args[1], {message:'noSwappablePlayersFound'});
+            assert.deepEqual(res.json.getCall(0).args[1], {message: 'noSwappablePlayersFound'});
         });
 
-        it('should bubble engine errors when swapping', function(){
+        it('should bubble engine errors when swapping', function () {
             //setup
             var tournamentService = new TournamentService();
-            tournamentService.getTournamentEngine = function(){
-                return {getMatchesToReport: function(bracket, callback){
-                    callback(null, []);
-                }};
+            tournamentService.getTournamentEngine = function () {
+                return {
+                    getMatchesToReport: function (bracket, callback) {
+                        callback(null, []);
+                    }
+                };
             };
-            var req = {body:{playerInMatch1:{}, playerInMatch2:{}}};
-            var res = {json:sinon.spy()};
+            var req = {body: {playerInMatch1: {}, playerInMatch2: {}}};
+            var res = {json: sinon.spy()};
             //action
             tournamentService.swapPlayers(req, res, {}, {});
 
             //assert
             assert.equal(res.json.calledOnce, true);
             assert.deepEqual(res.json.getCall(0).args[0], 409);
-            assert.deepEqual(res.json.getCall(0).args[1], {message:'noSwappablePlayersFound'});
+            assert.deepEqual(res.json.getCall(0).args[1], {message: 'noSwappablePlayersFound'});
         });
 
-        it('should call the engine to swap two players', function(){
+        it('should call the engine to swap two players', function () {
             //setup
             var tournamentService = new TournamentService();
-            tournamentService.getTournamentEngine = function(){
-                return {getMatchesToReport: function(bracket, callback){
-                    callback(null, [{player1:{name:'11'}, player2:{name:'12'}}, {player1:{name:'21'}, player2:{name:'22'}}]);
+            tournamentService.getTournamentEngine = function () {
+                return {
+                    getMatchesToReport: function (bracket, callback) {
+                        callback(null, [{player1: {name: '11'}, player2: {name: '12'}}, {
+                            player1: {name: '21'},
+                            player2: {name: '22'}
+                        }]);
+                    },
+                    swapPlayers: function (player1, player1Position, player2, player2Position, tournamentBracket, callback) {
+                        callback(null, {
+                            1: {player1: {name: '22'}, player2: {name: '12'}},
+                            2: {player1: {name: '21'}, player2: {name: '11'}}
+                        });
+                    }
+                };
+            };
+            var req = {body: {playerInMatch1: {name: '11'}, playerInMatch2: {name: '22'}}};
+            var tournamentModel = {
+                update: function (params, data, callback) {
+                    callback(null, {});
+                }
+            };
+            var res = {json: sinon.spy()};
+            //action
+            tournamentService.swapPlayers(req, res, {
+                bracket: {
+                    1: {player1: {name: '11'}, player2: {name: '12'}},
+                    2: {player1: {name: '21'}, player2: {name: '22'}}
+                }
+            }, tournamentModel);
+            //assert
+            assert.equal(res.json.calledOnce, true);
+            assert.deepEqual(res.json.getCall(0).args[0], {
+                bracket: {
+                    1: {player1: {name: '22'}, player2: {name: '12'}},
+                    2: {player1: {name: '21'}, player2: {name: '11'}}
+                }
+            });
+        });
+
+        it('should call the engine to swap two players even if players to swap are reversed (when we consider match numbering)', function () {
+            //setup
+            var tournamentService = new TournamentService();
+            var engine = {
+                getMatchesToReport: function (bracket, callback) {
+                    callback(null, [{player1: {name: '11'}, player2: {name: '12'}}, {
+                        player1: {name: '21'},
+                        player2: {name: '22'}
+                    }]);
                 },
-                swapPlayers:function(player1, player1Position, player2, player2Position, tournamentBracket, callback){
-                    callback(null, {1:{player1:{name:'22'}, player2:{name:'12'}}, 2:{player1:{name:'21'}, player2:{name:'11'}}});
-                }};
+                swapPlayers: sinon.spy()
             };
-            var req = {body:{playerInMatch1:{name:'11'}, playerInMatch2:{name:'22'}}};
-            var tournamentModel = {update:function(params, data, callback){
-               callback(null, {});
-            }};
-            var res = {json:sinon.spy()};
-            //action
-            tournamentService.swapPlayers(req, res, {bracket:{1:{player1:{name:'11'}, player2:{name:'12'}}, 2:{player1:{name:'21'}, player2:{name:'22'}}}}, tournamentModel);
-            //assert
-            assert.equal(res.json.calledOnce, true);
-            assert.deepEqual(res.json.getCall(0).args[0], {bracket:{1:{player1:{name:'22'}, player2:{name:'12'}}, 2:{player1:{name:'21'}, player2:{name:'11'}}}});
-        });
-
-        it('should call the engine to swap two players even if players to swap are reversed (when we consider match numbering)', function(){
-            //setup
-            var tournamentService = new TournamentService();
-            var engine = {getMatchesToReport: function(bracket, callback){
-                callback(null, [{player1:{name:'11'}, player2:{name:'12'}}, {player1:{name:'21'}, player2:{name:'22'}}]);
-            },
-                swapPlayers:sinon.spy()};
-            tournamentService.getTournamentEngine = function(){
+            tournamentService.getTournamentEngine = function () {
                 return engine;
             };
-            var req = {body:{playerInMatch1:{name:'22'}, playerInMatch2:{name:'11'}}};
-            var tournamentModel = {update:function(params, data, callback){
-                callback(null, {});
-            }};
-            var res = {json:sinon.spy()};
+            var req = {body: {playerInMatch1: {name: '22'}, playerInMatch2: {name: '11'}}};
+            var tournamentModel = {
+                update: function (params, data, callback) {
+                    callback(null, {});
+                }
+            };
+            var res = {json: sinon.spy()};
             //action
-            tournamentService.swapPlayers(req, res, {bracket:{1:{player1:{name:'11'}, player2:{name:'12'}}, 2:{player1:{name:'21'}, player2:{name:'22'}}}}, tournamentModel);
+            tournamentService.swapPlayers(req, res, {
+                bracket: {
+                    1: {player1: {name: '11'}, player2: {name: '12'}},
+                    2: {player1: {name: '21'}, player2: {name: '22'}}
+                }
+            }, tournamentModel);
             //assert
             assert.equal(engine.swapPlayers.calledOnce, true);
-            assert.deepEqual(engine.swapPlayers.getCall(0).args[0], {player1:{name:'21'}, player2:{name:'22'}});
+            assert.deepEqual(engine.swapPlayers.getCall(0).args[0], {player1: {name: '21'}, player2: {name: '22'}});
             assert.equal(engine.swapPlayers.getCall(0).args[1], 'player2');
-            assert.deepEqual(engine.swapPlayers.getCall(0).args[2], {player1:{name:'11'}, player2:{name:'12'}});
+            assert.deepEqual(engine.swapPlayers.getCall(0).args[2], {player1: {name: '11'}, player2: {name: '12'}});
             assert.equal(engine.swapPlayers.getCall(0).args[3], 'player1');
         });
 
@@ -352,93 +443,147 @@ describe('Tournament Service', function () {
             assert.deepEqual(res.json.getCall(0).args[1], {message: expectedMessage});
         }
 
-        it('should return an error if no players can be found in matches', function(){
-            errorReturnTestWhenPlayersToSwapNotProperlyDefined({playerInMatch1: {}, playerInMatch2: {}}, 'noSwappablePlayersFound');
+        it('should return an error if no players can be found in matches', function () {
+            errorReturnTestWhenPlayersToSwapNotProperlyDefined({
+                playerInMatch1: {},
+                playerInMatch2: {}
+            }, 'noSwappablePlayersFound');
         });
 
-        it('should return an error if only player1 can be found in matches', function(){
-            errorReturnTestWhenPlayersToSwapNotProperlyDefined({playerInMatch1:{name:'11'}, playerInMatch2:{}}, 'noSwappablePlayersFound');
+        it('should return an error if only player1 can be found in matches', function () {
+            errorReturnTestWhenPlayersToSwapNotProperlyDefined({
+                playerInMatch1: {name: '11'},
+                playerInMatch2: {}
+            }, 'noSwappablePlayersFound');
         });
 
-        it('should return an error if only player2 can be found in matches', function(){
-            errorReturnTestWhenPlayersToSwapNotProperlyDefined({playerInMatch1:{}, playerInMatch2:{name:'11'}}, 'noSwappablePlayersFound');
+        it('should return an error if only player2 can be found in matches', function () {
+            errorReturnTestWhenPlayersToSwapNotProperlyDefined({
+                playerInMatch1: {},
+                playerInMatch2: {name: '11'}
+            }, 'noSwappablePlayersFound');
         });
 
-        it('should return an error if only player1 is not defined at all', function(){
-            errorReturnTestWhenPlayersToSwapNotProperlyDefined({playerInMatch2:{name:'11'}}, 'errorWhenGettingPlayersToSwap');
+        it('should return an error if only player1 is not defined at all', function () {
+            errorReturnTestWhenPlayersToSwapNotProperlyDefined({playerInMatch2: {name: '11'}}, 'errorWhenGettingPlayersToSwap');
         });
 
-        it('should return an error if only player1 is not defined at all', function(){
-            errorReturnTestWhenPlayersToSwapNotProperlyDefined({playerInMatch1:{name:'11'}}, 'errorWhenGettingPlayersToSwap');
+        it('should return an error if only player1 is not defined at all', function () {
+            errorReturnTestWhenPlayersToSwapNotProperlyDefined({playerInMatch1: {name: '11'}}, 'errorWhenGettingPlayersToSwap');
         });
 
-        it('should allow to swap players in the same match', function(){
+        it('should allow to swap players in the same match', function () {
             //setup
             var tournamentService = new TournamentService();
-            tournamentService.getTournamentEngine = function(){
-                return {getMatchesToReport: function(bracket, callback){
-                    callback(null, [{player1:{name:'11'}, player2:{name:'12'}}, {player1:{name:'21'}, player2:{name:'22'}}]);
-                },
-                swapPlayers:function(player1, player1Position, player2, player2Position, tournamentBracket, callback){
-                    callback(null, {1:{player1:{name:'12'}, player2:{name:'11'}}, 2:{player1:{name:'21'}, player2:{name:'22'}}});
-                }};
+            tournamentService.getTournamentEngine = function () {
+                return {
+                    getMatchesToReport: function (bracket, callback) {
+                        callback(null, [{player1: {name: '11'}, player2: {name: '12'}}, {
+                            player1: {name: '21'},
+                            player2: {name: '22'}
+                        }]);
+                    },
+                    swapPlayers: function (player1, player1Position, player2, player2Position, tournamentBracket, callback) {
+                        callback(null, {
+                            1: {player1: {name: '12'}, player2: {name: '11'}},
+                            2: {player1: {name: '21'}, player2: {name: '22'}}
+                        });
+                    }
+                };
             };
-            var req = {body:{playerInMatch1:{name:'11'}, playerInMatch2:{name:'12'}}};
-            var tournamentModel = {update:function(params, data, callback){
-                callback(null, {});
-            }};
-            var res = {json:sinon.spy()};
+            var req = {body: {playerInMatch1: {name: '11'}, playerInMatch2: {name: '12'}}};
+            var tournamentModel = {
+                update: function (params, data, callback) {
+                    callback(null, {});
+                }
+            };
+            var res = {json: sinon.spy()};
             //action
-            tournamentService.swapPlayers(req, res, {bracket:{1:{player1:{name:'11'}, player2:{name:'12'}}, 2:{player1:{name:'21'}, player2:{name:'22'}}}}, tournamentModel);
+            tournamentService.swapPlayers(req, res, {
+                bracket: {
+                    1: {player1: {name: '11'}, player2: {name: '12'}},
+                    2: {player1: {name: '21'}, player2: {name: '22'}}
+                }
+            }, tournamentModel);
             //assert
             assert.equal(res.json.calledOnce, true);
-            assert.deepEqual(res.json.getCall(0).args[0], {bracket:{1:{player1:{name:'12'}, player2:{name:'11'}}, 2:{player1:{name:'21'}, player2:{name:'22'}}}});
+            assert.deepEqual(res.json.getCall(0).args[0], {
+                bracket: {
+                    1: {player1: {name: '12'}, player2: {name: '11'}},
+                    2: {player1: {name: '21'}, player2: {name: '22'}}
+                }
+            });
         });
 
-        it('should bubble the engine error if engine.swapPlayers fails', function(){
+        it('should bubble the engine error if engine.swapPlayers fails', function () {
             //setup
             var tournamentService = new TournamentService();
-            tournamentService.getTournamentEngine = function(){
-                return {getMatchesToReport: function(bracket, callback){
-                    callback(null, [{player1:{name:'11'}, player2:{name:'12'}}, {player1:{name:'21'}, player2:{name:'22'}}]);
-                },
-                swapPlayers:function(player1, player1Position, player2, player2Position, tournamentBracket, callback){
-                    callback({message:'cantSwapPlayerInMatchThatIsOver'});
-                }};
+            tournamentService.getTournamentEngine = function () {
+                return {
+                    getMatchesToReport: function (bracket, callback) {
+                        callback(null, [{player1: {name: '11'}, player2: {name: '12'}}, {
+                            player1: {name: '21'},
+                            player2: {name: '22'}
+                        }]);
+                    },
+                    swapPlayers: function (player1, player1Position, player2, player2Position, tournamentBracket, callback) {
+                        callback({message: 'cantSwapPlayerInMatchThatIsOver'});
+                    }
+                };
             };
-            var req = {body:{playerInMatch1:{name:'11'}, playerInMatch2:{name:'22'}}};
+            var req = {body: {playerInMatch1: {name: '11'}, playerInMatch2: {name: '22'}}};
             var tournamentModel = {};
-            var res = {json:sinon.spy()};
+            var res = {json: sinon.spy()};
             //action
-            tournamentService.swapPlayers(req, res, {bracket:{1:{player1:{name:'11'}, player2:{name:'12'}}, 2:{player1:{name:'21'}, player2:{name:'22'}}}}, tournamentModel);
+            tournamentService.swapPlayers(req, res, {
+                bracket: {
+                    1: {player1: {name: '11'}, player2: {name: '12'}},
+                    2: {player1: {name: '21'}, player2: {name: '22'}}
+                }
+            }, tournamentModel);
             //assert
             assert.equal(res.json.calledOnce, true);
             assert.deepEqual(res.json.getCall(0).args[0], 409);
-            assert.deepEqual(res.json.getCall(0).args[1], {message:'cantSwapPlayerInMatchThatIsOver'});
+            assert.deepEqual(res.json.getCall(0).args[1], {message: 'cantSwapPlayerInMatchThatIsOver'});
         });
 
-        it('should return a system error if save fails', function(){
+        it('should return a system error if save fails', function () {
             //setup
             var tournamentService = new TournamentService();
-            tournamentService.getTournamentEngine = function(){
-                return {getMatchesToReport: function(bracket, callback){
-                    callback(null, [{player1:{name:'11'}, player2:{name:'12'}}, {player1:{name:'21'}, player2:{name:'22'}}]);
-                },
-                    swapPlayers:function(player1, player1Position, player2, player2Position, tournamentBracket, callback){
+            tournamentService.getTournamentEngine = function () {
+                return {
+                    getMatchesToReport: function (bracket, callback) {
+                        callback(null, [{player1: {name: '11'}, player2: {name: '12'}}, {
+                            player1: {name: '21'},
+                            player2: {name: '22'}
+                        }]);
+                    },
+                    swapPlayers: function (player1, player1Position, player2, player2Position, tournamentBracket, callback) {
                         callback(null, {});
-                    }};
+                    }
+                };
             };
-            var req = {body:{playerInMatch1:{name:'11'}, playerInMatch2:{name:'22'}}};
-            var tournamentModel = {update:function(a, b, callback){
-                callback(true);
-            }};
-            var res = {json:sinon.spy()};
+            var req = {body: {playerInMatch1: {name: '11'}, playerInMatch2: {name: '22'}}};
+            var tournamentModel = {
+                update: function (a, b, callback) {
+                    callback(true);
+                }
+            };
+            var res = {json: sinon.spy()};
             //action
-            tournamentService.swapPlayers(req, res, {bracket:{1:{player1:{name:'11'}, player2:{name:'12'}}, 2:{player1:{name:'21'}, player2:{name:'22'}}}}, tournamentModel);
+            tournamentService.swapPlayers(req, res, {
+                bracket: {
+                    1: {player1: {name: '11'}, player2: {name: '12'}},
+                    2: {player1: {name: '21'}, player2: {name: '22'}}
+                }
+            }, tournamentModel);
             //assert
             assert.equal(res.json.calledOnce, true);
             assert.deepEqual(res.json.getCall(0).args[0], 500);
-            assert.deepEqual(res.json.getCall(0).args[1], {error:'errorReportingMatch', message:'Tournament update failed!'});
+            assert.deepEqual(res.json.getCall(0).args[1], {
+                error: 'errorReportingMatch',
+                message: 'Tournament update failed!'
+            });
         });
     });
 

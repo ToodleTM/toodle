@@ -10,7 +10,7 @@
         </tr>
 
         <tr ng-repeat="tournamentUser in tournamentUsersToDisplay">
-            <td><a ng-href="/admin/{{tournamentUser.tournamentId}}">{{tournamentUser.tournamentId}}</a></td>
+            <td><a ng-href="/admin/{{tournamentUser.tournamentId}}">{{tournamentUser.name}}</a></td>
             <td><span ng-show="tournamentUser.creator" class="glyphicon glyphicon-check" aria-hidden="true"></span></td>
             <td><span ng-show="tournamentUser.admin" class="glyphicon glyphicon-check" aria-hidden="true"></span></td>
             <td></td>
