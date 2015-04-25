@@ -7,6 +7,7 @@ sed "s/<script src=\"scripts\/controllers\/navbar.js\"><\/script>//" $2/index.ht
 sed "s/<script src=\"scripts\/controllers\/admin.js\"><\/script>//" $2/index.html.4 > $2/index.html.5
 sed "s/<script src=\"scripts\/controllers\/play.js\"><\/script>//" $2/index.html.5 > $2/index.html.6
 sed "s/<script src=\"scripts\/controllers\/bracket.js\"><\/script>//" $2/index.html.6 > $2/index.html.7
+sed "s/<script src=\"scripts\/controllers\/myTournaments.js\"><\/script>//" $2/index.html.7 > $2/index.html.8
 
-cp $2/index.html.7 $1/views/index.html
-rm $2/index.html.{1,2,3,4,5,6,7}
+cp $2/index.html.8 $1/views/index.html
+rm $2/index.html.{1,2,3,4,5,6,7,8}
