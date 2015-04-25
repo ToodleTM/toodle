@@ -26,7 +26,7 @@
 
                     <ul ng-show="userName" class="login-menu" id="welcome">
                         <li  class="login-menu-item">
-                            <span translate="header.welcome"></span> {{userName}} <img src="{{userIcon}}" height="16"/> !
+                            <span translate="header.welcome"></span> {{userName}} <img ng-show="usericon" src="{{userIcon}}" height="16"/> !
                             <ul class="loggedin-menu">
                                 <li>
                                     <a href="/tournaments?type=created" translate="tournaments.navbar.created"></a>
