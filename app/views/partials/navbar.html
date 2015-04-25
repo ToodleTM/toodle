@@ -29,16 +29,16 @@
                             <span translate="header.welcome"></span> {{userName}} <img src="{{userIcon}}" height="16"/> !
                             <ul class="loggedin-menu">
                                 <li>
-                                    <a href="/tournaments?type=created">What I created</a>
+                                    <a href="/tournaments?type=created" translate="tournaments.navbar.created"></a>
                                 </li>
                                 <li>
-                                    <a href="/tournaments?type=admin">What I admin</a>
+                                    <a href="/tournaments?type=admin" translate="tournaments.navbar.admin">What I admin</a>
                                 </li>
                                 <!--<li>-->
                                     <!--<a href="/">What I play</a>-->
                                 <!--</li>-->
                                 <li>
-                                    <a ng-click="logout()" title="{{'header.logout'|translate}}">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
+                                    <a ng-click="logout()" title="{{'header.logout'|translate}}"><span translate="tournaments.navbar.disconnect"></span> <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
                                 </li>
                             </ul>
                         </li>

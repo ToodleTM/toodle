@@ -176,5 +176,18 @@
   },
   "common": {
     "errorFindingMatchesToReport": "Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer."
+  },
+  "tournaments":{
+    "title":{
+      "tournament":"Nom du tournoi",
+      "creator":"Je l'ai créé",
+      "admin":"Je l'admin",
+      "play":"Je joue dedans"
+    },
+    "navbar":{
+      "created":"Tournois créés",
+      "admin":"Tournois administrés",
+      "disconnect":"Déconnexion"
+    }
   }
 }

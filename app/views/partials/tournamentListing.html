@@ -3,17 +3,13 @@
 <div id="content">
     <table class="table table-striped">
         <tr>
-            <th>Tournament</th>
-            <th>Creator</th>
-            <th>Admin</th>
-            <th>Play</th>
+            <th translate="tournaments.title.tournament"></th>
+            <th ng-show="searchType !== 'created'" translate="tournaments.title.creator"></th>
         </tr>
 
         <tr ng-repeat="tournamentUser in tournamentUsersToDisplay">
             <td><a ng-href="/admin/{{tournamentUser.tournamentId}}">{{tournamentUser.name}}</a></td>
-            <td><span ng-show="tournamentUser.creator" class="glyphicon glyphicon-check" aria-hidden="true"></span></td>
-            <td><span ng-show="tournamentUser.admin" class="glyphicon glyphicon-check" aria-hidden="true"></span></td>
-            <td></td>
+            <td ng-show="searchType !== 'created'"><span ng-show="tournamentUser.creator" class="glyphicon glyphicon-check" aria-hidden="true"></span></td>
         </tr>
     </table>
 </div>

@@ -176,5 +176,18 @@
   },
   "common": {
     "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported."
+  },
+  "tournaments":{
+    "title":{
+      "tournament":"Tournament name",
+      "creator":"I created it",
+      "admin":"I admin it",
+      "play":"I play in it"
+    },
+    "navbar":{
+      "created":"What I created",
+      "admin":"What I admin",
+      "disconnect":"Logout"
+    }
   }
 }

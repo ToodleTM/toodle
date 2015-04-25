@@ -3,9 +3,10 @@
 angular.module('toodleApp')
     .controller('MyTournamentsCtrl', function ($scope, $location, $translate, $cookies, $cookieStore, $http) {
         $scope.tournamentUsersToDisplay = [];
-        $http.get('/my/tournaments?type='+$location.$$search.type)
+        $scope.searchType = $location.$$search.type;
+        $http.get('/my/tournaments?type='+$scope.searchType)
             .success(function (data) {
-                $scope.tournamentUsersToDisplay = data[$location.$$search.type];
+                $scope.tournamentUsersToDisplay = data[$scope.searchType];
             })
             .error(function(){
                 $scope.tournamentUsersToDisplay = [];
