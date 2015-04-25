@@ -178,7 +178,7 @@
     "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported."
   },
   "tournaments":{
-    "title":{
+    "tableTitles":{
       "tournament":"Tournament name",
       "creator":"I created it",
       "admin":"I admin it",
@@ -188,6 +188,10 @@
       "created":"What I created",
       "admin":"What I admin",
       "disconnect":"Logout"
+    },
+    "pageTitles":{
+      "created":"Tournaments I created (and thus admin)",
+      "admin":"Tournaments I admin"
     }
   }
 }

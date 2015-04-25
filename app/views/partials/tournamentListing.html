@@ -1,10 +1,12 @@
 <div ng-include="'partials/navbar'"></div>
 
 <div id="content">
+    <h1 ng-show="searchType === 'created'" translate="tournaments.pageTitles.created"></h1>
+    <h1 ng-show="searchType !== 'created'" translate="tournaments.pageTitles.admin"></h1>
     <table class="table table-striped">
         <tr>
-            <th translate="tournaments.title.tournament"></th>
-            <th ng-show="searchType !== 'created'" translate="tournaments.title.creator"></th>
+            <th translate="tournaments.tableTitles.tournament"></th>
+            <th ng-show="searchType !== 'created'" translate="tournaments.tableTitles.creator"></th>
         </tr>
 
         <tr ng-repeat="tournamentUser in tournamentUsersToDisplay">

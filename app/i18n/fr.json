@@ -178,7 +178,7 @@
     "errorFindingMatchesToReport": "Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer."
   },
   "tournaments":{
-    "title":{
+    "tableTitles":{
       "tournament":"Nom du tournoi",
       "creator":"Je l'ai créé",
       "admin":"Je l'admin",
@@ -188,6 +188,10 @@
       "created":"Tournois créés",
       "admin":"Tournois administrés",
       "disconnect":"Déconnexion"
+    },
+    "pageTitles":{
+      "created":"Les tournois que j'ai créés (et que donc j'admin)",
+      "admin":"Les tournois que j'admin"
     }
   }
 }
