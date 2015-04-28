@@ -5,8 +5,8 @@ angular.module('toodleApp')
         $scope.selectedLanguage = $cookies['toodle-lang'] && $cookies['toodle-lang'] !== 'undefined' ?JSON.parse($cookies['toodle-lang']):'en';
         $scope.userName ='';
         $scope.userIcon = '';
-        $scope.login = function(){
-            $window.location = '/login?returnUrl='+$location.$$absUrl;
+        $scope.login = function(provider){
+            $window.location = '/login?type='+provider+'&returnUrl='+$location.$$absUrl;
         };
 
         $scope.logout = function(){
