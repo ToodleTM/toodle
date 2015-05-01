@@ -14,9 +14,7 @@ angular.module('toodleApp')
         };
         $http.get('get-session-data').success(function(data){
             $scope.userName = data.displayName;
-            if(data._json){
-                $scope.userIcon = data._json['profile_image_url'];
-            }
+            $scope.userIcon = data.pictureUrl;
         }).error(function(){
         });
 

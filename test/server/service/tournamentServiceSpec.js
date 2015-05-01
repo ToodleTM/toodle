@@ -616,9 +616,9 @@ describe('Tournament Service', function () {
             }};
             var nextCallback = sinon.spy();
             var res = {status:function(){
-                var jsonSpy = function(){};
-                jsonSpy.json = sinon.spy();
-                return jsonSpy;
+                var sendSpy = function(){};
+                sendSpy.send = sinon.spy();
+                return sendSpy;
             }};
             sinon.spy(res, 'status');
             //action

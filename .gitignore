@@ -9,3 +9,9 @@ heroku
 dist
 .idea
 qualimetry
+*.csv
+app.min.js
+.minifyTmp
+style.css
+*.log
+lib/config/social/*.js
