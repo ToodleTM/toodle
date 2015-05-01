@@ -61,7 +61,7 @@ angular.module('toodleApp')
             $('#registrationKo').hide();
             $('#registrationOk').hide();
             $('#inputNick').val('');
-            $http.put('/api/update-tournament/play', {signupID: $scope.tournamentInfo.signupID, nick: $scope.nick, faction:$scope.faction}).success(function(data){
+            $http.patch('/api/update-tournament/play', {signupID: $scope.tournamentInfo.signupID, nick: $scope.nick, faction:$scope.faction}).success(function(data){
                 $('#registrationOk').fadeIn();
                 $scope.playerList = data.players;
             }).error(function(error){

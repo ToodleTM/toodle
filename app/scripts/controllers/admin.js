@@ -96,7 +96,7 @@ angular.module('toodleApp')
         $scope.updateTourney = function () {
             $rootScope.hideAlerts();
             $scope.tournamentInfo.startDate = $scope.tournamentStartDate;
-            $http.put('/api/tournament/admin/update/?id=' + tournamentId, {_id:$scope.tournamentInfo._id, game:$scope.tournamentInfo.game, engine:$scope.tournamentInfo.engine, description:$scope.tournamentInfo.description, startDate:$scope.tournamentStartDate, userPrivileges:$scope.tournamentInfo.userPrivileges})
+            $http.patch('/api/tournament/admin/update/?id=' + tournamentId, {_id:$scope.tournamentInfo._id, game:$scope.tournamentInfo.game, engine:$scope.tournamentInfo.engine, description:$scope.tournamentInfo.description, startDate:$scope.tournamentStartDate, userPrivileges:$scope.tournamentInfo.userPrivileges})
                 .success(function (data) {
                     $scope.tournamentInfo = data;
                     $scope.alertMessage = 'admin.update.success';
@@ -118,7 +118,7 @@ angular.module('toodleApp')
             $rootScope.hideAlerts();
             var previousLockedStatus = $scope.tournamentInfo.locked;
             $scope.tournamentInfo.locked = genericUtils.toggleState($scope.tournamentInfo.locked);
-            $http.put('/api/tournament/admin/' + (!$scope.tournamentInfo.locked ? 'un' : '') + 'lockTournament?tournamentId=' + tournamentId, $scope.tournamentInfo)
+            $http.patch('/api/tournament/admin/' + (!$scope.tournamentInfo.locked ? 'un' : '') + 'lockTournament?tournamentId=' + tournamentId, $scope.tournamentInfo)
                 .success(function (code) {
                     if (code === 404) {
                         $scope.tournamentInfo.locked = previousLockedStatus;
@@ -172,7 +172,7 @@ angular.module('toodleApp')
             } else {
                 urlSuffix = 'stop';
             }
-            $http.put('/api/tournament/' + urlSuffix + '/', {'tournamentId': $scope.tournamentInfo._id})
+            $http.patch('/api/tournament/' + urlSuffix + '/', {'tournamentId': $scope.tournamentInfo._id})
                 .success(function (tournamentInfo) {
                     $('#updateOk').fadeIn();
                     $scope.alertMessage = 'admin.update.success';
