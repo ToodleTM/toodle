@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('AdminCtrl', function ($rootScope, $scope, $location, $http, $upload, $cookies, $cookieStore) {
+    .controller('AdminCtrl', function ($rootScope, $scope, $location, $http, $upload, $cookies, $cookieStore, $modal) {
         var tournamentId = $location.$$path.split('/')[2];
         $scope.nick = '';
         $scope.playerList = null;
@@ -272,6 +272,62 @@ angular.module('toodleApp')
 
         $scope.downloadTournamentWinners = function(){
             window.open('/api/tournament/winners/csv/?tournamentId='+$scope.tournamentInfo._id, '_blank', '');
+        };
+
+        $scope.open = function (size) {
+
+            var modalInstance = $modal.open({
+                templateUrl: '/views/partials/popinTemplates/startStopTemplate.html',
+                controller: 'ModalToggleStartCtrl',
+                size: size,
+                resolve: {
+                    tournamentInfo:function(){
+                        return $scope.tournamentInfo;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.toggleStart();
+            }, function () {
+            });
+        };
+
+        $scope.report = function(){
+            var modalInstance = $modal.open({
+                templateUrl: '/views/partials/popinTemplates/reportTemplate.html',
+                controller: 'ModalReportCtrl',
+                resolve: {
+                    firstGameToReport:function(){
+                        return $scope.firstGameToReport;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (scores) {
+                $scope.score1 = scores[0];
+                $scope.score2 = scores[1];
+                $scope.reportMatch();
+            }, function () {
+            });
+        };
+
+        $scope.unreport = function(){
+            var modalInstance = $modal.open({
+                templateUrl: '/views/partials/popinTemplates/unreportTemplate.html',
+                controller: 'ModalUnreportCtrl',
+                resolve: {
+                    gameToUnreport:function() {
+                        return $scope.gameToUnreport;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+
+                $scope.unreportMatch();
+            }, function () {
+            });
         };
     }
 );

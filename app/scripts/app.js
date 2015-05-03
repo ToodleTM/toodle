@@ -6,7 +6,8 @@ var app = angular.module('toodleApp', [
     'ngRoute',
     'pascalprecht.translate',
     'angularFileUpload',
-    'ngCookies'
+    'ngCookies',
+    'ui.bootstrap'
 ]);
 
 app.config(function ($routeProvider, $locationProvider, $httpProvider, $translateProvider) {
@@ -122,3 +123,36 @@ app.directive('whenReady', ['$interpolate', function($interpolate) {
         }
     };
 }]);
+
+angular.module('toodleApp').controller('ModalToggleStartCtrl', function ($scope, $modalInstance, tournamentInfo) {
+    $scope.tournamentInfo = tournamentInfo;
+    $scope.toggleStart = function () {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+angular.module('toodleApp').controller('ModalReportCtrl', function ($scope, $modalInstance, firstGameToReport) {
+    $scope.firstGameToReport = firstGameToReport;
+    $scope.reportMatch = function () {
+        $modalInstance.close([$scope.score1, $scope.score2]);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+angular.module('toodleApp').controller('ModalUnreportCtrl', function ($scope, $modalInstance, gameToUnreport) {
+    $scope.gameToUnreport = gameToUnreport;
+    $scope.unreportMatch = function () {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});

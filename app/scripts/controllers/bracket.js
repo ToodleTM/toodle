@@ -1,6 +1,6 @@
 'use strict';
 angular.module('toodleApp')
-    .controller('BracketCtrl', function ($scope, $location, $http, $cookies) {
+    .controller('BracketCtrl', function ($scope, $location, $http, $cookies, $modal) {
         var tournamentId = $location.$$path.split('/')[2];
         $scope.nick = '';
         $scope.playerList = null;
@@ -70,13 +70,43 @@ angular.module('toodleApp')
         $scope.report = function (match) {
             $scope.firstGameToReport = match;
             $scope.$apply();
-            $('#reportModal').modal();
+
+            var modalInstance = $modal.open({
+                templateUrl: '/views/partials/popinTemplates/reportTemplate.html',
+                controller: 'ModalReportCtrl',
+                resolve: {
+                    firstGameToReport:function(){
+                        return $scope.firstGameToReport;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (scores) {
+                $scope.score1 = scores[0];
+                $scope.score2 = scores[1];
+                $scope.reportMatch();
+            }, function () {
+            });
         };
 
         $scope.unreport = function (match) {
             $scope.gameToUnreport = match;
             $scope.$apply();
-            $('#unreportModal').modal();
+            var modalInstance = $modal.open({
+                templateUrl: '/views/partials/popinTemplates/unreportTemplate.html',
+                controller: 'ModalUnreportCtrl',
+                resolve: {
+                    gameToUnreport:function() {
+                        return $scope.gameToUnreport;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+
+                $scope.unreportMatch();
+            }, function () {
+            });
         };
 
         $scope.reportMatch = function () {
