@@ -10,6 +10,17 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
   transform: translate(0, 0);
 }
 
+.full button span {
+  background-color: limegreen;
+  border-radius: 32px;
+  color: black;
+}
+.partially button span {
+  background-color: orange;
+  border-radius: 32px;
+  color: black;
+}
+
 /* Space out content a bit */
 body {
   padding-top: 20px;

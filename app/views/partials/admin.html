@@ -1,5 +1,4 @@
 <div ng-include="'partials/navbar'"></div>
-
 <div id="content">
     <div id="error" class="alert alert-danger" role="alert" hidden>
         <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
@@ -17,12 +16,12 @@
             ng-click="toggleRegistrationLock()" id="lockTournament" translate="admin.actions.lock">
     </button>
 
-    <button ng-if="tournamentInfo.running" id="runTournament" ng-click="open()"
+    <button ng-if="tournamentInfo.running" id="runTournament" ng-click="openRunDialog()"
             class="btn btn-success"
             title="{{ 'admin.actions.run.runningTooltip' | translate }}" translate="admin.actions.run.running">{{'admin.actions.run.running' | translate}}
     </button>
 
-    <button ng-if="!tournamentInfo.running" id="runTournament" ng-click="open()"
+    <button ng-if="!tournamentInfo.running" id="runTournament" ng-click="openRunDialog()"
             class="btn btn-danger"
             title="{{'admin.actions.run.notRunningTooltip' | translate }}" translate="admin.actions.run.notRunning">{{'admin.actions.run.notRunning' | translate}}
     </button>
@@ -100,7 +99,12 @@
             <div class="row">
                 <div class="form-group col-sm-6">
                     <label class="control-label" for="tournamentStart" translate="admin.form.startDate"></label>
-                    <input type="text" id="tournamentStart" class="form-control" ng-model="tournamentStartDate"/>
+                    <p class="input-group">
+                        <input type="text" id="tournamentStart" class="form-control" datepicker-popup="{{format}}" ng-model="tournamentStartDate" is-open="opened" min-date="minDate" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                    </p>
                 </div>
 
                 <div class="form-group col-sm-6">

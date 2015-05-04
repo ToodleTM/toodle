@@ -7,7 +7,6 @@ angular.module('toodleApp')
         $scope.playerList = null;
         _paq.push(['setDocumentTitle', 'Admin Page']);
         _paq.push(['trackPageView']);
-        $('#tournamentStart').datepicker({minDate: 0, maxDate: '+12M', showButtonPanel: true});
 
 
         var multipleRegistrationOk = function (data) {
@@ -274,7 +273,7 @@ angular.module('toodleApp')
             window.open('/api/tournament/winners/csv/?tournamentId='+$scope.tournamentInfo._id, '_blank', '');
         };
 
-        $scope.open = function (size) {
+        $scope.openRunDialog = function (size) {
 
             var modalInstance = $modal.open({
                 templateUrl: '/views/partials/popinTemplates/startStopTemplate.html',
@@ -328,6 +327,50 @@ angular.module('toodleApp')
                 $scope.unreportMatch();
             }, function () {
             });
+        };
+
+        $scope.today = function() {
+            $scope.tournamentStartDate = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.tournamentStartDate = null;
+        };
+
+        $scope.toggleMin = function() {
+            $scope.minDate = $scope.minDate ? null : new Date();
+        };
+        $scope.toggleMin();
+
+        $scope.openDatePicker = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened = true;
+        };
+
+        $scope.dateOptions = {
+            formatYear: 'yyyy',
+            startingDay: 1
+        };
+
+        $scope.format = 'dd-MM-yyyy';
+
+        $scope.getDayClass = function(date, mode) {
+            if (mode === 'day') {
+                var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+                for (var i=0;i<$scope.events.length;i++){
+                    var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+                    if (dayToCheck === currentDay) {
+                        return $scope.events[i].status;
+                    }
+                }
+            }
+
+            return '';
         };
     }
 );
