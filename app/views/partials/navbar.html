@@ -4,63 +4,48 @@
             <div class="form-group col-sm-9 navbar-title">
                 <a href="/" class="toodle-title text-muted" translate="header.title"></a>
             </div>
-            <!--<div class="form-group col-sm-2 navbar-language-select">-->
-            <!--<select class="form-control ng-pristine" id="language" ng-model="selectedLanguage">-->
-            <!--<option value="en">EN</option>-->
-            <!--<option value="fr">FR</option>-->
-            <!--</select>-->
-            <!--</div>-->
             <nav class="navbar-language-select">
-                <div class="navbar-menus">
-                    <ul ng-show="!userName" class="login-menu">
-                        <li id="loginSelector" class="login-menu-item">
-                            <span translate="header.login"></span>
-                            <ul>
-                                <li>
-                                    <button ng-click="login('twitter')" title="Twitter"><img
-                                            src="/images/social/twitter.png"></button>
-
-                                    <button ng-click="login('google')" title="Google+"><img
-                                            src="/images/social/gplus.jpg"></button>
-                                </li>
-                            </ul>
-                        </li>
+                <div ng-show="!userName" class="btn-group" dropdown is-open="false">
+                    <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                        <span translate="header.login"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" ng-click="login('twitter')" title="Twitter"><img
+                                src="/images/social/twitter.png"></a></li>
+                        <li><a href="#" ng-click="login('google')" title="Google+"><img
+                                src="/images/social/gplus.jpg"></a></li>
                     </ul>
+                </div>
 
-                    <ul ng-show="userName" class="login-menu" id="welcome">
-                        <li  class="login-menu-item">
-                            <span translate="header.welcome"></span> {{userName}} <img ng-show="userIcon" src="{{userIcon}}" height="16"/> !
-                            <ul class="loggedin-menu">
-                                <li>
-                                    <a href="/tournaments?type=created" translate="tournaments.navbar.created"></a>
-                                </li>
-                                <li>
-                                    <a href="/tournaments?type=admin" translate="tournaments.navbar.admin">What I admin</a>
-                                </li>
-                                <!--<li>-->
-                                    <!--<a href="/">What I play</a>-->
-                                <!--</li>-->
-                                <li>
-                                    <a ng-click="logout()" title="{{'header.logout'|translate}}"><span translate="tournaments.navbar.disconnect"></span> <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
-                                </li>
-                            </ul>
-                        </li>
+                <div ng-show="userName" class="btn-group" dropdown is-open="false">
+                    <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                        <span translate="header.welcome"></span> {{userName}} <img ng-show="userIcon" src="{{userIcon}}" height="16"/> !
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/tournaments?type=created" translate="tournaments.navbar.created"></a></li>
+                        <li><a href="/tournaments?type=admin" translate="tournaments.navbar.admin"></a></li>
+                        <li class="divider"></li>
+                        <li><a ng-click="logout()" title="{{'header.logout'|translate}}"><span translate="tournaments.navbar.disconnect"></span> <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
                     </ul>
+                </div>
 
-                    <ul style="">
-                        <li id="languageSelector"><a href="#"><img id='activeLanguage'
-                                                                   src="./images/flags/en.svg"
-                                                                   height="15"/></a>
-                            <ul>
-                                <li><a href="#" language="en"><img src="../../images/flags/en.svg" height="15"/></a>
-                                </li>
-                                <li><a href="#" language="fr"><img src="../../images/flags/fr.svg" height="15"/></a>
-                                </li>
-                            </ul>
-                        </li>
+                <div class="btn-group" dropdown is-open="false">
+                    <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                        <img id='activeLanguage'
+                             src="./images/flags/en.svg"
+                             height="15"/><span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" ng-click="switchLanguage('en')" language="en"><img src="../../images/flags/en.svg" height="15"/></a></li>
+                        <li><a href="#" ng-click="switchLanguage('fr')" language="fr"><img src="../../images/flags/fr.svg" height="15"/></a></li>
                     </ul>
                 </div>
             </nav>
+
+
         </div>
     </div>
+
 </div>
