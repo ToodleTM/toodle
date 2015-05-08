@@ -14,21 +14,10 @@
     <title>Toodle</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(app) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css({.tmp,app}) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-
-    <!-- Piwik -->
+    <link rel="stylesheet" href="styles/style.css">
     <script src="config/piwik.config.js"></script>
     <script type="text/javascript">
         var _paq = _paq || [];
-
         _paq.push(['enableLinkTracking']);
         (function() {
             var u= piwik_config.url;
@@ -39,29 +28,19 @@
         })();
     </script>
     <noscript><p><img src="//martinbahier.fr/piwik/piwik.php?idsite=3" style="border:0;" alt="" /></p></noscript>
-    <!-- End Piwik Code -->
-
 </head>
 <body ng-app="toodleApp">
-
 <a href="https://github.com/hoshin/toodle"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
-
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-
-<!-- Add your site or application content here -->
 <div class="container" ng-view=""></div>
-
 <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.min.js"></script>
 <script src="bower_components/json3/lib/json3.min.js"></script>
 <![endif]-->
-
-<!-- build:js(app) scripts/vendor.js -->
-<!-- bower:js -->
-<script async src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/angular-resource/angular-resource.min.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
@@ -76,19 +55,6 @@
 <script async src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <script async src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
 <script async src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<!-- endbower -->
-
-<!-- endbuild -->
-
-<!-- build:js({.tmp,app}) scripts/scripts.js -->
-<script src="scripts/app.js"></script>
-<script src="scripts/controllers/main.js"></script>
-<script src="scripts/utils/packed.js"></script>
-<script src="scripts/controllers/navbar.js"></script>
-<script src="scripts/controllers/admin.js"></script>
-<script src="scripts/controllers/play.js"></script>
-<script src="scripts/controllers/bracket.js"></script>
-<script src="scripts/controllers/myTournaments.js"></script>
-<!-- endbuild -->
+<script src="scripts/app.min.js"></script>
 </body>
 </html>
