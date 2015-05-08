@@ -32,6 +32,18 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
             templateUrl:'partials/tournamentListing',
             controller:'MyTournamentsCtrl'
         })
+        .when('/why', {
+            templateUrl:'partials/pages/why.html'
+        })
+        .when('/about', {
+            templateUrl:'partials/pages/about.html'
+        })
+        .when('/privacy', {
+            templateUrl:'partials/pages/privacy.html'
+        })
+        .when('/tos', {
+            templateUrl:'partials/pages/tos.html'
+        })
         .otherwise({
             redirectTo: '/'
         });

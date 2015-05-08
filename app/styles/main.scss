@@ -32,6 +32,14 @@ body {
 .footer {
   padding-left: 15px;
   padding-right: 15px;
+  position:relative;
+  & .footer-love {
+    float:left;
+  }
+
+  & .footer-links {
+    float:right;
+  }
 }
 
 /* Custom page header */

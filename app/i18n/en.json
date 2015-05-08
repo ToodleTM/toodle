@@ -193,5 +193,10 @@
       "created":"Tournaments I created (and thus admin)",
       "admin":"Tournaments I admin"
     }
+  },
+  "about":{
+    "team":"The team",
+    "who":"Who's that guy ?",
+    "role":"Role in the project"
   }
 }
