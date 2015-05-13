@@ -12,7 +12,7 @@ angular.module('toodleApp')
         $scope.logout = function(){
             $window.location = '/logout?returnUrl='+$location.$$absUrl;
         };
-        $http.get('get-session-data').success(function(data){
+        $http.get('/get-session-data').success(function(data){
             $scope.userName = data.displayName;
             $scope.userIcon = data.pictureUrl;
         }).error(function(){

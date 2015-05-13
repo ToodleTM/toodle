@@ -53,6 +53,15 @@ angular.module('toodleApp')
         $http.get('api/tournament/admin/' + tournamentId)
             .success(function (data) {
                 $scope.tournamentInfo = data;
+                $http.get('api/available-engines').success(function(engines){
+                    $scope.availableEngines = engines;
+                    engines.forEach(function(item){
+                        if(item.name === data.engine){
+                            $scope.engine = item;
+                        }
+                    });
+                }).error(function() {
+                });
                 $scope.playerList = $scope.tournamentInfo.players;
                 $scope.tournamentStartDate = $scope.tournamentInfo.startDate;
                 $cookieStore.put('toodle-'+$scope.tournamentInfo.signupID, data._id);
@@ -95,6 +104,7 @@ angular.module('toodleApp')
         $scope.updateTourney = function () {
             $rootScope.hideAlerts();
             $scope.tournamentInfo.startDate = $scope.tournamentStartDate;
+            $scope.tournamentInfo.engine = $scope.engine.name;
             $http.patch('/api/tournament/admin/update/?id=' + tournamentId, {_id:$scope.tournamentInfo._id, game:$scope.tournamentInfo.game, engine:$scope.tournamentInfo.engine, description:$scope.tournamentInfo.description, startDate:$scope.tournamentStartDate, userPrivileges:$scope.tournamentInfo.userPrivileges})
                 .success(function (data) {
                     $scope.tournamentInfo = data;
