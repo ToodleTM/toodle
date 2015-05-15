@@ -150,10 +150,10 @@
                 <div class="form-group col-sm-6">
                     <label class="control-label" for="engine" translate="admin.form.engine"></label>
 
-                    <select id="engine" name="engine" class="form-control" ng-model="tournamentInfo.engine" disabled>
-                        <option value="" translate="play.noGameType"></option>
-                        <option value="singleElim">Single elim. bracket</option>
-                        <option value="simpleGSLGroups">Simple groupstages (SC2 GSL format)</option>
+                    <select id="engine" name="engine" class="form-control" ng-model="engine"
+                            required="required"
+                            ng-options="engine as engine.description for engine in availableEngines track by engine.name" disabled>
+                        <option value=""> --- </option>
                     </select>
                 </div>
             </div>

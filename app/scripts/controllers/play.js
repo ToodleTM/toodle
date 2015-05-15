@@ -10,6 +10,15 @@ angular.module('toodleApp')
         $http.get('api/play/' + tournamentId).success(function (data) {
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;
+            $http.get('api/available-engines').success(function(engines){
+                $scope.availableEngines = engines;
+                engines.forEach(function(item){
+                    if(item.name === data.engine){
+                        $scope.engine = item;
+                    }
+                });
+            }).error(function() {
+            });
             if($scope.tournamentInfo.game){
                 $http.get('/views/resources/factions.json').success(function(data){
                     $scope.factions = data[$scope.tournamentInfo.game];
