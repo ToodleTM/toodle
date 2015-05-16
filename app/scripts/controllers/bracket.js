@@ -50,6 +50,16 @@ angular.module('toodleApp')
             $scope.tournamentId = $cookies['toodle-' + $scope.tournamentInfo.signupID];
             $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
             updateSwapPlayersForm(data);
+            $http.get('api/available-engines').success(function(engines){
+                $scope.availableEngines = engines;
+                engines.forEach(function(item){
+                    if(item.name === data.engine){
+                        $scope.engine = item;
+                        $scope.canSwapPlayers = $scope.engine.compatible.indexOf('playerSwap') !== -1;
+                    }
+                });
+            }).error(function() {
+            });
             $scope.controllerReferencesForRenderer = {
                 togglePlayerHighlight: $scope.togglePlayerHighlight,
                 report: $scope.report,

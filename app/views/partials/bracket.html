@@ -25,7 +25,7 @@
             href="/play/{{tournamentInfo.signupID}}">{{tournamentInfo.tournamentName}}</a></h1>
 
     <div ng-show="tournamentId" style="position:relative;width:50%;left:25%">
-        <form class="form-horizontal ng-pristine ng-valid ng-valid-required" ng-submit="swapPlayers()">
+        <form ng-show="canSwapPlayers" class="form-horizontal ng-pristine ng-valid ng-valid-required" ng-submit="swapPlayers()">
 
             <fieldset id="swapForm" style="font-size: 0.75em">
                 <legend class="ng-scope" translate="admin.actions.swapPlayers.title"></legend>
