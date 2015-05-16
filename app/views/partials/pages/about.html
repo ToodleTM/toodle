@@ -1,15 +1,34 @@
 <div ng-include="'partials/navbar'"></div>
 <div id="content">
-    <h1 translate="about.team"></h1>
-    <h2>Alexandre "Bri0che" Evain</h2>
-    <h3 translate="about.who"></h3>
-    I'm an IT / network security consultant that loves e-sports in general
-    <h3 translate="about.role"></h3>
-    I bring new ideas, and try and bring structures to use our app for their tournaments.
-    <h2>Martin "Hoshin" Bahier</h2>
-    <h3 translate="about.who"></h3>
-    I'm an IT consultant / software craftsman that happens to be quite Starcraft 2 addicted even though my skills are sub par in that area.
-    <h3 translate="about.role"></h3>
-    I develop most of what you see in the app. I'm also in charge of the more "operations" oriented aspects of the project (deployment on www.toodle.it & such) and part of QA (i.e : checking nothing is broken).
+    <div class="form-horizontal">
+        <div class="row">
+            <h1 translate="about.team" class="col-sm-12"></h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h2 translate="about.people.evain.name"></h2>
+                <img class="image" src="/images/people/brioche.jpg">
+                <h3 translate="about.who"></h3>
+
+                <p translate="about.people.evain.who"></p>
+
+                <h3 translate="about.role"></h3>
+
+                <p translate="about.people.evain.role"></p>
+            </div>
+            <div class="col-sm-6">
+                <h2 translate="about.people.martin.name"></h2>
+                <img class="image" src="/images/people/hoshin.jpg">
+
+                <h3 translate="about.who"></h3>
+
+                <p translate="about.people.martin.who"></p>
+
+                <h3 translate="about.role"></h3>
+
+                <p translate="about.people.martin.role">
+            </div>
+        </div>
+    </div>
 </div>
 <div ng-include="'partials/footer'"></div>

@@ -193,5 +193,22 @@
       "created":"Les tournois que j'ai créés (et que donc j'admin)",
       "admin":"Les tournois que j'admin"
     }
+  },
+  "about":{
+    "team":"L'équipe",
+    "who":"C'est qui lui ?",
+    "role":"Role dans le projet",
+    "people":{
+      "evain":{
+        "name":"Alexandre \"Bri0che\" Evain",
+        "who": "Je suis un consultant IT / sécurité amoureux d'e-sport",
+        "role":"J'apporte des nouvelles idées et essaye de convaincre des nouvelles structures d'utiliser notre appli"
+      },
+      "martin":{
+        "name":"Martin \"Hoshin\" Bahier",
+        "who":"Je suis un consultant IT / software craftsman pas mal accro à SC2 bien que je n'y sois pas (du tout) doué ^^'.",
+        "role":"Je développe l'essentiel de l'application. Je suis aussi responsable de la partie \"opérations\" du projet (déploiement de l'appli & co) et de la partie \"Assurance Qualité\" (i:e s'assurer que rien n'explose en vol) "
+      }
+    }
   }
 }
