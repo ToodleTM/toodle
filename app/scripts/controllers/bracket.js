@@ -26,18 +26,18 @@ angular.module('toodleApp')
 
         function updateSwapPlayersForm(data) {
             var eligibleMatches = lodashForApp.filter(data.bracket, function (match) {
-                return match.player1 && match.player2 && !match.complete;
+                return !match.complete;
             });
             $scope.swappablePlayers = [];
             lodashForApp.each(eligibleMatches, function (match) {
-                $scope.swappablePlayers.push(match.player1);
-                $scope.swappablePlayers.push(match.player2);
+                $scope.swappablePlayers.push({number:match.number, isPlayer1:true, name:match.player1? match.player1.name:'', label:match.player1? match.player1.name:'1st slot from match '+match.number});
+                $scope.swappablePlayers.push({number:match.number, isPlayer1:false, name:match.player2? match.player2.name:'', label:match.player2? match.player2.name:'2nd slot from match '+match.number});
             });
         }
 
         function resetPlayerNamesToSwap() {
-            $scope.player1ToSwap = '';
-            $scope.player2ToSwap = '';
+            $scope.player1ToSwap = null;
+            $scope.player2ToSwap = null;
         }
 
         $http.get('api/play/' + tournamentId).success(function (data) {
@@ -189,10 +189,12 @@ angular.module('toodleApp')
                 playerInMatch2: $scope.player2ToSwap
             })
                 .success(function (data) {
+
                     $scope.tournamentInfo = data;
                     $('#bracket').html('');
                     $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
                     resetPlayerNamesToSwap();
+                    updateSwapPlayersForm(data);
                     $scope.$apply();
                 })
                 .error(function (data) {

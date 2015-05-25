@@ -654,17 +654,7 @@ describe('SingleElim engine', function () {
             assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerInMatchThatIsOver'});
         });
 
-        it('should return an error if the first match we want to switch a player from does not have players in it', function () {
-            //setup
-            var callbackSpy = sinon.spy();
-            //action
-            engine.swapPlayers({}, null, {}, null, null, callbackSpy);
-            //assert
-            assert.equal(callbackSpy.calledOnce, true);
-            assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerInMatchThatDoesNotHaveBothPlayers'});
-        });
-
-        it('should return an error if the second match is complete and the 1st is not', function () {
+        it('should return an error if the second match is over and the 1st is not', function () {
             //setup
             var callbackSpy = sinon.spy();
             //action
@@ -694,31 +684,85 @@ describe('SingleElim engine', function () {
             assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerMatchNotFound'});
         });
 
-        it('should return an error if player to swap cannot be found in match1', function () {
+        function testSwapNullPlayers(player1InMatch1, player2InMatch1, player1InMatch2, player2InMatch2, match1Selector, match2Selector, expectedMatch1P1, expectedMatch1P2, expectedMatch2P1, expectedMatch2P2) {
             //setup
             var callbackSpy = sinon.spy();
+            var bracket = {
+                '1': {
+                    'next': 3,
+                    'nextFirst': true,
+                    'number': 1,
+                    'player1': player1InMatch1,
+                    'player2': player2InMatch1,
+                    'round': 2
+                },
+                '2': {
+                    'next': 3,
+                    'nextSecond': true,
+                    'number': 2,
+                    'player1': player1InMatch2,
+                    'player2': player2InMatch2,
+                    'round': 2
+                }
+            };
             //action
-            engine.swapPlayers({}, null, {}, null, null, callbackSpy);
+            engine.swapPlayers({
+                number: 1,
+                player1: player1InMatch1,
+                player2: player2InMatch1
+            }, match1Selector, {
+                number: 2,
+                player1: player1InMatch2,
+                player2: player2InMatch2
+            }, match2Selector, bracket, callbackSpy);
             //assert
             assert.equal(callbackSpy.calledOnce, true);
-            assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerInMatchThatDoesNotHaveBothPlayers'});
+            assert.equal(callbackSpy.getCall(0).args[0], null);
+            assert.deepEqual(callbackSpy.getCall(0).args[1], {
+                '1': {
+                    'next': 3,
+                    'nextFirst': true,
+                    'number': 1,
+                    'player1': expectedMatch1P1,
+                    'player2': expectedMatch1P2,
+                    'round': 2
+                },
+                '2': {
+                    'next': 3,
+                    'nextSecond': true,
+                    'number': 2,
+                    'player1': expectedMatch2P1,
+                    'player2': expectedMatch2P2,
+                    'round': 2
+                }
+            });
+        }
+
+        it('should be able to swap an empty slot in match1 with an actual player in match2 (player1 selected in both matches)', function () {
+            testSwapNullPlayers(null, {'name': 'jane'}, {'name': 'john'}, {'name': 'alice'}, 'player1', 'player1',
+                {'name': 'john'}, {'name': 'jane'}, null, {'name': 'alice'});
         });
 
-        it('should return an error if player to swap cannot be found in match2', function () {
-            //setup
-            var callbackSpy = sinon.spy();
-            //action
-            engine.swapPlayers({player: {}}, 'player', {}, null, null, callbackSpy);
-            //assert
-            assert.equal(callbackSpy.calledOnce, true);
-            assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerInMatchThatDoesNotHaveBothPlayers'});
+        it('should be able to swap an empty slot in match2 with an actual player in match1 (player2 selected in both matches)', function () {
+            testSwapNullPlayers({'name': 'john'}, {'name': 'jane'}, {'name': 'maverick'}, null, 'player2', 'player2',
+                {'name': 'john'}, null, {'name': 'maverick'}, {'name': 'jane'});
+        });
+
+        it('should be able to swap an empty slot in match1 with an actual player in match2 (player1 / player2)', function () {
+            testSwapNullPlayers(null, {'name': 'john'}, {'name': 'jane'}, {'name': 'maverick'}, 'player1', 'player2',
+                {'name': 'maverick'}, {'name': 'john'}, {'name': 'jane'}, null);
+        });
+
+        it('should be able to swap an empty slot in match1 with an actual player in match2 (player2 / player1)', function () {
+            testSwapNullPlayers({'name': 'john'}, null, {'name': 'jane'}, {'name': 'maverick'}, 'player2', 'player1',
+                {'name': 'john'}, {'name': 'jane'}, null, {'name': 'maverick'});
         });
 
         it('should swap two players between matches if both matches are valid and players can be found', function () {
             //setup
             var callbackSpy = sinon.spy();
             var bracket = {};
-            engine.initBracket([john, jane, bob, alice], function(error, data){
+            engine.initBracket([john, jane, bob, alice], function (error, data) {
                 bracket = data;
             });
             //action

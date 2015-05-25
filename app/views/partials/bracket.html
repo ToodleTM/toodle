@@ -35,7 +35,7 @@
                         <label class="control-label ng-scope" for="game" translate="admin.actions.swapPlayers.firstPlayer"></label>
 
                         <select id="game" name="game" class="form-control ng-pristine ng-untouched ng-valid" ng-model="player1ToSwap"
-                                ng-options="item as item.name for item in swappablePlayers track by item.name">
+                                ng-options="player as player.label for player in swappablePlayers track by player.label">
                         </select>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <label class="control-label ng-scope" for="engine" translate="admin.actions.swapPlayers.secondPlayer"></label>
 
                         <select id="engine" name="engine" class="form-control ng-pristine ng-untouched ng-valid ng-valid-required" ng-model="player2ToSwap"
-                                ng-options="item as item.name for item in swappablePlayers track by item.name">
+                                ng-options="player as player.label for player in swappablePlayers track by player.label">
                         </select>
                     </div>
                 </div>
