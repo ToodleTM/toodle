@@ -21,10 +21,19 @@
             title="{{ 'admin.actions.run.runningTooltip' | translate }}" translate="admin.actions.run.running">{{'admin.actions.run.running' | translate}}
     </button>
 
-    <button ng-if="!tournamentInfo.running" id="runTournament" ng-click="openRunDialog()"
-            class="btn btn-danger"
-            title="{{'admin.actions.run.notRunningTooltip' | translate }}" translate="admin.actions.run.notRunning">{{'admin.actions.run.notRunning' | translate}}
-    </button>
+    <div class="btn-group" dropdown ng-if="!tournamentInfo.running">
+        <button type="button" class="btn btn-danger" id="runTournament" ng-click="openRunDialog()"
+                class="btn btn-danger"
+                title="{{'admin.actions.run.notRunningTooltip' | translate }}" translate="admin.actions.run.notRunning">{{'admin.actions.run.notRunning' | translate}}</button>
+        <button type="button" class="btn btn-danger dropdown-toggle" dropdown-toggle>
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#" ng-click="openRunDialog()">Run w/ default parameters</a></li>
+            <li class="divider"></li>
+            <li><a href="#" ng-click="openPreconfigureDialog()">Let me configure players</a></li>
+        </ul>
+    </div>
 
     <p translate="admin.intro"></p>
     <fieldset>

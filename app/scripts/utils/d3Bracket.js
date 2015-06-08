@@ -145,6 +145,86 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction, reportin
                 }
             });
 };
+D3Bracket.prototype.firstPlayerToSwapPosition = null;
+
+D3Bracket.prototype.selectPlayerToSwap = function(node, swapCallback, slot1){
+    var playerSlot = slot1? 'player1':'player2';
+    var currentPlayer = node[playerSlot];
+    var swapIcon = '/images/swapPlayers.png';
+    var selectedIcon = '/images/selectedPlayer.png';
+    var slotNumber = slot1? 1 : 2;
+    if(!this.firstPlayerToSwapPosition){
+        this.firstPlayerToSwapPosition = {number:node.name, isPlayer1:slot1, name:currentPlayer? currentPlayer.name:null};
+        $('#matchNumber-'+node.name+'-'+slotNumber).attr('href', selectedIcon);
+    } else {
+        if(this.firstPlayerToSwapPosition.number === node.name && this.firstPlayerToSwapPosition.isPlayer1 === slot1){
+            this.firstPlayerToSwapPosition = null;
+            $('#matchNumber-'+node.name+'-'+slotNumber).attr('href', swapIcon);
+        } else {
+            var secondPlayerToSwapPosition = {number:node.name, isPlayer1:slot1, name:currentPlayer? currentPlayer.name:null};
+            swapCallback([this.firstPlayerToSwapPosition, secondPlayerToSwapPosition]);
+            this.firstPlayerToSwapPosition = null;
+        }
+    }
+};
+
+D3Bracket.prototype.drawPreconfigureNode = function (nodeEnter, lineFunction, swapTriggerCallback) {
+    var pathForDrawingCell = [
+        {x: 0, y: -NODE_HEIGHT / 2},
+        {x: NODE_WIDTH, y: -NODE_HEIGHT / 2},
+        {x: NODE_WIDTH, y: NODE_HEIGHT / 2},
+        {x: 0, y: NODE_HEIGHT / 2},
+        {x: 0, y: -NODE_HEIGHT / 2}
+    ];
+    var self = this;
+    nodeEnter.append('path')
+        .attr('d', lineFunction(pathForDrawingCell))
+        .attr('stroke', this.chooseOuterNodeColor)
+        .attr('stroke-width', 2)
+        .attr('fill', NODE_FILL_COLOR);
+
+    nodeEnter.append('path')
+        .attr('d', lineFunction([
+            {x: 0, y: 0},
+            {x: NODE_WIDTH, y: 0}
+        ]))
+        .attr('stroke', NODE_INNER_SEPARATION_COLOR)
+        .attr('stroke-width', 1);
+
+        var swapIcon = '/images/swapPlayers.png';
+
+    nodeEnter.append('svg:image')
+        .attr('class', 'circle')
+        .attr('xlink:href', function (d) {
+            return swapIcon;
+        })
+        .attr('id', function (d) {
+            return 'matchNumber-' + d.name+'-1';
+        })
+        .attr('x', (NODE_WIDTH - 7) + 'px')
+        .attr('y', '-18px')
+        .attr('width', '15px')
+        .attr('height', '15px')
+        .on('click', function (d) {
+            self.selectPlayerToSwap(d, swapTriggerCallback, true);
+        });
+
+    nodeEnter.append('svg:image')
+        .attr('class', 'circle')
+        .attr('xlink:href', function (d) {
+            return swapIcon;
+        })
+        .attr('id', function (d) {
+            return 'matchNumber-' + d.name+'-2';
+        })
+        .attr('x', (NODE_WIDTH - 7) + 'px')
+        .attr('y', '3px')
+        .attr('width', '15px')
+        .attr('height', '15px')
+        .on('click', function (d) {
+            self.selectPlayerToSwap(d, swapTriggerCallback, false);
+        });
+};
 
 D3Bracket.prototype.getTextToDraw = function (playerData, playerScore) {
     if (!playerData) {
@@ -367,7 +447,7 @@ D3Bracket.prototype.setViewDimensions = function (bracket) {
     var numberOfSpacesBetweenMatchSlots = Math.floor(numberOfLeaves / 2);
     this.HEIGHT = (numberOfLeaves + numberOfSpacesBetweenMatchSlots) * baseHeight;
 };
-D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playerToHighlight) {
+D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playerToHighlight, preconfigureMode) {
     var bracket = data.bracket;
     var d3Nodes = this.convertBracketToD3Tree(bracket);
     var that = this;
@@ -387,18 +467,24 @@ D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playe
     var margin = {top: 0, right: 0, bottom: 0, left: 0};
     var svg = this.appendSvgCanvas(margin, d3);
     var node = this.translateOrigin(this.giveAnIdToEachNode(svg, nodes));
-    this.drawSingleNode(node, this.drawLine(d3), function (d) {
-        controllerReference.report(d);
-    }, function (d) {
-        controllerReference.unreport(d);
-    }, data.userPrivileges);
+    if(preconfigureMode){
+        this.drawPreconfigureNode(node, this.drawLine(d3), function (d) {
+            controllerReference.swapPlayers(d);
+        });
+    } else {
+        this.drawSingleNode(node, this.drawLine(d3), function (d) {
+            controllerReference.report(d);
+        }, function (d) {
+            controllerReference.unreport(d);
+        }, data.userPrivileges);
+    }
     this.drawFirstPlayerNameInNode(node, controllerReference.togglePlayerHighlight);
     this.drawSecondPlayerNameInNode(node, controllerReference.togglePlayerHighlight);
     this.drawLinesBetweenNodes(svg, links, playerToHighlight);
 };
 
-D3Bracket.prototype.render = function(tournamentData, customRenderer, controllerCallbacks, playerToHighlight){
-    this.drawBracket(tournamentData, customRenderer, controllerCallbacks, playerToHighlight);
+D3Bracket.prototype.render = function(tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode){
+    this.drawBracket(tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode);
 };
 
 module.exports.Renderer = D3Bracket;

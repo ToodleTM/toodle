@@ -25,6 +25,9 @@ function checkBaseFormElementState(element, by, pageLinkId){
 }
 
 E2eUtils.prototype.waitForElementToBeVisible = function(){
+    //browser.wait(function(){
+    //    return element(by.id(elementId)).isDisplayed();
+    //});
 };
 
 E2eUtils.prototype.createTournamentAndGoToPage = function(browser, element, by, pageLinkId){

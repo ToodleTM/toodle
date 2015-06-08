@@ -20,6 +20,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
             templateUrl: 'partials/admin',
             controller: 'AdminCtrl'
         })
+        .when('/admin/preconfigure/:id', {
+            templateUrl:'partials/preconfigureTournament',
+            controller:'PreconfigureTournamentCtrl'
+        })
         .when('/play/:id', {
             templateUrl: 'partials/play',
             controller: 'PlayCtrl'
@@ -139,6 +143,17 @@ app.directive('whenReady', ['$interpolate', function($interpolate) {
 angular.module('toodleApp').controller('ModalToggleStartCtrl', function ($scope, $modalInstance, tournamentInfo) {
     $scope.tournamentInfo = tournamentInfo;
     $scope.toggleStart = function () {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+angular.module('toodleApp').controller('ModalPreconfigureCtrl', function ($scope, $modalInstance, tournamentInfo) {
+    $scope.tournamentInfo = tournamentInfo;
+    $scope.preconfigure = function () {
         $modalInstance.close();
     };
 

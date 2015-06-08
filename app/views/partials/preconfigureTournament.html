@@ -1,0 +1,42 @@
+<div ng-include="'partials/navbar'"></div>
+<div class="form-group col-sm-12">
+    <div id="tourneyReportingOk" class="alert alert-success alert-dismissible app-alert" role="alert" hidden>
+        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
+                aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
+        <span translate="admin.actions.reporting.reportingOk"></span>
+    </div>
+    <div ng-show="tourneyReportingKo" id="tourneyReportingKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
+        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
+                aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
+        <span translate="admin.actions.reporting.reportingKo"></span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
+    </div>
+</div>
+
+<div ng-show="tournamentLookupError" id="notFound" class="alert alert-danger ng-binding" role="alert" hidden="" style="display: none;">
+    <button type="button" class="close alert-fix-close" ng-click="hideAlerts()" style="display: none;"><span
+            aria-hidden="true" style="display: none;">×</span><span class="sr-only" style="display: none;">Close</span>
+    </button>
+    <span translate="play.notFound"></span>
+</div>
+<div ng-show="!tournamentLookupError" id="content">
+    <h1> <span translate="bracket.header"></span> <a
+            href="/play/{{tournamentInfo.signupID}}">{{tournamentInfo.tournamentName}}</a></h1>
+
+    <div ng-show="tournamentId" style="position:relative;width:50%;left:25%">
+    </div>
+
+    <div style="height:1em"><span id="highlightedPlayerText" ng-show="playerToHighlight">  <span translate="bracket.playerToHighlight"></span> : {{playerToHighlight.name}}</span>
+    </div>
+
+    <div ng-show="engineTemplate" ng-include="engineTemplate"></div>
+
+    <div ng-show="tournament.running" id="running" style="display:none;">
+        <h2 translate="bracket.tournamentNotRunningWarning"></h2>
+    </div>
+
+</div>
+
+<div ng-include="'partials/footer'"></div>
+

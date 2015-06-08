@@ -302,6 +302,28 @@ angular.module('toodleApp')
             });
         };
 
+        $scope.preconfigure = function(){
+            window.location = '/admin/preconfigure/'+tournamentId;
+        };
+
+        $scope.openPreconfigureDialog = function (size) {
+            var modalInstance = $modal.open({
+                templateUrl: '/views/partials/popinTemplates/preconfigureTemplate.html',
+                controller: 'ModalPreconfigureCtrl',
+                size: size,
+                resolve: {
+                    tournamentInfo:function(){
+                        return $scope.tournamentInfo;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.preconfigure();
+            }, function () {
+            });
+        };
+
         $scope.report = function(){
             var modalInstance = $modal.open({
                 templateUrl: '/views/partials/popinTemplates/reportTemplate.html',
