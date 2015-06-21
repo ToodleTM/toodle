@@ -52,6 +52,15 @@ angular.module('toodleApp')
         };
         $http.get('api/tournament/admin/' + tournamentId)
             .success(function (data) {
+                $http.get('api/available-engines').success(function (engines) {
+                    $scope.availableEngines = engines;
+                    engines.forEach(function (item) {
+                        if (item.name === data.engine) {
+                            $scope.engine = item;
+                            $scope.canSwapPlayers = $scope.engine.compatible.indexOf('playerSwap') !== -1;
+                        }
+                    });
+                });
                 $scope.tournamentInfo = data;
                 $http.get('api/available-engines').success(function(engines){
                     $scope.availableEngines = engines;
@@ -115,6 +124,12 @@ angular.module('toodleApp')
                             $scope.factions = data[$scope.tournamentInfo.game];
                         });
                     }
+                    $scope.availableEngines.forEach(function (item) {
+                        if (item.name === $scope.tournamentInfo.engine) {
+                            $scope.engine = item;
+                            $scope.canSwapPlayers = $scope.engine.compatible.indexOf('playerSwap') !== -1;
+                        }
+                    });
                 })
                 .error(function (err) {
                     $scope.alertMessage = 'admin.update.fail';

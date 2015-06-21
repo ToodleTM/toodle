@@ -23,7 +23,7 @@
     <span translate="play.notFound"></span>
 </div>
 <div ng-show="!tournamentLookupError" id="content">
-    <div ng-show="!tournamentRunning">
+    <div ng-show="!tournamentRunning && !incompatibleEngine">
         <h1><span translate="preconfigure.title"></span> <a
                 href="/play/{{tournamentInfo.signupID}}">{{tournamentInfo.tournamentName}}</a></h1>
 
@@ -50,6 +50,9 @@
     </div>
     <div ng-show="tournamentRunning">
         <h1 translate="preconfigure.notAvailable"></h1>
+    </div>
+    <div ng-show="incompatibleEngine">
+        <h1 translate="preconfigure.incompatibleEngine"></h1>
     </div>
 </div>
 
