@@ -53,6 +53,8 @@
       "run": {
         "running": "Stop brackets",
         "notRunning": "Start brackets",
+        "runDefault":"Start w/ default parameters",
+        "preconfigure":"Let me configure players",
         "runningTooltip": "Start tournament, users won't be able to register anymore",
         "notRunningTooltip": "Stop tournament, users will be able to register again",
         "confirm": "Confirm",
@@ -173,6 +175,12 @@
     "tournamentNotRunningWarning": "Tournament is not currently running, please come back later!",
     "playerToHighlight": "Player actually highlighted ",
     "group": "Group"
+  },
+  "preconfigure":{
+    "title":"Preconfiguring bracket ",
+    "cancel":"Cancel",
+    "start":"Start",
+    "notAvailable":"Tournament does not exist or is already running. Cannot preconfigure."
   },
   "common": {
     "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported."

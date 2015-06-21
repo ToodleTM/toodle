@@ -16,26 +16,6 @@ beforeEach(function () {
 });
 
 describe('SingleElim - SwapPlayers', function () {
-    it('should return an error if the first match we want to switch a player from is already over', function () {
-        //setup
-        var callbackSpy = sinon.spy();
-        //action
-        engine.swapPlayers({complete: true}, null, {}, null, null, callbackSpy);
-        //assert
-        assert.equal(callbackSpy.calledOnce, true);
-        assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerInMatchThatIsOver'});
-    });
-
-    it('should return an error if the second match is over and the 1st is not', function () {
-        //setup
-        var callbackSpy = sinon.spy();
-        //action
-        engine.swapPlayers({}, null, {complete: true}, null, null, callbackSpy);
-        //assert
-        assert.equal(callbackSpy.calledOnce, true);
-        assert.deepEqual(callbackSpy.getCall(0).args[0], {message: 'cantSwapPlayerInMatchThatIsOver'});
-    });
-
     it('should return an error if match1 has not been found', function () {
         //setup
         var callbackSpy = sinon.spy();
@@ -167,92 +147,6 @@ describe('SingleElim - SwapPlayers', function () {
                     'number': 3,
                     'player1': null,
                     'player2': null,
-                    'round': 1
-                }
-            }
-        );
-    });
-
-    it('should mark a match where a player has been removed from match1 (w/ initially 2 players) as complete', function(){
-        //setup
-        var callbackSpy = sinon.spy();
-        var bracket = {};
-        engine.initBracket([john, jane, bob,alice], function (error, data) {
-            bracket = data;
-        });
-        //action
-        engine.swapPlayers(
-            {number: 1, player1: john}, 'player1',
-            {number: 3, player2: null}, 'player2', bracket, callbackSpy);
-        //assert
-        assert.equal(callbackSpy.calledOnce, true);
-        assert.deepEqual(callbackSpy.getCall(0).args[0], null);
-        assert.deepEqual(callbackSpy.getCall(0).args[1],
-            {
-                '1': {
-                    'next': 3,
-                    'nextFirst': true,
-                    'number': 1,
-                    'complete':true,
-                    'player1': null,
-                    'player2': jane,
-                    'round': 2
-                },
-                '2': {
-                    'next': 3,
-                    'nextSecond': true,
-                    'number': 2,
-                    'player1': bob,
-                    'player2': alice,
-                    'round': 2
-                },
-                '3': {
-                    'number': 3,
-                    'player1': null,
-                    'player2': john,
-                    'round': 1
-                }
-            }
-        );
-    });
-
-    it('should mark a match where a player has been removed from match2 (w/ initially 2 players) as complete', function(){
-        //setup
-        var callbackSpy = sinon.spy();
-        var bracket = {};
-        engine.initBracket([john, jane, bob,alice], function (error, data) {
-            bracket = data;
-        });
-        //action
-        engine.swapPlayers(
-            {number: 3, player1: null}, 'player2',
-            {number: 2, player2: bob}, 'player1', bracket, callbackSpy);
-        //assert
-        assert.equal(callbackSpy.calledOnce, true);
-        assert.deepEqual(callbackSpy.getCall(0).args[0], null);
-        assert.deepEqual(callbackSpy.getCall(0).args[1],
-            {
-                '1': {
-                    'next': 3,
-                    'nextFirst': true,
-                    'number': 1,
-                    'player1': john,
-                    'player2': jane,
-                    'round': 2
-                },
-                '2': {
-                    'next': 3,
-                    'complete':true,
-                    'nextSecond': true,
-                    'number': 2,
-                    'player1': null,
-                    'player2': alice,
-                    'round': 2
-                },
-                '3': {
-                    'number': 3,
-                    'player1': null,
-                    'player2': bob,
                     'round': 1
                 }
             }

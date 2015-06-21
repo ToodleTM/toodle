@@ -181,27 +181,5 @@ angular.module('toodleApp')
             $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
             $scope.$apply();
         };
-
-        $scope.swapPlayers = function () {
-            $http.post('/api/tournament/swapPlayers/', {
-                tournamentId: JSON.parse($scope.tournamentId),
-                playerInMatch1: $scope.player1ToSwap,
-                playerInMatch2: $scope.player2ToSwap
-            })
-                .success(function (data) {
-
-                    $scope.tournamentInfo = data;
-                    $('#bracket').html('');
-                    $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
-                    resetPlayerNamesToSwap();
-                    updateSwapPlayersForm(data);
-                    $scope.$apply();
-                })
-                .error(function (data) {
-                    $scope.errorMessage = 'admin.actions.swapPlayers.'+data.message;
-                    resetPlayerNamesToSwap();
-                    $('#tourneyReportingKo').fadeIn();
-                });
-        };
     }
 );

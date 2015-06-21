@@ -139,6 +139,7 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction, reportin
             .attr('y', '-27px')
             .attr('width', '15px')
             .attr('height', '15px')
+            .style('cursor', 'pointer')
             .on('click', function (d) {
                 if (playerCanAtLeastReport(d, reportingRights) || playerCanReportAndUnreport(d, reportingRights)) {
                     self.triggerReportingEvent(d, reportingTrigger, unreportingTrigger);
@@ -179,7 +180,7 @@ D3Bracket.prototype.drawPreconfigureNode = function (nodeEnter, lineFunction, sw
     var self = this;
     nodeEnter.append('path')
         .attr('d', lineFunction(pathForDrawingCell))
-        .attr('stroke', this.chooseOuterNodeColor)
+        .attr('stroke', NODE_OUTER_COLOR)
         .attr('stroke-width', 2)
         .attr('fill', NODE_FILL_COLOR);
 
@@ -195,9 +196,7 @@ D3Bracket.prototype.drawPreconfigureNode = function (nodeEnter, lineFunction, sw
 
     nodeEnter.append('svg:image')
         .attr('class', 'circle')
-        .attr('xlink:href', function (d) {
-            return swapIcon;
-        })
+        .attr('xlink:href', swapIcon)
         .attr('id', function (d) {
             return 'matchNumber-' + d.name+'-1';
         })
@@ -205,15 +204,14 @@ D3Bracket.prototype.drawPreconfigureNode = function (nodeEnter, lineFunction, sw
         .attr('y', '-18px')
         .attr('width', '15px')
         .attr('height', '15px')
+        .style('cursor', 'pointer')
         .on('click', function (d) {
             self.selectPlayerToSwap(d, swapTriggerCallback, true);
         });
 
     nodeEnter.append('svg:image')
         .attr('class', 'circle')
-        .attr('xlink:href', function (d) {
-            return swapIcon;
-        })
+        .attr('xlink:href', swapIcon)
         .attr('id', function (d) {
             return 'matchNumber-' + d.name+'-2';
         })
@@ -221,6 +219,7 @@ D3Bracket.prototype.drawPreconfigureNode = function (nodeEnter, lineFunction, sw
         .attr('y', '3px')
         .attr('width', '15px')
         .attr('height', '15px')
+        .style('cursor', 'pointer')
         .on('click', function (d) {
             self.selectPlayerToSwap(d, swapTriggerCallback, false);
         });
@@ -285,7 +284,7 @@ D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes, callback) {
             return 'player1-for-match-'+ d.name;
         })
         .on('click', function (d) {
-            callback(d.player1);
+            that.selectPlayerToSwap(d, callback, true);
         });
     nodes.append('svg:image')
         .attr('class', 'circle')
@@ -312,7 +311,7 @@ D3Bracket.prototype.drawSecondPlayerNameInNode = function (nodes, callback) {
             return 'player2-for-match-'+ d.name;
         })
         .on('click', function (d) {
-            callback(d.player2);
+            that.selectPlayerToSwap(d, callback, false);
         });
     nodes.append('svg:image')
         .attr('class', 'circle')
@@ -476,10 +475,10 @@ D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playe
             controllerReference.report(d);
         }, function (d) {
             controllerReference.unreport(d);
-        }, data.userPrivileges);
+        }, data.userPrivileges, preconfigureMode);
     }
-    this.drawFirstPlayerNameInNode(node, controllerReference.togglePlayerHighlight);
-    this.drawSecondPlayerNameInNode(node, controllerReference.togglePlayerHighlight);
+    this.drawFirstPlayerNameInNode(node, controllerReference.swapPlayers);
+    this.drawSecondPlayerNameInNode(node, controllerReference.swapPlayers);
     this.drawLinesBetweenNodes(svg, links, playerToHighlight);
 };
 

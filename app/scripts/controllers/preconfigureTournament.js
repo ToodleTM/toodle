@@ -1,6 +1,6 @@
 'use strict';
 angular.module('toodleApp')
-    .controller('PreconfigureTournamentCtrl', function ($scope, $location, $http, $cookies) {
+    .controller('PreconfigureTournamentCtrl', function ($scope, $location, $http, $cookies, $window) {
         var tournamentId = $location.$$path.split('/')[3];
         $scope.nick = '';
         $scope.playerList = null;
@@ -42,25 +42,28 @@ angular.module('toodleApp')
 
         $http.get('api/tournament/admin/' + tournamentId).success(function (data) {
             $scope.error = false;
-            resetPlayerNamesToSwap();
-            $scope.tournamentInfo = data;
-            $scope.playerList = data.players;
-            $scope.engineTemplate = '/partials/engineTemplates/' + data.engine;
-            $scope.renderer = availableRenderers[$scope.tournamentInfo.engine];
-            $scope.groups = [];
-            $scope.tournamentId = $cookies['toodle-' + $scope.tournamentInfo.signupID];
-            $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
-            updateSwapPlayersForm(data);
-            if(!$scope.tournamentInfo.bracket){
-                $http.post('api/tournament/genBracketForTournament', {tournamentId:tournamentId}).success(function(data){
-                    $scope.tournamentInfo.bracket = data;
-                    $scope.displayBracket(data);
-                }).error(function(){
+            if(data && !data.running) {
+                resetPlayerNamesToSwap();
+                $scope.tournamentInfo = data;
+                $scope.playerList = data.players;
+                $scope.engineTemplate = '/partials/engineTemplates/' + data.engine;
+                $scope.renderer = availableRenderers[$scope.tournamentInfo.engine];
+                $scope.groups = [];
+                $scope.tournamentId = $cookies['toodle-' + $scope.tournamentInfo.signupID];
+                $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
+                updateSwapPlayersForm(data);
+                if (!$scope.tournamentInfo.bracket) {
+                    $http.post('api/tournament/genBracketForTournament', {tournamentId: tournamentId}).success(function (data) {
+                        $scope.tournamentInfo.bracket = data;
+                        $scope.displayBracket(data);
+                    }).error(function () {
 
-                });
-            } else {
-                $scope.displayBracket(data);
+                    });
+                } else {
+                    $scope.displayBracket(data);
+                }
             }
+            $scope.tournamentRunning = data ? data.running : false;
         }).error(function () {
             $scope.tournamentLookupError = true;
         });
@@ -88,6 +91,23 @@ angular.module('toodleApp')
             }
         };
 
+        $scope.createDefaultBracketAndGoBack = function(){
+            $http.post('api/tournament/genBracketForTournament', {tournamentId: tournamentId}).success(function (data) {
+                $scope.tournamentInfo.bracket = data;
+                $window.location = $location.$$path.replace('/preconfigure', '');
+            }).error(function () {
+
+            });
+        };
+
+        $scope.updateBracketDataAndStart = function(){
+            $http.post('api/tournament/updateBracketDataAndStart', {tournamentId: tournamentId}).success(function (data) {
+                $scope.tournamentInfo = data;
+                $window.location = $location.$$path.replace('/preconfigure', '');
+            }).error(function () {
+
+            });
+        };
 
         $scope.renderBracket = function () {
             $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, true);

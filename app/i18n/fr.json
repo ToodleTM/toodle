@@ -53,6 +53,8 @@
       "run": {
         "running": "Arrêter l'arbre",
         "notRunning": "Démarrer l'arbre",
+        "runDefaults":"Démarrer avec les réglages par défaut",
+        "preconfigure":"Me laisser configurer l'arbre",
         "runningTooltip": "Démarrer le tournoi. Les joueurs ne pourront plus s'inscrire",
         "notRunningTooltip": "Arrêter le tournoi, les joueurs pourront a nouveau s'inscrire",
         "confirm": "Confirmer",
@@ -173,6 +175,12 @@
     "tournamentNotRunningWarning": "Le tournoi n'a pas encore commencé, reviens plus tard!",
     "playerToHighlight": "Parcours de joueur mis en valeur ",
     "group": "Groupe"
+  },
+  "preconfigure":{
+    "title":"Préconfiguration du bracket ",
+    "cancel":"Annuler",
+    "start":"Démarrer",
+    "notAvailable":"Ce tournoi n'existe pas ou est déjà en cours. Impossible d'en configurer l'arbre"
   },
   "common": {
     "errorFindingMatchesToReport": "Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer."
