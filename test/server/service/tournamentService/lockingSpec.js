@@ -2,7 +2,7 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var TournamentService = require('../../../../lib/service/tournamentService').TournamentService;
-describe('Tournament locking / unlocking', function () {
+describe('TournamentService - Tournament locking / unlocking', function () {
     it('should be possible to lock anytime', function () {
         //setup
         var tournamentService = new TournamentService();

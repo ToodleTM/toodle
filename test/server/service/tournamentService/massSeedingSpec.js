@@ -3,7 +3,7 @@ var assert = require('chai').assert;
 var sinon = require('sinon');
 var TournamentService = require('../../../../lib/service/tournamentService').TournamentService;
 
-describe('Mass seeding', function () {
+describe('TournamentService - Mass seeding', function () {
     var tournamentService = new TournamentService();
     var res = null;
     var tournament = null;

@@ -2,7 +2,7 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var TournamentService = require('../../../../lib/service/tournamentService').TournamentService;
-describe('Player registration', function () {
+describe('TournamentService - Player registration', function () {
     it('should reject a player registration w/ an empty player name', function () {
         //setup
         var tournamentService = new TournamentService();
@@ -173,7 +173,7 @@ describe('Player registration', function () {
     });
 });
 
-describe('Unregister player', function(){
+describe('TournamentService - Unregister player', function(){
     it('should be able to unregister a player from an empty tournament (no players)', function(){
         //setup
         var tournamentService = new TournamentService();

@@ -2,7 +2,7 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var TournamentService = require('../../../../lib/service/tournamentService').TournamentService;
-describe('Tournament management', function () {
+describe('TournamentService - Tournament management', function () {
     var res = {};
     var tournamentService = {};
     var req = {body: {}};
