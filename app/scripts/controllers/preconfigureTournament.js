@@ -51,7 +51,7 @@ angular.module('toodleApp')
                             $scope.canSwapPlayers = $scope.engine.compatible.indexOf('playerSwap') !== -1;
                         }
                     });
-                    if($scope.engine.canSwapPlayers){
+                    if($scope.canSwapPlayers){
                         resetPlayerNamesToSwap();
                         $scope.tournamentInfo = data;
                         $scope.playerList = data.players;

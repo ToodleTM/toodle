@@ -153,14 +153,18 @@ D3Bracket.prototype.selectPlayerToSwap = function(node, swapCallback, slot1){
     var currentPlayer = node[playerSlot];
     var swapIcon = '/images/swapPlayers.png';
     var selectedIcon = '/images/selectedPlayer.png';
+    var clickable = '/images/clickable.png';
+    var clicked = '/images/clicked.png';
     var slotNumber = slot1? 1 : 2;
     if(!this.firstPlayerToSwapPosition){
         this.firstPlayerToSwapPosition = {number:node.name, isPlayer1:slot1, name:currentPlayer? currentPlayer.name:null};
         $('#matchNumber-'+node.name+'-'+slotNumber).attr('href', selectedIcon);
+        $('#clickable-' + node.name +'-'+ slotNumber).attr('href', clicked);
     } else {
         if(this.firstPlayerToSwapPosition.number === node.name && this.firstPlayerToSwapPosition.isPlayer1 === slot1){
             this.firstPlayerToSwapPosition = null;
             $('#matchNumber-'+node.name+'-'+slotNumber).attr('href', swapIcon);
+            $('#clickable-' + node.name + '-' + slotNumber).attr('href', clickable);
         } else {
             var secondPlayerToSwapPosition = {number:node.name, isPlayer1:slot1, name:currentPlayer? currentPlayer.name:null};
             swapCallback([this.firstPlayerToSwapPosition, secondPlayerToSwapPosition]);
@@ -270,7 +274,7 @@ function appendTextToNode(node, textVAlign) {
         .style('cursor', 'pointer');
 }
 
-D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes, callback) {
+D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes, callback, preconfigureMode) {
     var that = this;
     var appendedText = appendTextToNode(nodes, TEXT_IN_NODE_VALIGN_TOP, that);
     appendedText
@@ -282,10 +286,25 @@ D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes, callback) {
         })
         .attr('id', function(d){
             return 'player1-for-match-'+ d.name;
-        })
-        .on('click', function (d) {
-            that.selectPlayerToSwap(d, callback, true);
         });
+    nodes.append('svg:image')
+        .attr('xlink:href', '/images/clickable.png')
+        .attr('id', function(d){
+            return 'clickable-' + d.name+'-1';
+        })
+        .attr('x', '0px')
+        .attr('y', '-20px')
+        .attr('width', '150px')
+        .attr('height', '20px')
+        .attr('cursor', 'pointer')
+        .on('click', function (d) {
+            if (preconfigureMode) {
+                that.selectPlayerToSwap(d, callback.swapPlayers, true);
+            } else {
+                callback.togglePlayerHighlight(d.player1);
+            }
+        });
+
     nodes.append('svg:image')
         .attr('class', 'circle')
         .attr('xlink:href', function (d) {
@@ -297,7 +316,7 @@ D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes, callback) {
         .attr('height', '20px');
 };
 
-D3Bracket.prototype.drawSecondPlayerNameInNode = function (nodes, callback) {
+D3Bracket.prototype.drawSecondPlayerNameInNode = function (nodes, callback, preconfigureMode) {
     var that = this;
     var appendedText = appendTextToNode(nodes, TEXT_IN_NODE_VALIGN_BOTTOM, that);
     appendedText
@@ -309,10 +328,26 @@ D3Bracket.prototype.drawSecondPlayerNameInNode = function (nodes, callback) {
         })
         .attr('id', function(d){
             return 'player2-for-match-'+ d.name;
-        })
-        .on('click', function (d) {
-            that.selectPlayerToSwap(d, callback, false);
         });
+
+    nodes.append('svg:image')
+        .attr('xlink:href', '/images/clickable.png')
+        .attr('id', function (d) {
+            return 'clickable-' + d.name + '-2';
+        })
+        .attr('x', '0px')
+        .attr('y', '0px')
+        .attr('width', '150px')
+        .attr('height', '20px')
+        .attr('cursor', 'pointer')
+        .on('click', function (d) {
+            if (preconfigureMode) {
+                that.selectPlayerToSwap(d, callback.swapPlayers, false);
+            } else {
+                callback.togglePlayerHighlight(d.player2);
+            }
+        });
+
     nodes.append('svg:image')
         .attr('class', 'circle')
         .attr('xlink:href', function (d) {
@@ -477,8 +512,9 @@ D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playe
             controllerReference.unreport(d);
         }, data.userPrivileges, preconfigureMode);
     }
-    this.drawFirstPlayerNameInNode(node, controllerReference.swapPlayers);
-    this.drawSecondPlayerNameInNode(node, controllerReference.swapPlayers);
+
+    this.drawFirstPlayerNameInNode(node, controllerReference, preconfigureMode);
+    this.drawSecondPlayerNameInNode(node, controllerReference, preconfigureMode);
     this.drawLinesBetweenNodes(svg, links, playerToHighlight);
 };
 
