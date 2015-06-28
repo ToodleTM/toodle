@@ -177,6 +177,7 @@
     "group": "Group"
   },
   "preconfigure":{
+    "modalTitle":"Preconfigure tournament and start",
     "title":"Preconfiguring bracket ",
     "cancel":"Cancel",
     "start":"Start",

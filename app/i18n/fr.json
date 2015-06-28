@@ -177,6 +177,7 @@
     "group": "Groupe"
   },
   "preconfigure":{
+    "modalTitle":"Préconfigurer le tournoi",
     "title":"Préconfiguration du bracket ",
     "cancel":"Annuler",
     "start":"Démarrer",
