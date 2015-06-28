@@ -3,7 +3,7 @@ Toodle
 
 Modular online tournament management tool.
 
-<a href="https://david-dm.org/hoshin/toodle"><img src="https://david-dm.org/hoshin/toodle.png"/></a> (courtesy of [DavidDM](https://david-dm.org))
+<a href="https://david-dm.org/hoshin/toodle"><img src="https://david-dm.org/ToodleTM/toodle.png"/></a> (courtesy of [DavidDM](https://david-dm.org))
 
 # What is this ?
 Toodle aims to be a tournament management app that'll be able to get you started on your new super awesome tournament in a matter of minutes and as few clicks as possible.
@@ -59,7 +59,7 @@ will start a toodle instance on port 8080 in with the NODE_ENV variable set to '
 
 The version that we deploy on our test instance ([http://www.toodle.it](http://www.toodle.it)) is actually the result of running the _./scripts/appPackager.sh_ script (run from the project root) which is then run through pm2 with production configuration (gzip compression enabled, no livereload ...). When run, this build outputs a 'dist' directory to the root of the project that can be scp-ed or sent to heroku/nodejitsu/what-have-you (the post-install task already runs bower install so deployment should not be an issue).
 # What do I need to run all tests in a CI tool ?
-It's fairly straightforward to run the unit tests, you just need to add a build step that runs : 
+It's fairly straightforward to run the unit tests, you just need to add a build step that runs :
 
     grunt mochaTest # will run al unit tests
     npm test #will run unit and e2e tests (much longer than previous command, will need to have a toodle server running + webdriver driver and protractor)
@@ -92,7 +92,7 @@ Each Angular controller (besides of the navbar as it doesn't really make sense) 
 ##What if I don't care much about this ?
 
 Then open the app/views/index.html file and remove the code between the "piwik" tags ;) To avoid JS errors you might want to remove the _paq calls you'll find in the angular controllers.
-    
+
 ##Some of the things to come :
 
 * Ability to rearrange players in a started tournament
