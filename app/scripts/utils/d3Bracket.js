@@ -38,7 +38,6 @@ function insertNodes(currentNode, bracket) {
 
 D3Bracket.prototype.convertBracketToD3Tree = function (bracket) {
     var transformedBracket = {};
-
     var root = _.find(bracket, function (item) {
         return item.next === undefined;
     });
