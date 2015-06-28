@@ -94,7 +94,7 @@ describe('TournamentControllerUtils', function () {
             assert.equal(tournamentModel.findById.called, false);
             assert.equal(tournamentService.reportMatch.called, false);
             assert.equal(res.json.calledOnce, true);
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'insufficientPrivileges');
         });
 
@@ -183,7 +183,7 @@ describe('TournamentControllerUtils', function () {
             assert.equal(tournamentModel.findById.calledOnce, false);
             assert.equal(tournamentService.unreportMatch.called, false);
             assert.equal(res.json.calledOnce, true);
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'insufficientPrivileges');
         });
     });
@@ -218,7 +218,7 @@ describe('TournamentControllerUtils', function () {
             tournamentControllerUtils.updateTournament(null, res, serverUtils, newData, tournamentService, tournamentModel, null);
             //assert
             assert.equal(res.json.calledOnce, true);
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'cantUpdateEngineWhileRunning');
             assert.equal(tournamentService.updateTournament.called, false);
         });

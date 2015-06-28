@@ -34,7 +34,7 @@ describe('TournamentService - Tournament locking / unlocking', function () {
         //action
         tournamentService.unlockTournament(null, res, {running: true}, null);
         //assert
-        assert.equal(res.json.getCall(0).args[0], 409);
+        assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'cantUnlockRunningTournament');
         assert.equal(res.json.calledOnce, true);
     });

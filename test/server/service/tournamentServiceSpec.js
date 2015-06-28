@@ -133,7 +133,7 @@ describe('TournamentService - General purpose stuff', function () {
         tournamentService.reportMatch(null, res, {running: false, engine: 'singleElim'}, null);
         //assert
         assert.equal(res.json.calledOnce, true);
-        assert.equal(res.json.getCall(0).args[0], 409);
+        assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'tournamentNotRunning');
     });
 
@@ -146,7 +146,7 @@ describe('TournamentService - General purpose stuff', function () {
         tournamentService.unreportMatch(null, res, {running: false, engine: 'singleElim'}, null);
         //assert
         assert.equal(res.json.calledOnce, true);
-        assert.equal(res.json.getCall(0).args[0], 409);
+        assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'tournamentNotRunning');
     });
 
@@ -159,7 +159,7 @@ describe('TournamentService - General purpose stuff', function () {
         tournamentService.getTournamentWinners(null, res, {running: false, engine: 'singleElim'});
         //assert
         assert.equal(res.json.calledOnce, true);
-        assert.equal(res.json.getCall(0).args[0], 409);
+        assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'tournamentNotRunning');
     });
 
@@ -196,7 +196,7 @@ describe('TournamentService - General purpose stuff', function () {
         tournamentService.getTournamentWinners(null, res, {running: true, engine: 'singleElim'});
         //assert
         assert.equal(res.json.calledOnce, true);
-        assert.deepEqual(res.json.getCall(0).args[0], 409);
+        assert.deepEqual(res.json.getCall(0).args[0], 400);
         assert.deepEqual(res.json.getCall(0).args[1].message, 'some error from the engine');
     });
 
@@ -209,7 +209,7 @@ describe('TournamentService - General purpose stuff', function () {
         tournamentService.exportTournamentWinners(null, res, {running: false, engine: 'singleElim'});
         //assert
         assert.equal(res.json.calledOnce, true);
-        assert.equal(res.json.getCall(0).args[0], 409);
+        assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'tournamentNotRunning');
     });
 
@@ -262,7 +262,7 @@ describe('TournamentService - General purpose stuff', function () {
         tournamentService.exportTournamentWinners(null, res, {running: true, engine: 'singleElim'});
         //assert
         assert.equal(res.json.calledOnce, true);
-        assert.deepEqual(res.json.getCall(0).args[0], 409);
+        assert.deepEqual(res.json.getCall(0).args[0], 400);
         assert.deepEqual(res.json.getCall(0).args[1].message, 'some error from the engine');
     });
 });

@@ -20,7 +20,7 @@ describe('TournamentService - Preconfiguration', function () {
         tournamentService.swapPlayers(req, res, {}, {});
         //assert
         assert.equal(res.json.calledOnce, true);
-        assert.deepEqual(res.json.getCall(0).args[0], 409);
+        assert.deepEqual(res.json.getCall(0).args[0], 400);
         assert.deepEqual(res.json.getCall(0).args[1], {message: 'noSwappablePlayersFound'});
     });
 
@@ -119,7 +119,7 @@ describe('TournamentService - Preconfiguration', function () {
                 }, {});
                 //assert
                 assert.equal(res.json.calledOnce, true);
-                assert.deepEqual(res.json.getCall(0).args[0], 409);
+                assert.deepEqual(res.json.getCall(0).args[0], 400);
                 assert.deepEqual(res.json.getCall(0).args[1], {message: 'noSwappablePlayersFound'});
                 assert.equal(mockedEngine.swapPlayers.called, false);
             });
@@ -265,7 +265,7 @@ describe('TournamentService - Preconfiguration', function () {
         }, tournamentModel);
         //assert
         assert.equal(res.json.calledOnce, true);
-        assert.deepEqual(res.json.getCall(0).args[0], 409);
+        assert.deepEqual(res.json.getCall(0).args[0], 400);
         assert.deepEqual(res.json.getCall(0).args[1], {message: expectedMessage});
     }
 
@@ -382,7 +382,7 @@ describe('TournamentService - Preconfiguration', function () {
         }, tournamentModel);
         //assert
         assert.equal(res.json.calledOnce, true);
-        assert.deepEqual(res.json.getCall(0).args[0], 409);
+        assert.deepEqual(res.json.getCall(0).args[0], 400);
         assert.deepEqual(res.json.getCall(0).args[1], {message: 'cantSwapPlayerInMatchThatIsOver'});
     });
 

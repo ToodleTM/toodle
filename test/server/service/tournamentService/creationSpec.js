@@ -70,7 +70,7 @@ describe('TournamentService - Tournament Creation', function () {
             //action
             tournamentService.startTournament({}, res, tournament);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'thisIsAnError');
             assert.equal(res.json.calledOnce, true);
         });
@@ -91,7 +91,7 @@ describe('TournamentService - Tournament Creation', function () {
             //action
             tournamentService.startTournament({}, res, tournament);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'noEngineSpecified');
             assert.equal(res.json.calledOnce, true);
         });
@@ -112,7 +112,7 @@ describe('TournamentService - Tournament Creation', function () {
             //action
             tournamentService.startTournament({}, res, tournament);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'noEngineSpecified');
             assert.equal(res.json.calledOnce, true);
         });
@@ -163,7 +163,7 @@ describe('TournamentService - Tournament Creation', function () {
             //action
             tournamentService.startTournament({}, res, tournament);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'tournamentAlreadyRunning');
             assert.equal(res.json.calledOnce, true);
         });
@@ -180,7 +180,7 @@ describe('TournamentService - Tournament Creation', function () {
             //action
             tournamentService.startTournament({}, res, tournament);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'noPlayers');
             assert.equal(res.json.calledOnce, true);
         });
@@ -205,7 +205,7 @@ describe('TournamentService - Tournament Creation', function () {
             //action
             tournamentService.startTournament({}, res, tournament);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'invalidTournamentEngine');
             assert.equal(res.json.calledOnce, true);
         });
@@ -234,7 +234,7 @@ describe('TournamentService - Tournament Creation', function () {
             //action
             tournamentService.startTournament({}, res, tournament);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'userPrivilegesMustBeSpecified');
         });
     });
@@ -279,7 +279,7 @@ describe('TournamentService - Tournament Creation', function () {
             //action
             tournamentService.stopTournament({}, res, tournament);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'tournamentAlreadyStopped');
             assert.equal(res.json.calledOnce, true);
         });

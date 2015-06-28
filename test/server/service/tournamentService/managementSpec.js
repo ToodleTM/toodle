@@ -53,7 +53,7 @@ describe('TournamentService - Tournament management', function () {
                 //action
                 tournamentService.getMatchesToReport(null, res, {engine: 'dummy'});
                 //assert
-                assert.equal(res.json.getCall(0).args[0], 409);
+                assert.equal(res.json.getCall(0).args[0], 400);
                 assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToReport');
                 assert.equal(res.json.calledOnce, true);
             });
@@ -113,7 +113,7 @@ describe('TournamentService - Tournament management', function () {
                 //action
                 tournamentService.reportMatch(req, res, {running:true, engine: ''}, null);
                 //assert
-                assert.equal(res.json.getCall(0).args[0], 409);
+                assert.equal(res.json.getCall(0).args[0], 400);
                 assert.equal(res.json.getCall(0).args[1].error, 'errorReportingMatch');
                 assert.equal(res.json.getCall(0).args[1].message, 'this is an error message from the engine');
                 assert.equal(res.json.calledOnce, true);
@@ -207,7 +207,7 @@ describe('TournamentService - Tournament management', function () {
                 //action
                 tournamentService.getMatchesToUnreport(null, res, {engine: 'dummy'});
                 //assert
-                assert.equal(res.json.getCall(0).args[0], 409);
+                assert.equal(res.json.getCall(0).args[0], 400);
                 assert.equal(res.json.getCall(0).args[1], 'errorFindingMatchesToUnreport');
                 assert.equal(res.json.calledOnce, true);
             });
@@ -256,7 +256,7 @@ describe('TournamentService - Tournament management', function () {
                 //action
                 tournamentService.unreportMatch(req, res, {running:true, bracket: {}}, null);
                 //assert
-                assert.equal(res.json.getCall(0).args[0], 409);
+                assert.equal(res.json.getCall(0).args[0], 400);
                 assert.equal(res.json.getCall(0).args[1].error, 'errorUnreportingMatch');
                 assert.equal(res.json.getCall(0).args[1].message, 'this is an error message from engine.unreport');
                 assert.equal(res.json.calledOnce, true);
@@ -340,7 +340,7 @@ describe('TournamentService - Tournament management', function () {
             //action
             tournamentService.rearrangePlayers(req, res, tournament);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'playerToMoveNextToDoesNotExist');
             assert.equal(res.json.calledOnce, true);
         });
@@ -418,7 +418,7 @@ describe('TournamentService - Tournament management', function () {
             //action
             tournamentService.rearrangePlayers(req, res, tournament);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'unableToChangeOrderWhileTournamentIsLive');
             assert.equal(res.json.calledOnce, true);
         });

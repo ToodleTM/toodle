@@ -56,7 +56,7 @@ describe('Server Utils', function () {
             //parsedCSV, TournamentModel, req, res, tournamentService, next
             serverUtils.handleMultipleSeeding([{}], null, null, res, null, null);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'noNameField');
             assert.equal(res.json.calledOnce, true);
         });
@@ -139,7 +139,7 @@ describe('Server Utils', function () {
             //action
             serverUtils.handleMultipleSeeding([{name: 'BillyBob'}], model, req, res, tournamentService);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 409);
+            assert.equal(res.json.getCall(0).args[0], 400);
             assert.equal(res.json.getCall(0).args[1].message, 'notACSVFile');
             assert.equal(res.json.calledOnce, true);
 

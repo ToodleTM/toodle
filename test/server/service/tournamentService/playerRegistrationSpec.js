@@ -147,7 +147,7 @@ describe('TournamentService - Player registration', function () {
             callback(false);
         }}, true);
         //assert
-        assert.equal(res.json.getCall(0).args[0], 409);
+        assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'tournamentAlreadyRunning');
         assert.equal(res.json.calledOnce, true);
     });
@@ -256,7 +256,7 @@ describe('TournamentService - Unregister player', function(){
         //action
         tournamentService.unregisterPlayer(req, res, tournament);
         //assert
-        assert.equal(res.json.getCall(0).args[0], 409);
+        assert.equal(res.json.getCall(0).args[0], 400);
         assert.equal(res.json.getCall(0).args[1].message, 'cantRemovePlayerWhileRunning');
         assert.equal(res.json.calledOnce, true);
     });
