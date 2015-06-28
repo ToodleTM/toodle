@@ -8,8 +8,8 @@ function createAndStartATournament() {
 }
 
 function checkTournamentState(element, by, reportVisibleElement, unreportVisibileElement, reportButtonDisplay, unreportButtonDisplay) {
-    expect(element(by.xpath('//select[@id="reportGame"]')).getText()).toBe(reportVisibleElement);
-    expect(element(by.xpath('//select[@id="unreportGame"]')).getText()).toBe(unreportVisibileElement);
+    expect(element(by.id('reportGame')).getText()).toBe(reportVisibleElement);
+    expect(element(by.id('unreportGame')).getText()).toBe(unreportVisibileElement);
     expect(element(by.id('reportGameButton')).isDisplayed()).toBe(reportButtonDisplay);
     expect(element(by.id('unreportGameButton')).isDisplayed()).toBe(unreportButtonDisplay);
 }
@@ -18,14 +18,14 @@ function player1Wins2Nil(element, by) {
     element(by.id('reportGameButton')).click();
     e2eUtils.waitForElementToBeVisible(browser, element, by, 'score1');
     element(by.id('score1')).sendKeys(2);
-
+    element(by.id('score2')).sendKeys(0);
     element(by.id('doReport')).click();
 }
 beforeEach(function(){
     browser.get(homeAddress);
     browser.get(homeAddress);
 });
-describe('Admin', function () {
+describe('Admin Page', function () {
     it('should not be able to unreport or unreport if tournament has not started', function(){
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
 

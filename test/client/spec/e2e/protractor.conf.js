@@ -1,6 +1,6 @@
 exports.config = {
     //seleniumAddress: 'http://127.0.0.1:4200/wd/hub',
-    specs: ['*.js'],
+    specs: ['*.js', 'd3Bracket/interactiveReporting.js'],
     capabilities:{
         'browserName':'firefox'
     }

@@ -1,12 +1,13 @@
 <div ng-include="'partials/navbar'"></div>
 <div id="content">
-    <div id="error" class="alert alert-danger" role="alert" hidden>
+    <div ng-if="error" id="error" class="alert alert-danger" role="alert" hidden>
         <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
         {{ 'admin.error.'+error | translate}}
     </div>
-    <h1><span translate="admin.header.tournament"></span> {{tournamentInfo.tournamentName}} <span translate="admin.header.adminPage"></span></h1>
+    <h1><span translate="admin.header.tournament"></span> {{tournamentInfo.tournamentName}} <span
+            translate="admin.header.adminPage"></span></h1>
     <button ng-if="!tournamentInfo.running && tournamentInfo.locked" class="btn btn-success"
             title="{{ 'admin.actions.openTooltip' | translate }}"
             ng-click="toggleRegistrationLock()" id="lockTournament" translate="admin.actions.open">
@@ -18,29 +19,36 @@
 
     <button ng-if="tournamentInfo.running" id="runTournament" ng-click="openRunDialog()"
             class="btn btn-success"
-            title="{{ 'admin.actions.run.runningTooltip' | translate }}" translate="admin.actions.run.running">{{'admin.actions.run.running' | translate}}
+            title="{{ 'admin.actions.run.runningTooltip' | translate }}" translate="admin.actions.run.running">
+        {{'admin.actions.run.running' | translate}}
     </button>
 
     <div class="btn-group" dropdown ng-if="!tournamentInfo.running">
         <button type="button" class="btn btn-danger" id="runTournament" ng-click="openRunDialog()"
                 class="btn btn-danger"
-                title="{{'admin.actions.run.notRunningTooltip' | translate }}" translate="admin.actions.run.notRunning">{{'admin.actions.run.notRunning' | translate}}</button>
+                title="{{'admin.actions.run.notRunningTooltip' | translate }}" translate="admin.actions.run.notRunning">
+            {{'admin.actions.run.notRunning' | translate}}
+        </button>
         <button type="button" class="btn btn-danger dropdown-toggle" dropdown-toggle>
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu">
             <li><a href="#" ng-click="openRunDialog()" translate="admin.actions.run.runDefault"></a></li>
             <li class="divider"></li>
-            <li ng-if="canSwapPlayers"><a href="#" ng-click="openPreconfigureDialog()" translate="admin.actions.run.preconfigure"></a></li>
+            <li ng-if="canSwapPlayers"><a href="#" ng-click="openPreconfigureDialog()"
+                                          translate="admin.actions.run.preconfigure"></a></li>
         </ul>
     </div>
 
     <p translate="admin.intro"></p>
     <fieldset>
         <legend translate="admin.misc.links"></legend>
-        <a ng-href="/play/{{tournamentInfo.signupID}}" id="playerSignupPageLink" translate="admin.misc.playLink"></a><br/>
-        <a ng-show="tournamentInfo.running" ng-href="/bracket/{{tournamentInfo.signupID}}" id="tournamentBracketLink" translate="admin.misc.brackets"></a><br/>
-        <a ng-show="tournamentInfo.running && !gamesToReport.length" href="#" ng-click="downloadTournamentWinners()" translate="admin.misc.winners"></a>
+        <a ng-href="/play/{{tournamentInfo.signupID}}" id="playerSignupPageLink"
+           translate="admin.misc.playLink"></a><br/>
+        <a ng-show="tournamentInfo.running" ng-href="/bracket/{{tournamentInfo.signupID}}" id="tournamentBracketLink"
+           translate="admin.misc.brackets"></a><br/>
+        <a ng-show="tournamentInfo.running && !gamesToReport.length" href="#" ng-click="downloadTournamentWinners()"
+           translate="admin.misc.winners"></a>
     </fieldset>
 
     <fieldset ng-show="tournamentInfo.running">
@@ -54,7 +62,8 @@
 
             <button ng-show="gamesToReport.length" id="reportGameButton" ng-click="report()"
                     class="btn btn-primary"
-                    title="{{'admin.actions.reporting.reportButton'|translate}}" translate="admin.actions.reporting.reportButton">
+                    title="{{'admin.actions.reporting.reportButton'|translate}}"
+                    translate="admin.actions.reporting.reportButton">
                 {{'admin.actions.run.notRunning' | translate}}
             </button>
         </div>
@@ -67,7 +76,8 @@
             </select>
             <button ng-show="gamesToUnreport.length" id="unreportGameButton" ng-click="unreport()"
                     class="btn btn-primary"
-                    title="{{'admin.actions.reporting.unreportButton'|translate}}" translate="admin.actions.reporting.unreportButton">
+                    title="{{'admin.actions.reporting.unreportButton'|translate}}"
+                    translate="admin.actions.reporting.unreportButton">
             </button>
         </div>
     </fieldset>
@@ -91,10 +101,10 @@
                     <label class="control-label" for="engine" translate="admin.form.engine"></label>
 
                     <select id="engine" name="engine" class="form-control" ng-model="engine"
-                                      required="required"
+                            required="required"
                             ng-options="engine as engine.description for engine in availableEngines track by engine.name">
-                        <option value=""> --- </option>
-                     </select>
+                        <option value=""> ---</option>
+                    </select>
                 </div>
             </div>
             <div class="row">
@@ -107,10 +117,14 @@
             <div class="row">
                 <div class="form-group col-sm-6">
                     <label class="control-label" for="tournamentStart" translate="admin.form.startDate"></label>
+
                     <p class="input-group">
-                        <input type="text" id="tournamentStart" class="form-control" datepicker-popup="{{format}}" ng-model="tournamentStartDate" is-open="opened" min-date="minDate" datepicker-options="dateOptions" close-text="Close" />
+                        <input type="text" id="tournamentStart" class="form-control" datepicker-popup="{{format}}"
+                               ng-model="tournamentStartDate" is-open="opened" min-date="minDate"
+                               datepicker-options="dateOptions" close-text="Close"/>
               <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
               </span>
                     </p>
                 </div>
@@ -165,23 +179,26 @@
                             </select>
                         </div>
                         <div class="form-group col-sm-1">
-                            <button class="btn btn-primary" id="registerPlayerGo" type="submit" translate="play.enter.go">
+                            <button class="btn btn-primary" id="registerPlayerGo" type="submit"
+                                    translate="play.enter.go">
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="form-group col-sm-6">
+                <form>
+                    <legend translate="admin.actions.addMultiplePlayers">*&nbsp;<i
+                            class="glyphicon glyphicon-question-sign what-is-this"
+                            title="{{'admin.actions.multipleSeedTooltip'|translate}}"></i></legend>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <input id="multiSeedInput" type="file" ng-file-select="onFileSelect($files)">
 
-                <legend translate="admin.actions.addMultiplePlayers">*&nbsp;<i
-                        class="glyphicon glyphicon-question-sign what-is-this"
-                        title="{{'admin.actions.multipleSeedTooltip'|translate}}"></i></legend>
-                <div class="row">
-                    <div class="form-group col-sm-12">
-                        <input id="multiSeedInput" type="file" ng-file-select="onFileSelect($files)">
-                        <p>* : <span translate="admin.misc.fileMustBeCSV"></span></p>
+                            <p>* : <span translate="admin.misc.fileMustBeCSV"></span></p>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </fieldset>
@@ -191,8 +208,9 @@
             <li ng-repeat="player in playerList" class="playerInList">
                 <span style="float:left"><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png"
                                                                            height="20px"></span>{{player.name}} </span>
-                <span class="playerInListInfo" id="notes-{{stripped(player.name)}}" translate="{{errorMessage}}"></span><i
-                    ng-hide="tournamentInfo.running" title="{{'admin.actions.removePlayer'|translate}}" class="glyphicon glyphicon-trash"
+                <span ng-if="'notes-'+stripped(player.name)" class="playerInListInfo" id="notes-{{stripped(player.name)}}" translate="{{errorMessage}}"></span><i
+                    ng-hide="tournamentInfo.running" title="{{'admin.actions.removePlayer'|translate}}"
+                    class="glyphicon glyphicon-trash"
                     ng-click="removePlayer(player.name)"></i>
             </li>
         </ul>
@@ -201,14 +219,14 @@
         </div>
     </fieldset>
 
-    <div id="updateOk" class="alert alert-success alert-dismissible app-alert" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" id="dismissAlertOk" ng-click="hideAlerts()"><span
+    <div ng-if="updateOk" id="updateOk" class="alert alert-success alert-dismissible app-alert" role="alert">
+        <button type="button" class="close alert-fix-close" id="dismissAlertOk" ng-click="hideUpdateAlert()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
         <p translate="{{alertMessage}}">{{alertMessage |translate}}</p>
     </div>
-    <div id="updateKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" id="dismissAlertKo" ng-click="hideAlerts()"><span
+    <div ng-if="updateKo" id="updateKo" class="alert alert-danger alert-dismissible app-alert" role="alert">
+        <button type="button" class="close alert-fix-close" id="dismissAlertKo" ng-click="hideUpdateAlert()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
         <span translate="{{alertMessage}}">{{alertMessage |translate}}</span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)

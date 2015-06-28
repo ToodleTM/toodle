@@ -3,7 +3,7 @@
             aria-hidden="true">&times;</span><span class="sr-only"></span></button>
     <h3 class="modal-title" id="reportModalLabel"><span translate="admin.actions.reporting.title"></span> - {{firstGameToReport.player1.name }} VS {{firstGameToReport.player2.name}}</h3>
 </div>
-<div class="modal-body">
+<div class="modal-body" id="reportModal">
     <form class="form-horizontal">
 
         <legend translate="admin.actions.reporting.describeReport"></legend>
@@ -24,6 +24,6 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-default" ng-click="cancel()" translate="admin.actions.run.cancel"></button>
+    <button class="btn btn-default" ng-click="cancel()" id="cancelReport" translate="admin.actions.run.cancel"></button>
     <button class="btn btn-primary" ng-click="reportMatch()" id="doReport" translate="admin.actions.run.confirm"></button>
 </div>

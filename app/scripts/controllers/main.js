@@ -5,21 +5,26 @@ angular.module('toodleApp')
         $scope.tournamentName = '';
         _paq.push(['setDocumentTitle', 'Home']);
         _paq.push(['trackPageView']);
+
+        $scope.hideLocalAlerts = function(){
+            $scope.tourneyCreationKo = false;
+            $scope.tourneyCreationOk = false;
+        };
+
         $scope.createTourney = function () {
-            $('#tourneyCreationKo').fadeOut();
-            $('#tourneyCreationOk').fadeOut();
+            $scope.hideLocalAlerts();
             $http.post('/api/tournament/', {tournamentName: $scope.tournamentName, players: []})
                 .success(function (res) {
                     $scope.adminURL = res.adminURL;
                     $scope.signupURL = res.signupURL;
                     $location.path('/');
                     $scope.tournamentCreated = true;
-                    $('#tourneyCreationOk').fadeIn();
+                    $scope.tourneyCreationOk = true;
                     $scope.tournamentName = '';
                 })
                 .error(function (err) {
                     $scope.errorMessage = err.errors.tournamentName.message;
-                    $('#tourneyCreationKo').fadeIn();
+                    $scope.tourneyCreationKo = true;
                 });
         };
     });

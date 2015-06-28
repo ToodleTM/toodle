@@ -9,12 +9,12 @@ angular.module('toodleApp')
         _paq.push(['trackPageView']);
 
 
-        var multipleRegistrationOk = function (data) {
-            $('#multiSeedInput').val('');
+        $scope.multipleRegistrationOk = function (data) {
             $scope.tournamentInfo = data;
             $scope.playerList = $scope.tournamentInfo.players;
             $scope.alertMessage = 'admin.actions.multipleRegistrationSuccessful';
-            $('#updateOk').fadeIn();
+            document.getElementById('multiSeedInput').value = '';
+            $scope.updateOk =true;
         };
 
         var multipleRegistrationFailed = function (err, status) {
@@ -23,21 +23,23 @@ angular.module('toodleApp')
             } else {
                 $scope.errorMessage = 'admin.error.'+err.message;
             }
-            $('#multiSeedInput').val('');
+            document.getElementById('multiSeedInput').value = '';
             $scope.alertMessage = 'play.register.fail';
-            $('#updateKo').fadeIn();
+            $scope.updateKo = true;
         };
 
-        var displayProgress = function (evt) {
-            console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+        $scope.hideUpdateAlert = function(){
+            $scope.updateOk = false;
+            $scope.updateKo = false;
+            $scope.error = false;
         };
 
         //using the basic example for ng-file-upload directive (https://www.npmjs.org/package/angular-file-upload),
         // works like a charm but beware of where to load the directive (if I do it just for that controller,
         // the admin view won't load anymore, had to do it in the main app script, like for I18N for example)
         $scope.onFileSelect = function ($files) {
-            $('#updateOk').hide();
-            $('#updateKo').hide();
+            $scope.hideUpdateAlert();
+
             for (var i = 0; i < $files.length; i++) {
                 var file = $files[i];
                 $scope.upload = $upload.upload({
@@ -45,8 +47,7 @@ angular.module('toodleApp')
                     data: {myObj: $scope.myModelObj},
                     file: file
                 })
-                    .progress(displayProgress)
-                    .success(multipleRegistrationOk)
+                    .success($scope.multipleRegistrationOk)
                     .error(multipleRegistrationFailed);
             }
         };
@@ -87,7 +88,7 @@ angular.module('toodleApp')
                         .success(function () {})
                         .error(function (message) {
                             $scope.errorMessage = 'admin.actions.'+message.message;
-                            $('#notes-' + $scope.stripped(movedPlayer)).show();
+                            $scope['notes-' + $scope.stripped(movedPlayer)] = true;
                         });
                     }
                 });
@@ -107,18 +108,18 @@ angular.module('toodleApp')
                 } else {
                     $scope.error = 'serverError';
                 }
-                $('#error').show();
+                $scope.error = true;
             });
 
         $scope.updateTourney = function () {
-            $rootScope.hideAlerts();
+            $scope.hideUpdateAlert();
             $scope.tournamentInfo.startDate = $scope.tournamentStartDate;
             $scope.tournamentInfo.engine = $scope.engine.name;
             $http.patch('/api/tournament/admin/update/?id=' + tournamentId, {_id:$scope.tournamentInfo._id, game:$scope.tournamentInfo.game, engine:$scope.tournamentInfo.engine, description:$scope.tournamentInfo.description, startDate:$scope.tournamentStartDate, userPrivileges:$scope.tournamentInfo.userPrivileges})
                 .success(function (data) {
                     $scope.tournamentInfo = data;
                     $scope.alertMessage = 'admin.update.success';
-                    $('#updateOk').fadeIn();
+                    $scope.updateOk = true;
                     if ($scope.tournamentInfo.game) {
                         $http.get('/views/resources/factions.json').success(function (data) {
                             $scope.factions = data[$scope.tournamentInfo.game];
@@ -134,12 +135,12 @@ angular.module('toodleApp')
                 .error(function (err) {
                     $scope.alertMessage = 'admin.update.fail';
                     $scope.errorMessage = 'admin.form.'+err.message;
-                    $('#updateKo').fadeIn();
+                    $scope.updateKo = true;
                 });
         };
 
         $scope.toggleRegistrationLock = function () {
-            $rootScope.hideAlerts();
+            $scope.hideUpdateAlert();
             var previousLockedStatus = $scope.tournamentInfo.locked;
             $scope.tournamentInfo.locked = genericUtils.toggleState($scope.tournamentInfo.locked);
             $http.patch('/api/tournament/admin/' + (!$scope.tournamentInfo.locked ? 'un' : '') + 'lockTournament?tournamentId=' + tournamentId, $scope.tournamentInfo)
@@ -147,16 +148,16 @@ angular.module('toodleApp')
                     if (code === 404) {
                         $scope.tournamentInfo.locked = previousLockedStatus;
                         $scope.errorMessage = 'admin.actions.run.notFound';
-                        $('#updateKo').fadeIn();
+                        $scope.updateKo = true;
                     } else {
                         $scope.alertMessage = 'admin.update.success';
-                        $('#updateOk').fadeIn();
+                        $scope.updateOk = true;
                     }
                 })
                 .error(function (error) {
                     $scope.tournamentInfo.locked = previousLockedStatus;
                     $scope.errorMessage = 'admin.actions.run.'+error.message;
-                    $('#updateKo').fadeIn();
+                    $scope.updateKo = true;
                 });
         };
 
@@ -187,7 +188,7 @@ angular.module('toodleApp')
                 .error(function () {});
         }
         $scope.toggleStart = function () {
-            $rootScope.hideAlerts();
+            $scope.hideUpdateAlert();
             var originalValue = $scope.tournamentInfo.running;
             $scope.tournamentInfo.running = genericUtils.toggleState($scope.tournamentInfo.running);
             var urlSuffix = '';
@@ -198,7 +199,7 @@ angular.module('toodleApp')
             }
             $http.patch('/api/tournament/' + urlSuffix + '/', {'tournamentId': $scope.tournamentInfo._id})
                 .success(function (tournamentInfo) {
-                    $('#updateOk').fadeIn();
+                    $scope.updateOk = true;
                     $scope.alertMessage = 'admin.update.success';
                     $scope.tournamentInfo = tournamentInfo;
                     updateMatchesToReport();
@@ -208,12 +209,12 @@ angular.module('toodleApp')
                     $scope.tournamentInfo.running = originalValue;
                     $scope.errorMessage = 'admin.actions.run.'+data.message;
                     $scope.alertMessage = 'admin.update.fail';
-                    $('#updateKo').fadeIn();
+                    $scope.updateKo = true;
                 });
         };
 
         $scope.addPlayer = function () {
-            $rootScope.hideAlerts();
+            $scope.hideUpdateAlert();
             if ($scope.nick) {
                 $http.post('/api/tournament/addPlayer/', {
                     'tournamentId': $scope.tournamentInfo._id,
@@ -224,7 +225,8 @@ angular.module('toodleApp')
                         $scope.tournamentInfo = data;
                         $scope.playerList = $scope.tournamentInfo.players;
                         $scope.alertMessage = 'play.register.success';
-                        $('#updateOk').fadeIn();
+                        $scope.updateOk = true;
+
                     })
                     .error(function (data, statusCode) {
                         if (statusCode === '404') {
@@ -233,18 +235,20 @@ angular.module('toodleApp')
                             $scope.errorMessage = 'play.register.errors.'+data.message;
                         }
                         $scope.alertMessage = 'play.register.fail';
-                        $('#updateKo').fadeIn();
+                        $scope.updateKo = true;
+
                     });
                 $scope.nick = '';
             } else {
                 $scope.errorMessage = 'play.register.errors.noEmptyNick';
                 $scope.alertMessage = 'play.register.fail';
-                $('#updateKo').fadeIn();
+                $scope.updateKo = true;
+
             }
         };
 
         $scope.reportMatch = function () {
-            $rootScope.hideAlerts();
+            $scope.hideUpdateAlert();
             $http.post('/api/tournament/reportMatch/', {
                 tournamentId: $scope.tournamentInfo._id,
                 number: $scope.firstGameToReport.number,
@@ -258,12 +262,13 @@ angular.module('toodleApp')
             }).error(function (data) {
                 $scope.errorMessage = 'admin.actions.reporting.errors.'+data.message;
                 $scope.alertMessage = 'admin.actions.reporting.reportingKo';
-                $('#updateKo').fadeIn();
+                $scope.updateKo = true;
+
             });
         };
 
         $scope.unreportMatch = function () {
-            $rootScope.hideAlerts();
+            $scope.hideUpdateAlert();
             $http.post('/api/tournament/unreportMatch/', {
                 tournamentId: $scope.tournamentInfo._id,
                 number: $scope.gameToUnreport.number
@@ -273,7 +278,7 @@ angular.module('toodleApp')
                 $scope.tournamentInfo = data;
             }).error(function (data) {
                 $scope.errorMessage = data;
-                $('#updateKo').fadeIn();
+                $scope.updateKo = true;
             });
         };
 
@@ -286,7 +291,7 @@ angular.module('toodleApp')
                 $scope.playerList = data.players;
             }).error(function (message) {
                 $scope.errorMessage = message.message;
-                $('#notes-' + $scope.stripped(playerNick)).show();
+                $scope['notes-'+ $scope.stripped(playerNick)] = true;
             });
         };
 

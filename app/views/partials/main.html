@@ -14,12 +14,12 @@
         </div>
     </form>
 </div>
-<div id="tourneyCreationOk" class="alert alert-success alert-dismissible app-alert tournament-create" role="alert" hidden>
-    <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<div ng-if="tourneyCreationOk" id="tourneyCreationOk" class="alert alert-success alert-dismissible app-alert tournament-create" role="alert">
+    <button type="button" class="close alert-fix-close" ng-click="hideLocalAlerts()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
     <span translate="quickAdd.success.pre"></span> <a ng-href='/admin/{{adminURL}}' class='alert-link' translate="quickAdd.success.thisLink" id="adminLink"></a> <span translate="quickAdd.success.mid"></span> <a ng-href='/play/{{signupURL}}' class='alert-link' translate="quickAdd.success.thisLink" id="signupLink"></a> <span translate="quickAdd.success.end"></span>
     </div>
-<div id="tourneyCreationKo" class="alert alert-danger alert-dismissible app-alert tournament-create" role="alert" hidden>
-    <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<div ng-if="tourneyCreationKo" id="tourneyCreationKo" class="alert alert-danger alert-dismissible app-alert tournament-create" role="alert">
+    <button type="button" class="close alert-fix-close" ng-click="hideLocalAlerts()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
     <span translate="quickAdd.fail"></span> ({{errorMessage}})
 </div>
 <div ng-include="'partials/footer'"></div>

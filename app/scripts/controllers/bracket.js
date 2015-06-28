@@ -9,7 +9,7 @@ angular.module('toodleApp')
         $scope.renderer = null;
         _paq.push(['setDocumentTitle', 'Bracket page']);
         _paq.push(['trackPageView']);
-        $('#tourneyReportingKo').hide();
+        $scope.tourneyReportingKo = false;
         $scope.getPlayersOrderedByScore = function (group) {
             if (group.players && lodashForApp.find(group.matches, function (match) {
                     return match.complete;
@@ -41,6 +41,7 @@ angular.module('toodleApp')
         }
 
         $http.get('api/play/' + tournamentId).success(function (data) {
+            $scope.content = true;
             resetPlayerNamesToSwap();
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;
@@ -70,11 +71,11 @@ angular.module('toodleApp')
             if ($scope.tournamentInfo.running) {
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer);
             } else {
-                $('#notRunning').show();
+                $scope.notRunning = true;
             }
         }).error(function () {
-            $('#content').hide();
-            $('#notFound').show();
+            $scope.content = false;
+            $scope.notFound = true;
         });
 
         $scope.report = function (match) {
@@ -113,23 +114,22 @@ angular.module('toodleApp')
             });
 
             modalInstance.result.then(function () {
-
                 $scope.unreportMatch();
             }, function () {
             });
         };
 
         $scope.reportMatch = function () {
-            $('#tourneyReportingKo').hide();
+            $scope.tourneyReportingKo = false;
             $http.post('/api/tournament/reportMatch/', {
-                tournamentId: JSON.parse($scope.tournamentId),
+                tournamentId: $scope.tournamentId? JSON.parse($scope.tournamentId) : null,
                 signupID: $scope.tournamentInfo.signupID,
                 number: $scope.firstGameToReport.name,
                 score1: $scope.score1,
                 score2: $scope.score2
             }).success(function (data) {
                 $scope.tournamentInfo = data;
-                $('#bracket').html('');
+                document.getElementById('bracket').innerHTML = '';
                 $scope.score1 = 0;
                 $scope.score2 = 0;
                 $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
@@ -138,7 +138,7 @@ angular.module('toodleApp')
                 $scope.$apply();
             }).error(function (data) {
                 $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
-                $('#tourneyReportingKo').fadeIn();
+                $scope.tourneyReportingKo = true;
             });
         };
 
@@ -152,22 +152,26 @@ angular.module('toodleApp')
         };
 
         $scope.unreportMatch = function () {
-            $('#tourneyReportingKo').hide();
+            $scope.tourneyReportingKo = false;
             $http.post('/api/tournament/unreportMatch/', {
-                tournamentId: JSON.parse($scope.tournamentId),
+                tournamentId: $scope.tournamentId ? JSON.parse($scope.tournamentId) : null,
                 signupID: $scope.tournamentInfo.signupID,
                 number: $scope.gameToUnreport.name
             }).success(function (data) {
                 $scope.tournamentInfo = data;
-                $('#bracket').html('');
+                document.getElementById('bracket').innerHTML = '';
                 $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
                 updateSwapPlayersForm(data);
                 $scope.$apply();
             }).error(function (data) {
                 $scope.errorMessage = data;
-                $('#tourneyReportingKo').fadeIn();
+                $scope.tourneyReportingKo = true;
             });
+        };
+        $scope.hideLocalAlerts = function(){
+            $scope.tourneyReportingKo = false;
+            $scope.tourneyReportingOk = false;
         };
 
         $scope.togglePlayerHighlight = function (player) {
@@ -177,7 +181,7 @@ angular.module('toodleApp')
                 $scope.playerToHighlight = player;
             }
             $scope.$apply();
-            $('#bracket').html('');
+            document.getElementById('bracket').innerHTML = '';
             $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
             $scope.$apply();
         };
