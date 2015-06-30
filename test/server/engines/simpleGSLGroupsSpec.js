@@ -2,7 +2,7 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
 var _ = require('lodash');
-var SimpleGSLGroups = require('../../../lib/gameRules/simpleGSLGroups').Engine;
+var SimpleGSLGroups = require('../../../lib/engines/simpleGSLGroups').Engine;
 
 describe('SimpleGSLPool engine', function () {
     var engine, callbackSpy, actualBracket;

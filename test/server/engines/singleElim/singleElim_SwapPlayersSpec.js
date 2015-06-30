@@ -1,7 +1,7 @@
 'use strict';
 var assert = require('chai').assert;
 var sinon = require('sinon');
-var SingleElim = require('../../../../lib/gameRules/singleElim').Engine;
+var SingleElim = require('../../../../lib/engines/singleElim').Engine;
 var engine, callbackSpy, actualBracket;
 var john = {name: 'john'};
 var jane = {name: 'jane'};
