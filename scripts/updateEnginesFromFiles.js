@@ -16,7 +16,7 @@ AvailableEngine.remove({}, function (err) {
         console.error(err);
         process.exit(1);
     } else {
-        var enginesPath = path.join(__dirname, '../lib/gameRules');
+        var enginesPath = path.join(__dirname, '../lib/engines');
         var enginesToSave = [];
         fs.readdirSync(enginesPath).forEach(function (file) {
             if (/(.*)\.(js$)/.test(file)) {
