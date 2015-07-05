@@ -620,7 +620,7 @@ describe('D3ToBracket renderer', function () {
         it('should not return red if match is in fact a defwin (1st player not defined)', function () {
             //setup
             //action
-            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1: null, player2: {}}, 3);
+            var actual = d3Bracket.getReportingButtonIcon({complete: true, defwin:true, parent: {}, player1: null, player2: {}}, 3);
             //assert
             assert.equal(actual, '');
         });
@@ -628,7 +628,7 @@ describe('D3ToBracket renderer', function () {
         it('should not return red if match is in fact a defwin (2nd player not defined)', function () {
             //setup
             //action
-            var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1: {}, player2: null}, 3);
+            var actual = d3Bracket.getReportingButtonIcon({complete: true, defwin:true, parent: {}, player1: {}, player2: null}, 3);
             //assert
             assert.equal(actual, '');
         });

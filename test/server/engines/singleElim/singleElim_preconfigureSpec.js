@@ -128,44 +128,6 @@ describe('SingleElim - Bracket preconfiguration', function () {
         assert.equal(callbackSpy.calledOnce, true);
         assert.deepEqual(callbackSpy.getCall(0).args[1], expectedBracket);
     });
-    //it('should set incomplete match 1 w/ only one player as a defwin if corresponding slot1 in upcoming match is full', function(){
-    //    //setup
-    //    var callbackSpy = sinon.spy();
-    //    var bracket = {
-    //        1: {next: 3, nextFirst: true, number: 1, player1: jane, player2: null, round: 4},
-    //        2: {next: 3, nextFirst: false, number: 2, player1: franz, player2: patrick, round: 4},
-    //        3: {
-    //            next: null, number: 3,
-    //            player1: john,
-    //            player2: null,
-    //            round: 2
-    //        }
-    //    };
-    //    var expectedBracket = {
-    //        1: {
-    //            next: 3,
-    //            nextFirst: true,
-    //            number: 1,
-    //            player1: jane,
-    //            player2: null,
-    //            round: 4,
-    //            complete: true,
-    //            defwin: true
-    //        },
-    //        2: {next: 3, nextFirst: false, number: 2, player1: franz, player2: patrick, round: 4},
-    //        3: {
-    //            next: null, number: 3,
-    //            player1: john,
-    //            player2: null,
-    //            round: 2
-    //        }
-    //    };
-    //    //action
-    //    engine.updateBracketMatchesStatusesAndStandings(bracket, callbackSpy);
-    //    //assert
-    //    assert.equal(callbackSpy.calledOnce, true);
-    //    assert.deepEqual(callbackSpy.getCall(0).args[1], expectedBracket);
-    //});
 
     it('should defwin a player that is alone on its 1st round match and move it to the next round if slot is empty', function(){
         //setup
