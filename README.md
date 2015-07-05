@@ -24,7 +24,7 @@ In order to, say, have a tournament w/ a 1st phase that consists of groups (for 
 Chances are, we'll only implement tournament formats we're familiar with. This means we'll focus on various formats that can be seen in Starcraft 2 competitions (or general purpose ones). To fix this, you can let us know about what you need, or better, write your own tournament management module (using the ones available as a reference) and submit us a pull request, we'll be happy to integrate it.
 
 ## What if I do want to write my own engine then ?
-We'd be more than happy to include new engines. What we advise right now is to follow the template engine that can be found in _/lib/gameRules/engineTemplate/engineInterfaceTemplate_. This file acts as an interface that, should your engine comply with it, should render it pretty much "plug and play" in Toodle (at least server-side wise, there's still a bit of work to be done on the app part of things).
+We'd be more than happy to include new engines. What we advise right now is to follow the template engine that can be found in _/lib/engines/engineTemplate/engineInterfaceTemplate_. This file acts as an interface that, should your engine comply with it, should render it pretty much "plug and play" in Toodle (at least server-side wise, there's still a bit of work to be done on the app part of things).
 
 The second requirement we ask is that the engine should be unit tested. We won't ask for 100% coverage because that makes no sense but to be added to the Toodle library you'll have to put some effort in testing the engine. We can help a bit if you think we can be of assistance, and there's already plenty of engine testing in the project's tests =).
 
