@@ -24,6 +24,7 @@ function insertNodes(currentNode, bracket) {
     result.canReport = !currentNode.complete && _.every(previousMatches, function (item) {
         return item.complete;
     });
+    result.defwin = currentNode.defwin;
     result.score1 = currentNode.score1;
     result.score2 = currentNode.score2;
 
@@ -72,17 +73,14 @@ D3Bracket.prototype.chooseOuterNodeColor = function (d) {
 };
 
 function matchCanBeUnreported(d) {
-    return d.complete && (!d.parent || (d.parent && !d.parent.complete));
-}
-function matchIsNotADefWin(player1, player2) {
-    return player1 && player2;
+    return !d.defwin && d.complete && (!d.parent || (d.parent && !d.parent.complete));
 }
 
 function playerCanAtLeastReport(d, reportingRights) {
-    return d.canReport && (reportingRights === TOURNAMENT_PRIVILEGES_ALL || reportingRights === TOURNAMENT_PRIVILEGES_REPORT_ONLY);
+    return !d.defwin && d.canReport && (reportingRights === TOURNAMENT_PRIVILEGES_ALL || reportingRights === TOURNAMENT_PRIVILEGES_REPORT_ONLY);
 }
 function playerCanReportAndUnreport(d, reportingRights) {
-    return matchCanBeUnreported(d) && matchIsNotADefWin(d.player1, d.player2) && reportingRights === TOURNAMENT_PRIVILEGES_ALL;
+    return !d.defwin && matchCanBeUnreported(d) && reportingRights === TOURNAMENT_PRIVILEGES_ALL;
 }
 
 D3Bracket.prototype.getReportingButtonIcon = function (d, reportingRights) {
