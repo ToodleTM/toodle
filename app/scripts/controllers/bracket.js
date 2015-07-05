@@ -129,7 +129,6 @@ angular.module('toodleApp')
                 score2: $scope.score2
             }).success(function (data) {
                 $scope.tournamentInfo = data;
-                document.getElementById('bracket').innerHTML = '';
                 $scope.score1 = 0;
                 $scope.score2 = 0;
                 $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
@@ -159,7 +158,6 @@ angular.module('toodleApp')
                 number: $scope.gameToUnreport.name
             }).success(function (data) {
                 $scope.tournamentInfo = data;
-                document.getElementById('bracket').innerHTML = '';
                 $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
                 updateSwapPlayersForm(data);
@@ -181,7 +179,6 @@ angular.module('toodleApp')
                 $scope.playerToHighlight = player;
             }
             $scope.$apply();
-            document.getElementById('bracket').innerHTML = '';
             $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
             $scope.$apply();
         };

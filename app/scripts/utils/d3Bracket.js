@@ -516,6 +516,7 @@ D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playe
 };
 
 D3Bracket.prototype.render = function(tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode){
+    document.getElementById('bracket').innerHTML = '';
     this.drawBracket(tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode);
 };
 
