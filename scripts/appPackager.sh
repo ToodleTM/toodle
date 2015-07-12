@@ -19,14 +19,15 @@ function copyAppSource {
     cd app/
     rm -rf "$TARGET"
     for dirToCreate in config i18n images styles views/resources views/maintenance scripts; do
-        mkdir -p $TARGET/app/$dirToCreate
+        mkdir -p ${TARGET}/app/${dirToCreate}
     done
     echo "Copying app source files ..."
-    for pattern in *.{ico,txt} .htaccess i18n/*.json images/*.png images/flags images/social scripts/app.min.js views/index.html views/404.html views/partials views/resources/factions.json views/maintenance/index.html config/piwik.config.js ; do
+    for pattern in *.{ico,txt} .htaccess i18n/*.json images/*.png images/flags images/social scripts/app.min.js views/index.packed.html views/404.html views/partials views/resources/factions.json views/maintenance/index.html config/piwik.config.js ; do
         echo "copying $pattern to $TARGET/app/$pattern"
-        cp -r $pattern $TARGET/app/$pattern
+        cp -r $pattern ${TARGET}/app/${pattern}
     done
-    cp styles/style.css $TARGET/app/styles/
+    mv ${TARGET}/app/views/index.{packed.,}html
+    cp styles/style.css ${TARGET}/app/styles/
     echo "...done"
 }
 

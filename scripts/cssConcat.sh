@@ -1,5 +1,5 @@
 #!/bin/bash
-cp $1/views/index.html $2/index.html
+cp $1/views/index.packed.html $2/index.html
 echo " ==> CSS concat"
 cat $1/bower_components/bootstrap/dist/css/bootstrap.min.css $3/main.css $1/bower_components/jquery-ui/themes/flick/jquery-ui.min.css > $2/style.css.1
 sed "s/\.\.\/fonts/..\/bower_components\/bootstrap\/dist\/fonts/g" $2/style.css.1 > $2/style.css
@@ -15,7 +15,7 @@ sed "s/<!-- .*//g" $2/index.html.3 > $2/index.html.4
 sed "/^ *$/d" $2/index.html.4 > $2/index.html
 
 
-cp $2/index.html $1/views/index.html
+cp $2/index.html $1/views/index.packed.html
 
 rm -rf $2/index.html.{1,2,3,4}
 
