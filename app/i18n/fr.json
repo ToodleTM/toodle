@@ -182,7 +182,8 @@
     "cancel":"Annuler",
     "start":"Démarrer",
     "notAvailable":"Ce tournoi n'existe pas ou est déjà en cours. Impossible d'en configurer l'arbre",
-    "incompatibleEngine": "Le moteur sélectionné n'est pas compatible avec cette fonctionnalité."
+    "incompatibleEngine": "Le moteur sélectionné n'est pas compatible avec cette fonctionnalité.",
+    "noMatchingTournament":"Aucun tournoi avec cet ID m'a été trouvé."
   },
   "common": {
     "errorFindingMatchesToReport": "Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer."

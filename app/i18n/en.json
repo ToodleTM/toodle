@@ -182,7 +182,8 @@
     "cancel":"Cancel",
     "start":"Start",
     "notAvailable":"Tournament does not exist or is already running. Cannot preconfigure.",
-    "incompatibleEngine":"The engine selected is not compatible with this feature."
+    "incompatibleEngine":"The engine selected is not compatible with this feature.",
+    "noMatchingTournament":"No tournament matching this ID was found"
   },
   "common": {
     "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported."

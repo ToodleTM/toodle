@@ -15,12 +15,8 @@
     </div>
 </div>
 
-<div ng-show="tournamentLookupError" id="notFound" class="alert alert-danger ng-binding" role="alert" hidden=""
-     style="display: none;">
-    <button type="button" class="close alert-fix-close" ng-click="hideAlerts()" style="display: none;"><span
-            aria-hidden="true" style="display: none;">×</span><span class="sr-only" style="display: none;">Close</span>
-    </button>
-    <span translate="play.notFound"></span>
+<div ng-show="tournamentLookupError" id="notFound" class="alert alert-danger ng-binding" role="alert">
+    <span translate="preconfigure.noMatchingTournament"></span>
 </div>
 <div ng-show="!tournamentLookupError" id="content">
     <div ng-show="!tournamentRunning && !incompatibleEngine">
