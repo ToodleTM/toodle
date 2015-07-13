@@ -22,7 +22,7 @@ function copyAppSource {
         mkdir -p ${TARGET}/app/${dirToCreate}
     done
     echo "Copying app source files ..."
-    for pattern in *.{ico,txt} .htaccess i18n/*.json images/*.png images/flags images/social scripts/app.min.js views/index.packed.html views/404.html views/partials views/resources/factions.json views/maintenance/index.html config/piwik.config.js ; do
+    for pattern in *.{ico,txt} .htaccess i18n/*.json images/*.png images/flags images/people images/social scripts/app.min.js views/index.packed.html views/404.html views/partials views/resources/factions.json views/maintenance/index.html config/piwik.config.js ; do
         echo "copying $pattern to $TARGET/app/$pattern"
         cp -r $pattern ${TARGET}/app/${pattern}
     done
