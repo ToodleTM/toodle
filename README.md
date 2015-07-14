@@ -1,6 +1,5 @@
-Toodle
+<img src="https://github.com/ToodleTM/toodle/blob/master/app/images/toodle_simple.png"/>oodle
 ======
-<img src="https://github.com/ToodleTM/toodle/blob/master/app/images/toodle.png"/>
 
 Modular online tournament management tool.
 
