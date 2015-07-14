@@ -2,7 +2,7 @@
 
 angular.module('toodleApp')
     .controller('AdminCtrl', function ($rootScope, $scope, $location, $http, $upload, $cookies, $cookieStore, $modal) {
-        var tournamentId = $location.$$path.split('/')[2];
+        $scope.tournamentId = $location.$$path.split('/')[2];
         $scope.nick = '';
         $scope.playerList = null;
         _paq.push(['setDocumentTitle', 'Admin Page']);
@@ -51,7 +51,7 @@ angular.module('toodleApp')
                     .error(multipleRegistrationFailed);
             }
         };
-        $http.get('api/tournament/admin/' + tournamentId)
+        $http.get('api/tournament/admin/' + $scope.tournamentId)
             .success(function (data) {
                 $http.get('api/available-engines').success(function (engines) {
                     $scope.availableEngines = engines;
@@ -115,7 +115,7 @@ angular.module('toodleApp')
             $scope.hideUpdateAlert();
             $scope.tournamentInfo.startDate = $scope.tournamentStartDate;
             $scope.tournamentInfo.engine = $scope.engine.name;
-            $http.patch('/api/tournament/admin/update/?id=' + tournamentId, {_id:$scope.tournamentInfo._id, game:$scope.tournamentInfo.game, engine:$scope.tournamentInfo.engine, description:$scope.tournamentInfo.description, startDate:$scope.tournamentStartDate, userPrivileges:$scope.tournamentInfo.userPrivileges})
+            $http.patch('/api/tournament/admin/update/?id=' + $scope.tournamentId, {_id:$scope.tournamentInfo._id, game:$scope.tournamentInfo.game, engine:$scope.tournamentInfo.engine, description:$scope.tournamentInfo.description, startDate:$scope.tournamentStartDate, userPrivileges:$scope.tournamentInfo.userPrivileges})
                 .success(function (data) {
                     $scope.tournamentInfo = data;
                     $scope.alertMessage = 'admin.update.success';
@@ -143,7 +143,7 @@ angular.module('toodleApp')
             $scope.hideUpdateAlert();
             var previousLockedStatus = $scope.tournamentInfo.locked;
             $scope.tournamentInfo.locked = genericUtils.toggleState($scope.tournamentInfo.locked);
-            $http.patch('/api/tournament/admin/' + (!$scope.tournamentInfo.locked ? 'un' : '') + 'lockTournament?tournamentId=' + tournamentId, $scope.tournamentInfo)
+            $http.patch('/api/tournament/admin/' + (!$scope.tournamentInfo.locked ? 'un' : '') + 'lockTournament?tournamentId=' + $scope.tournamentId, $scope.tournamentInfo)
                 .success(function (code) {
                     if (code === 404) {
                         $scope.tournamentInfo.locked = previousLockedStatus;
@@ -197,7 +197,7 @@ angular.module('toodleApp')
             } else {
                 urlSuffix = 'stop';
             }
-            $http.patch('/api/tournament/' + urlSuffix + '/', {'tournamentId': $scope.tournamentInfo._id})
+            $http.patch('/api/tournament/' + urlSuffix, {'tournamentId': $scope.tournamentInfo._id})
                 .success(function (tournamentInfo) {
                     $scope.updateOk = true;
                     $scope.alertMessage = 'admin.update.success';
@@ -323,7 +323,7 @@ angular.module('toodleApp')
         };
 
         $scope.preconfigure = function(){
-            window.location = '/admin/preconfigure/'+tournamentId;
+            window.location = '/admin/preconfigure/'+ $scope.tournamentId;
         };
 
         $scope.openPreconfigureDialog = function (size) {
