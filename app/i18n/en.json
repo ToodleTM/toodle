@@ -198,7 +198,15 @@
     "navbar":{
       "created":"What I created",
       "admin":"What I admin",
-      "disconnect":"Logout"
+      "disconnect":"Logout",
+      "languages":{
+        "french":"French",
+        "english":"English"
+      },
+      "login":{
+        "twitter":"Login with Twitter",
+        "gplus":"Login with G+"
+      }
     },
     "pageTitles":{
       "created":"Tournaments I created (and thus admin)",
