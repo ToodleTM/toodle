@@ -28,7 +28,10 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 // Setup Express
 var app = express();
 require('./lib/config/express')(app);
-require('./lib/routes')(app);
+app.use('/api/tournament/admin/', require('./lib/routes/api/tournamentAdminRouter.js'));
+app.use('/api/tournament/', require('./lib/routes/api/tournamentRouter.js'));
+app.use('/api/', require('./lib/routes/api/miscRouter.js'));
+app.use('/', require('./lib/routes/socialLogin/socialRouter.js'));
 
 // Start server
 app.listen(config.port, config.ip, function () {
