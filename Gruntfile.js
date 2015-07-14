@@ -27,7 +27,7 @@ module.exports = function (grunt) {
         shell:{
             duo:{
                 options:{},
-                command:'duo <%= yeoman.app %>/scripts/utils/pack.js > <%= yeoman.app %>/scripts/utils/packed.js'
+                command:'node_modules/duo/bin/duo <%= yeoman.app %>/scripts/utils/pack.js -S > <%= yeoman.app %>/scripts/utils/packed.js'
             }
         },
 

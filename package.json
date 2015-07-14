@@ -29,6 +29,7 @@
   "devDependencies": {
     "chai": "^3.0.0",
     "connect-livereload": "~0.5.2",
+    "duo": "^0.14.0",
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~3.0.3",
     "grunt-bower-install": "~1.6.0",
