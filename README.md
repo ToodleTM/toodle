@@ -1,9 +1,10 @@
 Toodle
 ======
+<img src="https://github.com/ToodleTM/toodle/blob/master/app/images/toodle.png"/>
 
 Modular online tournament management tool.
 
-<a href="https://david-dm.org/hoshin/toodle"><img src="https://david-dm.org/ToodleTM/toodle.png"/></a> (courtesy of [DavidDM](https://david-dm.org))
+<a href="https://david-dm.org/toodletm/toodle"><img src="https://david-dm.org/ToodleTM/toodle.png"/></a> (courtesy of [DavidDM](https://david-dm.org))
 
 # What is this ?
 Toodle aims to be a tournament management app that'll be able to get you started on your new super awesome tournament in a matter of minutes and as few clicks as possible.
