@@ -336,6 +336,18 @@ nav div {
   }
 }
 
+.hide-if-small {
+  @media (max-width: 531px){
+    display:none;
+  }
+}
+
+.hide-if-medium {
+  @media (max-width: 950px) {
+    display: none;
+  }
+}
+
 .app-alert {
   position: fixed;
   bottom: 0;
