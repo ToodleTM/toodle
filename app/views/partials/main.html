@@ -2,24 +2,61 @@
 
 <div>
     <form name="form" ng-submit="createTourney(form)">
-        <div class="form-group">
-            <label id="registerLabel" translate="quickAdd.registerMessage"></label>
+        <h1 id="registerLabel" translate="quickAdd.registerMessage"></h1>
 
-            <input type="text" name="tournamentName" id="tournamentName" class="form-control input-center" placeholder="{{'quickAdd.tournamentNamePlaceholder' | translate }}" ng-model="tournamentName" ng-required="required"/>
-            <!--<select>-->
-                <!--<option>Single elimination Bracket</option>-->
-                <!--<option>Group stages</option>-->
-            <!--</select>-->
-            <button class="form-control" id="registerTournamentButton" type="submit" translate="quickAdd.go"></button>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label translate="quickAdd.tournamentNamePlaceholder"></label><span
+                        class="glyphicon glyphicon-asterisk" aria-hidden="true" style="font-size:xx-small;vertical-align:super"></span>
+
+                    <input type="text" name="tournamentName" id="tournamentName" class="form-control input-center"
+                           ng-model="tournamentName" ng-required="required"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <label class="control-label" for="description" translate="admin.form.description"></label>
+                    <textarea id="description" name="description" class="form-control"
+                              ng-model="tournamentDescription"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="control-label" for="tournamentStart" translate="admin.form.startDate"></label>
+
+                    <p class="input-group">
+                        <input type="text" id="tournamentStart" class="form-control" datepicker-popup="{{format}}"
+                               ng-model="tournamentStartDate" is-open="opened" min-date="minDate"
+                               datepicker-options="dateOptions" close-text="Close"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                    </p>
+                </div>
+                <div class="col-sm-6">
+                    <label class="control-label" translate="">&nbsp;</label>
+                    <button class="form-control btn-primary" id="registerTournamentButton" type="submit"
+                            translate="quickAdd.go"></button>
+                </div>
+            </div>
+            <div class="row">
+                <p class="col-sm-12">
+                <span
+                        class="glyphicon glyphicon-asterisk" aria-hidden="true"
+                        style="font-size:xx-small;vertical-align:super"></span> : <span translate="quickAdd.mandatory"></span>
+                </p>
+            </div>
         </div>
     </form>
 </div>
-<div ng-if="tourneyCreationOk" id="tourneyCreationOk" class="alert alert-success alert-dismissible app-alert tournament-create" role="alert">
-    <button type="button" class="close alert-fix-close" ng-click="hideLocalAlerts()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <span translate="quickAdd.success.pre"></span> <a ng-href='/admin/{{adminURL}}' class='alert-link' translate="quickAdd.success.thisLink" id="adminLink"></a> <span translate="quickAdd.success.mid"></span> <a ng-href='/play/{{signupURL}}' class='alert-link' translate="quickAdd.success.thisLink" id="signupLink"></a> <span translate="quickAdd.success.end"></span>
-    </div>
-<div ng-if="tourneyCreationKo" id="tourneyCreationKo" class="alert alert-danger alert-dismissible app-alert tournament-create" role="alert">
-    <button type="button" class="close alert-fix-close" ng-click="hideLocalAlerts()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<div ng-if="tourneyCreationKo" id="tourneyCreationKo"
+     class="alert alert-danger alert-dismissible app-alert tournament-create" role="alert">
+    <button type="button" class="close alert-fix-close" ng-click="hideLocalAlerts()"><span
+            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
     <span translate="quickAdd.fail"></span> ({{errorMessage}})
 </div>
 <div ng-include="'partials/footer'"></div>

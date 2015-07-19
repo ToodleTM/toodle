@@ -34,18 +34,19 @@ E2eUtils.prototype.createTournamentAndGoToPage = function(browser, element, by, 
     element(by.id('tournamentName')).sendKeys('protractor');
     element(by.id('registerTournamentButton')).click();
 
-    var tourneyConfirmationBox = element(by.id('tourneyCreationOk'));
-    expect(tourneyConfirmationBox.getText()).toMatch(/×\nClose\nThe tournament has been created! You can administer it using this link , and you can send this link to allow your users to enroll./g);
-    element(by.id(pageLinkId)).click();
     checkBaseFormElementValues(element, by, '', '', 'singleElim', 'Registered players (0)\nNo registered players at the moment');
-    checkBaseFormElementState(element, by, pageLinkId);
+
     expect(element(by.id('tournamentBracketLink')).isDisplayed()).toBe(false);
     if(pageLinkId === 'adminLink'){
         expect(element(by.id('playerSignupPageLink')).getText()).toBe('Player\'s signup form');
         element(by.id('playerSignupPageLink')).click();
         expect(element(by.id('tournamentBracketLink')).isDisplayed()).toBe(false);
         browser.navigate().back();
+    } else {
+        element(by.id('playerSignupPageLink')).click();
     }
+    checkBaseFormElementState(element, by, pageLinkId);
+
 };
 
 E2eUtils.prototype.checkThatSignupPageContentsAreLockedAndEmpty = function(element, by){

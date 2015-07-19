@@ -9,7 +9,8 @@
     },
     "fail": "Something bad happened, the tournament was not created. Please try again.",
     "tournamentNamePlaceholder": "Your tournament name here",
-    "go": "Go !"
+    "go": "Go !",
+    "mandatory":"Mandatory"
   },
   "footer": {
     "love": "♥ from the Toodle team"

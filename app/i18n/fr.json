@@ -9,7 +9,8 @@
     },
     "fail": "Une erreur est survenue, Le tournoi n'a pas été créé. Veuillez réessayer.",
     "tournamentNamePlaceholder": "Votre nom de tournoi ici",
-    "go": "Go !"
+    "go": "Go !",
+    "mandatory": "Mandatory"
   },
   "footer": {
     "love": "♥ de l'équipe Toodle"

@@ -3,6 +3,8 @@
 
 Modular online tournament management tool.
 
+Dependency status :
+
 <a href="https://david-dm.org/toodletm/toodle"><img src="https://david-dm.org/ToodleTM/toodle.png"/></a> (courtesy of [DavidDM](https://david-dm.org))
 
 # What is this ?

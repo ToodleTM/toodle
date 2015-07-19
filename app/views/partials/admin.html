@@ -6,7 +6,7 @@
                 class="sr-only">Close</span></button>
         {{ 'admin.error.'+error | translate}}
     </div>
-    <h1><span translate="admin.header.tournament"></span> {{tournamentInfo.tournamentName}} <span
+    <h1><span translate="admin.header.tournament"></span> <span id="tournamentName">{{tournamentInfo.tournamentName}}</span> <span
             translate="admin.header.adminPage"></span></h1>
     <button ng-if="!tournamentInfo.running && tournamentInfo.locked" class="btn btn-success"
             title="{{ 'admin.actions.openTooltip' | translate }}"
