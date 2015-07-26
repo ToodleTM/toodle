@@ -20,6 +20,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
             templateUrl: 'partials/admin',
             controller: 'AdminCtrl'
         })
+        .when('/playersRegistration/:id', {
+            controller: 'PlayersRegistrationCtrl',
+            templateUrl: 'partials/playersRegistration.html'
+        })
         .when('/admin/preconfigure/:id', {
             templateUrl:'partials/preconfigureTournament',
             controller:'PreconfigureTournamentCtrl'

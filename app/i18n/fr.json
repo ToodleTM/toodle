@@ -51,6 +51,7 @@
       "lockTooltip": "Empêche de nouvelles personnes de s'inscrire au tournoi",
       "open": "Ouvrir les inscriptions",
       "openTooltip": "Autoriser de nouvelles personnes à s'inscrire au tournoi",
+      "adminOptions": "Show admin options",
       "run": {
         "running": "Arrêter l'arbre",
         "notRunning": "Démarrer l'arbre",

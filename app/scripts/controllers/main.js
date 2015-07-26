@@ -17,7 +17,7 @@ angular.module('toodleApp')
             $http.post('/api/tournament/', {tournamentName: $scope.tournamentName, players: [], description:$scope.tournamentDescription, startDate:$scope.tournamentStartDate})
                 .success(function (res) {
                     $scope.tournamentName = '';
-                    $window.location = '/admin/'+res.adminURL;
+                    $window.location = '/playersRegistration/'+res.adminURL;
                 })
                 .error(function (err) {
                     $scope.errorMessage = err.errors.tournamentName.message;

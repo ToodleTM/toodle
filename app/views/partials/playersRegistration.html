@@ -1,0 +1,119 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="content">
+    <div ng-if="error" id="error" class="alert alert-danger" role="alert" hidden>
+        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
+                aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
+        {{ 'admin.error.'+error | translate}}
+    </div>
+    <h1><span translate="admin.header.tournament"></span> <span
+            id="tournamentName">{{tournamentInfo.tournamentName}}</span> : <span translate="playersRegistration.whosPlaying"></span></h1>
+    <fieldset ng-show="!tournamentInfo.running">
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <legend translate="admin.actions.addPlayer"></legend>
+                <div class="row">
+                    <form ng-submit="addPlayer()">
+                        <div class="form-group col-sm-5">
+                            <input type="text" name="inputNick" id="inputNick" class="form-control"
+                                   placeholder="{{ 'admin.actions.playerNickPlaceholder' | translate}}"
+                                   ng-model="nick"/>
+
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <select name="inputFaction" class="form-control" ng-model="faction"
+                                    ng-options="item for item in factions track by item">
+                                <option value=""> -- Choose a faction --</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <button class="btn btn-primary" id="registerPlayerGo" type="submit"
+                                    translate="play.enter.go">
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <form>
+                    <legend translate="admin.actions.addMultiplePlayers">*&nbsp;<i
+                            class="glyphicon glyphicon-question-sign what-is-this"
+                            title="{{'admin.actions.multipleSeedTooltip'|translate}}"></i></legend>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <input id="multiSeedInput" type="file" ng-file-select="onFileSelect($files)">
+
+                            <p>* : <span translate="admin.misc.fileMustBeCSV"></span></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset id="playersList" ng-model="playerList">
+        <legend><span translate="play.register.registeredPlayers"></span> (Total : {{playerList.length}})</legend>
+        <ul id="sortablePlayerList">
+            <li ng-repeat="player in playerList" class="playerInList">
+                <span style="float:left"><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png"
+                                                                           height="20px"></span>{{player.name}} </span>
+                <span ng-if="'notes-'+stripped(player.name)" class="playerInListInfo"
+                      id="notes-{{stripped(player.name)}}" translate="{{errorMessage}}"></span><i
+                    ng-hide="tournamentInfo.running" title="{{'admin.actions.removePlayer'|translate}}"
+                    class="glyphicon glyphicon-trash"
+                    ng-click="removePlayer(player.name)"></i>
+            </li>
+        </ul>
+        <div ng-show="playerList.length == 0">
+            <span translate="play.register.noPlayers"> </span>
+        </div>
+    </fieldset>
+
+    <div ng-if="updateOk" id="updateOk" class="alert alert-success alert-dismissible app-alert" role="alert">
+        <button type="button" class="close alert-fix-close" id="dismissAlertOk" ng-click="hideUpdateAlert()"><span
+                aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
+        <p translate="{{alertMessage}}">{{alertMessage |translate}}</p>
+    </div>
+    <div ng-if="updateKo" id="updateKo" class="alert alert-danger alert-dismissible app-alert" role="alert">
+        <button type="button" class="close alert-fix-close" id="dismissAlertKo" ng-click="hideUpdateAlert()"><span
+                aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span></button>
+        <span translate="{{alertMessage}}">{{alertMessage |translate}}</span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
+    </div>
+
+    <fieldset>
+        <legend translate="playersRegistration.selectEngineAndGo"></legend>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label" for="engine" translate="admin.form.engine"></label>
+
+                <select id="engine" name="engine" class="form-control" ng-model="engine" ng-change="updateTourney()"
+                        required="required"
+                        ng-options="engine as engine.description for engine in availableEngines track by engine.name">
+                </select>
+            </div>
+            <div class="form-group col-sm-6" style="position:relative">
+                <label class="control-label" for="engine" >&nbsp;</label><br/>
+                <div class="btn-group" dropdown ng-if="!tournamentInfo.running" style="float:right">
+                    <button type="button" class="btn btn-danger" id="runTournament" ng-click="openRunDialog()"
+                            class="btn btn-danger"
+                            title="{{'admin.actions.run.notRunningTooltip' | translate }}"
+                            translate="admin.actions.run.notRunning">
+                        {{'admin.actions.run.notRunning' | translate}}
+                    </button>
+                    <button ng-if="canSwapPlayers" type="button" class="btn btn-danger dropdown-toggle" dropdown-toggle>
+                        <span class="caret"></span>
+                    </button>
+                    <ul ng-if="canSwapPlayers" class="dropdown-menu" role="menu">
+                        <li><a href="#" ng-click="openRunDialog()" translate="admin.actions.run.runDefault"></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" ng-click="openPreconfigureDialog()"
+                                                      translate="admin.actions.run.preconfigure"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+<div ng-include="'partials/footer'"></div>

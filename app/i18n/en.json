@@ -51,6 +51,7 @@
       "lockTooltip": "Prevent additional people from entering the tournament",
       "open": "Open registrations",
       "openTooltip": "Allow more people to enter the tournament",
+      "adminOptions":"Show admin options",
       "run": {
         "running": "Stop brackets",
         "notRunning": "Start brackets",

@@ -35,14 +35,8 @@ angular.module('toodleApp')
             });
         }
 
-        function resetPlayerNamesToSwap() {
-            $scope.player1ToSwap = null;
-            $scope.player2ToSwap = null;
-        }
-
-        $http.get('api/play/' + tournamentId).success(function (data) {
+        $http.get('api/tournament/admin/' + tournamentId).success(function (data) {
             $scope.content = true;
-            resetPlayerNamesToSwap();
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;
             $scope.engineTemplate = '/partials/engineTemplates/' + data.engine;
