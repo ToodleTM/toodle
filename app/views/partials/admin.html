@@ -9,20 +9,13 @@
     <h1><span translate="admin.header.tournament"></span> : <span
             id="tournamentName">{{tournamentInfo.tournamentName}}</span>
 
-        <div class="btn btn-default"><a href="#"
-                                        ng-click="isCollapsed = !isCollapsed"><span
-                class="caret bigcarret"></span></a></div>
+        <a href="#"
+           ng-click="isCollapsed = !isCollapsed"><div class="btn btn-default"><span
+                class="caret bigcarret"></span></div>
+        </a>
     </h1>
-    <button class="btn btn-info" ng-href="/play/{{tournamentInfo.signupID}}" id="playerSignupPageLink"
-            translate="admin.misc.playLink"></button>
-    <!--<button ng-if="!tournamentInfo.running && tournamentInfo.locked" class="btn btn-success"-->
-    <!--title="{{ 'admin.actions.openTooltip' | translate }}"-->
-    <!--ng-click="toggleRegistrationLock()" id="lockTournament" translate="admin.actions.open">-->
-    <!--</button>-->
-    <!--<button ng-if="!tournamentInfo.running && !tournamentInfo.locked" class="btn btn-danger"-->
-    <!--title="{{'admin.actions.lockTooltip' | translate }}"-->
-    <!--ng-click="toggleRegistrationLock()" id="lockTournament" translate="admin.actions.lock">-->
-    <!--</button>-->
+    <a class="btn btn-info" target="_blank" ng-href="/play/{{tournamentInfo.signupID}}" id="playerSignupPageLink"
+            translate="admin.misc.playLink"></a>
 
     <button ng-if="tournamentInfo.running" id="runTournament" ng-click="openRunDialog()"
             class="btn btn-success"
@@ -45,20 +38,26 @@
             <li ng-if="canSwapPlayers"><a href="#" ng-click="openPreconfigureDialog()"
                                           translate="admin.actions.run.preconfigure"></a></li>
         </ul>
+    </div> <br/>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label style="width:100%;" class="control-label"
+                   ng-show="!gamesToReport.length">&nbsp;</label>
+            <a class="btn btn-info" ng-show="tournamentInfo.running && !gamesToReport.length"
+               href="#"
+               ng-click="downloadTournamentWinners()"
+               translate="admin.misc.winners"></a>
+        </div>
     </div>
 
     <p translate="admin.intro"></p>
-    <!--<fieldset>-->
-    <!--<legend translate="admin.misc.links"></legend>-->
-    <!--<a class="btn btn-info" ng-show="tournamentInfo.running" ng-href="/bracket/{{tournamentInfo.signupID}}"-->
-    <!--id="tournamentBracketLink"-->
-    <!--translate="admin.misc.brackets"></a><br/>-->
-
-    <!--</fieldset>-->
 
     <div collapse="isCollapsed">
         <tabset>
-            <tab heading="General settings">
+            <tab>
+                <tab-heading>
+                    <span translate="admin.form.generalSettingsTab"></span>
+                </tab-heading>
                 <form class="form-horizontal" ng-submit="updateTourney()">
                     <fieldset>
 
@@ -144,49 +143,10 @@
                     </fieldset>
                 </form>
             </tab>
-            <tab heading="Tournament management" ng-show="tournamentInfo.running">
-
-                <fieldset ng-show="tournamentInfo.running">
-
-                    <div class="form-group col-sm-6">
-                        <label style="width:100%;" class="control-label"
-                               ng-show="!gamesToReport.length">&nbsp;</label>
-                        <a class="btn btn-info" ng-show="tournamentInfo.running && !gamesToReport.length" href="#"
-                           ng-click="downloadTournamentWinners()"
-                           translate="admin.misc.winners"></a>
-                        <label class="control-label" for="reportGame"
-                               translate="admin.actions.reporting.reportMatch"
-                               ng-show="gamesToReport.length"></label>
-
-                        <select ng-show="gamesToReport.length" id="reportGame" name="reportGame" class="form-control"
-                                ng-model="firstGameToReport"
-                                ng-options="item as item.player1.name+' VS '+item.player2.name for item in gamesToReport track by item.number">
-                        </select>
-
-                        <button ng-show="gamesToReport.length" id="reportGameButton" ng-click="report()"
-                                class="btn btn-primary"
-                                title="{{'admin.actions.reporting.reportButton'|translate}}"
-                                translate="admin.actions.reporting.reportButton">
-                            {{'admin.actions.run.notRunning' | translate}}
-                        </button>
-                    </div>
-
-                    <div class="form-group col-sm-6">
-                        <label class="control-label" for="unreportGame"
-                               translate="admin.actions.reporting.unreportMatch"></label>
-
-                        <select id="unreportGame" name="unreportGame" class="form-control" ng-model="gameToUnreport"
-                                ng-options="item as item.player1.name+' VS '+item.player2.name for item in gamesToUnreport track by item.number">
-                        </select>
-                        <button ng-show="gamesToUnreport.length" id="unreportGameButton" ng-click="unreport()"
-                                class="btn btn-primary"
-                                title="{{'admin.actions.reporting.unreportButton'|translate}}"
-                                translate="admin.actions.reporting.unreportButton">
-                        </button>
-                    </div>
-                </fieldset>
-            </tab>
-            <tab heading="Player management">
+            <tab>
+                <tab-heading>
+                    <span translate="admin.form.playerManagementTab"></span>
+                </tab-heading>
                 <fieldset ng-show="!tournamentInfo.running">
                     <div class="row">
                         <div class="form-group col-sm-6">

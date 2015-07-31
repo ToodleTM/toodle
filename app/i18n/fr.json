@@ -22,12 +22,14 @@
     "logout":"Se déconnecter"
   },
   "admin": {
-    "intro": "Ceci est la page d'administration de ton tournoi. Tu peux faire tous les changements que tu souhaites ici. Rappelles toi que n'importe qui avec l'URL d'admin peut faire la même chose.",
+    "intro": "Ceci est la page d'administration de ton tournoi. Tu peux faire tous les changements que tu souhaites ici (<div class=\"btn btn-xs btn-default\"><span class=\"caret\"></span></div> au dessus). Rappelles toi que n'importe qui avec l'URL d'admin peut faire la même chose.",
     "header": {
       "tournament": "Tournoi",
       "adminPage": " : page d'administration"
     },
     "form": {
+      "generalSettingsTab": "Réglages généraux",
+      "playerManagementTab": "Gestion des joueurs",
       "configure": "Configure ton tournoi",
       "pickGame": "-- Choisis un jeu --",
       "other": "Autre",

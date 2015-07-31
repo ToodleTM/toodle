@@ -32,10 +32,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
             templateUrl: 'partials/play',
             controller: 'PlayCtrl'
         })
-        .when('/bracket/:id', {
-            templateUrl: 'partials/bracket',
-            controller: 'BracketCtrl'
-        })
+        //.when('/bracket/:id', {
+        //    templateUrl: 'partials/bracket',
+        //    controller: 'BracketCtrl'
+        //})
         .when('/tournaments', {
             templateUrl:'partials/tournamentListing',
             controller:'MyTournamentsCtrl'

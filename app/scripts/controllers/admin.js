@@ -220,6 +220,7 @@ angular.module('toodleApp')
                     $scope.tournamentInfo = tournamentInfo;
                     updateMatchesToReport();
                     updateMatchesToUnreport();
+                    $rootScope.$emit('toggledStart', tournamentInfo);
                 })
                 .error(function (data) {
                     $scope.tournamentInfo.running = originalValue;
@@ -439,5 +440,9 @@ angular.module('toodleApp')
 
             return '';
         };
+
+        $rootScope.$on('updatedMatch', function(){
+            updateMatchesToReport();
+        });
     }
 );

@@ -293,7 +293,9 @@ D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes, callback, preco
         .attr('y', '-20px')
         .attr('width', '150px')
         .attr('height', '20px')
-        .attr('cursor', 'pointer')
+        .attr('cursor', function(){
+            return preconfigureMode ? 'pointer' : 'crosshair';
+        })
         .on('click', function (d) {
             if (preconfigureMode) {
                 that.selectPlayerToSwap(d, callback.swapPlayers, true);
@@ -336,11 +338,14 @@ D3Bracket.prototype.drawSecondPlayerNameInNode = function (nodes, callback, prec
         .attr('y', '0px')
         .attr('width', '150px')
         .attr('height', '20px')
-        .attr('cursor', 'pointer')
+        .attr('cursor', function () {
+            return preconfigureMode ? 'pointer' : 'crosshair';
+        })
         .on('click', function (d) {
             if (preconfigureMode) {
                 that.selectPlayerToSwap(d, callback.swapPlayers, false);
             } else {
+                //debugger;
                 callback.togglePlayerHighlight(d.player2);
             }
         });
@@ -516,8 +521,11 @@ D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playe
 };
 
 D3Bracket.prototype.render = function(tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode){
-    document.getElementById('bracket').innerHTML = '';
-    this.drawBracket(tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode);
+    var bracketHtml = document.getElementById('bracket');
+    if(bracketHtml){
+        document.getElementById('bracket').innerHTML = '';
+        this.drawBracket(tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode);
+    }
 };
 
 module.exports.Renderer = D3Bracket;
