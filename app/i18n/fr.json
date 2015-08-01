@@ -22,7 +22,7 @@
     "logout":"Se déconnecter"
   },
   "admin": {
-    "intro": "Ceci est la page d'administration de ton tournoi. Tu peux faire tous les changements que tu souhaites ici (<div class=\"btn btn-xs btn-default\"><span class=\"caret\"></span></div> au dessus). Rappelles toi que n'importe qui avec l'URL d'admin peut faire la même chose.",
+    "intro": "Cliques ici pour consulter les détails de ce tournoi.",
     "header": {
       "tournament": "Tournoi",
       "adminPage": " : page d'administration"

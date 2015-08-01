@@ -22,7 +22,7 @@
     "logout":"Logout"
   },
   "admin": {
-    "intro": "This is your tournament administration page. You can report scores using the bracket or edit tournament settings (<div class=\"btn btn-xs btn-default\"><span class=\"caret\"></span></div> at the top). Just remember that anyone with the URL will be able to do the same.",
+    "intro": "Click here to display tournament settings.",
     "header": {
       "tournament": "Tournament",
       "adminPage": "admin page"

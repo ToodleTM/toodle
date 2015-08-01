@@ -424,7 +424,9 @@ angular.module('toodleApp')
         };
 
         $scope.format = 'dd-MM-yyyy';
-
+        $scope.toggleCollapse = function(){
+            $scope.isCollapsed = !$scope.isCollapsed;
+        };
         $scope.getDayClass = function (date, mode) {
             if (mode === 'day') {
                 var dayToCheck = new Date(date).setHours(0, 0, 0, 0);

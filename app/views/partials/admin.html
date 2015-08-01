@@ -9,27 +9,27 @@
     <h1><span translate="admin.header.tournament"></span> : <span
             id="tournamentName">{{tournamentInfo.tournamentName}}</span>
 
-        <a href="#"
-           ng-click="isCollapsed = !isCollapsed"><div class="btn btn-default"><span
-                class="caret bigcarret"></span></div>
-        </a>
+
     </h1>
-    <a class="btn btn-info" target="_blank" ng-href="/play/{{tournamentInfo.signupID}}" id="playerSignupPageLink"
-            translate="admin.misc.playLink"></a>
+    <a class="btn btn-info" target="_blank" ng-href="/play/{{tournamentInfo.signupID}}" id="playerSignupPageLink">
+        <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <span translate="admin.misc.playLink"></span>
+
+    </a>
 
     <button ng-if="tournamentInfo.running" id="runTournament" ng-click="openRunDialog()"
-            class="btn btn-success"
-            title="{{ 'admin.actions.run.runningTooltip' | translate }}" translate="admin.actions.run.running">
-        {{'admin.actions.run.running' | translate}}
+            class="btn btn-danger"
+            title="{{ 'admin.actions.run.runningTooltip' | translate }}">
+        <span class="glyphicon glyphicon-stop" aria-hidden="true"></span> <span translate="admin.actions.run.running"></span>
     </button>
 
     <div class="btn-group" dropdown ng-if="!tournamentInfo.running">
-        <button type="button" class="btn btn-danger" id="runTournament" ng-click="openRunDialog()"
+        <button type="button" class="btn btn-success" id="runTournament" ng-click="openRunDialog()"
                 class="btn btn-danger"
-                title="{{'admin.actions.run.notRunningTooltip' | translate }}" translate="admin.actions.run.notRunning">
-            {{'admin.actions.run.notRunning' | translate}}
+                title="{{'admin.actions.run.notRunningTooltip' | translate }}">
+            <span class="glyphicon glyphicon-play" aria-hidden="true"></span> <span
+                translate="admin.actions.run.notRunning"></span>
         </button>
-        <button type="button" class="btn btn-danger dropdown-toggle" dropdown-toggle>
+        <button type="button" class="btn btn-success dropdown-toggle" dropdown-toggle>
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu">
@@ -45,14 +45,23 @@
                    ng-show="!gamesToReport.length">&nbsp;</label>
             <a class="btn btn-info" ng-show="tournamentInfo.running && !gamesToReport.length"
                href="#"
-               ng-click="downloadTournamentWinners()"
-               translate="admin.misc.winners"></a>
+               ng-click="downloadTournamentWinners()"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span><span
+                    translate="admin.misc.winners"></span></a>
         </div>
     </div>
 
-    <p translate="admin.intro"></p>
+    <p ng-show="isCollapsed" class="well" style="text-align:center">
+        <!--translate="admin.intro"-->
+        <a href="#"
+           ng-click="toggleCollapse()" translate="admin.intro">
+        </a>
+    </p>
 
     <div collapse="isCollapsed">
+        <button type="button" class="close" ng-click="toggleCollapse()">
+            <span aria-hidden="true">×</span>
+            <span class="sr-only">Close</span>
+        </button>
         <tabset>
             <tab>
                 <tab-heading>
@@ -80,7 +89,6 @@
                                 <select id="engine" name="engine" class="form-control" ng-model="engine"
                                         required="required"
                                         ng-options="engine as engine.description for engine in availableEngines track by engine.name">
-                                    <option value=""> ---</option>
                                 </select>
                             </div>
                         </div>
