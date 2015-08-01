@@ -86,9 +86,9 @@ function playerCanReportAndUnreport(d, reportingRights) {
 D3Bracket.prototype.getReportingButtonIcon = function (d, reportingRights) {
     var icon = '';
     if (playerCanAtLeastReport(d, reportingRights)) {
-        icon = '/images/circle-green.png';
+        icon = '/images/arrow-right-green.png';
     } else if (playerCanReportAndUnreport(d, reportingRights)) {
-        icon = '/images/circle-red.png';
+        icon = '/images/arrow-left-red.png';
     }
     return icon;
 };
@@ -132,10 +132,10 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction, reportin
             .attr('id', function (d) {
                 return 'matchNumber-' + d.name;
             })
-            .attr('x', (NODE_WIDTH - 7) + 'px')
-            .attr('y', '-27px')
-            .attr('width', '15px')
-            .attr('height', '15px')
+            .attr('x', (NODE_WIDTH + 16) + 'px')
+            .attr('y', '-16px')
+            .attr('width', '32px')
+            .attr('height', '32px')
             .style('cursor', 'pointer')
             .on('click', function (d) {
                 if (playerCanAtLeastReport(d, reportingRights) || playerCanReportAndUnreport(d, reportingRights)) {
