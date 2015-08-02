@@ -19,7 +19,7 @@ function insertNodes(currentNode, bracket) {
     result.player1 = currentNode.player1;
     result.player2 = currentNode.player2;
     result.name = currentNode.number;
-    result.parent = currentNode.next || 'null';
+    result.parent = currentNode.next || null;
     result.complete = currentNode.complete;
     result.canReport = !currentNode.complete && _.every(previousMatches, function (item) {
         return item.complete;
@@ -132,7 +132,9 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction, reportin
             .attr('id', function (d) {
                 return 'matchNumber-' + d.name;
             })
-            .attr('x', (NODE_WIDTH + 16) + 'px')
+            .attr('x', function(d){
+                return d.parent ?(NODE_WIDTH + 16) + 'px' : (NODE_WIDTH-16)+'px';
+            })
             .attr('y', '-16px')
             .attr('width', '32px')
             .attr('height', '32px')
