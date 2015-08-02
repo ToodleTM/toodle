@@ -2,6 +2,8 @@
 angular.module('toodleApp')
     .controller('BracketCtrl', function ($rootScope, $scope, $location, $http, $cookies, $modal) {
         var tournamentId = $location.$$path.split('/')[2];
+        var displayMode = $location.$$path.split('/')[1];
+        var endpoint = displayMode === 'play'? 'api/play' : 'api/tournament/admin';
         $scope.nick = '';
         $scope.playerList = null;
         $scope.score1 = 0;
@@ -35,7 +37,7 @@ angular.module('toodleApp')
             });
         }
 
-        $http.get('api/tournament/admin/' + tournamentId).success(function (data) {
+        $http.get( endpoint+'/' + tournamentId).success(function (data) {
             $scope.content = true;
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;

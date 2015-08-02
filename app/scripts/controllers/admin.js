@@ -15,7 +15,6 @@ angular.module('toodleApp')
             $scope.playerList = $scope.tournamentInfo.players;
             $scope.alertMessage = 'admin.actions.multipleRegistrationSuccessful';
             document.getElementById('multiSeedInput').value = '';
-            $scope.updateOk = true;
         };
 
         var multipleRegistrationFailed = function (err, status) {
@@ -30,7 +29,6 @@ angular.module('toodleApp')
         };
 
         $scope.hideUpdateAlert = function () {
-            $scope.updateOk = false;
             $scope.updateKo = false;
             $scope.error = false;
         };
@@ -133,7 +131,6 @@ angular.module('toodleApp')
                 .success(function (data) {
                     $scope.tournamentInfo = data;
                     $scope.alertMessage = 'admin.update.success';
-                    $scope.updateOk = true;
                     if ($scope.tournamentInfo.game) {
                         $http.get('/views/resources/factions.json').success(function (data) {
                             $scope.factions = data[$scope.tournamentInfo.game];
@@ -163,9 +160,6 @@ angular.module('toodleApp')
                         $scope.tournamentInfo.locked = previousLockedStatus;
                         $scope.errorMessage = 'admin.actions.run.notFound';
                         $scope.updateKo = true;
-                    } else {
-                        $scope.alertMessage = 'admin.update.success';
-                        $scope.updateOk = true;
                     }
                 })
                 .error(function (error) {
@@ -215,7 +209,6 @@ angular.module('toodleApp')
             }
             $http.patch('/api/tournament/' + urlSuffix, {'tournamentId': $scope.tournamentInfo._id})
                 .success(function (tournamentInfo) {
-                    $scope.updateOk = true;
                     $scope.alertMessage = 'admin.update.success';
                     $scope.tournamentInfo = tournamentInfo;
                     updateMatchesToReport();
@@ -242,8 +235,6 @@ angular.module('toodleApp')
                         $scope.tournamentInfo = data;
                         $scope.playerList = $scope.tournamentInfo.players;
                         $scope.alertMessage = 'play.register.success';
-                        $scope.updateOk = true;
-
                     })
                     .error(function (data, statusCode) {
                         if (statusCode === '404') {
@@ -439,7 +430,6 @@ angular.module('toodleApp')
                     }
                 }
             }
-
             return '';
         };
 

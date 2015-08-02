@@ -5,6 +5,7 @@ angular.module('toodleApp')
         var tournamentId = $location.$$path.split('/')[2];
         $scope.nick = '';
         $scope.playerList = null;
+        $scope.isCollapsed = true;
         _paq.push(['setDocumentTitle', 'Enrollment Page']);
         _paq.push(['trackPageView']);
         $http.get('api/play/' + tournamentId).success(function (data) {
@@ -69,14 +70,16 @@ angular.module('toodleApp')
         $scope.enterTournament = function () {
             $('#registrationKo').hide();
             $('#registrationOk').hide();
-            $('#inputNick').val('');
-            $http.patch('/api/update-tournament/play', {signupID: $scope.tournamentInfo.signupID, nick: $scope.nick, faction:$scope.faction}).success(function(data){
-                $('#registrationOk').fadeIn();
-                $scope.playerList = data.players;
-            }).error(function(error){
-                $scope.errorMessage = 'play.register.errors.'+error.message;
-                $('#registrationKo').fadeIn();
-            });
+            $http.patch('/api/update-tournament/play', {signupID: $scope.tournamentInfo.signupID, nick: $scope.nick, faction:$scope.faction})
+                .success(function(data){
+                    $('#registrationOk').fadeIn();
+                    $scope.playerList = data.players;
+                    $scope.nick = '';
+                }).error(function(error){
+                    $scope.nick = '';
+                    $scope.errorMessage = 'play.register.errors.'+error.message;
+                    $('#registrationKo').fadeIn();
+                });
         };
 
         $scope.report = function () {
@@ -117,7 +120,6 @@ angular.module('toodleApp')
         };
 
         $scope.reportMatch = function () {
-            $('#tourneyReportingOk').hide();
             $('#tourneyReportingKo').hide();
             $http.post('/api/tournament/reportMatch/', {
                 signupID: $scope.tournamentInfo.signupID,
@@ -127,7 +129,6 @@ angular.module('toodleApp')
             }).success(function (data) {
                 updateMatchesToReport();
                 updateMatchesToUnreport();
-                $('#tourneyReportingOk').show();
                 $scope.tournamentInfo = data;
             }).error(function (data) {
                 $scope.errorMessage = 'admin.actions.reporting.errors.'+data.message;
@@ -144,12 +145,15 @@ angular.module('toodleApp')
             }).success(function (data) {
                 updateMatchesToReport();
                 updateMatchesToUnreport();
-                $('#tourneyReportingOk').show();
                 $scope.tournamentInfo = data;
             }).error(function (data) {
                 $scope.errorMessage = data;
                 $('#tourneyReportingKo').fadeIn();
             });
+        };
+
+        $scope.toggleCollapse = function () {
+            $scope.isCollapsed = !$scope.isCollapsed;
         };
     }
 );
