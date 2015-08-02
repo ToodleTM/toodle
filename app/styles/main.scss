@@ -124,7 +124,7 @@ body {
 .playerInList {
   width: 100%;
   height: 25px;
-  cursor:move;
+  cursor:default;
 }
 
 #sortablePlayerList {
@@ -167,6 +167,12 @@ body {
   margin: 0;
   padding: 0;
   margin-bottom: 10px;
+}
+
+.playersStaticList {
+  overflow-y: scroll;
+  max-height: 20em;
+  cursor:default;
 }
 
 #playersList ul li {
