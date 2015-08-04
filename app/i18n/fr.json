@@ -1,6 +1,6 @@
 {
   "quickAdd": {
-    "registerMessage": "Créez un nouveau tournoi !",
+    "registerMessage": "Créez un nouveau tournoi!",
     "success": {
       "pre": "Le tournoi a été créé! Vous pouvez l'administrer en utilisant",
       "mid": ", et vous pouvez envoyer ",
@@ -138,6 +138,7 @@
     }
   },
   "play": {
+    "playersTab": "Joueurs et enregistrement",
     "intro": "Ceci est la page de tournoi. Tu peux t'y inscrire tant qu'il n'est pas commencé et consulter la liste des joueurs. Une fois le tournoi commencé tu peux aussi y revenir pour enregistrer tes résultats ou t'informer sur son déroulement.",
     "header": {
       "tournament": "Page d'informations du tournoi",
@@ -190,7 +191,8 @@
     "noMatchingTournament":"Aucun tournoi avec cet ID m'a été trouvé."
   },
   "common": {
-    "errorFindingMatchesToReport": "Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer."
+    "errorFindingMatchesToReport": "Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer.",
+    "chooseFaction": "-- Choisis une faction --"
   },
   "tournaments":{
     "tableTitles":{

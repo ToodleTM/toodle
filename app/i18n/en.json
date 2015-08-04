@@ -1,6 +1,6 @@
 {
   "quickAdd": {
-    "registerMessage": "Register a new tournament !",
+    "registerMessage": "Register a new tournament!",
     "success": {
       "pre": "The tournament has been created! You can administer it using",
       "mid": ", and you can send",
@@ -34,7 +34,7 @@
       "pickGame": "-- Pick a game --",
       "other": "Other",
       "engine": "Tournament engine",
-      "description": "Short description (optionnal)",
+      "description": "Short description (optional)",
       "roundFormats": "Round formats",
       "numberOfPlayers": "Number of players",
       "submit": "Submit changes",
@@ -138,6 +138,7 @@
     }
   },
   "play": {
+    "playersTab":"Players and registration",
     "intro": "This the tournament page. You can enter the tournament and watch the players list until it's started. Then you can go back here to report your games and look at the tournament status.",
     "header": {
       "tournament": "Tournament",
@@ -190,7 +191,8 @@
     "noMatchingTournament":"No tournament matching this ID was found"
   },
   "common": {
-    "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported."
+    "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported.",
+    "chooseFaction":"-- Choose a faction --"
   },
   "tournaments":{
     "tableTitles":{

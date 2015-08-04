@@ -20,11 +20,18 @@ angular.module('toodleApp')
                 });
             }).error(function() {
             });
-            if($scope.tournamentInfo.game){
-                $http.get('/views/resources/factions.json').success(function(data){
-                    $scope.factions = data[$scope.tournamentInfo.game];
-                });
-            }
+            $http.get('/views/resources/factions.json').success(function (factionsMap) {
+                var factionsArray = [];
+                for (var key in factionsMap) {
+                    for (var item in factionsMap[key]) {
+                        factionsArray.push({
+                            name: key + ' - ' + factionsMap[key][item],
+                            tracker: factionsMap[key][item].toLowerCase()
+                        });
+                    }
+                }
+                $scope.factions = factionsArray;
+            });
             updateMatchesToReport();
             updateMatchesToUnreport();
         }).error(function(){

@@ -52,7 +52,7 @@
                 </tab>
                 <tab>
                     <tab-heading>
-                        <span translate="admin.form.playerManagementTab"></span>
+                        <span translate="play.playersTab"></span>
                     </tab-heading>
                     <fieldset ng-show="!tournamentInfo.locked">
                         <legend translate="play.enter.register"></legend>
@@ -64,8 +64,8 @@
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <select name="inputFaction" class="form-control" ng-model="faction"
-                                            ng-options="item for item in factions track by item">
-                                        <option value=""> -- Choose a faction --</option>
+                                            ng-options="item.name for item in factions track by item.tracker">
+                                        <option value="" translate="common.chooseFaction"> -- Choose a faction --</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-1">
