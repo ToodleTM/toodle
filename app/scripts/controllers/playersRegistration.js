@@ -64,15 +64,6 @@ angular.module('toodleApp')
                     });
                 });
                 $scope.tournamentInfo = data;
-                $http.get('api/available-engines').success(function(engines){
-                    $scope.availableEngines = engines;
-                    engines.forEach(function(item){
-                        if(item.name === data.engine){
-                            $scope.engine = item;
-                        }
-                    });
-                }).error(function() {
-                });
                 $scope.playerList = $scope.tournamentInfo.players;
                 $scope.tournamentStartDate = $scope.tournamentInfo.startDate;
                 $cookieStore.put('toodle-'+$scope.tournamentInfo.signupID, data._id);

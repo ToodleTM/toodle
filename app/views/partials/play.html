@@ -10,143 +10,99 @@
     <h1><span translate="play.header.tournament"></span> {{tournamentInfo.tournamentName}} {{ 'play.header.playPage' |
         translate}}</h1>
 
-    <p ng-show="isCollapsed" class="well" style="text-align:center">
-        <a href="#"
-           ng-click="toggleCollapse()" translate="admin.intro">
-        </a>
-    </p>
+    <div class="well">
+        <p ng-show="isCollapsed" style="text-align:center">
+            <a href="#"
+               ng-click="toggleCollapse()" translate="admin.intro">
+            </a>
+        </p>
 
-    <div collapse="isCollapsed" class="well">
-        <button type="button" class="close" ng-click="toggleCollapse()">
-            <span aria-hidden="true">×</span>
-            <span class="sr-only">Close</span>
-        </button>
-        <tabset>
-            <tab>
-                <tab-heading>
-                    <span translate="admin.form.generalSettingsTab"></span>
-                </tab-heading>
-                <!--<fieldset ng-show="tournamentInfo.running">-->
-                <!--<legend ng-show="playerCanReport()" translate="admin.actions.reporting.title"></legend>-->
-                <!--<div class="form-group col-sm-6" ng-show="playerCanReport()">-->
-                <!--<label class="control-label" for="reportGame"-->
-                <!--translate="admin.actions.reporting.reportMatch"></label>-->
-
-                <!--<select id="reportGame" name="reportGame" class="form-control" ng-model="firstGameToReport"-->
-                <!--ng-options="item as item.player1.name+' VS '+item.player2.name for item in gamesToReport track by item.number">-->
-                <!--</select>-->
-
-                <!--<button ng-show="gamesToReport.length" id="reportGameButton" ng-click="report()"-->
-                <!--class="btn btn-primary ng-scope ng-binding" title="Go to the form"-->
-                <!--translate="admin.actions.reporting.reportButton">Go to the form-->
-                <!--</button>-->
-                <!--</div>-->
-
-                <!--<div class="form-group col-sm-6" ng-show="playerCanUnreport()">-->
-                <!--<label class="control-label" for="unreportGame"-->
-                <!--translate="admin.actions.reporting.unreportMatch"></label>-->
-
-                <!--<select id="unreportGame" name="unreportGame" class="form-control" ng-model="gameToUnreport"-->
-                <!--ng-options="item as item.player1.name+' VS '+item.player2.name for item in gamesToUnreport track by item.number">-->
-                <!--</select>-->
-
-                <!--<button ng-show="gamesToUnreport.length" id="unreportGameButton" ng-click="unreport()"-->
-                <!--class="btn btn-primary ng-scope" title="Unreport !"-->
-                <!--translate="admin.actions.reporting.unreportButton">Unreport !-->
-                <!--</button>-->
-
-                <!--</div>-->
-                <!--<div class="form-group col-sm-12">-->
-                <!--<div id="tourneyReportingOk" class="alert alert-success alert-dismissible app-alert"-->
-                <!--role="alert" hidden>-->
-                <!--<button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span-->
-                <!--aria-hidden="true">&times;</span><span-->
-                <!--class="sr-only">Close</span></button>-->
-                <!--<span translate="admin.actions.reporting.reportingOk"></span>-->
-                <!--</div>-->
-                <!--<div id="tourneyReportingKo" class="alert alert-danger alert-dismissible app-alert" role="alert"-->
-                <!--hidden>-->
-                <!--<button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span-->
-                <!--aria-hidden="true">&times;</span><span-->
-                <!--class="sr-only">Close</span></button>-->
-                <!--<span translate="admin.actions.reporting.reportingKo"></span> (<span-->
-                <!--translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</fieldset>-->
-                <fieldset>
-                    <!--<legend translate="play.infos"></legend>-->
-                    <div class="row">
-                        <div class="form-group col-sm-6">
-                            <label class="control-label" for="engine" translate="admin.form.engine"></label>
-
-                            <span id="engine" class="form-control">{{engine.description}}</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label class="control-label" for="description" translate="admin.form.description"></label>
-                            <span id="description" name="description" class="form-control"> {{tournamentInfo.description}}</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label class="control-label" for="startDate" translate="admin.form.startDate"></label>
-                            <span type="text" id="startDate" name="startDate" class="form-control"> {{tournamentInfo.startDate}}</span>
-                        </div>
-                    </div>
-                </fieldset>
-            </tab>
-            <tab>
-                <tab-heading>
-                    <span translate="admin.form.playerManagementTab"></span>
-                </tab-heading>
-                <fieldset ng-show="!tournamentInfo.locked">
-                    <legend translate="play.enter.register"></legend>
-                    <div class="row">
-                        <form ng-submit="enterTournament()">
+        <div collapse="isCollapsed">
+            <button type="button" class="close" ng-click="toggleCollapse()">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <tabset>
+                <tab>
+                    <tab-heading>
+                        <span translate="admin.form.generalSettingsTab"></span>
+                    </tab-heading>
+                    <fieldset>
+                        <div class="row">
                             <div class="form-group col-sm-6">
-                                <input type="text" name="inputNick" id="inputNick" class="form-control"
-                                       placeholder="{{ 'play.enter.nickPlaceholder' | translate}}" ng-model="nick"/>
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <select name="inputFaction" class="form-control" ng-model="faction"
-                                        ng-options="item for item in factions track by item">
-                                    <option value=""> -- Choose a faction --</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-sm-1">
-                                <button class="btn btn-primary" id="registerPlayerGo" type="submit"
-                                        translate="play.enter.go"></button>
-                            </div>
-                        </form>
-                    </div>
-                    <div id="registrationOk" class="alert alert-success alert-dismissible app-alert" role="alert"
-                         hidden>
-                        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
-                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <span translate="play.register.success"></span>
-                    </div>
-                    <div id="registrationKo" class="alert alert-danger alert-dismissible app-alert" role="alert" hidden>
-                        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
-                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <span translate="play.register.fail"></span> (<span translate="{{errorMessage}}">{{errorMessage | translate}}</span>)
-                    </div>
-                </fieldset>
+                                <label class="control-label" for="engine" translate="admin.form.engine"></label>
 
-                <fieldset id="playersList" ng-model="playerList" class="playersStaticList">
-                    <legend><span translate="play.register.registeredPlayers"></span> ({{playerList.length}})</legend>
-                    <div ng-repeat="player in playerList" id="playerList" class="playerInList">
+                                <span id="engine" class="form-control">{{engine.description}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label class="control-label" for="description"
+                                       translate="admin.form.description"></label>
+                                <span id="description" name="description" class="form-control"> {{tournamentInfo.description}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label class="control-label" for="startDate" translate="admin.form.startDate"></label>
+                                <span type="text" id="startDate" name="startDate" class="form-control"> {{tournamentInfo.startDate}}</span>
+                            </div>
+                        </div>
+                    </fieldset>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        <span translate="admin.form.playerManagementTab"></span>
+                    </tab-heading>
+                    <fieldset ng-show="!tournamentInfo.locked">
+                        <legend translate="play.enter.register"></legend>
+                        <div class="row">
+                            <form ng-submit="enterTournament()">
+                                <div class="form-group col-sm-6">
+                                    <input type="text" name="inputNick" id="inputNick" class="form-control"
+                                           placeholder="{{ 'play.enter.nickPlaceholder' | translate}}" ng-model="nick"/>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <select name="inputFaction" class="form-control" ng-model="faction"
+                                            ng-options="item for item in factions track by item">
+                                        <option value=""> -- Choose a faction --</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-1">
+                                    <button class="btn btn-primary" id="registerPlayerGo" type="submit"
+                                            translate="play.enter.go"></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="registrationOk" class="alert alert-success alert-dismissible app-alert" role="alert"
+                             hidden>
+                            <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
+                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <span translate="play.register.success"></span>
+                        </div>
+                        <div id="registrationKo" class="alert alert-danger alert-dismissible app-alert" role="alert"
+                             hidden>
+                            <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
+                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <span translate="play.register.fail"></span> (<span translate="{{errorMessage}}">{{errorMessage | translate}}</span>)
+                        </div>
+                    </fieldset>
+
+                    <fieldset id="playersList" ng-model="playerList" class="playersStaticList">
+                        <legend><span translate="play.register.registeredPlayers"></span> ({{playerList.length}})
+                        </legend>
+                        <div ng-repeat="player in playerList" id="playerList" class="playerInList">
                 <span>
                 <span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px"></span>{{player.name}}
                 </span>
-                    </div>
-                    <div ng-show="playerList.length == 0">
-                        <span translate="play.register.noPlayers"></span>
-                    </div>
-                </fieldset>
-            </tab>
-        </tabset>
+                        </div>
+                        <div ng-show="playerList.length == 0">
+                            <span translate="play.register.noPlayers"></span>
+                        </div>
+                    </fieldset>
+                </tab>
+            </tabset>
+        </div>
     </div>
     <div ng-controller="BracketCtrl">
         <div ng-include="'partials/bracket.html'"></div>
