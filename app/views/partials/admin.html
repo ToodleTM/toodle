@@ -12,14 +12,16 @@
 
     </h1>
     <a class="btn btn-info" target="_blank" ng-href="/play/{{tournamentInfo.signupID}}" id="playerSignupPageLink">
-        <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <span translate="admin.misc.playLink"></span>
+        <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <span
+            translate="admin.misc.playLink"></span>
 
     </a>
 
     <button ng-if="tournamentInfo.running" id="runTournament" ng-click="openRunDialog()"
             class="btn btn-danger"
             title="{{ 'admin.actions.run.runningTooltip' | translate }}">
-        <span class="glyphicon glyphicon-stop" aria-hidden="true"></span> <span translate="admin.actions.run.running"></span>
+        <span class="glyphicon glyphicon-stop" aria-hidden="true"></span> <span
+            translate="admin.actions.run.running"></span>
     </button>
 
     <div class="btn-group" dropdown ng-if="!tournamentInfo.running">
@@ -38,183 +40,171 @@
             <li ng-if="canSwapPlayers"><a href="#" ng-click="openPreconfigureDialog()"
                                           translate="admin.actions.run.preconfigure"></a></li>
         </ul>
-    </div> <br/>
+    </div>
+    <br/>
+
     <div class="row">
         <div class="form-group col-sm-6">
             <label style="width:100%;" class="control-label"
                    ng-show="!gamesToReport.length">&nbsp;</label>
             <a class="btn btn-info" ng-show="tournamentInfo.running && !gamesToReport.length"
                href="#"
-               ng-click="downloadTournamentWinners()"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> <span
+               ng-click="downloadTournamentWinners()"><span class="glyphicon glyphicon-save-file"
+                                                            aria-hidden="true"></span> <span
                     translate="admin.misc.winners"></span></a>
         </div>
     </div>
+    <div class="well">
+        <p ng-show="isCollapsed" style="text-align:center">
+            <a href="#"
+               ng-click="toggleCollapse()" translate="admin.intro">
+            </a>
+        </p>
 
-    <p ng-show="isCollapsed" class="well" style="text-align:center">
-        <a href="#"
-           ng-click="toggleCollapse()" translate="admin.intro">
-        </a>
-    </p>
+        <div collapse="isCollapsed">
+            <button type="button" class="close" ng-click="toggleCollapse()">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <tabset>
+                <tab>
+                    <tab-heading>
+                        <span translate="admin.form.generalSettingsTab"></span>
+                    </tab-heading>
 
-    <div collapse="isCollapsed" class="well">
-        <button type="button" class="close" ng-click="toggleCollapse()">
-            <span aria-hidden="true">×</span>
-            <span class="sr-only">Close</span>
-        </button>
-        <tabset>
-            <tab>
-                <tab-heading>
-                    <span translate="admin.form.generalSettingsTab"></span>
-                </tab-heading>
-                <form class="form-horizontal" ng-submit="updateTourney()">
-                    <fieldset>
+                        <fieldset>
 
-                        <legend translate="admin.form.configure"></legend>
-                        <div class="row">
+                            <legend translate="admin.form.configure"></legend>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="control-label" for="engine" translate="admin.form.engine"></label>
 
-                            <div class="form-group col-sm-6" hidden>
-                                <label class="control-label" for="game" translate="admin.form.game"></label>
-
-                                <select id="game" name="game" class="form-control" ng-model="tournamentInfo.game">
-                                    <option value="" translate="admin.form.pickGame"></option>
-                                    <option value="sc2">Starcraft II</option>
-                                    <option value="other" translate="admin.form.other"></option>
-                                </select>
+                                    <select id="engine" name="engine" class="form-control" ng-model="tournamentInfo.engineObject"
+                                            required="required" ng-change="updateTourney()"
+                                            ng-options="engine as engine.description for engine in availableEngines track by engine.name">
+                                    </select>
+                                </div>
                             </div>
-
-                            <div class="form-group col-sm-6">
-                                <label class="control-label" for="engine" translate="admin.form.engine"></label>
-
-                                <select id="engine" name="engine" class="form-control" ng-model="engine"
-                                        required="required"
-                                        ng-options="engine as engine.description for engine in availableEngines track by engine.name">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-sm-12">
-                                <label class="control-label" for="description"
-                                       translate="admin.form.description"></label>
+                            <div class="row">
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label" for="description"
+                                           translate="admin.form.description"></label>
                     <textarea id="description" name="description" class="form-control"
-                              ng-model="tournamentInfo.description"></textarea>
+                              ng-model="tournamentInfo.description" ng-blur="updateTourney()"></textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-sm-6">
-                                <label class="control-label" for="tournamentStart"
-                                       translate="admin.form.startDate"></label>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="control-label" for="tournamentStart"
+                                           translate="admin.form.startDate"></label>
 
-                                <p class="input-group">
-                                    <input type="text" id="tournamentStart" class="form-control"
-                                           datepicker-popup="{{format}}"
-                                           ng-model="tournamentStartDate" is-open="opened" min-date="minDate"
-                                           datepicker-options="dateOptions" close-text="Close"/>
+                                    <p class="input-group">
+                                        <input type="text" id="tournamentStart" class="form-control"
+                                               datepicker-popup="{{format}}"
+                                               ng-change="updateTourney()"
+                                               ng-model="tournamentInfo.formStartDate" is-open="opened" min-date="minDate"
+                                               datepicker-options="dateOptions" close-text="Close"/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i
                         class="glyphicon glyphicon-calendar"></i></button>
               </span>
-                                </p>
+                                    </p>
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label class="control-label" for="reportRights"
+                                           translate="admin.form.userPrivileges.title"></label>
+
+                                    <div class="controls" id="reportRights" style="margin-left:20px;">
+                                        <label class="radio" for="reportRights-0">
+                                            <input ng-change="updateTourney()" type="radio" name="reportRights" id="reportRights-0" value="3"
+                                                   ng-model="tournamentInfo.userPrivileges" required="required">
+                                            <span translate="admin.form.userPrivileges.atWill"></span>
+                                        </label>
+                                        <label class="radio" for="reportRights-1">
+                                            <input ng-change="updateTourney()" type="radio" name="reportRights" id="reportRights-1" value="2"
+                                                   ng-model="tournamentInfo.userPrivileges" required="required">
+                                            <span translate="admin.form.userPrivileges.reportOnly"></span>
+                                        </label>
+                                        <label class="radio" for="reportRights-2">
+                                            <input ng-change="updateTourney()" type="radio" name="reportRights" id="reportRights-2" value="1"
+                                                   ng-model="tournamentInfo.userPrivileges" required="required">
+                                            <span translate="admin.form.userPrivileges.nothing"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
-
+                        </fieldset>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        <span translate="admin.form.playerManagementTab"></span>
+                    </tab-heading>
+                    <fieldset ng-show="!tournamentInfo.running">
+                        <div class="row">
                             <div class="form-group col-sm-6">
-                                <label class="control-label" for="reportRights"
-                                       translate="admin.form.userPrivileges.title"></label>
+                                <legend translate="admin.actions.addPlayer"></legend>
+                                <div class="row">
+                                    <form ng-submit="addPlayer()">
+                                        <div class="form-group col-sm-5">
+                                            <input type="text" name="inputNick" id="inputNick" class="form-control"
+                                                   placeholder="{{ 'admin.actions.playerNickPlaceholder' | translate}}"
+                                                   ng-model="nick"/>
 
-                                <div class="controls" id="reportRights" style="margin-left:20px;">
-                                    <label class="radio" for="reportRights-0">
-                                        <input type="radio" name="reportRights" id="reportRights-0" value="3"
-                                               ng-model="tournamentInfo.userPrivileges" required="required">
-                                        <span translate="admin.form.userPrivileges.atWill"></span>
-                                    </label>
-                                    <label class="radio" for="reportRights-1">
-                                        <input type="radio" name="reportRights" id="reportRights-1" value="2"
-                                               ng-model="tournamentInfo.userPrivileges" required="required">
-                                        <span translate="admin.form.userPrivileges.reportOnly"></span>
-                                    </label>
-                                    <label class="radio" for="reportRights-2">
-                                        <input type="radio" name="reportRights" id="reportRights-2" value="1"
-                                               ng-model="tournamentInfo.userPrivileges" required="required">
-                                        <span translate="admin.form.userPrivileges.nothing"></span>
-                                    </label>
+                                        </div>
+                                        <div class="form-group col-sm-4">
+                                            <select name="inputFaction" class="form-control" ng-model="faction"
+                                                    ng-options="item.name for item in factions track by item.tracker">
+                                                <option value=""> -- Choose a faction --</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-1">
+                                            <button class="btn btn-primary" id="registerPlayerGo" type="submit"
+                                                    translate="play.enter.go">
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+                            <div class="form-group col-sm-6">
+                                <form>
+                                    <legend translate="admin.actions.addMultiplePlayers">*&nbsp;<i
+                                            class="glyphicon glyphicon-question-sign what-is-this"
+                                            title="{{'admin.actions.multipleSeedTooltip'|translate}}"></i></legend>
+                                    <div class="row">
+                                        <div class="form-group col-sm-12">
+                                            <input id="multiSeedInput" type="file"
+                                                   ng-file-select="onFileSelect($files)">
 
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-sm-12">
-                                <button id="modifyTournament" type="submit" class="btn btn-primary"
-                                        translate="admin.form.submit">
-                                </button>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-            </tab>
-            <tab>
-                <tab-heading>
-                    <span translate="admin.form.playerManagementTab"></span>
-                </tab-heading>
-                <fieldset ng-show="!tournamentInfo.running">
-                    <div class="row">
-                        <div class="form-group col-sm-6">
-                            <legend translate="admin.actions.addPlayer"></legend>
-                            <div class="row">
-                                <form ng-submit="addPlayer()">
-                                    <div class="form-group col-sm-5">
-                                        <input type="text" name="inputNick" id="inputNick" class="form-control"
-                                               placeholder="{{ 'admin.actions.playerNickPlaceholder' | translate}}"
-                                               ng-model="nick"/>
-
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <select name="inputFaction" class="form-control" ng-model="faction"
-                                                ng-options="item.name for item in factions track by item.tracker">
-                                            <option value=""> -- Choose a faction --</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-sm-1">
-                                        <button class="btn btn-primary" id="registerPlayerGo" type="submit"
-                                                translate="play.enter.go">
-                                        </button>
+                                            <p>* : <span translate="admin.misc.fileMustBeCSV"></span></p>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
-                        <div class="form-group col-sm-6">
-                            <form>
-                                <legend translate="admin.actions.addMultiplePlayers">*&nbsp;<i
-                                        class="glyphicon glyphicon-question-sign what-is-this"
-                                        title="{{'admin.actions.multipleSeedTooltip'|translate}}"></i></legend>
-                                <div class="row">
-                                    <div class="form-group col-sm-12">
-                                        <input id="multiSeedInput" type="file" ng-file-select="onFileSelect($files)">
-
-                                        <p>* : <span translate="admin.misc.fileMustBeCSV"></span></p>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset id="playersList" ng-model="playerList">
-                    <legend><span translate="play.register.registeredPlayers"></span> ({{playerList.length}})</legend>
-                    <ul id="sortablePlayerList">
-                        <li ng-repeat="player in playerList" class="playerInList">
+                    </fieldset>
+                    <fieldset id="playersList" ng-model="playerList">
+                        <legend><span translate="play.register.registeredPlayers"></span> ({{playerList.length}})
+                        </legend>
+                        <ul id="sortablePlayerList">
+                            <li ng-repeat="player in playerList" class="playerInList">
                 <span style="float:left"><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png"
                                                                            height="20px"></span>{{player.name}} </span>
                             <span ng-if="'notes-'+stripped(player.name)" class="playerInListInfo"
                                   id="notes-{{stripped(player.name)}}" translate="{{errorMessage}}"></span><i
-                                ng-hide="tournamentInfo.running" title="{{'admin.actions.removePlayer'|translate}}"
-                                class="glyphicon glyphicon-trash"
-                                ng-click="removePlayer(player.name)"></i>
-                        </li>
-                    </ul>
-                    <div ng-show="playerList.length == 0">
-                        <span translate="play.register.noPlayers"> </span>
-                    </div>
-                </fieldset>
-            </tab>
-        </tabset>
+                                    ng-hide="tournamentInfo.running" title="{{'admin.actions.removePlayer'|translate}}"
+                                    class="glyphicon glyphicon-trash"
+                                    ng-click="removePlayer(player.name)"></i>
+                            </li>
+                        </ul>
+                        <div ng-show="playerList.length == 0">
+                            <span translate="play.register.noPlayers"> </span>
+                        </div>
+                    </fieldset>
+                </tab>
+            </tabset>
+        </div>
     </div>
     <div ng-controller="BracketCtrl">
         <div ng-include="'partials/bracket.html'"></div>

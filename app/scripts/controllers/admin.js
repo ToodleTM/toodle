@@ -56,23 +56,14 @@ angular.module('toodleApp')
                     $scope.availableEngines = engines;
                     engines.forEach(function (item) {
                         if (item.name === data.engine) {
-                            $scope.engine = item;
-                            $scope.canSwapPlayers = $scope.engine.compatible.indexOf('playerSwap') !== -1;
+                            $scope.tournamentInfo.engineObject = item;
+                            $scope.canSwapPlayers = $scope.tournamentInfo.engineObject.compatible.indexOf('playerSwap') !== -1;
                         }
                     });
                 });
                 $scope.tournamentInfo = data;
-                $http.get('api/available-engines').success(function (engines) {
-                    $scope.availableEngines = engines;
-                    engines.forEach(function (item) {
-                        if (item.name === data.engine) {
-                            $scope.engine = item;
-                        }
-                    });
-                }).error(function () {
-                });
                 $scope.playerList = $scope.tournamentInfo.players;
-                $scope.tournamentStartDate = $scope.tournamentInfo.startDate;
+                $scope.tournamentInfo.formStartDate = $scope.tournamentInfo.startDate;
                 $cookieStore.put('toodle-' + $scope.tournamentInfo.signupID, data._id);
                 $('#sortablePlayerList').sortable({
                     revert: true,
@@ -95,9 +86,12 @@ angular.module('toodleApp')
                 $('ul, li').disableSelection();
                 $http.get('/views/resources/factions.json').success(function (factionsMap) {
                     var factionsArray = [];
-                    for(var key in factionsMap){
-                        for(var item in factionsMap[key]){
-                            factionsArray.push({name:key+' - '+factionsMap[key][item], tracker: factionsMap[key][item].toLowerCase()});
+                    for (var key in factionsMap) {
+                        for (var item in factionsMap[key]) {
+                            factionsArray.push({
+                                name: key + ' - ' + factionsMap[key][item],
+                                tracker: factionsMap[key][item].toLowerCase()
+                            });
                         }
                     }
 
@@ -118,19 +112,19 @@ angular.module('toodleApp')
 
         $scope.updateTourney = function () {
             $scope.hideUpdateAlert();
-            $scope.tournamentInfo.startDate = $scope.tournamentStartDate;
-            $scope.tournamentInfo.engine = $scope.engine.name;
+            $scope.tournamentInfo.engine = $scope.tournamentInfo.engineObject.name;
             $http.patch('/api/tournament/admin/update/?id=' + $scope.tournamentId, {
                 _id: $scope.tournamentInfo._id,
                 game: $scope.tournamentInfo.game,
                 engine: $scope.tournamentInfo.engine,
                 description: $scope.tournamentInfo.description,
-                startDate: $scope.tournamentStartDate,
+                startDate: $scope.tournamentInfo.formStartDate,
                 userPrivileges: $scope.tournamentInfo.userPrivileges
             })
                 .success(function (data) {
                     $scope.tournamentInfo = data;
                     $scope.alertMessage = 'admin.update.success';
+                    $scope.tournamentInfo.formStartDate = $scope.tournamentInfo.startDate;
                     if ($scope.tournamentInfo.game) {
                         $http.get('/views/resources/factions.json').success(function (data) {
                             $scope.factions = data[$scope.tournamentInfo.game];
@@ -138,8 +132,8 @@ angular.module('toodleApp')
                     }
                     $scope.availableEngines.forEach(function (item) {
                         if (item.name === $scope.tournamentInfo.engine) {
-                            $scope.engine = item;
-                            $scope.canSwapPlayers = $scope.engine.compatible.indexOf('playerSwap') !== -1;
+                            $scope.tournamentInfo.engineObject = item;
+                            $scope.canSwapPlayers = $scope.tournamentInfo.engineObject.compatible.indexOf('playerSwap') !== -1;
                         }
                     });
                 })
@@ -389,18 +383,17 @@ angular.module('toodleApp')
         };
 
         $scope.today = function () {
-            $scope.tournamentStartDate = new Date();
+            $scope.tournamentInfo.formStartDate = new Date();
         };
-        $scope.today();
 
         $scope.clear = function () {
-            $scope.tournamentStartDate = null;
+            $scope.tournamentInfo.formStartDate = null;
         };
 
         $scope.toggleMin = function () {
             $scope.minDate = $scope.minDate ? null : new Date();
         };
-        $scope.toggleMin();
+        //$scope.toggleMin();
 
         $scope.openDatePicker = function ($event) {
             $event.preventDefault();
@@ -415,7 +408,7 @@ angular.module('toodleApp')
         };
 
         $scope.format = 'dd-MM-yyyy';
-        $scope.toggleCollapse = function(){
+        $scope.toggleCollapse = function () {
             $scope.isCollapsed = !$scope.isCollapsed;
         };
         $scope.getDayClass = function (date, mode) {
@@ -433,7 +426,7 @@ angular.module('toodleApp')
             return '';
         };
 
-        $rootScope.$on('updatedMatch', function(){
+        $rootScope.$on('updatedMatch', function () {
             updateMatchesToReport();
         });
     }
