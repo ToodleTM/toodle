@@ -347,7 +347,6 @@ D3Bracket.prototype.drawSecondPlayerNameInNode = function (nodes, callback, prec
             if (preconfigureMode) {
                 that.selectPlayerToSwap(d, callback.swapPlayers, false);
             } else {
-                //debugger;
                 callback.togglePlayerHighlight(d.player2);
             }
         });

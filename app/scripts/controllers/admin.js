@@ -400,7 +400,6 @@ angular.module('toodleApp')
         $scope.toggleMin = function () {
             $scope.minDate = $scope.minDate ? null : new Date();
         };
-        //$scope.toggleMin();
 
         $scope.openDatePicker = function ($event) {
             $event.preventDefault();

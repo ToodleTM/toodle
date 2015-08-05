@@ -165,6 +165,8 @@ angular.module('toodleApp')
 
         $rootScope.$on('toggledStart', function(event, tournamentInfo){
             $scope.tournamentInfo = tournamentInfo;
+            $scope.renderer = availableRenderers[tournamentInfo.engine];
+            $scope.engineTemplate = '/partials/engineTemplates/' + tournamentInfo.engine;
             $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
         });
     }
