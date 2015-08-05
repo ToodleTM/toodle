@@ -205,6 +205,13 @@ angular.module('toodleApp')
                 .success(function (tournamentInfo) {
                     $scope.alertMessage = 'admin.update.success';
                     $scope.tournamentInfo = tournamentInfo;
+                    $scope.tournamentInfo.formStartDate = $scope.tournamentInfo.startDate;
+                    $scope.availableEngines.forEach(function (item) {
+                        if (item.name === $scope.tournamentInfo.engine) {
+                            $scope.tournamentInfo.engineObject = item;
+                            $scope.canSwapPlayers = $scope.tournamentInfo.engineObject.compatible.indexOf('playerSwap') !== -1;
+                        }
+                    });
                     updateMatchesToReport();
                     updateMatchesToUnreport();
                     $rootScope.$emit('toggledStart', tournamentInfo);
