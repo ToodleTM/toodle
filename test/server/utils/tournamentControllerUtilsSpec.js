@@ -226,7 +226,13 @@ describe('TournamentControllerUtils', function () {
         it('should return a 404 if tournament id is not valid', function () {
             //setup
             var newData = {_id: 'not a valid ID', engine: 'Some Engine'};
-            var res = {json: sinon.spy()};
+            var jsonSpy = sinon.spy();
+            var res = {status: function(){
+                var status = function(){};
+                status.json = jsonSpy;
+                return status;
+            }};
+            sinon.spy(res, 'status');
             var serverUtils = {
                 isThisTournamentIdValid: function () {
                     return false;
@@ -235,8 +241,10 @@ describe('TournamentControllerUtils', function () {
             //action
             tournamentControllerUtils.updateTournament(null, res, serverUtils, newData, tournamentService, tournamentModel, null);
             //assert
-            assert.equal(res.json.calledOnce, true);
-            assert.equal(res.json.getCall(0).args[0], 404);
+            assert.equal(res.status.calledOnce, true);
+            assert.equal(res.status.getCall(0).args[0], 404);
+            assert.equal(jsonSpy.calledOnce, true);
+            assert.deepEqual(jsonSpy.getCall(0).args[0], {message:'notFound'});
             assert.equal(tournamentService.updateTournament.called, false);
         });
 
