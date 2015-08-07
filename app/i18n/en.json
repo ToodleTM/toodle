@@ -46,7 +46,8 @@
         "reportOnly": "Report only",
         "nothing": "Neither report nor unreport"
       },
-      "cantUpdateEngineWhileRunning": "You can't update the tournament engine while tournament is live."
+      "cantUpdateEngineWhileRunning": "You can't update the tournament engine while tournament is live.",
+      "notFound":"Tournament to update not found."
     },
     "actions": {
       "lock": "Lock registrations",

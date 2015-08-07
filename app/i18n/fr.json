@@ -46,7 +46,8 @@
         "reportOnly": "Seulement report",
         "nothing": "Aucun des deux"
       },
-      "cantUpdateEngineWhileRunning": "Tu ne peux pas mettre à jour le moteur de tournoi alors que ce dernier a commencé."
+      "cantUpdateEngineWhileRunning": "Tu ne peux pas mettre à jour le moteur de tournoi alors que ce dernier a commencé.",
+      "notFound": "Tournoi à mettre à jour introuvable."
     },
     "actions": {
       "lock": "Fermer les inscriptions",

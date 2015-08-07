@@ -67,76 +67,90 @@
                 <span class="sr-only">Close</span>
             </button>
             <tabset>
+                <!--<alert collapse="!(alertMessage && !errorMessage)" type="success" close="hideUpdateAlert()" style="margin-top:25px;">-->
+                    <!--<span translate="{{alertMessage}}">{{alertMessage |translate}}</span><br/>-->
+                    <!--<span translate="{{errorMessage}}">{{errorMessage |translate}}</span>-->
+                <!--</alert>-->
+                <alert collapse="!errorMessage" type="danger" close="hideUpdateAlert()" style="margin-top:25px;">
+                    <span translate="{{alertMessage}}">{{alertMessage |translate}}</span><br/>
+                    <span translate="{{errorMessage}}">{{errorMessage |translate}}</span>
+                </alert>
                 <tab>
                     <tab-heading>
                         <span translate="admin.form.generalSettingsTab"></span>
                     </tab-heading>
 
-                        <fieldset>
+                    <fieldset>
 
-                            <legend translate="admin.form.configure"></legend>
-                            <div class="row">
-                                <div class="form-group col-sm-6">
-                                    <label class="control-label" for="engine" translate="admin.form.engine"></label>
+                        <legend translate="admin.form.configure"></legend>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" for="engine" translate="admin.form.engine"></label>
 
-                                    <select ng-disabled="tournamentInfo.running" id="engine" name="engine" class="form-control" ng-model="tournamentInfo.engineObject"
-                                            required="required" ng-change="updateTourney()"
-                                            ng-options="engine as engine.description for engine in availableEngines track by engine.name">
-                                    </select>
-                                </div>
+                                <select ng-disabled="tournamentInfo.running" id="engine" name="engine"
+                                        class="form-control" ng-model="tournamentInfo.engineObject"
+                                        required="required" ng-change="updateTourney()"
+                                        ng-options="engine as engine.description for engine in availableEngines track by engine.name">
+                                </select>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-sm-12">
-                                    <label class="control-label" for="description"
-                                           translate="admin.form.description"></label>
-                    <textarea ng-disabled="tournamentInfo.running" id="description" name="description" class="form-control"
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label class="control-label" for="description"
+                                       translate="admin.form.description"></label>
+                    <textarea ng-disabled="tournamentInfo.running" id="description" name="description"
+                              class="form-control"
                               ng-model="tournamentInfo.description" ng-blur="updateTourney()"></textarea>
-                                </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-sm-6">
-                                    <label class="control-label" for="tournamentStart"
-                                           translate="admin.form.startDate"></label>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" for="tournamentStart"
+                                       translate="admin.form.startDate"></label>
 
-                                    <p class="input-group">
-                                        <input type="text" id="tournamentStart" class="form-control"
-                                               datepicker-popup="{{format}}"
-                                               ng-change="updateTourney()"
-                                               ng-disabled="tournamentInfo.running"
-                                               ng-model="tournamentInfo.formStartDate" is-open="opened" min-date="minDate"
-                                               datepicker-options="dateOptions" close-text="Close"/>
+                                <p class="input-group">
+                                    <input type="text" id="tournamentStart" class="form-control"
+                                           datepicker-popup="{{format}}"
+                                           ng-change="updateTourney()"
+                                           ng-disabled="tournamentInfo.running"
+                                           ng-model="tournamentInfo.formStartDate" is-open="opened" min-date="minDate"
+                                           datepicker-options="dateOptions" close-text="Close"/>
               <span class="input-group-btn">
-                <button ng-disabled="tournamentInfo.running" type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i
+                <button ng-disabled="tournamentInfo.running" type="button" class="btn btn-default"
+                        ng-click="openDatePicker($event)"><i
                         class="glyphicon glyphicon-calendar"></i></button>
               </span>
-                                    </p>
-                                </div>
-
-                                <div class="form-group col-sm-6">
-                                    <label class="control-label" for="reportRights"
-                                           translate="admin.form.userPrivileges.title"></label>
-
-                                    <div class="controls" id="reportRights" style="margin-left:20px;">
-                                        <label class="radio" for="reportRights-0">
-                                            <input ng-disabled="tournamentInfo.running" ng-change="updateTourney()" type="radio" name="reportRights" id="reportRights-0" value="3"
-                                                   ng-model="tournamentInfo.userPrivileges" required="required">
-                                            <span translate="admin.form.userPrivileges.atWill"></span>
-                                        </label>
-                                        <label class="radio" for="reportRights-1">
-                                            <input ng-disabled="tournamentInfo.running" ng-change="updateTourney()" type="radio" name="reportRights" id="reportRights-1" value="2"
-                                                   ng-model="tournamentInfo.userPrivileges" required="required">
-                                            <span translate="admin.form.userPrivileges.reportOnly"></span>
-                                        </label>
-                                        <label class="radio" for="reportRights-2">
-                                            <input ng-disabled="tournamentInfo.running" ng-change="updateTourney()" type="radio" name="reportRights" id="reportRights-2" value="1"
-                                                   ng-model="tournamentInfo.userPrivileges" required="required">
-                                            <span translate="admin.form.userPrivileges.nothing"></span>
-                                        </label>
-                                    </div>
-                                </div>
-
+                                </p>
                             </div>
-                        </fieldset>
+
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" for="reportRights"
+                                       translate="admin.form.userPrivileges.title"></label>
+
+                                <div class="controls" id="reportRights" style="margin-left:20px;">
+                                    <label class="radio" for="reportRights-0">
+                                        <input ng-disabled="tournamentInfo.running" ng-change="updateTourney()"
+                                               type="radio" name="reportRights" id="reportRights-0" value="3"
+                                               ng-model="tournamentInfo.userPrivileges" required="required">
+                                        <span translate="admin.form.userPrivileges.atWill"></span>
+                                    </label>
+                                    <label class="radio" for="reportRights-1">
+                                        <input ng-disabled="tournamentInfo.running" ng-change="updateTourney()"
+                                               type="radio" name="reportRights" id="reportRights-1" value="2"
+                                               ng-model="tournamentInfo.userPrivileges" required="required">
+                                        <span translate="admin.form.userPrivileges.reportOnly"></span>
+                                    </label>
+                                    <label class="radio" for="reportRights-2">
+                                        <input ng-disabled="tournamentInfo.running" ng-change="updateTourney()"
+                                               type="radio" name="reportRights" id="reportRights-2" value="1"
+                                               ng-model="tournamentInfo.userPrivileges" required="required">
+                                        <span translate="admin.form.userPrivileges.nothing"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </fieldset>
                 </tab>
                 <tab>
                     <tab-heading>
@@ -151,13 +165,13 @@
                                         <div class="form-group col-sm-5">
                                             <input type="text" name="inputNick" id="inputNick" class="form-control"
                                                    placeholder="{{ 'admin.actions.playerNickPlaceholder' | translate}}"
-                                                   ng-model="nick"/>
+                                                   ng-model="test.nick"/>
 
                                         </div>
                                         <div class="form-group col-sm-4">
-                                            <select name="inputFaction" class="form-control" ng-model="faction"
+                                            <select name="inputFaction" class="form-control" ng-model="test.faction"
                                                     ng-options="item.name for item in factions track by item.tracker">
-                                                <option value="" translate="common.chooseFaction"> -- Choose a faction --</option>
+                                                <option value="" translate="common.chooseFaction"></option>
                                             </select>
                                         </div>
                                         <div class="form-group col-sm-1">
@@ -210,12 +224,12 @@
     <div ng-controller="BracketCtrl">
         <div ng-include="'partials/bracket.html'"></div>
     </div>
-    <div ng-if="updateKo" id="updateKo" class="alert alert-danger alert-dismissible app-alert" role="alert">
-        <button type="button" class="close alert-fix-close" id="dismissAlertKo" ng-click="hideUpdateAlert()"><span
-                aria-hidden="true">&times;</span><span
-                class="sr-only">Close</span></button>
-        <span translate="{{alertMessage}}">{{alertMessage |translate}}</span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
-    </div>
+    <!--<div ng-if="updateKo" id="updateKo" class="alert alert-danger alert-dismissible app-alert" role="alert">-->
+        <!--<button type="button" class="close alert-fix-close" id="dismissAlertKo" ng-click="hideUpdateAlert()"><span-->
+                <!--aria-hidden="true">&times;</span><span-->
+                <!--class="sr-only">Close</span></button>-->
+        <!--<span translate="{{alertMessage}}">{{alertMessage |translate}}</span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)-->
+    <!--</div>-->
 </div>
 
 

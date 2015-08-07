@@ -3,7 +3,7 @@
 angular.module('toodleApp')
     .controller('AdminCtrl', function ($rootScope, $scope, $location, $http, $upload, $cookies, $cookieStore, $modal) {
         $scope.tournamentId = $location.$$path.split('/')[2];
-        $scope.nick = '';
+        $scope.test = {nick : '', faction:null};
         $scope.playerList = null;
         $scope.isCollapsed = true;
         _paq.push(['setDocumentTitle', 'Admin Page']);
@@ -31,6 +31,8 @@ angular.module('toodleApp')
         $scope.hideUpdateAlert = function () {
             $scope.updateKo = false;
             $scope.error = false;
+            $scope.alertMessage = null;
+            $scope.errorMessage = null;
         };
 
         //using the basic example for ng-file-upload directive (https://www.npmjs.org/package/angular-file-upload),
@@ -226,11 +228,11 @@ angular.module('toodleApp')
 
         $scope.addPlayer = function () {
             $scope.hideUpdateAlert();
-            if ($scope.nick) {
+            if ($scope.test.nick) {
                 $http.post('/api/tournament/addPlayer/', {
                     'tournamentId': $scope.tournamentInfo._id,
-                    nick: $scope.nick,
-                    faction: $scope.faction.tracker
+                    nick: $scope.test.nick,
+                    faction: $scope.test.faction ? $scope.test.faction.tracker : null
                 })
                     .success(function (data) {
                         $scope.tournamentInfo = data;
@@ -247,12 +249,11 @@ angular.module('toodleApp')
                         $scope.updateKo = true;
 
                     });
-                $scope.nick = '';
+                $scope.test.nick = '';
             } else {
                 $scope.errorMessage = 'play.register.errors.noEmptyNick';
                 $scope.alertMessage = 'play.register.fail';
                 $scope.updateKo = true;
-
             }
         };
 
