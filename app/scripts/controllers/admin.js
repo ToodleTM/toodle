@@ -62,6 +62,9 @@ angular.module('toodleApp')
                             $scope.canSwapPlayers = $scope.tournamentInfo.engineObject.compatible.indexOf('playerSwap') !== -1;
                         }
                     });
+                    if (!$scope.tournamentInfo.engineObject) {
+                        $scope.tournamentInfo.engineObject = $scope.availableEngines[0];
+                    }
                 });
                 $scope.tournamentInfo = data;
                 $scope.playerList = $scope.tournamentInfo.players;

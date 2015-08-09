@@ -5,7 +5,6 @@ angular.module('toodleApp')
         $scope.tournamentId = $location.$$path.split('/')[2];
         $scope.nick = '';
         $scope.playerList = null;
-        $scope.engine = '---';
         _paq.push(['setDocumentTitle', 'Admin Page']);
         _paq.push(['trackPageView']);
 
@@ -61,6 +60,9 @@ angular.module('toodleApp')
                             $scope.canSwapPlayers = $scope.engine.compatible.indexOf('playerSwap') !== -1;
                         }
                     });
+                    if(!$scope.engine){
+                        $scope.engine = engines[0];
+                    }
                 });
                 $scope.tournamentInfo = data;
                 $scope.playerList = $scope.tournamentInfo.players;
