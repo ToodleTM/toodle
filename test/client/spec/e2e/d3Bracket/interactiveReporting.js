@@ -1,115 +1,166 @@
 'use strict';
 var homeAddress = 'http://localhost:9042';
 var e2eUtils = require('./../e2eUtils.js');
+var path = require('path');
 
-beforeEach(function(){
+beforeEach(function () {
     browser.get(homeAddress);
 });
 
-function reportAMatchAndAssertBracketStatus(buttonIdToCheckAndClick, expectedFirstNodeIcon, expectedSecondNodeIcon, expectedThirdNodeIcon, expectedFourthNodeIcon){
-    element(by.id(buttonIdToCheckAndClick)).click();
-    expect(element(by.id('reportModal')).isDisplayed()).toBe(true);
-    element(by.id('score1')).clear();
-    element(by.id('score2')).clear();
-    element(by.id('score1')).sendKeys('2');
-    element(by.id('score2')).sendKeys('1');
-    element(by.id('doReport')).click();
-    expect(element(by.id('matchNumber-1')).getAttribute('href')).toBe(expectedFirstNodeIcon);
-    expect(element(by.id('matchNumber-2')).getAttribute('href')).toBe(expectedSecondNodeIcon);
-    expect(element(by.id('matchNumber-5')).getAttribute('href')).toBe(expectedThirdNodeIcon);
-    expect(element(by.id('matchNumber-7')).getAttribute('href')).toBe(expectedFourthNodeIcon);
-}
-
-function assertFinalStateOfBracket(match1Icon, match2Icon, match3Icon, match4Icon, match5Icon, match6Icon, match7Icon) {
-    expect(element(by.id('matchNumber-1')).getAttribute('href')).toBe(match1Icon);
-    expect(element(by.id('matchNumber-2')).getAttribute('href')).toBe(match2Icon);
-    expect(element(by.id('matchNumber-3')).getAttribute('href')).toBe(match3Icon);
-    expect(element(by.id('matchNumber-4')).getAttribute('href')).toBe(match4Icon);
-    expect(element(by.id('matchNumber-5')).getAttribute('href')).toBe(match5Icon);
-    expect(element(by.id('matchNumber-6')).getAttribute('href')).toBe(match6Icon);
-    expect(element(by.id('matchNumber-7')).getAttribute('href')).toBe(match7Icon);
-}
-
 describe('Match reporting through the interactive bracket', function () {
     afterEach(function () {
-        browser.get(homeAddress);
         browser.manage().deleteAllCookies();
     });
-    it('should be able to unreport a reported match', function(){
-        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
-        e2eUtils.configureTheTournamentAndStartIt(browser, element, by, ['player3', 'player4', 'player5', 'player6', 'player7', 'player8']);
+    function setupTournamentWith4Players() {
+        element(by.id('tournamentName')).sendKeys('protractor');
+        element(by.id('registerTournamentButton')).click();
 
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'tournamentBracketLink');
-        element(by.id('tournamentBracketLink')).click();
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'matchNumber-1');
-        expect(element(by.id('matchNumber-1')).getAttribute('href')).toBe('/images/circle-green.png');
-        element(by.id('matchNumber-1')).click();
+        var absolutePath = path.resolve(__dirname, '../importPlayers4.csv');
+        element(by.id('multiSeedInput')).sendKeys(absolutePath);
+        element(by.id('runTournament')).click();
+        element(by.id('doStart')).click();
 
-        reportAMatchAndAssertBracketStatus('matchNumber-1', '/images/circle-red.png', '/images/circle-green.png', '', '');
+        element(by.id('displaySettings')).click();
+    }
 
-        element(by.id('matchNumber-1')).click();
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'doUnreport');
-        element(by.id('doUnreport')).click();
+    function report2NilForPlayer1(reportingButton) {
+        expect(reportingButton.getAttribute('href')).toEqual('/images/arrow-right-green.png');
+        reportingButton.click();
 
-        assertFinalStateOfBracket('/images/circle-green.png', '/images/circle-green.png', '/images/circle-green.png', '/images/circle-green.png', '', '', '');
-        expect(element(by.id('highlightedPlayerText')).getText()).toBe('');
+        element(by.id('score1')).sendKeys('');
+        element(by.id('score1')).sendKeys(2);
+
+        element(by.id('score2')).sendKeys('');
+        element(by.id('score2')).sendKeys(0);
+
+        element(by.id('doReport')).click();
+    }
+
+    describe('In ADMIN section', function() {
+        it('should be able to report a match if tournament has started', function () {
+            setupTournamentWith4Players();
+            var match1 = element(by.id('matchNumber-1'));
+            report2NilForPlayer1(match1);
+
+            expect(match1.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+        });
+        it('should be able to unreport a match if tournament has started', function () {
+            setupTournamentWith4Players();
+            var match1 = element(by.id('matchNumber-1'));
+            report2NilForPlayer1(match1);
+
+            match1.click();
+            element(by.id('doUnreport')).click();
+
+            expect(match1.getAttribute('href')).toEqual('/images/arrow-right-green.png');
+        });
+
+        it('should be able to report a match even if reporting rights are set to "nothing"', function () {
+            setupTournamentWith4Players();
+            element(by.id('reportRights-2')).click();
+            var match1 = element(by.id('matchNumber-1'));
+            report2NilForPlayer1(match1);
+
+            expect(match1.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+        });
+
+        it('should be able to uneport a match even if reporting rights are set to "only report"', function () {
+            setupTournamentWith4Players();
+            element(by.id('reportRights-1')).click();
+            var match1 = element(by.id('matchNumber-1'));
+            report2NilForPlayer1(match1);
+            expect(match1.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+
+            match1.click();
+            element(by.id('doUnreport')).click();
+
+            expect(match1.getAttribute('href')).toEqual('/images/arrow-right-green.png');
+        });
+
+        it('should be able to uneport a match even if reporting rights are set to "nothing"', function () {
+            setupTournamentWith4Players();
+            element(by.id('reportRights-2')).click();
+            var match1 = element(by.id('matchNumber-1'));
+            report2NilForPlayer1(match1);
+            expect(match1.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+
+            match1.click();
+            element(by.id('doUnreport')).click();
+
+            expect(match1.getAttribute('href')).toEqual('/images/arrow-right-green.png');
+        });
+        it('should not display the unreport button if the next match has already been reported', function(){
+            setupTournamentWith4Players();
+            element(by.id('reportRights-2')).click();
+            var match1 = element(by.id('matchNumber-1'));
+            report2NilForPlayer1(match1);
+            expect(match1.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+            var match2 = element(by.id('matchNumber-2'));
+            report2NilForPlayer1(match2);
+            expect(match2.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+            var match3 = element(by.id('matchNumber-3'));
+            report2NilForPlayer1(match3);
+            expect(match1.getAttribute('href')).toEqual('');
+            expect(match2.getAttribute('href')).toEqual('');
+            expect(match3.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+        });
+
     });
 
-    it('sould be able to report a match using the interactive bracket', function(){
-        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
-        e2eUtils.configureTheTournamentAndStartIt(browser, element, by, ['player3', 'player4', 'player5', 'player6', 'player7', 'player8']);
+    describe('In USER section', function () {
+        function setup4PlayerTournamentAndGoToPublicPage() {
+            setupTournamentWith4Players();
+            element(by.id('playerSignupPageLink')).click();
+        }
 
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'tournamentBracketLink');
-        element(by.id('tournamentBracketLink')).click();
+        it('should be able to report a match if tournament has started and reporting rights were left untouched', function () {
+            setup4PlayerTournamentAndGoToPublicPage();
+            e2eUtils.testIntoPopup(function(finished){
+                var match1 = element(by.id('matchNumber-1'));
+                report2NilForPlayer1(match1);
 
-        reportAMatchAndAssertBracketStatus('matchNumber-1', '/images/circle-red.png', '/images/circle-green.png', '', '');
-        assertFinalStateOfBracket('/images/circle-red.png', '/images/circle-green.png', '/images/circle-green.png', '/images/circle-green.png', '', '', '');
-    });
+                expect(match1.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+                finished();
+            });
+        });
+        it('should be able to unreport a match if tournament has started and reporting rights were left untouched', function () {
+            setup4PlayerTournamentAndGoToPublicPage();
 
-    it('should not display the unreport button if the next match has already been reported', function(){
-        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
-        e2eUtils.configureTheTournamentAndStartIt(browser, element, by, ['player3', 'player4', 'player5', 'player6', 'player7', 'player8']);
+            e2eUtils.testIntoPopup(function (finished) {
+                var match1 = element(by.id('matchNumber-1'));
+                report2NilForPlayer1(match1);
 
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'tournamentBracketLink');
-        element(by.id('tournamentBracketLink')).click();
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'matchNumber-1');
-        expect(element(by.id('matchNumber-1')).getAttribute('href')).toBe('/images/circle-green.png');
+                match1.click();
+                element(by.id('doUnreport')).click();
 
-        reportAMatchAndAssertBracketStatus('matchNumber-1', '/images/circle-red.png', '/images/circle-green.png', '', '');
+                expect(match1.getAttribute('href')).toEqual('/images/arrow-right-green.png');
+                finished();
+            });
+        });
 
-        reportAMatchAndAssertBracketStatus('matchNumber-2', '/images/circle-red.png', '/images/circle-red.png', '/images/circle-green.png', '');
+        it('should not be able to unreport a match if reporting rights are set to "only report"', function () {
+            setupTournamentWith4Players();
+            element(by.id('reportRights-1')).click();
+            element(by.id('playerSignupPageLink')).click();
+            e2eUtils.testIntoPopup(function (finished) {
+                var match1 = element(by.id('matchNumber-1'));
+                report2NilForPlayer1(match1);
+                expect(match1.getAttribute('href')).toEqual('');
+                finished();
+            });
+        });
 
-        reportAMatchAndAssertBracketStatus('matchNumber-5', '', '', '/images/circle-red.png', '');
+        it('should not be able to report (or unreport) a match if reporting rights are set to "nothing"', function () {
+            setupTournamentWith4Players();
+            element(by.id('reportRights-2')).click();
+            element(by.id('playerSignupPageLink')).click();
 
-        assertFinalStateOfBracket('', '', '/images/circle-green.png', '/images/circle-green.png', '/images/circle-red.png', '', '');
-        expect(element(by.id('highlightedPlayerText')).getText()).toBe('');
-    });
+            e2eUtils.testIntoPopup(function (finished) {
+                var match1 = element(by.id('matchNumber-1'));
+                expect(match1.getAttribute('href')).toEqual('');
+                finished();
+            });
 
-    it('should not display the reporting dialog if the user does not have any reporting rights and he clicks on the button (which should not be visible)', function(){
-        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
-        e2eUtils.configureTheTournamentAndStartIt(browser, element, by, ['player3', 'player4', 'player5', 'player6', 'player7', 'player8'], 2);
-
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'tournamentBracketLink');
-        browser.manage().deleteAllCookies();
-        element(by.id('tournamentBracketLink')).click();
-
-        expect(element(by.id('matchNumber-1')).getAttribute('href')).toBe('');
-        expect(element(by.id('highlightedPlayerText')).getText()).toBe('');
-    });
-
-    it('should not display the unreporting dialog if user has report-only rights and tries to click on an unreport button (which should not be visible)', function(){
-        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
-        e2eUtils.configureTheTournamentAndStartIt(browser, element, by, ['player3', 'player4', 'player5', 'player6', 'player7', 'player8'], 1);
-
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'tournamentBracketLink');
-        browser.manage().deleteAllCookies();
-        element(by.id('tournamentBracketLink')).click();
-
-        reportAMatchAndAssertBracketStatus('matchNumber-1', '', '/images/circle-green.png', '', '');
-        reportAMatchAndAssertBracketStatus('matchNumber-2', '', '', '/images/circle-green.png', '');
-        reportAMatchAndAssertBracketStatus('matchNumber-5', '', '', '', '');
-
-        expect(element(by.id('matchNumber-1')).getAttribute('href')).toBe('');
-        expect(element(by.id('highlightedPlayerText')).getText()).toBe('');
+        });
     });
 });

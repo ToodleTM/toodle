@@ -26,15 +26,21 @@ beforeEach(function(){
     browser.get(homeAddress);
 });
 describe('Admin Page', function () {
-    it('should not be able to unreport or unreport if tournament has not started', function(){
-        e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
-
-        expect(element(by.id('reportGame')).isDisplayed()).toBe(false);
-        expect(element(by.id('unreportGame')).isDisplayed()).toBe(false);
-    });
-
     describe('match reporting', function(){
         it('should be able to report a finished game', function () {
+            var path = require('path');
+            element(by.id('tournamentName')).sendKeys('protractor');
+            element(by.id('registerTournamentButton')).click();
+            var playersList = element(by.id('playersList'));
+            expect(playersList.getText()).toEqual('Registered players (Total : 0)\nNo registered players at the moment');
+
+            var absolutePath = path.resolve(__dirname, './importPlayers4.csv');
+            element(by.id('multiSeedInput')).sendKeys(absolutePath);
+
+            element(by.id('runTournament')).click();
+            element(by.id('doStart')).click();
+
+
             createAndStartATournament();
 
             checkTournamentState(element, by, 'test1 VS test2', '', true, false);

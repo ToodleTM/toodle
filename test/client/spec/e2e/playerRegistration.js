@@ -1,9 +1,12 @@
 'use strict';
 var homeAddress = 'http://localhost:9042';
+var e2eUtils = require('./e2eUtils.js');
+
 describe('User having the registration URL', function () {
     beforeEach(function(){
         browser.get(homeAddress);
     });
+
     it('should not allow tournament to start if no players are registered', function(){
         element(by.id('tournamentName')).sendKeys('protractor');
         element(by.id('registerTournamentButton')).click();
@@ -78,19 +81,19 @@ describe('User having the registration URL', function () {
         element(by.id('inputNick')).sendKeys('player 1');
         element(by.id('registerPlayerGo')).click();
         element(by.id('runTournament')).click();
-        element(by.id('doStart')).click();
-
-        element(by.id('runTournament')).click();
-        element(by.id('doStart')).click();
+        element(by.id('doConfigure')).click();
 
         element(by.id('playerSignupPageLink')).click();
-        element(by.id('displaySettings')).click();
-        element(by.id('playerManagement')).click();
+        e2eUtils.testIntoPopup(function(finished){
+            element(by.id('displaySettings')).click();
+            element(by.id('playerManagement')).click();
 
-        element(by.id('inputNick')).sendKeys('player 2');
-        element(by.id('registerPlayerGo')).click();
+            element(by.id('inputNick')).sendKeys('player 2');
+            element(by.id('registerPlayerGo')).click();
 
-        expect(playersList.getText()).toEqual('Registered players (Total : 2)\nplayer 1\nplayer 2');
+            expect(playersList.getText()).toEqual('Registered players (Total : 2)\nplayer 1\nplayer 2');
+            finished();
+        });
     });
 
     it('should not allow admin to add players to a started tournament', function(){
@@ -122,10 +125,13 @@ describe('User having the registration URL', function () {
         element(by.id('doStart')).click();
 
         element(by.id('playerSignupPageLink')).click();
-        element(by.id('displaySettings')).click();
-        element(by.id('playerManagement')).click();
+        e2eUtils.testIntoPopup(function (finished) {
+            element(by.id('displaySettings')).click();
+            element(by.id('playerManagement')).click();
 
-        expect(element(by.id('inputNick')).isDisplayed()).toEqual(false);
+            expect(element(by.id('inputNick')).isDisplayed()).toEqual(false);
+            finished();
+        });
     });
 
     it('should be able to select an alternate engine upon players registration before starting', function(){

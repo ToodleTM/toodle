@@ -13,7 +13,7 @@
     <div class="well">
         <p ng-show="isCollapsed" style="text-align:center">
             <a href="#"
-               ng-click="toggleCollapse()" translate="admin.intro">
+               ng-click="toggleCollapse()" id="displaySettings" translate="admin.intro">
             </a>
         </p>
 
@@ -52,7 +52,7 @@
                 </tab>
                 <tab>
                     <tab-heading>
-                        <span translate="play.playersTab"></span>
+                        <span id="playerManagement" translate="play.playersTab"></span>
                     </tab-heading>
                     <fieldset ng-show="!tournamentInfo.locked">
                         <legend translate="play.enter.register"></legend>
@@ -104,7 +104,7 @@
             </tabset>
         </div>
     </div>
-    <div ng-controller="BracketCtrl">
+    <div ng-controller="BracketCtrl" name="publicBracket">
         <div ng-include="'partials/bracket.html'"></div>
     </div>
 </div>

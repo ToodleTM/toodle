@@ -67,11 +67,11 @@ angular.module('toodleApp')
         }
 
         $scope.playerCanReport = function(){
-            return $scope.tournamentInfo ? $scope.tournamentInfo.userPrivileges > 1: false;
+            return $scope.tournamentInfo.userPrivileges > 1;
         };
 
         $scope.playerCanUnreport = function(){
-            return $scope.tournamentInfo ? $scope.tournamentInfo.userPrivileges > 2 : false;
+            return $scope.tournamentInfo.userPrivileges > 2;
         };
 
         $scope.enterTournament = function () {

@@ -22,6 +22,27 @@ E2eUtils.prototype.waitForElementToBeVisible = function(){
     //});
 };
 
+E2eUtils.prototype.testIntoPopup = function(testCallback) {
+    //a little intricate, but this way each test should be able to
+    // 1 Focus the popup window
+    // 2 Test whatever is needed in said popup
+    // 3 Close the popup when tests are finished
+    // 4 Switch back to main window to run other tests
+    var handlePromise = browser.driver.getAllWindowHandles();
+    handlePromise.then(function (handles) {
+        // parentHandle = handles[0];
+        var popUpHandle = handles[handles.length-1];
+
+        // Change to new handle
+        browser.driver.switchTo().window(popUpHandle);
+
+        testCallback(function () {
+            browser.driver.close();
+            browser.driver.switchTo().window(handles[0]);
+        });
+    });
+};
+
 E2eUtils.prototype.createTournamentAndGoToPage = function(browser, element, by, pageLinkId){
     element(by.id('tournamentName')).sendKeys('protractor');
     element(by.id('registerTournamentButton')).click();
