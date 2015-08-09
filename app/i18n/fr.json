@@ -145,7 +145,7 @@
     "intro": "Ceci est la page de tournoi. Tu peux t'y inscrire tant qu'il n'est pas commencé et consulter la liste des joueurs. Une fois le tournoi commencé tu peux aussi y revenir pour enregistrer tes résultats ou t'informer sur son déroulement.",
     "header": {
       "tournament": "Page d'informations du tournoi",
-      "playPage": ""
+      "playPage": "page publique"
     },
     "enter": {
       "go": "Go!",

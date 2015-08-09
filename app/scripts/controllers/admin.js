@@ -3,7 +3,7 @@
 angular.module('toodleApp')
     .controller('AdminCtrl', function ($rootScope, $scope, $location, $http, $upload, $cookies, $cookieStore, $modal) {
         $scope.tournamentId = $location.$$path.split('/')[2];
-        $scope.test = {nick : '', faction:null};
+        $scope.inputs = {nick : '', faction:null};
         $scope.playerList = null;
         $scope.isCollapsed = true;
         _paq.push(['setDocumentTitle', 'Admin Page']);
@@ -213,11 +213,11 @@ angular.module('toodleApp')
 
         $scope.addPlayer = function () {
             $scope.hideUpdateAlert();
-            if ($scope.test.nick) {
+            if ($scope.inputs.nick) {
                 $http.post('/api/tournament/addPlayer/', {
                     'tournamentId': $scope.tournamentInfo._id,
-                    nick: $scope.test.nick,
-                    faction: $scope.test.faction ? $scope.test.faction.tracker : null
+                    nick: $scope.inputs.nick,
+                    faction: $scope.inputs.faction ? $scope.inputs.faction.tracker : null
                 })
                     .success(function (data) {
                         $scope.tournamentInfo = data;
@@ -234,7 +234,7 @@ angular.module('toodleApp')
                         $scope.updateKo = true;
 
                     });
-                $scope.test.nick = '';
+                $scope.inputs.nick = '';
             } else {
                 $scope.errorMessage = 'play.register.errors.noEmptyNick';
                 $scope.alertMessage = 'play.register.fail';

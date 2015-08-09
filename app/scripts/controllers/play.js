@@ -3,7 +3,7 @@
 angular.module('toodleApp')
     .controller('PlayCtrl', function ($scope, $location, $http, $modal) {
         var tournamentId = $location.$$path.split('/')[2];
-        $scope.nick = '';
+        $scope.inputs = {nick:'', faction:null};
         $scope.playerList = null;
         $scope.isCollapsed = true;
         _paq.push(['setDocumentTitle', 'Enrollment Page']);
@@ -77,13 +77,17 @@ angular.module('toodleApp')
         $scope.enterTournament = function () {
             $('#registrationKo').hide();
             $('#registrationOk').hide();
-            $http.patch('/api/update-tournament/play', {signupID: $scope.tournamentInfo.signupID, nick: $scope.nick, faction:$scope.faction})
+            var params = {signupID: $scope.tournamentInfo.signupID, nick: $scope.inputs.nick};
+            if($scope.inputs.faction){
+                params.faction = $scope.inputs.faction.tracker;
+            }
+            $http.patch('/api/update-tournament/play', params)
                 .success(function(data){
                     $('#registrationOk').fadeIn();
                     $scope.playerList = data.players;
-                    $scope.nick = '';
+                    $scope.inputs.nick = '';
                 }).error(function(error){
-                    $scope.nick = '';
+                    $scope.inputs.nick = '';
                     $scope.errorMessage = 'play.register.errors.'+error.message;
                     $('#registrationKo').fadeIn();
                 });
