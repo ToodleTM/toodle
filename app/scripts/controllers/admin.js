@@ -67,25 +67,7 @@ angular.module('toodleApp')
                 $scope.playerList = $scope.tournamentInfo.players;
                 $scope.tournamentInfo.formStartDate = $scope.tournamentInfo.startDate;
                 $cookieStore.put('toodle-' + $scope.tournamentInfo.signupID, data._id);
-                $('#sortablePlayerList').sortable({
-                    revert: true,
-                    stop: function (event, objectMoved) {
-                        var movedPlayer = objectMoved.item[0].innerText;
-                        var nextPlayerInList = objectMoved.item[0].nextElementSibling ? objectMoved.item[0].nextElementSibling.innerText : null;
-                        $http.post('/api/tournament/admin/rearrangePlayers', {
-                            tournamentId: $scope.tournamentInfo._id,
-                            playerToMove: movedPlayer,
-                            newNextPlayer: nextPlayerInList
-                        })
-                            .success(function () {
-                            })
-                            .error(function (message) {
-                                $scope.errorMessage = 'admin.actions.' + message.message;
-                                $scope['notes-' + $scope.stripped(movedPlayer)] = true;
-                            });
-                    }
-                });
-                $('ul, li').disableSelection();
+
                 $http.get('/views/resources/factions.json').success(function (factionsMap) {
                     var factionsArray = [];
                     for (var key in factionsMap) {
@@ -321,6 +303,9 @@ angular.module('toodleApp')
                 resolve: {
                     tournamentInfo: function () {
                         return $scope.tournamentInfo;
+                    },
+                    allowConfigureBeforeStart:function(){
+                        return false;
                     }
                 }
             });
