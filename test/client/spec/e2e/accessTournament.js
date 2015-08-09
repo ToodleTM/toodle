@@ -28,17 +28,9 @@ describe('ADMIN - Unknown tournament', function () {
 });
 
 describe('USER - Unknown tournament', function () {
-
     it('should get a 404 message if ID is valid but tournament does not exist (/play)', function () {
         browser.get(homeAddress + '/play/16players0000000000000');
         e2eUtils.waitForElementToBeVisible(browser, element, by, 'notFound');
         expect(element(by.id('notFound')).getText(), 'No such tournament seems to exist, are you sure it\'s the right URL ?');
     });
-
-    it('should get a 404 message if ID is valid but tournament does not exist (/bracket)', function () {
-        browser.get(homeAddress + '/bracket/16players0000000000000');
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'notFound');
-        expect(element(by.id('notFound')).getText(), 'No such tournament seems to exist, are you sure it\'s the right URL ?');
-    });
-
 });

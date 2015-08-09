@@ -57,7 +57,7 @@
     <div class="well">
         <p ng-show="isCollapsed" style="text-align:center">
             <a href="#"
-               ng-click="toggleCollapse()" translate="admin.intro">
+               ng-click="toggleCollapse()" translate="admin.intro" id="displaySettings">
             </a>
         </p>
 
@@ -154,7 +154,7 @@
                 </tab>
                 <tab>
                     <tab-heading>
-                        <span translate="admin.form.playerManagementTab"></span>
+                        <span id="playerManagement" translate="admin.form.playerManagementTab"></span>
                     </tab-heading>
                     <fieldset ng-show="!tournamentInfo.running">
                         <div class="row">
@@ -200,7 +200,7 @@
                         </div>
                     </fieldset>
                     <fieldset id="playersList" ng-model="playerList">
-                        <legend><span translate="play.register.registeredPlayers"></span> ({{playerList.length}})
+                        <legend><span translate="play.register.registeredPlayers"></span> (Total : {{playerList.length}})
                         </legend>
                         <ul id="sortablePlayerList">
                             <li ng-repeat="player in playerList" class="playerInList">

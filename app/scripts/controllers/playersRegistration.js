@@ -9,7 +9,6 @@ angular.module('toodleApp')
         _paq.push(['setDocumentTitle', 'Admin Page']);
         _paq.push(['trackPageView']);
 
-
         $scope.multipleRegistrationOk = function (data) {
             $scope.tournamentInfo = data;
             $scope.playerList = $scope.tournamentInfo.players;
@@ -128,22 +127,26 @@ angular.module('toodleApp')
                 });
         };
 
-        $scope.startTournament = function () {
+        $scope.startTournament = function (configureOnly) {
             $scope.hideUpdateAlert();
-            $scope.tournamentInfo.running = true;
-            $http.patch('/api/tournament/start', {'tournamentId': $scope.tournamentInfo._id, engine:$scope.engine})
-                .success(function (tournamentInfo) {
-                    $scope.updateOk = true;
-                    $scope.alertMessage = 'admin.update.success';
-                    $scope.tournamentInfo = tournamentInfo;
-                    window.location = '/admin/' + $scope.tournamentInfo._id;
-                })
-                .error(function (data) {
-                    $scope.tournamentInfo.running = false;
-                    $scope.errorMessage = 'admin.actions.run.'+data.message;
-                    $scope.alertMessage = 'admin.update.fail';
-                    $scope.updateKo = true;
-                });
+            if(!configureOnly) {
+                $scope.tournamentInfo.running = true;
+                $http.patch('/api/tournament/start', {'tournamentId': $scope.tournamentInfo._id, engine: $scope.engine})
+                    .success(function (tournamentInfo) {
+                        $scope.updateOk = true;
+                        $scope.alertMessage = 'admin.update.success';
+                        $scope.tournamentInfo = tournamentInfo;
+                        window.location = '/admin/' + $scope.tournamentInfo._id;
+                    })
+                    .error(function (data) {
+                        $scope.tournamentInfo.running = false;
+                        $scope.errorMessage = 'admin.actions.run.' + data.message;
+                        $scope.alertMessage = 'admin.update.fail';
+                        $scope.updateKo = true;
+                    });
+            } else {
+                window.location = '/admin/' + $scope.tournamentInfo._id;
+            }
         };
 
         $scope.addPlayer = function () {
@@ -205,12 +208,15 @@ angular.module('toodleApp')
                 resolve: {
                     tournamentInfo:function(){
                         return $scope.tournamentInfo;
+                    },
+                    allowConfigureBeforeStart:function(){
+                        return true;
                     }
                 }
             });
 
-            modalInstance.result.then(function () {
-                $scope.startTournament();
+            modalInstance.result.then(function (configureOnly) {
+                $scope.startTournament(configureOnly);
             }, function () {
             });
         };

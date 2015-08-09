@@ -140,10 +140,11 @@ app.directive('whenReady', ['$interpolate', function($interpolate) {
     };
 }]);
 
-angular.module('toodleApp').controller('ModalToggleStartCtrl', function ($scope, $modalInstance, tournamentInfo) {
+angular.module('toodleApp').controller('ModalToggleStartCtrl', function ($scope, $modalInstance, tournamentInfo, allowConfigureBeforeStart) {
     $scope.tournamentInfo = tournamentInfo;
-    $scope.toggleStart = function () {
-        $modalInstance.close();
+    $scope.allowConfigureBeforeStart = allowConfigureBeforeStart;
+    $scope.toggleStart = function (configureOnly) {
+        $modalInstance.close(configureOnly);
     };
 
     $scope.cancel = function () {

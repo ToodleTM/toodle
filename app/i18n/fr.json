@@ -62,10 +62,12 @@
         "preconfigure":"Me laisser configurer l'arbre",
         "runningTooltip": "Démarrer le tournoi. Les joueurs ne pourront plus s'inscrire",
         "notRunningTooltip": "Arrêter le tournoi, les joueurs pourront a nouveau s'inscrire",
-        "confirm": "Confirmer",
+        "confirm": "Go!",
+        "configure": "Configurer",
         "cancel": "Annuler",
         "willStop": "Ceci va arrêter le tournoi et permettre à de nouveaux joueurs de s'inscrire. ATTENTION: Ceci _détruira_ l'arbre tel qu'il a été créé.",
         "willStart": "Ceci va démarrer le tournoi et empêcher de nouveaux joueurs de s'inscrire",
+        "willConfigure": "Le bouton 'configurer' permet de configurer d'autres aspects de ton tournoi avant de le démarrer.",
         "modalTitle": "Démarrer / Arrêter le tournoi",
         "tournamentAlreadyRunning": "Le tournoi a déjà commencé",
         "tournamentAlreadyStopped": "Le tournoi est déjà arrêté",
@@ -236,5 +238,9 @@
         "role":"Je développe l'essentiel de l'application. Je suis aussi responsable de la partie \"opérations\" du projet (déploiement de l'appli & co) et de la partie \"Assurance Qualité\" (i:e s'assurer que rien n'explose en vol) "
       }
     }
+  },
+  "playersRegistration": {
+    "selectEngineAndGo": "Sélectionne un format et démarres le tournoi",
+    "whosPlaying": "Qui joue?"
   }
 }

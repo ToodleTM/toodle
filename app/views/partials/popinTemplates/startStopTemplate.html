@@ -6,8 +6,11 @@
 <div class="modal-body">
     <span ng-show="tournamentInfo.running" translate="admin.actions.run.willStop"></span>
     <span ng-show="!tournamentInfo.running" translate="admin.actions.run.willStart"></span>
+    <span ng-show="!tournamentInfo.running && allowConfigureBeforeStart" translate="admin.actions.run.willStart"></span>
+
 </div>
 <div class="modal-footer">
     <button class="btn btn-default" ng-click="cancel()" translate="admin.actions.run.cancel"></button>
+    <button ng-if="allowConfigureBeforeStart" class="btn btn-default" ng-click="toggleStart(true)" id="doConfigure" translate="admin.actions.run.configure"></button>
     <button class="btn btn-primary" ng-click="toggleStart()" id="doStart" translate="admin.actions.run.confirm"></button>
 </div>

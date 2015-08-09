@@ -78,7 +78,7 @@
         <button type="button" class="close alert-fix-close" id="dismissAlertKo" ng-click="hideUpdateAlert()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
-        <span translate="{{alertMessage}}">{{alertMessage |translate}}</span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
+        <span translate="{{alertMessage}}" id="alertMessage">{{alertMessage |translate}}</span> (<span id="alertDetails" translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
     </div>
 
     <fieldset>
@@ -101,10 +101,10 @@
                             translate="admin.actions.run.notRunning">
                         {{'admin.actions.run.notRunning' | translate}}
                     </button>
-                    <button ng-if="canSwapPlayers" type="button" class="btn btn-danger dropdown-toggle" dropdown-toggle>
+                    <button ng-if="canSwapPlayers" id="extraStartOptions" type="button" class="btn btn-danger dropdown-toggle" dropdown-toggle>
                         <span class="caret"></span>
                     </button>
-                    <ul ng-if="canSwapPlayers" class="dropdown-menu" role="menu">
+                    <ul ng-if="canSwapPlayers" id="extraStartOptionsMenu" class="dropdown-menu" role="menu">
                         <li><a href="#" ng-click="openRunDialog()" translate="admin.actions.run.runDefault"></a></li>
                         <li class="divider"></li>
                         <li><a href="#" ng-click="openPreconfigureDialog()"

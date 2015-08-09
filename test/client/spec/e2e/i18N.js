@@ -7,9 +7,9 @@ describe('Admin', function () {
 
         element(by.id('language-fr')).click();
         var tourneyConfirmationBox = element(by.id('registerLabel'));
-        expect(tourneyConfirmationBox.getText()).toMatch(/Créez un nouveau tournoi !/g);
+        expect(tourneyConfirmationBox.getText()).toMatch(/Créez un nouveau tournoi!/g);
         element(by.id('activeLanguage')).click();
         element(by.id('language-en')).click();
-        expect(tourneyConfirmationBox.getText()).toMatch(/Register a new tournament !/g);
+        expect(tourneyConfirmationBox.getText()).toMatch(/Register a new tournament!/g);
     });
 });
