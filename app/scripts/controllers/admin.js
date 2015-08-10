@@ -3,8 +3,9 @@
 angular.module('toodleApp')
     .controller('AdminCtrl', function ($rootScope, $scope, $location, $http, $upload, $cookies, $cookieStore, $modal) {
         $scope.tournamentId = $location.$$path.split('/')[2];
-        $scope.nick = '';
+        $scope.inputs = {nick : '', faction:null};
         $scope.playerList = null;
+        $scope.isCollapsed = true;
         _paq.push(['setDocumentTitle', 'Admin Page']);
         _paq.push(['trackPageView']);
 
@@ -14,24 +15,24 @@ angular.module('toodleApp')
             $scope.playerList = $scope.tournamentInfo.players;
             $scope.alertMessage = 'admin.actions.multipleRegistrationSuccessful';
             document.getElementById('multiSeedInput').value = '';
-            $scope.updateOk =true;
         };
 
         var multipleRegistrationFailed = function (err, status) {
             if (status === 404) {
                 $scope.errorMessage = 'admin.error.noSuchTournament';
             } else {
-                $scope.errorMessage = 'admin.error.'+err.message;
+                $scope.errorMessage = 'admin.error.' + err.message;
             }
             document.getElementById('multiSeedInput').value = '';
             $scope.alertMessage = 'play.register.fail';
             $scope.updateKo = true;
         };
 
-        $scope.hideUpdateAlert = function(){
-            $scope.updateOk = false;
+        $scope.hideUpdateAlert = function () {
             $scope.updateKo = false;
             $scope.error = false;
+            $scope.alertMessage = null;
+            $scope.errorMessage = null;
         };
 
         //using the basic example for ng-file-upload directive (https://www.npmjs.org/package/angular-file-upload),
@@ -57,47 +58,32 @@ angular.module('toodleApp')
                     $scope.availableEngines = engines;
                     engines.forEach(function (item) {
                         if (item.name === data.engine) {
-                            $scope.engine = item;
-                            $scope.canSwapPlayers = $scope.engine.compatible.indexOf('playerSwap') !== -1;
+                            $scope.tournamentInfo.engineObject = item;
+                            $scope.canSwapPlayers = $scope.tournamentInfo.engineObject.compatible.indexOf('playerSwap') !== -1;
                         }
                     });
-                });
-                $scope.tournamentInfo = data;
-                $http.get('api/available-engines').success(function(engines){
-                    $scope.availableEngines = engines;
-                    engines.forEach(function(item){
-                        if(item.name === data.engine){
-                            $scope.engine = item;
-                        }
-                    });
-                }).error(function() {
-                });
-                $scope.playerList = $scope.tournamentInfo.players;
-                $scope.tournamentStartDate = $scope.tournamentInfo.startDate;
-                $cookieStore.put('toodle-'+$scope.tournamentInfo.signupID, data._id);
-                $('#sortablePlayerList').sortable({
-                    revert: true,
-                    stop: function (event, objectMoved) {
-                        var movedPlayer = objectMoved.item[0].innerText;
-                        var nextPlayerInList = objectMoved.item[0].nextElementSibling ? objectMoved.item[0].nextElementSibling.innerText : null;
-                        $http.post('/api/tournament/admin/rearrangePlayers', {
-                            tournamentId: $scope.tournamentInfo._id,
-                            playerToMove: movedPlayer,
-                            newNextPlayer: nextPlayerInList
-                        })
-                        .success(function () {})
-                        .error(function (message) {
-                            $scope.errorMessage = 'admin.actions.'+message.message;
-                            $scope['notes-' + $scope.stripped(movedPlayer)] = true;
-                        });
+                    if (!$scope.tournamentInfo.engineObject) {
+                        $scope.tournamentInfo.engineObject = $scope.availableEngines[0];
                     }
                 });
-                $('ul, li').disableSelection();
-                if ($scope.tournamentInfo.game) {
-                    $http.get('/views/resources/factions.json').success(function (data) {
-                        $scope.factions = data[$scope.tournamentInfo.game];
-                    });
-                }
+                $scope.tournamentInfo = data;
+                $scope.playerList = $scope.tournamentInfo.players;
+                $scope.tournamentInfo.formStartDate = $scope.tournamentInfo.startDate;
+                $cookieStore.put('toodle-' + $scope.tournamentInfo.signupID, data._id);
+
+                $http.get('/views/resources/factions.json').success(function (factionsMap) {
+                    var factionsArray = [];
+                    for (var key in factionsMap) {
+                        for (var item in factionsMap[key]) {
+                            factionsArray.push({
+                                name: key + ' - ' + factionsMap[key][item],
+                                tracker: factionsMap[key][item].toLowerCase()
+                            });
+                        }
+                    }
+
+                    $scope.factions = factionsArray;
+                });
                 updateMatchesToReport();
                 updateMatchesToUnreport();
             })
@@ -113,13 +99,19 @@ angular.module('toodleApp')
 
         $scope.updateTourney = function () {
             $scope.hideUpdateAlert();
-            $scope.tournamentInfo.startDate = $scope.tournamentStartDate;
-            $scope.tournamentInfo.engine = $scope.engine.name;
-            $http.patch('/api/tournament/admin/update/?id=' + $scope.tournamentId, {_id:$scope.tournamentInfo._id, game:$scope.tournamentInfo.game, engine:$scope.tournamentInfo.engine, description:$scope.tournamentInfo.description, startDate:$scope.tournamentStartDate, userPrivileges:$scope.tournamentInfo.userPrivileges})
+            $scope.tournamentInfo.engine = $scope.tournamentInfo.engineObject.name;
+            $http.patch('/api/tournament/admin/update/?id=' + $scope.tournamentId, {
+                _id: $scope.tournamentInfo._id,
+                game: $scope.tournamentInfo.game,
+                engine: $scope.tournamentInfo.engine,
+                description: $scope.tournamentInfo.description,
+                startDate: $scope.tournamentInfo.formStartDate,
+                userPrivileges: $scope.tournamentInfo.userPrivileges
+            })
                 .success(function (data) {
                     $scope.tournamentInfo = data;
                     $scope.alertMessage = 'admin.update.success';
-                    $scope.updateOk = true;
+                    $scope.tournamentInfo.formStartDate = $scope.tournamentInfo.startDate;
                     if ($scope.tournamentInfo.game) {
                         $http.get('/views/resources/factions.json').success(function (data) {
                             $scope.factions = data[$scope.tournamentInfo.game];
@@ -127,14 +119,14 @@ angular.module('toodleApp')
                     }
                     $scope.availableEngines.forEach(function (item) {
                         if (item.name === $scope.tournamentInfo.engine) {
-                            $scope.engine = item;
-                            $scope.canSwapPlayers = $scope.engine.compatible.indexOf('playerSwap') !== -1;
+                            $scope.tournamentInfo.engineObject = item;
+                            $scope.canSwapPlayers = $scope.tournamentInfo.engineObject.compatible.indexOf('playerSwap') !== -1;
                         }
                     });
                 })
                 .error(function (err) {
                     $scope.alertMessage = 'admin.update.fail';
-                    $scope.errorMessage = 'admin.form.'+err.message;
+                    $scope.errorMessage = 'admin.form.' + err.message;
                     $scope.updateKo = true;
                 });
         };
@@ -149,14 +141,11 @@ angular.module('toodleApp')
                         $scope.tournamentInfo.locked = previousLockedStatus;
                         $scope.errorMessage = 'admin.actions.run.notFound';
                         $scope.updateKo = true;
-                    } else {
-                        $scope.alertMessage = 'admin.update.success';
-                        $scope.updateOk = true;
                     }
                 })
                 .error(function (error) {
                     $scope.tournamentInfo.locked = previousLockedStatus;
-                    $scope.errorMessage = 'admin.actions.run.'+error.message;
+                    $scope.errorMessage = 'admin.actions.run.' + error.message;
                     $scope.updateKo = true;
                 });
         };
@@ -185,8 +174,10 @@ angular.module('toodleApp')
                         $scope.unreportNumber = $scope.gameToUnreport.number;
                     }
                 })
-                .error(function () {});
+                .error(function () {
+                });
         }
+
         $scope.toggleStart = function () {
             $scope.hideUpdateAlert();
             var originalValue = $scope.tournamentInfo.running;
@@ -199,15 +190,22 @@ angular.module('toodleApp')
             }
             $http.patch('/api/tournament/' + urlSuffix, {'tournamentId': $scope.tournamentInfo._id})
                 .success(function (tournamentInfo) {
-                    $scope.updateOk = true;
                     $scope.alertMessage = 'admin.update.success';
                     $scope.tournamentInfo = tournamentInfo;
+                    $scope.tournamentInfo.formStartDate = $scope.tournamentInfo.startDate;
+                    $scope.availableEngines.forEach(function (item) {
+                        if (item.name === $scope.tournamentInfo.engine) {
+                            $scope.tournamentInfo.engineObject = item;
+                            $scope.canSwapPlayers = $scope.tournamentInfo.engineObject.compatible.indexOf('playerSwap') !== -1;
+                        }
+                    });
                     updateMatchesToReport();
                     updateMatchesToUnreport();
+                    $rootScope.$emit('toggledStart', tournamentInfo);
                 })
                 .error(function (data) {
                     $scope.tournamentInfo.running = originalValue;
-                    $scope.errorMessage = 'admin.actions.run.'+data.message;
+                    $scope.errorMessage = 'admin.actions.run.' + data.message;
                     $scope.alertMessage = 'admin.update.fail';
                     $scope.updateKo = true;
                 });
@@ -215,35 +213,32 @@ angular.module('toodleApp')
 
         $scope.addPlayer = function () {
             $scope.hideUpdateAlert();
-            if ($scope.nick) {
+            if ($scope.inputs.nick) {
                 $http.post('/api/tournament/addPlayer/', {
                     'tournamentId': $scope.tournamentInfo._id,
-                    nick: $scope.nick,
-                    faction: $scope.faction
+                    nick: $scope.inputs.nick,
+                    faction: $scope.inputs.faction ? $scope.inputs.faction.tracker : null
                 })
                     .success(function (data) {
                         $scope.tournamentInfo = data;
                         $scope.playerList = $scope.tournamentInfo.players;
                         $scope.alertMessage = 'play.register.success';
-                        $scope.updateOk = true;
-
                     })
                     .error(function (data, statusCode) {
                         if (statusCode === '404') {
                             $scope.errorMessage = 'play.register.errors.noSuchTournament';
                         } else {
-                            $scope.errorMessage = 'play.register.errors.'+data.message;
+                            $scope.errorMessage = 'play.register.errors.' + data.message;
                         }
                         $scope.alertMessage = 'play.register.fail';
                         $scope.updateKo = true;
 
                     });
-                $scope.nick = '';
+                $scope.inputs.nick = '';
             } else {
                 $scope.errorMessage = 'play.register.errors.noEmptyNick';
                 $scope.alertMessage = 'play.register.fail';
                 $scope.updateKo = true;
-
             }
         };
 
@@ -260,10 +255,9 @@ angular.module('toodleApp')
                 $scope.alertMessage = 'admin.actions.reporting.reportingOk';
                 $scope.tournamentInfo = data;
             }).error(function (data) {
-                $scope.errorMessage = 'admin.actions.reporting.errors.'+data.message;
+                $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
                 $scope.alertMessage = 'admin.actions.reporting.reportingKo';
                 $scope.updateKo = true;
-
             });
         };
 
@@ -291,7 +285,7 @@ angular.module('toodleApp')
                 $scope.playerList = data.players;
             }).error(function (message) {
                 $scope.errorMessage = message.message;
-                $scope['notes-'+ $scope.stripped(playerNick)] = true;
+                $scope['notes-' + $scope.stripped(playerNick)] = true;
             });
         };
 
@@ -299,8 +293,8 @@ angular.module('toodleApp')
             return nick.replace(/\s/g, '');
         };
 
-        $scope.downloadTournamentWinners = function(){
-            window.open('/api/tournament/winners/csv/?tournamentId='+$scope.tournamentInfo._id, '_blank', '');
+        $scope.downloadTournamentWinners = function () {
+            window.open('/api/tournament/winners/csv/?tournamentId=' + $scope.tournamentInfo._id, '_blank', '');
         };
 
         $scope.openRunDialog = function (size) {
@@ -310,8 +304,11 @@ angular.module('toodleApp')
                 controller: 'ModalToggleStartCtrl',
                 size: size,
                 resolve: {
-                    tournamentInfo:function(){
+                    tournamentInfo: function () {
                         return $scope.tournamentInfo;
+                    },
+                    allowConfigureBeforeStart:function(){
+                        return false;
                     }
                 }
             });
@@ -322,8 +319,8 @@ angular.module('toodleApp')
             });
         };
 
-        $scope.preconfigure = function(){
-            window.location = '/admin/preconfigure/'+ $scope.tournamentId;
+        $scope.preconfigure = function () {
+            window.location = '/admin/preconfigure/' + $scope.tournamentId;
         };
 
         $scope.openPreconfigureDialog = function (size) {
@@ -332,7 +329,7 @@ angular.module('toodleApp')
                 controller: 'ModalPreconfigureCtrl',
                 size: size,
                 resolve: {
-                    tournamentInfo:function(){
+                    tournamentInfo: function () {
                         return $scope.tournamentInfo;
                     }
                 }
@@ -344,12 +341,12 @@ angular.module('toodleApp')
             });
         };
 
-        $scope.report = function(){
+        $scope.report = function () {
             var modalInstance = $modal.open({
                 templateUrl: '/views/partials/popinTemplates/reportTemplate.html',
                 controller: 'ModalReportCtrl',
                 resolve: {
-                    firstGameToReport:function(){
+                    firstGameToReport: function () {
                         return $scope.firstGameToReport;
                     }
                 }
@@ -363,12 +360,12 @@ angular.module('toodleApp')
             });
         };
 
-        $scope.unreport = function(){
+        $scope.unreport = function () {
             var modalInstance = $modal.open({
                 templateUrl: '/views/partials/popinTemplates/unreportTemplate.html',
                 controller: 'ModalUnreportCtrl',
                 resolve: {
-                    gameToUnreport:function() {
+                    gameToUnreport: function () {
                         return $scope.gameToUnreport;
                     }
                 }
@@ -381,21 +378,19 @@ angular.module('toodleApp')
             });
         };
 
-        $scope.today = function() {
-            $scope.tournamentStartDate = new Date();
+        $scope.today = function () {
+            $scope.tournamentInfo.formStartDate = new Date();
         };
-        $scope.today();
 
         $scope.clear = function () {
-            $scope.tournamentStartDate = null;
+            $scope.tournamentInfo.formStartDate = null;
         };
 
-        $scope.toggleMin = function() {
+        $scope.toggleMin = function () {
             $scope.minDate = $scope.minDate ? null : new Date();
         };
-        $scope.toggleMin();
 
-        $scope.openDatePicker = function($event) {
+        $scope.openDatePicker = function ($event) {
             $event.preventDefault();
             $event.stopPropagation();
 
@@ -408,21 +403,26 @@ angular.module('toodleApp')
         };
 
         $scope.format = 'dd-MM-yyyy';
-
-        $scope.getDayClass = function(date, mode) {
+        $scope.toggleCollapse = function () {
+            $scope.isCollapsed = !$scope.isCollapsed;
+        };
+        $scope.getDayClass = function (date, mode) {
             if (mode === 'day') {
-                var dayToCheck = new Date(date).setHours(0,0,0,0);
+                var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
 
-                for (var i=0;i<$scope.events.length;i++){
-                    var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+                for (var i = 0; i < $scope.events.length; i++) {
+                    var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
 
                     if (dayToCheck === currentDay) {
                         return $scope.events[i].status;
                     }
                 }
             }
-
             return '';
         };
+
+        $rootScope.$on('updatedMatch', function () {
+            updateMatchesToReport();
+        });
     }
 );

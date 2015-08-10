@@ -32,7 +32,7 @@ describe('D3ToBracket renderer', function () {
             //assert
             assert.equal(actual.player1.name, 'john');
             assert.equal(actual.player2.name, 'jane');
-            assert.equal(actual.parent, 'null');
+            assert.equal(actual.parent, null);
             assert.equal(actual.children, null);
         });
 
@@ -67,7 +67,7 @@ describe('D3ToBracket renderer', function () {
             assert.equal(actual.player1, null);
             assert.equal(actual.player2.name, 'frank');
             assert.equal(actual.canReport, false);
-            assert.equal(actual.parent, 'null');
+            assert.equal(actual.parent, null);
             assert.equal(actual.children.length, 2);
             assert.equal(actual.children[0].player1.name, 'bob');
             assert.equal(actual.children[0].player2.name, 'alice');
@@ -113,7 +113,7 @@ describe('D3ToBracket renderer', function () {
             //assert
             assert.equal(actual.player1, null);
             assert.equal(actual.player2.name, 'frank');
-            assert.equal(actual.parent, 'null');
+            assert.equal(actual.parent, null);
             assert.equal(actual.canReport, true);
             assert.equal(actual.children.length, 2);
             assert.equal(actual.children[0].complete, true);
@@ -186,7 +186,7 @@ describe('D3ToBracket renderer', function () {
             //assert
             assert.equal(actual.player1.name, 'scrooge');
             assert.equal(actual.player2.name, 'donald');
-            assert.equal(actual.parent, 'null');
+            assert.equal(actual.parent, null);
             assert.equal(actual.children.length, 2);
 
             assert.equal(actual.children[0].name, 5);
@@ -606,7 +606,7 @@ describe('D3ToBracket renderer', function () {
             //action
             var actual = d3Bracket.getReportingButtonIcon({canReport: true, player1: {}, player2: {}}, 3);
             //assert
-            assert.equal(actual, '/images/circle-green.png');
+            assert.equal(actual, '/images/arrow-right-green.png');
         });
 
         it('should return red if match can be unreported', function () {
@@ -614,7 +614,7 @@ describe('D3ToBracket renderer', function () {
             //action
             var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1: {}, player2: {}}, 3);
             //assert
-            assert.equal(actual, '/images/circle-red.png');
+            assert.equal(actual, '/images/arrow-left-red.png');
         });
 
         it('should not return red if match is in fact a defwin (1st player not defined)', function () {
@@ -646,7 +646,7 @@ describe('D3ToBracket renderer', function () {
             //action
             var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: null, player1: {}, player2: {}}, 3);
             //assert
-            assert.equal(actual, '/images/circle-red.png');
+            assert.equal(actual, '/images/arrow-left-red.png');
         });
 
         it('should not show the reporting button if admins did not give any reporting rights to the user', function () {
@@ -662,7 +662,7 @@ describe('D3ToBracket renderer', function () {
             //action
             var actual = d3Bracket.getReportingButtonIcon({canReport: true}, 2);
             //assert
-            assert.equal(actual, '/images/circle-green.png');
+            assert.equal(actual, '/images/arrow-right-green.png');
         });
 
         it('should not show the unreporting button only if admins gave simple reporting rights to users', function () {

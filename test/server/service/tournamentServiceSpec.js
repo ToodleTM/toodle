@@ -265,4 +265,31 @@ describe('TournamentService - General purpose stuff', function () {
         assert.deepEqual(res.json.getCall(0).args[0], 400);
         assert.deepEqual(res.json.getCall(0).args[1].message, 'some error from the engine');
     });
+
+    it('should unlock tournament registrations if tournament is stopped', function(){
+        //setup
+        var tournamentService = new TournamentService();
+        var tournament = {running:true, locked:true, save:sinon.spy()};
+        sinon.spy(tournamentService, 'updateTournament');
+        //action
+        tournamentService.stopTournament(null, null, tournament, function(){});
+        //assert
+        assert.equal(tournamentService.updateTournament.calledOnce, true);
+        assert.equal(tournamentService.updateTournament.getCall(0).args[2].locked, false);
+    });
+
+    it('should lock tournament registrations if tournament is started', function () {
+        //setup
+        var tournamentService = new TournamentService();
+        sinon.stub(tournamentService, 'getTournamentEngine').returns({initBracket:function(playersList, callback){
+            callback(null, {});
+        }});
+        var tournament = {players:[1], engine:'foobar', userPrivileges:1, running: false, locked: false, save: sinon.spy()};
+        sinon.spy(tournamentService, 'updateTournament');
+        //action
+        tournamentService.startTournament(null, {json:sinon.spy()}, tournament);
+        //assert
+        assert.equal(tournamentService.updateTournament.calledOnce, true);
+        assert.equal(tournamentService.updateTournament.getCall(0).args[2].locked, true);
+    });
 });

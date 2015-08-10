@@ -3,7 +3,7 @@ var assert = require('chai').assert;
 var sinon = require('sinon');
 var engineFinder = require('../../../lib/controllers/engineFinder.js');
 describe('Engine Finder', function(){
-    it('should always return the "---" element as the 1st element of the results array', function(){
+    it('should return an empty array if no engine was found', function(){
         //setup
         var req = {};
         var jsonSpy = sinon.spy();
@@ -25,8 +25,7 @@ describe('Engine Finder', function(){
         assert.equal(res.status.calledOnce, true);
         assert.equal(res.status.getCall(0).args[0], 200);
         assert.equal(jsonSpy.calledOnce, true);
-        assert.equal(jsonSpy.getCall(0).args[0].length, 1);
-        assert.deepEqual(jsonSpy.getCall(0).args[0][0], {version:'0', description:' --- ', compatible:[], name:''});
+        assert.equal(jsonSpy.getCall(0).args[0].length, 0);
 
         //destroy
         engineFinder.listAvailableEngines = original;
@@ -54,9 +53,8 @@ describe('Engine Finder', function(){
         assert.equal(res.status.calledOnce, true);
         assert.equal(res.status.getCall(0).args[0], 200);
         assert.equal(jsonSpy.calledOnce, true);
-        assert.equal(jsonSpy.getCall(0).args[0].length, 2);
-        assert.deepEqual(jsonSpy.getCall(0).args[0][0], {version:'0', description:' --- ', compatible:[], name:''});
-        assert.deepEqual(jsonSpy.getCall(0).args[0][1], {version:'0', description:'fizz', compatible:['buzz'], name:'bazz'});
+        assert.equal(jsonSpy.getCall(0).args[0].length, 1);
+        assert.deepEqual(jsonSpy.getCall(0).args[0][0], {version:'0', description:'fizz', compatible:['buzz'], name:'bazz'});
 
         //destroy
         engineFinder.listAvailableEngines = original;

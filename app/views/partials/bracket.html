@@ -1,4 +1,3 @@
-<div ng-include="'partials/navbar'"></div>
 <div class="form-group col-sm-12">
     <div id="tourneyReportingOk" class="alert alert-success alert-dismissible app-alert" role="alert" hidden>
         <button type="button" class="close alert-fix-close" ng-click="hideLocalAlerts()"><span
@@ -21,22 +20,18 @@
     <span translate="play.notFound"></span>
 </div>
 <div ng-if="content" id="content">
-    <h1> <span translate="bracket.header"></span> <a
-            href="/play/{{tournamentInfo.signupID}}">{{tournamentInfo.tournamentName}}</a></h1>
 
     <div ng-show="tournamentId" style="position:relative;width:50%;left:25%">
     </div>
 
-    <div style="height:1em"><span id="highlightedPlayerText" ng-show="playerToHighlight">  <span translate="bracket.playerToHighlight"></span> : {{playerToHighlight.name}}</span>
+    <!--<div style="height:1em"><span id="highlightedPlayerText" ng-show="playerToHighlight">  <span translate="bracket.playerToHighlight"></span> : {{playerToHighlight.name}}</span>-->
     </div>
 
     <div ng-show="engineTemplate" ng-include="engineTemplate"></div>
 
-    <div ng-if="notRunning" id="notRunning" style="display:none;">
-        <h2 translate="bracket.tournamentNotRunningWarning"></h2>
+    <div ng-show="!tournamentInfo.running" id="notRunning">
+        <h3 translate="bracket.tournamentNotRunningWarning"></h3>
     </div>
 
 </div>
-
-<div ng-include="'partials/footer'"></div>
 

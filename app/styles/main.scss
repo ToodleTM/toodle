@@ -112,10 +112,6 @@ body {
   float: right;
 }
 
-#bracket {
-  margin-left: -30%;
-}
-
 .what-is-this {
   font-size: small;
   cursor: help;
@@ -123,7 +119,20 @@ body {
 
 .playerInList {
   width: 100%;
-  height: 25px
+  height: 25px;
+  cursor:default;
+}
+
+#sortablePlayerList {
+  max-height: 18em;
+  overflow-y: scroll;
+  overflow-x: hidden
+}
+
+.bigcarret {
+  border-top: 8px dashed;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
 }
 
 .playerInList:hover {
@@ -154,6 +163,12 @@ body {
   margin: 0;
   padding: 0;
   margin-bottom: 10px;
+}
+
+.playersStaticList {
+  overflow-y: scroll;
+  max-height: 20em;
+  cursor:default;
 }
 
 #playersList ul li {

@@ -1,6 +1,6 @@
 {
   "quickAdd": {
-    "registerMessage": "Register a new tournament !",
+    "registerMessage": "Register a new tournament!",
     "success": {
       "pre": "The tournament has been created! You can administer it using",
       "mid": ", and you can send",
@@ -22,17 +22,19 @@
     "logout":"Logout"
   },
   "admin": {
-    "intro": "This is your tournament administration page. You can edit everything related to your tournament here. Just remember that anyone with the URL will be able to do the same.",
+    "intro": "Click here to display tournament settings.",
     "header": {
       "tournament": "Tournament",
       "adminPage": "admin page"
     },
     "form": {
+      "generalSettingsTab":"General settings",
+      "playerManagementTab": "Player management",
       "configure": "Configure your tournament",
       "pickGame": "-- Pick a game --",
       "other": "Other",
       "engine": "Tournament engine",
-      "description": "Short description (optionnal)",
+      "description": "Short description (optional)",
       "roundFormats": "Round formats",
       "numberOfPlayers": "Number of players",
       "submit": "Submit changes",
@@ -44,13 +46,15 @@
         "reportOnly": "Report only",
         "nothing": "Neither report nor unreport"
       },
-      "cantUpdateEngineWhileRunning": "You can't update the tournament engine while tournament is live."
+      "cantUpdateEngineWhileRunning": "You can't update the tournament engine while tournament is live.",
+      "notFound":"Tournament to update not found."
     },
     "actions": {
       "lock": "Lock registrations",
       "lockTooltip": "Prevent additional people from entering the tournament",
       "open": "Open registrations",
       "openTooltip": "Allow more people to enter the tournament",
+      "adminOptions":"Show admin options",
       "run": {
         "running": "Stop brackets",
         "notRunning": "Start brackets",
@@ -58,10 +62,12 @@
         "preconfigure":"Let me configure players",
         "runningTooltip": "Start tournament, users won't be able to register anymore",
         "notRunningTooltip": "Stop tournament, users will be able to register again",
-        "confirm": "Confirm",
+        "confirm": "Go!",
+        "configure":"Configure",
         "cancel": "Cancel",
         "willStop": "This will stop the current tournament and allow users to register again. WARNING: This _will_ destroy the current bracket",
         "willStart": "This will start the tournament and prevent users from registering.",
+        "willConfigure": "The 'configure' button will allow you to configure your tournament further before starting it.",
         "modalTitle": "Start / stop tournament",
         "tournamentAlreadyRunning": "Tournament is already running",
         "tournamentAlreadyStopped": "Tournament is already stopped",
@@ -135,10 +141,11 @@
     }
   },
   "play": {
+    "playersTab":"Players and registration",
     "intro": "This the tournament page. You can enter the tournament and watch the players list until it's started. Then you can go back here to report your games and look at the tournament status.",
     "header": {
       "tournament": "Tournament",
-      "playPage": "page"
+      "playPage": "public page"
     },
     "enter": {
       "go": "Go!",
@@ -187,7 +194,8 @@
     "noMatchingTournament":"No tournament matching this ID was found"
   },
   "common": {
-    "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported."
+    "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported.",
+    "chooseFaction":"-- Choose a faction --"
   },
   "tournaments":{
     "tableTitles":{
@@ -230,6 +238,9 @@
         "role":"I develop most of what you see in the app. I'm also in charge of the more \"operations\" oriented aspects of the project (deployment on www.toodle.it & such) and part of QA (i.e : checking nothing is broken)."
       }
     }
-
+  },
+  "playersRegistration":{
+    "selectEngineAndGo":"Select an engine and start the tournament",
+    "whosPlaying":"Who's playing?"
   }
 }

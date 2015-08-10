@@ -20,6 +20,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
             templateUrl: 'partials/admin',
             controller: 'AdminCtrl'
         })
+        .when('/playersRegistration/:id', {
+            controller: 'PlayersRegistrationCtrl',
+            templateUrl: 'partials/playersRegistration.html'
+        })
         .when('/admin/preconfigure/:id', {
             templateUrl:'partials/preconfigureTournament',
             controller:'PreconfigureTournamentCtrl'
@@ -27,10 +31,6 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
         .when('/play/:id', {
             templateUrl: 'partials/play',
             controller: 'PlayCtrl'
-        })
-        .when('/bracket/:id', {
-            templateUrl: 'partials/bracket',
-            controller: 'BracketCtrl'
         })
         .when('/tournaments', {
             templateUrl:'partials/tournamentListing',
@@ -140,10 +140,11 @@ app.directive('whenReady', ['$interpolate', function($interpolate) {
     };
 }]);
 
-angular.module('toodleApp').controller('ModalToggleStartCtrl', function ($scope, $modalInstance, tournamentInfo) {
+angular.module('toodleApp').controller('ModalToggleStartCtrl', function ($scope, $modalInstance, tournamentInfo, allowConfigureBeforeStart) {
     $scope.tournamentInfo = tournamentInfo;
-    $scope.toggleStart = function () {
-        $modalInstance.close();
+    $scope.allowConfigureBeforeStart = allowConfigureBeforeStart;
+    $scope.toggleStart = function (configureOnly) {
+        $modalInstance.close(configureOnly);
     };
 
     $scope.cancel = function () {
