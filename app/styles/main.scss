@@ -220,6 +220,21 @@ body {
   stroke: #ccc;
   stroke-width: 2px;
 }
+.clearwell {
+  background-color:#fff;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border:0;
+  box-shadow:0px 0px 0px rgba(0, 0, 0, 0) inset;
+}
+
+.expandedtabs{
+  padding-left:10px;
+  padding-right:10px;
+  border: 1px solid #E3E3E3;
+  border-radius:4px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset;
+}
 
 .bracket-highlight {
   fill: none;

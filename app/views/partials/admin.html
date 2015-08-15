@@ -6,10 +6,11 @@
                 class="sr-only">Close</span></button>
         {{ 'admin.error.'+error | translate}}
     </div>
-    <h1><span translate="admin.header.tournament"></span> : <span
-            id="tournamentName">{{tournamentInfo.tournamentName}}</span>
+    <div class="well clearwell">
 
-
+    <h1><a href="#"
+           ng-click="toggleCollapse()" id="displaySettings"><span translate="admin.header.tournament"></span> : <span
+            id="tournamentName">{{tournamentInfo.tournamentName}}</span> <span class="caret"></span></a>
     </h1>
     <a class="btn btn-info" target="_blank" ng-href="/play/{{tournamentInfo.signupID}}" id="playerSignupPageLink">
         <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <span
@@ -54,18 +55,8 @@
                     translate="admin.misc.winners"></span></a>
         </div>
     </div>
-    <div class="well">
-        <p ng-show="isCollapsed" style="text-align:center">
-            <a href="#"
-               ng-click="toggleCollapse()" translate="admin.intro" id="displaySettings">
-            </a>
-        </p>
+        <div collapse="isCollapsed" class="expandedtabs">
 
-        <div collapse="isCollapsed">
-            <button type="button" class="close" ng-click="toggleCollapse()">
-                <span aria-hidden="true">×</span>
-                <span class="sr-only">Close</span>
-            </button>
             <tabset>
                 <!--<alert collapse="!(alertMessage && !errorMessage)" type="success" close="hideUpdateAlert()" style="margin-top:25px;">-->
                     <!--<span translate="{{alertMessage}}">{{alertMessage |translate}}</span><br/>-->

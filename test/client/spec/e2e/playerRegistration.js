@@ -149,10 +149,12 @@ describe('User having the registration URL', function () {
         element(by.id('inputNick')).sendKeys('player 4');
         element(by.id('registerPlayerGo')).click();
 
-        element(by.name('engine')).sendKeys('simpleGSLGroups');
+        element(by.name('engine')).sendKeys('Simple GSL');
 
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
+
+        element(by.id('displaySettings')).click();
 
         expect(element(by.name('engine')).getAttribute('value')).toEqual('simpleGSLGroups');
     });
