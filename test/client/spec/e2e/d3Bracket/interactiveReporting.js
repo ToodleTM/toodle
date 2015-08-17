@@ -3,11 +3,12 @@ var homeAddress = 'http://localhost:9042';
 var e2eUtils = require('./../e2eUtils.js');
 var path = require('path');
 
-beforeEach(function () {
-    browser.get(homeAddress);
-});
+
 
 describe('Match reporting through the interactive bracket', function () {
+    beforeEach(function () {
+        browser.get(homeAddress);
+    });
     afterEach(function () {
         browser.manage().deleteAllCookies();
     });

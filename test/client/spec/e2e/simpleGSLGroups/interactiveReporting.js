@@ -3,11 +3,11 @@ var homeAddress = 'http://localhost:9042';
 var e2eUtils = require('./../e2eUtils.js');
 var path = require('path');
 
-beforeEach(function () {
-    browser.get(homeAddress);
-});
-
 describe('Match reporting through the interactive bracket', function () {
+    beforeEach(function () {
+        browser.get(homeAddress);
+    });
+
     afterEach(function () {
         browser.manage().deleteAllCookies();
     });
@@ -26,7 +26,7 @@ describe('Match reporting through the interactive bracket', function () {
 
     function report2NilForPlayer1(buttonId) {
         var match1 = element(by.id(buttonId));
-        var buttonIcon = element(by.xpath('//span[@id="' + buttonId + '"]//img'));
+        var buttonIcon = element(by.id(buttonId + '-img'));
         expect(buttonIcon.getAttribute('src')).toContain('/images/arrow-right-green.png');
         match1.click();
 
@@ -41,7 +41,7 @@ describe('Match reporting through the interactive bracket', function () {
 
     function report2NilForPlayer2(buttonId) {
         var match1 = element(by.id(buttonId));
-        var buttonIcon = element(by.xpath('//span[@id="' + buttonId + '"]//img'));
+        var buttonIcon = element(by.id(buttonId+'-img'));
         expect(buttonIcon.getAttribute('src')).toContain('/images/arrow-right-green.png');
         match1.click();
 
@@ -166,7 +166,6 @@ describe('Match reporting through the interactive bracket', function () {
             checkPlayerRankingsInGroup('player 4', 'player 3', 'player 2', 'player 1');
         });
     });
-
     describe('In USER section', function () {
         it('should be able to report a match if tournament has started and reporting rights were left untouched', function () {
             setupTournamentWith4Players();
