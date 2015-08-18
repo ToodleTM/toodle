@@ -1,5 +1,5 @@
 'use strict';
-var homeAddress = 'http://localhost:9042';
+var homeAddress = 'http://localhost';
 describe('User having the admin link of a tournament', function () {
     beforeEach(function(){
         browser.get(homeAddress);

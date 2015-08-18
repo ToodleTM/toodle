@@ -1,9 +1,18 @@
 {
   "apps": [
     {
-      "name": "toodle-dev",
+      "name": "toodle-dev-1",
       "script": "./server.js",
-      "env":["PORT=9042"]
+      "env":{
+          "PORT":3001
+      }
+    },
+    {
+      "name": "toodle-dev-2",
+      "script": "./server.js",
+      "env":{
+          "PORT":3002
+      }
     }
   ]
 }

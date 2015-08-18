@@ -1,5 +1,5 @@
 'use strict';
-var homeAddress = 'http://localhost:9042';
+var homeAddress = 'http://localhost';
 var e2eUtils = require('./e2eUtils.js');
 describe('ADMIN - Unknown tournament', function () {
     it('should get a 404 message if ID is valid but tournament does not exist', function () {

@@ -1,5 +1,5 @@
 'use strict';
-var homeAddress = 'http://localhost:9042';
+var homeAddress = 'http://localhost';
 describe('Admin', function () {
     it('should switch the language to french if user selects french in the top menu', function(){
         browser.get(homeAddress);

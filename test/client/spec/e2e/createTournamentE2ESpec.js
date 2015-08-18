@@ -1,5 +1,5 @@
 'use strict';
-var homeAddress = 'http://localhost:9042';
+var homeAddress = 'http://localhost';
 
 
 describe('App title', function () {

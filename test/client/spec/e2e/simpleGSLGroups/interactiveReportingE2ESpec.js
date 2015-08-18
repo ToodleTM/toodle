@@ -1,5 +1,5 @@
 'use strict';
-var homeAddress = 'http://localhost:9042';
+var homeAddress = 'http://localhost';
 var e2eUtils = require('./../e2eUtils.js');
 var path = require('path');
 
