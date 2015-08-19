@@ -29,7 +29,7 @@ function setupTournamentWith8Players() {
     element(by.id('displaySettings')).click();
 }
 function report2NilForPlayer1(reportingButton) {
-    expect(reportingButton.getAttribute('href')).toEqual('/images/arrow-right-green.png');
+    expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
     reportingButton.click();
 
     element(by.id('score1')).sendKeys('');

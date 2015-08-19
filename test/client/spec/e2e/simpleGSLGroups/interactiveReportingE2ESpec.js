@@ -27,7 +27,7 @@ describe('Match reporting through the interactive bracket', function () {
     function report2NilForPlayer1(buttonId) {
         var match1 = element(by.id(buttonId));
         var buttonIcon = element(by.id(buttonId + '-img'));
-        expect(buttonIcon.getAttribute('src')).toContain('/images/arrow-right-green.png');
+        expect(buttonIcon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
         match1.click();
 
         element(by.id('score1')).sendKeys('');
@@ -42,7 +42,7 @@ describe('Match reporting through the interactive bracket', function () {
     function report2NilForPlayer2(buttonId) {
         var match1 = element(by.id(buttonId));
         var buttonIcon = element(by.id(buttonId+'-img'));
-        expect(buttonIcon.getAttribute('src')).toContain('/images/arrow-right-green.png');
+        expect(buttonIcon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
         match1.click();
 
         element(by.id('score1')).sendKeys('');
@@ -60,8 +60,8 @@ describe('Match reporting through the interactive bracket', function () {
 
             report2NilForPlayer1('matchNumber-1');
 
-            var icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
-            expect(icon.getAttribute('src')).toContain('/images/arrow-left-red.png');
+            var icon = element(by.id('matchNumber-1-img'));
+            expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-trash match-unreport-button');
         });
         it('should be able to unreport a match if tournament has started', function () {
             setupTournamentWith4Players();
@@ -71,71 +71,71 @@ describe('Match reporting through the interactive bracket', function () {
             match1.click();
             element(by.id('doUnreport')).click();
 
-            var icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
-            expect(icon.getAttribute('src')).toContain('/images/arrow-right-green.png');
+            var icon = element(by.id('matchNumber-1-img'));
+            expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
         });
         it('should be able to report a match even if reporting rights are set to "nothing"', function () {
             setupTournamentWith4Players();
             element(by.id('reportRights-2')).click();
             report2NilForPlayer1('matchNumber-1');
-            var icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
-            expect(icon.getAttribute('src')).toContain('/images/arrow-left-red.png');
+            var icon = element(by.id('matchNumber-1-img'));
+            expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-trash match-unreport-button');
         });
         it('should be able to uneport a match even if reporting rights are set to "only report"', function () {
             setupTournamentWith4Players();
             element(by.id('reportRights-1')).click();
             var match1 = element(by.id('matchNumber-1'));
             report2NilForPlayer1('matchNumber-1');
-            var icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
-            expect(icon.getAttribute('src')).toContain('/images/arrow-left-red.png');
+            var icon = element(by.id('matchNumber-1-img'));
+            expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-trash match-unreport-button');
 
             match1.click();
             element(by.id('doUnreport')).click();
-            icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
-            expect(icon.getAttribute('src')).toContain('/images/arrow-right-green.png');
+            icon = element(by.id('matchNumber-1-img'));
+            expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
         });
         it('should be able to uneport a match even if reporting rights are set to "nothing"', function () {
             setupTournamentWith4Players();
             element(by.id('reportRights-2')).click();
             var match1 = element(by.id('matchNumber-1'));
             report2NilForPlayer1('matchNumber-1');
-            var icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
-            expect(icon.getAttribute('src')).toContain('/images/arrow-left-red.png');
+            var icon = element(by.id('matchNumber-1-img'));
+            expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-trash match-unreport-button');
 
             match1.click();
             element(by.id('doUnreport')).click();
-            icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
-            expect(icon.getAttribute('src')).toContain('/images/arrow-right-green.png');
+            icon = element(by.id('matchNumber-1-img'));
+            expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
         });
         it('should not display the unreport button if the next match has already been reported', function () {
             setupTournamentWith4Players();
             element(by.id('reportRights-2')).click();
             report2NilForPlayer1('matchNumber-1');
-            var icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
-            expect(icon.getAttribute('src')).toContain('/images/arrow-left-red.png');
+            var icon = element(by.id('matchNumber-1-img'));
+            expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-trash match-unreport-button');
             report2NilForPlayer1('matchNumber-2');
-            icon = element(by.xpath('//span[@id="matchNumber-2"]//img'));
-            expect(icon.getAttribute('src')).toContain('/images/arrow-left-red.png');
+            icon = element(by.id('matchNumber-2-img'));
+            expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-trash match-unreport-button');
             report2NilForPlayer1('matchNumber-3');
 
             report2NilForPlayer1('matchNumber-4');
 
-            icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
+            icon = element(by.id('matchNumber-1-img'));
             expect(icon.isPresent()).toBe(false);
-            icon = element(by.xpath('//span[@id="matchNumber-2"]//img'));
+            icon = element(by.id('matchNumber-2-img'));
             expect(icon.isPresent()).toBe(false);
-            icon = element(by.xpath('//span[@id="matchNumber-3"]//img'));
-            expect(icon.getAttribute('src')).toContain('/images/arrow-left-red.png');
-            icon = element(by.xpath('//span[@id="matchNumber-4"]//img'));
-            expect(icon.getAttribute('src')).toContain('/images/arrow-left-red.png');
+            icon = element(by.id('matchNumber-3-img'));
+            expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-trash match-unreport-button');
+            icon = element(by.id('matchNumber-4-img'));
+            expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-trash match-unreport-button');
 
             report2NilForPlayer1('matchNumber-5');
-            icon = element(by.xpath('//span[@id="matchNumber-3"]//img'));
+            icon = element(by.id('matchNumber-3-img'));
             expect(icon.isPresent()).toBe(false);
-            icon = element(by.xpath('//span[@id="matchNumber-4"]//img'));
+            icon = element(by.id('matchNumber-4-img'));
             expect(icon.isPresent()).toBe(false);
-            icon = element(by.xpath('//span[@id="matchNumber-5"]//img'));
-            expect(icon.getAttribute('src')).toContain('/images/arrow-left-red.png');
+            icon = element(by.id('matchNumber-5-img'));
+            expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-trash match-unreport-button');
         });
 
         function checkPlayerRankingsInGroup(slot1Player, slot2Player, slot3Player, slot4Player) {
@@ -173,8 +173,8 @@ describe('Match reporting through the interactive bracket', function () {
             e2eUtils.testIntoPopup(function (finished) {
                 report2NilForPlayer1('matchNumber-1');
 
-                var icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
-                expect(icon.getAttribute('src')).toContain('/images/arrow-left-red.png');
+                var icon = element(by.id('matchNumber-1-img'));
+                expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-trash match-unreport-button');
                 finished();
             });
         });
@@ -188,8 +188,8 @@ describe('Match reporting through the interactive bracket', function () {
                 match1.click();
                 element(by.id('doUnreport')).click();
 
-                var icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
-                expect(icon.getAttribute('src')).toContain('/images/arrow-right-green.png');
+                var icon = element(by.id('matchNumber-1-img'));
+                expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
                 finished();
             });
         });
@@ -199,7 +199,7 @@ describe('Match reporting through the interactive bracket', function () {
             element(by.id('playerSignupPageLink')).click();
             e2eUtils.testIntoPopup(function (finished) {
                 report2NilForPlayer1('matchNumber-1');
-                var icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
+                var icon = element(by.id('matchNumber-1-img'));
                 expect(icon.isPresent()).toBe(false);
 
                 finished();
@@ -210,7 +210,7 @@ describe('Match reporting through the interactive bracket', function () {
             element(by.id('reportRights-2')).click();
             element(by.id('playerSignupPageLink')).click();
             e2eUtils.testIntoPopup(function (finished) {
-                var icon = element(by.xpath('//span[@id="matchNumber-1"]//img'));
+                var icon = element(by.id('matchNumber-1-img'));
                 expect(icon.isPresent()).toBe(false);
 
                 finished();

@@ -25,7 +25,7 @@ describe('Match reporting through the interactive bracket', function () {
     }
 
     function report2NilForPlayer1(reportingButton) {
-        expect(reportingButton.getAttribute('href')).toEqual('/images/arrow-right-green.png');
+        expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
         reportingButton.click();
 
         element(by.id('score1')).sendKeys('');
@@ -43,7 +43,7 @@ describe('Match reporting through the interactive bracket', function () {
             var match1 = element(by.id('matchNumber-1'));
             report2NilForPlayer1(match1);
 
-            expect(match1.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+            expect(match1.getAttribute('href')).toEqual('/images/delete.png');
         });
         it('should be able to unreport a match if tournament has started', function () {
             setupTournamentWith4Players();
@@ -53,7 +53,7 @@ describe('Match reporting through the interactive bracket', function () {
             match1.click();
             element(by.id('doUnreport')).click();
 
-            expect(match1.getAttribute('href')).toEqual('/images/arrow-right-green.png');
+            expect(match1.getAttribute('href')).toEqual('/images/edit.png');
         });
 
         it('should be able to report a match even if reporting rights are set to "nothing"', function () {
@@ -62,7 +62,7 @@ describe('Match reporting through the interactive bracket', function () {
             var match1 = element(by.id('matchNumber-1'));
             report2NilForPlayer1(match1);
 
-            expect(match1.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+            expect(match1.getAttribute('href')).toEqual('/images/delete.png');
         });
 
         it('should be able to uneport a match even if reporting rights are set to "only report"', function () {
@@ -70,12 +70,12 @@ describe('Match reporting through the interactive bracket', function () {
             element(by.id('reportRights-1')).click();
             var match1 = element(by.id('matchNumber-1'));
             report2NilForPlayer1(match1);
-            expect(match1.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+            expect(match1.getAttribute('href')).toEqual('/images/delete.png');
 
             match1.click();
             element(by.id('doUnreport')).click();
 
-            expect(match1.getAttribute('href')).toEqual('/images/arrow-right-green.png');
+            expect(match1.getAttribute('href')).toEqual('/images/edit.png');
         });
 
         it('should be able to uneport a match even if reporting rights are set to "nothing"', function () {
@@ -83,27 +83,27 @@ describe('Match reporting through the interactive bracket', function () {
             element(by.id('reportRights-2')).click();
             var match1 = element(by.id('matchNumber-1'));
             report2NilForPlayer1(match1);
-            expect(match1.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+            expect(match1.getAttribute('href')).toEqual('/images/delete.png');
 
             match1.click();
             element(by.id('doUnreport')).click();
 
-            expect(match1.getAttribute('href')).toEqual('/images/arrow-right-green.png');
+            expect(match1.getAttribute('href')).toEqual('/images/edit.png');
         });
         it('should not display the unreport button if the next match has already been reported', function(){
             setupTournamentWith4Players();
             element(by.id('reportRights-2')).click();
             var match1 = element(by.id('matchNumber-1'));
             report2NilForPlayer1(match1);
-            expect(match1.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+            expect(match1.getAttribute('href')).toEqual('/images/delete.png');
             var match2 = element(by.id('matchNumber-2'));
             report2NilForPlayer1(match2);
-            expect(match2.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+            expect(match2.getAttribute('href')).toEqual('/images/delete.png');
             var match3 = element(by.id('matchNumber-3'));
             report2NilForPlayer1(match3);
             expect(match1.getAttribute('href')).toEqual('');
             expect(match2.getAttribute('href')).toEqual('');
-            expect(match3.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+            expect(match3.getAttribute('href')).toEqual('/images/delete.png');
         });
 
     });
@@ -120,7 +120,7 @@ describe('Match reporting through the interactive bracket', function () {
                 var match1 = element(by.id('matchNumber-1'));
                 report2NilForPlayer1(match1);
 
-                expect(match1.getAttribute('href')).toEqual('/images/arrow-left-red.png');
+                expect(match1.getAttribute('href')).toEqual('/images/delete.png');
                 finished();
             });
         });
@@ -134,7 +134,7 @@ describe('Match reporting through the interactive bracket', function () {
                 match1.click();
                 element(by.id('doUnreport')).click();
 
-                expect(match1.getAttribute('href')).toEqual('/images/arrow-right-green.png');
+                expect(match1.getAttribute('href')).toEqual('/images/edit.png');
                 finished();
             });
         });

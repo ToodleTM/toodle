@@ -28,14 +28,18 @@
                 <td colspan="4">
                     <table class="group-matches">
                         <tr ng-repeat="match in group.matches">
-                            <td class="player1 {{match.player1Score > match.player2Score ? 'match-winner' : ''}}">{{match.player1.name ? match.player1.name : ''}}<span ng-if="match.player1.faction"><img src="/images/icon-{{match.player1.faction}}.png"></span></td>
+                            <td class="player1 {{match.player1Score > match.player2Score ? 'match-winner' : ''}}">{{match.player1.name ? match.player1.name : ''}}<img
+                                    ng-if="match.player1.faction" src="/images/icon-{{match.player1.faction}}.png"></td>
                             <td class="score1 {{match.player1Score > match.player2Score ? 'match-winner' : ''}}">{{match.player1Score || match.player1Score === 0? match.player1Score : '-'}}</td>
                             <td class="score2 {{match.player1Score < match.player2Score ? 'match-winner' : ''}}">{{match.player2Score || match.player2Score === 0 ? match.player2Score : '-'}}</td>
-                            <td class="player2 {{match.player1Score < match.player2Score ? 'match-winner' : ''}}"><span ng-if="match.player2.faction"><img src="/images/icon-{{match.player2.faction}}.png"></span>{{match.player2.name ? match.player2.name : ''}}
-                                <span id="matchNumber-{{match.number}}" ng-if="match.canBeUnreported" ng-click="unreport(match)" style="position:relative;float:right;"><img
-                                        id="matchNumber-{{match.number}}-img" src="./images/arrow-left-red.png" class="match-unreport-button"/></span>
-                                <span id="matchNumber-{{match.number}}" ng-if="match.canBeReported" ng-click="report(match)" style="position:relative;float:right;"><img
-                                        id="matchNumber-{{match.number}}-img" src="./images/arrow-right-green.png" class="match-report-button"/></span>
+                            <td class="player2 {{match.player1Score < match.player2Score ? 'match-winner' : ''}}"><img
+                                    ng-if="match.player2.faction" src="/images/icon-{{match.player2.faction}}.png">{{match.player2.name ? match.player2.name : ''}}
+                                <span id="matchNumber-{{match.number}}" ng-if="match.canBeUnreported" ng-click="unreport(match)" style="position:relative;float:right;">
+                                    <span id="matchNumber-{{match.number}}-img" class="glyphicon glyphicon-trash match-unreport-button"></span>
+                                </span>
+                                <span id="matchNumber-{{match.number}}" ng-if="match.canBeReported" ng-click="report(match)" style="position:relative;float:right;">
+                                    <span id="matchNumber-{{match.number}}-img" class="glyphicon glyphicon-edit match-report-button"></span>
+                                </span>
                             </td>
                         </tr>
                     </table>
