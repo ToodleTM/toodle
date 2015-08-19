@@ -11,7 +11,7 @@
         <h1><a href="#"
                ng-click="toggleCollapse()" id="displaySettings"><span translate="play.header.tournament"></span>
             {{tournamentInfo.tournamentName}} {{ 'play.header.playPage' |
-            translate}}</a></h1>
+            translate}} <span class="{{isCollapsed ? 'caret-right': 'caret-big'}}"></span></a></h1>
 
         <div collapse="isCollapsed">
             <tabset>

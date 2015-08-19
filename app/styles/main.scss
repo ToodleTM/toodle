@@ -15,6 +15,28 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
   margin-left: 25%;
 }
 
+.caret-right {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-left: 6px dashed;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
+.caret-big {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 6px dashed;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
+
 .full button span {
   background-color: limegreen;
   border-radius: 32px;

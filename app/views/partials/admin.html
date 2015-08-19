@@ -10,7 +10,7 @@
 
     <h1><a href="#"
            ng-click="toggleCollapse()" id="displaySettings"><span translate="admin.header.tournament"></span> : <span
-            id="tournamentName">{{tournamentInfo.tournamentName}}</span> <span class="caret"></span></a>
+            id="tournamentName">{{tournamentInfo.tournamentName}}</span> <span class="{{isCollapsed ? 'caret-right': 'caret-big'}}"></span></a>
     </h1>
     <a class="btn btn-info" target="_blank" ng-href="/play/{{tournamentInfo.signupID}}" id="playerSignupPageLink">
         <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <span
