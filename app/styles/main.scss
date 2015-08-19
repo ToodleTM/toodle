@@ -483,13 +483,14 @@ nav div {
       }
 
       & img {
-        position: absolute;
         top: -4px;
         right: -8px;
-        height: 15px;
-        &.match-unreport-button {
-        }
-        &.match-report-button {
+        height: 22px;
+        width: 22px;
+        &.match-unreport-button, &.match-report-button {
+          position:absolute;
+          top:0;
+          right:-12px;
         }
       }
 
