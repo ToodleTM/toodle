@@ -8,16 +8,18 @@
 </div>
 <div id="content">
     <div class="well clearwell">
-    <h1><a href="#"
-           ng-click="toggleCollapse()" id="displaySettings"><span translate="play.header.tournament"></span> {{tournamentInfo.tournamentName}} {{ 'play.header.playPage' |
-        translate}}</a></h1>
-        <div collapse="isCollapsed" class="expandedtabs">
+        <h1><a href="#"
+               ng-click="toggleCollapse()" id="displaySettings"><span translate="play.header.tournament"></span>
+            {{tournamentInfo.tournamentName}} {{ 'play.header.playPage' |
+            translate}}</a></h1>
+
+        <div collapse="isCollapsed">
             <tabset>
                 <tab>
                     <tab-heading>
                         <span translate="admin.form.generalSettingsTab"></span>
                     </tab-heading>
-                    <fieldset>
+                    <fieldset class="expandedtabs expandedtabs-content">
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label class="control-label" for="engine" translate="admin.form.engine"></label>
@@ -44,18 +46,21 @@
                     <tab-heading>
                         <span id="playerManagement" translate="play.playersTab"></span>
                     </tab-heading>
-                    <fieldset ng-show="!tournamentInfo.locked">
-                        <legend translate="play.enter.register"></legend>
+                    <fieldset ng-show="!tournamentInfo.locked"
+                              class="expandedtabs expandedtabs-content expandedtabs-middle">
                         <div class="row">
+                            <legend translate="play.enter.register" class="expandedtabs expandedtabs-title"></legend>
                             <form ng-submit="enterTournament()">
                                 <div class="form-group col-sm-6">
                                     <input type="text" name="inputNick" id="inputNick" class="form-control"
-                                           placeholder="{{ 'play.enter.nickPlaceholder' | translate}}" ng-model="inputs.nick"/>
+                                           placeholder="{{ 'play.enter.nickPlaceholder' | translate}}"
+                                           ng-model="inputs.nick"/>
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <select name="inputFaction" class="form-control" ng-model="inputs.faction"
                                             ng-options="item.name for item in factions track by item.tracker">
-                                        <option value="" translate="common.chooseFaction"> -- Choose a faction --</option>
+                                        <option value="" translate="common.chooseFaction"> -- Choose a faction --
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-1">
@@ -78,16 +83,26 @@
                         </div>
                     </fieldset>
 
-                    <fieldset id="playersList" ng-model="playerList" class="playersStaticList">
-                        <legend><span translate="play.register.registeredPlayers"></span> (Total : {{playerList.length}})
-                        </legend>
-                        <div ng-repeat="player in playerList" id="playerList" class="playerInList">
-                <span>
-                <span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px"></span>{{player.name}}
-                </span>
-                        </div>
-                        <div ng-show="playerList.length == 0">
-                            <span translate="play.register.noPlayers"></span>
+                    <fieldset id="playersList" ng-model="playerList" class="expandedtabs expandedtabs-content">
+                        <div class="row">
+                            <legend class="expandedtabs expandedtabs-title"><span
+                                    translate="play.register.registeredPlayers"></span> (Total : {{playerList.length}})
+                            </legend>
+                            <ul id="sortablePlayerList">
+                                <li ng-repeat="player in playerList" class="playerInList">
+                <span style="float:left"><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png"
+                                                                           height="20px"></span>{{player.name}} </span>
+                            <span ng-if="'notes-'+stripped(player.name)" class="playerInListInfo"
+                                  id="notes-{{stripped(player.name)}}" translate="{{errorMessage}}"></span><i
+                                        ng-hide="tournamentInfo.running"
+                                        title="{{'admin.actions.removePlayer'|translate}}"
+                                        class="glyphicon glyphicon-trash"
+                                        ng-click="removePlayer(player.name)"></i>
+                                </li>
+                            </ul>
+                            <div ng-show="playerList.length == 0">
+                                <span translate="play.register.noPlayers"> </span>
+                            </div>
                         </div>
                     </fieldset>
                 </tab>

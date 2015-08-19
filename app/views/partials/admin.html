@@ -55,26 +55,23 @@
                     translate="admin.misc.winners"></span></a>
         </div>
     </div>
-        <div collapse="isCollapsed" class="expandedtabs">
+        <div collapse="isCollapsed">
 
-            <tabset>
-                <!--<alert collapse="!(alertMessage && !errorMessage)" type="success" close="hideUpdateAlert()" style="margin-top:25px;">-->
-                    <!--<span translate="{{alertMessage}}">{{alertMessage |translate}}</span><br/>-->
-                    <!--<span translate="{{errorMessage}}">{{errorMessage |translate}}</span>-->
-                <!--</alert>-->
+            <tabset >
                 <alert collapse="!errorMessage" type="danger" close="hideUpdateAlert()" style="margin-top:25px;">
                     <span translate="{{alertMessage}}">{{alertMessage |translate}}</span><br/>
                     <span translate="{{errorMessage}}">{{errorMessage |translate}}</span>
                 </alert>
-                <tab>
+                <tab >
                     <tab-heading>
                         <span translate="admin.form.generalSettingsTab"></span>
                     </tab-heading>
 
-                    <fieldset>
+                    <fieldset class="expandedtabs expandedtabs-content">
 
-                        <legend translate="admin.form.configure"></legend>
                         <div class="row">
+                            <legend translate="admin.form.configure" class="expandedtabs expandedtabs-title"></legend>
+
                             <div class="form-group col-sm-6">
                                 <label class="control-label" for="engine" translate="admin.form.engine"></label>
 
@@ -143,11 +140,11 @@
                         </div>
                     </fieldset>
                 </tab>
-                <tab>
+                <tab class="row">
                     <tab-heading>
                         <span id="playerManagement" translate="admin.form.playerManagementTab"></span>
                     </tab-heading>
-                    <fieldset ng-show="!tournamentInfo.running">
+                    <fieldset ng-show="!tournamentInfo.running" class="expandedtabs expandedtabs-content expandedtabs-middle">
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <legend translate="admin.actions.addPlayer"></legend>
@@ -190,8 +187,9 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset id="playersList" ng-model="playerList">
-                        <legend><span translate="play.register.registeredPlayers"></span> (Total : {{playerList.length}})
+                    <fieldset id="playersList" ng-model="playerList" class="expandedtabs expandedtabs-content">
+                        <div class="row">
+                        <legend class="expandedtabs expandedtabs-title"><span translate="play.register.registeredPlayers"></span> (Total : {{playerList.length}})
                         </legend>
                         <ul id="sortablePlayerList">
                             <li ng-repeat="player in playerList" class="playerInList">
@@ -207,6 +205,7 @@
                         <div ng-show="playerList.length == 0">
                             <span translate="play.register.noPlayers"> </span>
                         </div>
+                        </div>
                     </fieldset>
                 </tab>
             </tabset>
@@ -215,12 +214,6 @@
     <div ng-controller="BracketCtrl">
         <div ng-include="'partials/bracket.html'"></div>
     </div>
-    <!--<div ng-if="updateKo" id="updateKo" class="alert alert-danger alert-dismissible app-alert" role="alert">-->
-        <!--<button type="button" class="close alert-fix-close" id="dismissAlertKo" ng-click="hideUpdateAlert()"><span-->
-                <!--aria-hidden="true">&times;</span><span-->
-                <!--class="sr-only">Close</span></button>-->
-        <!--<span translate="{{alertMessage}}">{{alertMessage |translate}}</span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)-->
-    <!--</div>-->
 </div>
 
 
