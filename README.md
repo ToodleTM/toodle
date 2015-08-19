@@ -11,6 +11,9 @@ Dependency status :
 Toodle aims to be a tournament management app that'll be able to get you started on your new super awesome tournament in a matter of minutes and as few clicks as possible.
 No login required, you just need to keep the admin URL close to you and send the participation url to the other participants.
 
+# Where are we right now ?
+Right now, this is **v1.1.0**. Release notes can be found [here](https://github.com/ToodleTM/toodle/blob/master/releaseNotes.md)
+
 # Which games / tournaments will it be designed for ?
 
 ## Available engines at the moment
@@ -95,9 +98,7 @@ Each Angular controller (besides of the navbar as it doesn't really make sense) 
 
 Then open the app/views/index.html file and remove the code between the "piwik" tags ;) To avoid JS errors you might want to remove the _paq calls you'll find in the angular controllers.
 
-##Some of the things to come :
+##Some of the things that might come :
 
-* Ability to rearrange players in a started tournament
-* Player seeding in a started tournament
 * Tournament export / restore
 * "How-to" quickly deploy a standalone server / use toodle as a regular desktop app
