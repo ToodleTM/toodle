@@ -46,8 +46,8 @@ describe('SingleElim - Bracket infos', function () {
             //setup
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             var tournament = {running: true, bracket: actualBracket};
-            engine.reportWin(1, 2, 0, tournament.bracket, callbackSpy);
-            engine.reportWin(2, 2, 0, tournament.bracket, callbackSpy);
+            engine.reportWin(1, 2, 0, tournament.bracket, true, callbackSpy);
+            engine.reportWin(2, 2, 0, tournament.bracket, true, callbackSpy);
             //action
             engine.winners(tournament, callbackSpy);
             //assert
@@ -58,9 +58,9 @@ describe('SingleElim - Bracket infos', function () {
             //setup
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             var tournament = {running: true, bracket: actualBracket};
-            engine.reportWin(1, 2, 0, tournament.bracket, callbackSpy);
-            engine.reportWin(2, 2, 0, tournament.bracket, callbackSpy);
-            engine.reportWin(3, 2, 0, tournament.bracket, callbackSpy);
+            engine.reportWin(1, 2, 0, tournament.bracket, true, callbackSpy);
+            engine.reportWin(2, 2, 0, tournament.bracket, true, callbackSpy);
+            engine.reportWin(3, 2, 0, tournament.bracket, true, callbackSpy);
             //action
             engine.winners(tournament, callbackSpy);
             //assert
@@ -72,9 +72,9 @@ describe('SingleElim - Bracket infos', function () {
             //setup
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             var tournament = {running: true, bracket: actualBracket};
-            engine.reportWin(1, 2, 0, tournament.bracket, callbackSpy);
-            engine.reportWin(2, 2, 0, tournament.bracket, callbackSpy);
-            engine.reportWin(3, 2, 4, tournament.bracket, callbackSpy);
+            engine.reportWin(1, 2, 0, tournament.bracket, true, callbackSpy);
+            engine.reportWin(2, 2, 0, tournament.bracket, true, callbackSpy);
+            engine.reportWin(3, 2, 4, tournament.bracket, true, callbackSpy);
             //action
             engine.winners(tournament, callbackSpy);
             //assert
@@ -114,7 +114,7 @@ describe('SingleElim - Bracket infos', function () {
             //setup
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             var remainingCallbackSpy = sinon.spy();
-            engine.reportWin(2, 2, 0, actualBracket, callbackSpy);
+            engine.reportWin(2, 2, 0, actualBracket, true, callbackSpy);
             //action
             engine.getMatchesToReport(actualBracket, remainingCallbackSpy);
             //assert
@@ -128,8 +128,8 @@ describe('SingleElim - Bracket infos', function () {
             //setup
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             var remainingCallbackSpy = sinon.spy();
-            engine.reportWin(2, 2, 0, actualBracket, callbackSpy);
-            engine.reportWin(1, 2, 0, actualBracket, callbackSpy);
+            engine.reportWin(2, 2, 0, actualBracket, true, callbackSpy);
+            engine.reportWin(1, 2, 0, actualBracket, true, callbackSpy);
             //action
             engine.getMatchesToReport(actualBracket, remainingCallbackSpy);
             //assert
@@ -154,7 +154,7 @@ describe('SingleElim - Bracket infos', function () {
             //setup
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             var unreportableMatchesSpy = sinon.spy();
-            engine.reportWin(1, 3, 0, actualBracket, callbackSpy);
+            engine.reportWin(1, 3, 0, actualBracket, true, callbackSpy);
             //action
             engine.getUnreportableMatches(actualBracket, unreportableMatchesSpy);
             //assert
@@ -168,9 +168,9 @@ describe('SingleElim - Bracket infos', function () {
             //setup
             engine.initBracket([john, jane, bob, alice, peter, franz, cole, patrick], callbackSpy);
             var unreportableMatchesSpy = sinon.spy();
-            engine.reportWin(1, 3, 0, actualBracket, callbackSpy);
-            engine.reportWin(2, 3, 0, actualBracket, callbackSpy);
-            engine.reportWin(5, 3, 0, actualBracket, callbackSpy);
+            engine.reportWin(1, 3, 0, actualBracket, true, callbackSpy);
+            engine.reportWin(2, 3, 0, actualBracket, true, callbackSpy);
+            engine.reportWin(5, 3, 0, actualBracket, true, callbackSpy);
             //action
             engine.getUnreportableMatches(actualBracket, unreportableMatchesSpy);
             //assert
@@ -185,9 +185,9 @@ describe('SingleElim - Bracket infos', function () {
             //setup
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             var unreportableMatchesSpy = sinon.spy();
-            engine.reportWin(1, 3, 0, actualBracket, callbackSpy);
-            engine.reportWin(2, 3, 0, actualBracket, callbackSpy);
-            engine.reportWin(3, 3, 0, actualBracket, callbackSpy);
+            engine.reportWin(1, 3, 0, actualBracket, true, callbackSpy);
+            engine.reportWin(2, 3, 0, actualBracket, true, callbackSpy);
+            engine.reportWin(3, 3, 0, actualBracket, true, callbackSpy);
             //action
             engine.getUnreportableMatches(actualBracket, unreportableMatchesSpy);
             //assert

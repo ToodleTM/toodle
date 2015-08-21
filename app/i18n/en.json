@@ -79,6 +79,7 @@
       },
       "reporting": {
         "title": "Reporting",
+        "closeMatch":"This is the final score",
         "reportMatch": "Report a game",
         "unreportMatch": "Unreport a game",
         "reportButton": "Go to the form",

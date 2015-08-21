@@ -105,7 +105,7 @@ describe('TournamentService - Tournament management', function () {
                         initBracket: function () {
                             return {};
                         },
-                        reportWin: function (number, s1, s2, bracket, callback) {
+                        reportWin: function (number, s1, s2, bracket, matchComplete, callback) {
                             callback({message: 'this is an error message from the engine'});
                         }
                     };
@@ -126,7 +126,7 @@ describe('TournamentService - Tournament management', function () {
                         initBracket: function () {
                             return {};
                         },
-                        reportWin: function (number, s1, s2, bracket, callback) {
+                        reportWin: function (number, s1, s2, bracket, matchComplete, callback) {
                             callback(false);
                         }
                     };

@@ -61,7 +61,7 @@ describe('SimpleGSLGroups - getUnreportableMatches', function () {
         //setup
         var unreportCallbackSpy = sinon.spy();
         engine.initBracket([john, jane, bob, alice], initBracketCallback);
-        engine.reportWin(1, 2, 0, groups, function () {
+        engine.reportWin(1, 2, 0, groups, true, function () {
         });
 
         //action
@@ -76,8 +76,8 @@ describe('SimpleGSLGroups - getUnreportableMatches', function () {
             complete: true,
             player1: {name: 'john', loss: 0, lossCount: 0, win: 1, winCount: 2},
             player2: {name: 'alice', loss: 1, lossCount: 2, win: 0, winCount: 0},
-            player1Score: 2,
-            player2Score: 0
+            score1: 2,
+            score2: 0
         }]);
     });
 
@@ -85,9 +85,9 @@ describe('SimpleGSLGroups - getUnreportableMatches', function () {
         //setup
         var unreportCallbackSpy = sinon.spy();
         engine.initBracket([john, jane, bob, alice, cole, peter, franz, patrick], initBracketCallback);
-        engine.reportWin(1, 2, 0, groups, function () {
+        engine.reportWin(1, 2, 0, groups, true, function () {
         });
-        engine.reportWin(6, 1, 3, groups, function () {
+        engine.reportWin(6, 1, 3, groups, true, function () {
         });
         //action
         engine.getUnreportableMatches(groups, unreportCallbackSpy);
@@ -101,8 +101,8 @@ describe('SimpleGSLGroups - getUnreportableMatches', function () {
             complete: true,
             player1: {name: 'john', loss: 0, lossCount: 0, win: 1, winCount: 2},
             player2: {name: 'alice', loss: 1, lossCount: 2, win: 0, winCount: 0},
-            player1Score: 2,
-            player2Score: 0
+            score1: 2,
+            score2: 0
         }, {
             round: 1,
             group: 2,
@@ -110,8 +110,8 @@ describe('SimpleGSLGroups - getUnreportableMatches', function () {
             complete: true,
             player1: {name: 'cole', loss: 1, lossCount: 3, win: 0, winCount: 1},
             player2: {name: 'patrick', loss: 0, lossCount: 1, win: 1, winCount: 3},
-            player1Score: 1,
-            player2Score: 3
+            score1: 1,
+            score2: 3
         }]);
     });
 
@@ -119,11 +119,11 @@ describe('SimpleGSLGroups - getUnreportableMatches', function () {
         //setup
         var unreportCallbackSpy = sinon.spy();
         engine.initBracket([john, jane, bob, alice, cole, peter, franz, patrick], initBracketCallback);
-        engine.reportWin(6, 2, 0, groups, function () {
+        engine.reportWin(6, 2, 0, groups, true, function () {
         });
-        engine.reportWin(7, 1, 3, groups, function () {
+        engine.reportWin(7, 1, 3, groups, true, function () {
         });
-        engine.reportWin(8, 1, 3, groups, function () {
+        engine.reportWin(8, 1, 3, groups, true, function () {
         });
         //action
         engine.getUnreportableMatches(groups, unreportCallbackSpy);
@@ -137,8 +137,8 @@ describe('SimpleGSLGroups - getUnreportableMatches', function () {
             complete: true,
             player1: {name: 'cole', loss: 1, lossCount: 3, win: 1, winCount: 3},
             player2: {name: 'franz', loss: 0, lossCount: 2, win: 2, winCount: 6},
-            player1Score: 1,
-            player2Score: 3
+            score1: 1,
+            score2: 3
         }]);
     });
 
@@ -146,11 +146,11 @@ describe('SimpleGSLGroups - getUnreportableMatches', function () {
         //setup
         var unreportCallbackSpy = sinon.spy();
         engine.initBracket([john, jane, bob, alice, cole, peter, franz, patrick], initBracketCallback);
-        engine.reportWin(6, 2, 0, groups, function () {
+        engine.reportWin(6, 2, 0, groups, true, function () {
         });
-        engine.reportWin(7, 1, 3, groups, function () {
+        engine.reportWin(7, 1, 3, groups, true, function () {
         });
-        engine.reportWin(9, 3, 2, groups, function () {
+        engine.reportWin(9, 3, 2, groups, true, function () {
         });
         //action
         engine.getUnreportableMatches(groups, unreportCallbackSpy);
@@ -164,8 +164,8 @@ describe('SimpleGSLGroups - getUnreportableMatches', function () {
             complete: true,
             player1: {name: 'patrick', loss: 1, lossCount: 4, win: 1, winCount: 3},
             player2: {name: 'peter', loss: 2, lossCount: 6, win: 0, winCount: 3},
-            player1Score: 3,
-            player2Score: 2
+            score1: 3,
+            score2: 2
         }]);
     });
 
@@ -173,16 +173,16 @@ describe('SimpleGSLGroups - getUnreportableMatches', function () {
         //setup
         var unreportCallbackSpy = sinon.spy();
         engine.initBracket([john, jane, bob, alice, cole, peter, franz, patrick], initBracketCallback);
-        engine.reportWin(6, 2, 0, groups, function () {
+        engine.reportWin(6, 2, 0, groups, true, function () {
         });
-        engine.reportWin(7, 1, 3, groups, function () {
+        engine.reportWin(7, 1, 3, groups, true, function () {
         });
-        engine.reportWin(8, 1, 3, groups, function () {
+        engine.reportWin(8, 1, 3, groups, true, function () {
         });
 
-        engine.reportWin(9, 3, 2, groups, function () {
+        engine.reportWin(9, 3, 2, groups, true, function () {
         });
-        engine.reportWin(10, 5, 3, groups, function () {
+        engine.reportWin(10, 5, 3, groups, true, function () {
         });
         //action
         engine.getUnreportableMatches(groups, unreportCallbackSpy);
@@ -196,8 +196,8 @@ describe('SimpleGSLGroups - getUnreportableMatches', function () {
             complete: true,
             player1: {name: 'cole', loss: 1, lossCount: 6, win: 2, winCount: 8},
             player2: {name: 'patrick', loss: 2, lossCount: 9, win: 1, winCount: 6},
-            player1Score: 5,
-            player2Score: 3
+            score1: 5,
+            score2: 3
         }]);
     });
 });

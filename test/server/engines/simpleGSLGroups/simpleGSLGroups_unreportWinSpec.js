@@ -67,11 +67,11 @@ describe('SimpleGSLGroups - unreportWin', function () {
             //setup
             var unreportSpy = sinon.spy();
             engine.initBracket([john, jane, bob, alice], initBracketCallback);
-            engine.reportWin(1, 2, 0, groups, function () {
+            engine.reportWin(1, 2, 0, groups, true, function () {
             });
-            engine.reportWin(2, 2, 0, groups, function () {
+            engine.reportWin(2, 2, 0, groups, true, function () {
             });
-            engine.reportWin(3, 2, 0, groups, function () {
+            engine.reportWin(3, 2, 0, groups, true, function () {
             });
             //action
             engine.unreport(1, groups, unreportSpy);
@@ -83,15 +83,15 @@ describe('SimpleGSLGroups - unreportWin', function () {
             //setup
             var unreportSpy = sinon.spy();
             engine.initBracket([john, jane, bob, alice], initBracketCallback);
-            engine.reportWin(1, 2, 0, groups, function () {
+            engine.reportWin(1, 2, 0, groups, true, function () {
             });
-            engine.reportWin(2, 2, 0, groups, function () {
+            engine.reportWin(2, 2, 0, groups, true, function () {
             });
-            engine.reportWin(3, 2, 0, groups, function () {
+            engine.reportWin(3, 2, 0, groups, true, function () {
             });
-            engine.reportWin(4, 2, 0, groups, function () {
+            engine.reportWin(4, 2, 0, groups, true, function () {
             });
-            engine.reportWin(5, 2, 0, groups, function () {
+            engine.reportWin(5, 2, 0, groups, true, function () {
             });
             //action
             engine.unreport(4, groups, unreportSpy);
@@ -113,7 +113,7 @@ describe('SimpleGSLGroups - unreportWin', function () {
             alice.lossCount = 0;
             alice.winCount = 0;
             alice.win = 0;
-            engine.reportWin(1, 2, 0, groups, function () {
+            engine.reportWin(1, 2, 0, groups, true, function () {
             });
             //action
             engine.unreport(1, groups, unreportCallbackSpy);
@@ -134,7 +134,7 @@ describe('SimpleGSLGroups - unreportWin', function () {
             //setup
             var unreportCallbackSpy = sinon.spy();
             engine.initBracket([john, jane, bob, alice], initBracketCallback);
-            engine.reportWin(1, 2, 0, groups, function () {
+            engine.reportWin(1, 2, 0, groups, true, function () {
             });
             //action
             engine.unreport(1, groups, unreportCallbackSpy);
@@ -149,7 +149,7 @@ describe('SimpleGSLGroups - unreportWin', function () {
             //setup
             var unreportCallbackSpy = sinon.spy();
             engine.initBracket([john, jane, bob, alice], initBracketCallback);
-            engine.reportWin(2, 2, 0, groups, function () {
+            engine.reportWin(2, 2, 0, groups, true, function () {
             });
             //action
             engine.unreport(2, groups, unreportCallbackSpy);
@@ -164,11 +164,11 @@ describe('SimpleGSLGroups - unreportWin', function () {
             //setup
             var unreportCallbackSpy = sinon.spy();
             engine.initBracket([john, jane, bob, alice], initBracketCallback);
-            engine.reportWin(1, 2, 0, groups, function () {
+            engine.reportWin(1, 2, 0, groups, true, function () {
             });
-            engine.reportWin(2, 2, 0, groups, function () {
+            engine.reportWin(2, 2, 0, groups, true, function () {
             });
-            engine.reportWin(3, 2, 0, groups, function () {
+            engine.reportWin(3, 2, 0, groups, true, function () {
             });
 
             //action
@@ -183,11 +183,11 @@ describe('SimpleGSLGroups - unreportWin', function () {
             //setup
             var unreportCallbackSpy = sinon.spy();
             engine.initBracket([john, jane, bob, alice], initBracketCallback);
-            engine.reportWin(1, 2, 0, groups, function () {
+            engine.reportWin(1, 2, 0, groups, true, function () {
             });
-            engine.reportWin(2, 2, 0, groups, function () {
+            engine.reportWin(2, 2, 0, groups, true, function () {
             });
-            engine.reportWin(4, 2, 0, groups, function () {
+            engine.reportWin(4, 2, 0, groups, true, function () {
             });
 
             //action
@@ -202,11 +202,11 @@ describe('SimpleGSLGroups - unreportWin', function () {
             //setup
             var unreportCallbackSpy = sinon.spy();
             engine.initBracket([john, jane, bob, alice], initBracketCallback);
-            engine.reportWin(1, 2, 0, groups, function () {
+            engine.reportWin(1, 2, 0, groups, true, function () {
             });
-            engine.reportWin(2, 0, 3, groups, function () {
+            engine.reportWin(2, 0, 3, groups, true, function () {
             });
-            engine.reportWin(3, 5, 2, groups, function () {
+            engine.reportWin(3, 5, 2, groups, true, function () {
             });
 
             //action
@@ -239,15 +239,15 @@ describe('SimpleGSLGroups - unreportWin', function () {
             //setup
             var unreportSpy = sinon.spy();
             engine.initBracket([john, jane, bob, alice, cole, peter, franz, giulietta], initBracketCallback);
-            engine.reportWin(6, 2, 0, groups, function () {
+            engine.reportWin(6, 2, 0, groups, true, function () {
             });
-            engine.reportWin(7, 2, 0, groups, function () {
+            engine.reportWin(7, 2, 0, groups, true, function () {
             });
-            engine.reportWin(8, 2, 0, groups, function () {
+            engine.reportWin(8, 2, 0, groups, true, function () {
             });
-            engine.reportWin(9, 2, 0, groups, function () {
+            engine.reportWin(9, 2, 0, groups, true, function () {
             });
-            engine.reportWin(10, 2, 0, groups, function () {
+            engine.reportWin(10, 2, 0, groups, true, function () {
             });
             //action
             engine.unreport(10, groups, unreportSpy);
@@ -263,13 +263,13 @@ describe('SimpleGSLGroups - unreportWin', function () {
             //setup
             var unreportSpy = sinon.spy();
             engine.initBracket([john, jane, bob, alice, cole, peter, franz, giulietta], initBracketCallback);
-            engine.reportWin(6, 2, 0, groups, function () {
+            engine.reportWin(6, 2, 0, groups, true, function () {
             });
-            engine.reportWin(7, 2, 0, groups, function () {
+            engine.reportWin(7, 2, 0, groups, true, function () {
             });
-            engine.reportWin(8, 2, 0, groups, function () {
+            engine.reportWin(8, 2, 0, groups, true, function () {
             });
-            engine.reportWin(9, 2, 0, groups, function () {
+            engine.reportWin(9, 2, 0, groups, true, function () {
             });
             //action
             engine.unreport(8, groups, unreportSpy);
@@ -286,13 +286,13 @@ describe('SimpleGSLGroups - unreportWin', function () {
             //setup
             var unreportSpy = sinon.spy();
             engine.initBracket([john, jane, bob, alice, cole, peter, franz, giulietta], initBracketCallback);
-            engine.reportWin(6, 2, 0, groups, function () {
+            engine.reportWin(6, 2, 0, groups, true, function () {
             });
-            engine.reportWin(7, 2, 0, groups, function () {
+            engine.reportWin(7, 2, 0, groups, true, function () {
             });
-            engine.reportWin(8, 2, 0, groups, function () {
+            engine.reportWin(8, 2, 0, groups, true, function () {
             });
-            engine.reportWin(9, 2, 0, groups, function () {
+            engine.reportWin(9, 2, 0, groups, true, function () {
             });
             //action
             engine.unreport(9, groups, unreportSpy);
@@ -309,9 +309,9 @@ describe('SimpleGSLGroups - unreportWin', function () {
             //setup
             var unreportSpy = sinon.spy();
             engine.initBracket([john, jane, bob, alice, cole, peter, franz, giulietta], initBracketCallback);
-            engine.reportWin(6, 2, 0, groups, function () {
+            engine.reportWin(6, 2, 0, groups, true, function () {
             });
-            engine.reportWin(7, 2, 0, groups, function () {
+            engine.reportWin(7, 2, 0, groups, true, function () {
             });
             //action
             engine.unreport(6, groups, unreportSpy);
@@ -329,9 +329,9 @@ describe('SimpleGSLGroups - unreportWin', function () {
             //setup
             var unreportSpy = sinon.spy();
             engine.initBracket([john, jane, bob, alice, cole, peter, franz, giulietta], initBracketCallback);
-            engine.reportWin(6, 2, 0, groups, function () {
+            engine.reportWin(6, 2, 0, groups, true, function () {
             });
-            engine.reportWin(7, 2, 0, groups, function () {
+            engine.reportWin(7, 2, 0, groups, true, function () {
             });
             //action
             engine.unreport(7, groups, unreportSpy);

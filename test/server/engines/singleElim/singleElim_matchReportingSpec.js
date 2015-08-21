@@ -44,11 +44,11 @@ describe('SingleElim - Match reporting', function () {
         it('should only allow unreport if the following match has not been reported', function () {
             //setup
             engine.initBracket([john, jane, bob, alice, cole, patrick, peter, franz], callbackSpy);
-            engine.reportWin(1, 2, 0, actualBracket, callbackSpy);
-            engine.reportWin(2, 2, 0, actualBracket, callbackSpy);
-            engine.reportWin(3, 2, 0, actualBracket, callbackSpy);
-            engine.reportWin(4, 2, 0, actualBracket, callbackSpy);
-            engine.reportWin(5, 2, 0, actualBracket, callbackSpy);
+            engine.reportWin(1, 2, 0, actualBracket, true, callbackSpy);
+            engine.reportWin(2, 2, 0, actualBracket, true, callbackSpy);
+            engine.reportWin(3, 2, 0, actualBracket, true, callbackSpy);
+            engine.reportWin(4, 2, 0, actualBracket, true, callbackSpy);
+            engine.reportWin(5, 2, 0, actualBracket, true, callbackSpy);
             var unreportCallbackSpy = sinon.spy(function () {
             });
             //action
@@ -71,7 +71,7 @@ describe('SingleElim - Match reporting', function () {
             };
             var reportWinCallbackSpy = sinon.spy(reportWinCallback);
             engine.initBracket([john, jane], callbackSpy);
-            engine.reportWin(1, 2, 0, actualBracket, reportWinCallbackSpy);
+            engine.reportWin(1, 2, 0, actualBracket, true, reportWinCallbackSpy);
             //actpm
             engine.unreport(1, actualBracket, callbackSpy);
             //assert
@@ -130,7 +130,7 @@ describe('SingleElim - Match reporting', function () {
             //setup
             engine.initBracket([john, jane, bob, alice, peter], callbackSpy);
             //action
-            engine.reportWin(2, 2, 0, actualBracket, callbackSpy);
+            engine.reportWin(2, 2, 0, actualBracket, true, callbackSpy);
 
             //assert
             assert.equal(actualBracket[5].player2.name, 'jane');
@@ -143,7 +143,7 @@ describe('SingleElim - Match reporting', function () {
             //setup
             engine.initBracket([john, jane, bob, alice, peter], callbackSpy);
             //action
-            engine.reportWin(2, 2, 0, actualBracket, callbackSpy);
+            engine.reportWin(2, 2, 0, actualBracket, true, callbackSpy);
             //assert
             assert.equal(actualBracket[5].player1.name, 'john');
             assert.equal(actualBracket[5].player2.name, 'jane');
@@ -153,8 +153,8 @@ describe('SingleElim - Match reporting', function () {
             //setup
             engine.initBracket([john, jane, bob, alice, peter, franz, cole], callbackSpy);
             //action
-            engine.reportWin(2, 0, 2, actualBracket, callbackSpy);
-            engine.reportWin(1, 2, 0, actualBracket, callbackSpy);
+            engine.reportWin(2, 0, 2, actualBracket, true, callbackSpy);
+            engine.reportWin(1, 2, 0, actualBracket, true, callbackSpy);
 
             //assert
             assert.equal(actualBracket[5].player1.name, 'john');
@@ -166,9 +166,9 @@ describe('SingleElim - Match reporting', function () {
         it('should not allow reporting an already reported match', function () {
             //setup
             engine.initBracket([john, jane, bob, alice, peter, franz, cole, patrick], callbackSpy);
-            engine.reportWin(1, 2, 0, actualBracket, callbackSpy);
+            engine.reportWin(1, 2, 0, actualBracket, true, callbackSpy);
             //action
-            engine.reportWin(1, 0, 2, actualBracket, callbackSpy);
+            engine.reportWin(1, 0, 2, actualBracket, true, callbackSpy);
 
             //assert
             assert.equal(callbackSpy.getCall(1).args[0], null);
@@ -183,7 +183,7 @@ describe('SingleElim - Match reporting', function () {
             });
             engine.initBracket([john, jane], callbackSpy);
             //action
-            engine.reportWin(1, 0, 2, actualBracket, reportWinCallbackSpy);
+            engine.reportWin(1, 0, 2, actualBracket, true, reportWinCallbackSpy);
 
             //assert
             assert.equal(reportWinCallbackSpy.getCall(0).args[0], null);
@@ -195,7 +195,7 @@ describe('SingleElim - Match reporting', function () {
             //setup
             engine.initBracket([john, jane, bob, alice, peter], callbackSpy);
             //action
-            engine.reportWin(1, 2, 0, actualBracket, callbackSpy);
+            engine.reportWin(1, 2, 0, actualBracket, true, callbackSpy);
             //assert
             assert.equal(callbackSpy.getCall(1).args[2], false);
         });
@@ -204,7 +204,7 @@ describe('SingleElim - Match reporting', function () {
             //setup
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             //action
-            engine.reportWin(3, 2, 0, actualBracket, callbackSpy);
+            engine.reportWin(3, 2, 0, actualBracket, true, callbackSpy);
             //assert
             assert.equal(callbackSpy.getCall(1).args[0].message, 'notAllPreviousMatchesAreComplete');
         });
@@ -213,7 +213,7 @@ describe('SingleElim - Match reporting', function () {
             //setup
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             //action
-            engine.reportWin(null, 2, 0, actualBracket, callbackSpy);
+            engine.reportWin(null, 2, 0, actualBracket, true, callbackSpy);
             //assert
             assert.equal(callbackSpy.getCall(1).args[0].message, 'numberlessMatchNotAllowed');
         });
@@ -222,7 +222,7 @@ describe('SingleElim - Match reporting', function () {
             //setup
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             //action
-            engine.reportWin(1, score1, score2, actualBracket, callbackSpy);
+            engine.reportWin(1, score1, score2, actualBracket, true, callbackSpy);
             //assert
             assert.equal(callbackSpy.getCall(1).args[0].message, 'invalidScores');
         }
@@ -257,7 +257,7 @@ describe('SingleElim - Match reporting', function () {
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             delete actualBracket[3];
             //action
-            engine.reportWin(1, 2, 1, actualBracket, callbackSpy);
+            engine.reportWin(1, 2, 1, actualBracket, true, callbackSpy);
             //assert
             assert.equal(callbackSpy.getCall(1).args[0].message, 'nextMatchDoesNotExist');
         });
@@ -266,9 +266,34 @@ describe('SingleElim - Match reporting', function () {
             //setup
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             //action
-            engine.reportWin(1, 1, 1, actualBracket, callbackSpy);
+            engine.reportWin(1, 1, 1, actualBracket, true, callbackSpy);
             //assert
             assert.equal(callbackSpy.getCall(1).args[0].message, 'winnerMustHaveHigherScore');
         });
+
+        it('should not flag a match as complete if the matchComplete flag is set to false', function(){
+            //setup
+            engine.initBracket([john, jane, bob, alice], callbackSpy);
+            //action
+            engine.reportWin(1, 1, 1, actualBracket, false, callbackSpy);
+            //assert
+            assert.equal(actualBracket[3].player1, null);
+            assert.equal(actualBracket[1].complete, false);
+        });
+
+        it('should not flag a match as complete if the matchComplete flag is set to false even if this is the last match', function () {
+            //setup
+            engine.initBracket([john, jane, bob, alice], callbackSpy);
+            engine.reportWin(1, 2, 1, actualBracket, true, callbackSpy);
+            engine.reportWin(2, 2, 1, actualBracket, true, callbackSpy);
+            //action
+            engine.reportWin(3, 2, 1, actualBracket, false, callbackSpy);
+            //assert
+            assert.equal(actualBracket[1].complete, true);
+            assert.equal(actualBracket[2].complete, true);
+            assert.equal(actualBracket[3].complete, false);
+        });
+
+        //il faut aussi un test pour le dernier match qui ne se report pas tout à fait de la même manière que les autres
     });
 });

@@ -78,6 +78,7 @@ angular.module('toodleApp')
             modalInstance.result.then(function (scores) {
                 $scope.score1 = scores[0];
                 $scope.score2 = scores[1];
+                $scope.matchComplete = scores[2];
                 $scope.reportMatch();
             }, function () {
             });
@@ -108,7 +109,8 @@ angular.module('toodleApp')
                 signupID: $scope.tournamentInfo.signupID,
                 number: $scope.firstGameToReport.name,
                 score1: $scope.score1,
-                score2: $scope.score2
+                score2: $scope.score2,
+                matchComplete:$scope.matchComplete
             }).success(function (data) {
                 $scope.tournamentInfo = data;
                 $scope.score1 = 0;

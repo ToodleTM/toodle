@@ -79,6 +79,7 @@
       },
       "reporting": {
         "title": "Enregistrer",
+        "closeMatch": "Ceci est le score final",
         "reportMatch": "Enregistrer un résultat",
         "unreportMatch": "Annuler un enregistrement",
         "reportButton": "Formulaire",

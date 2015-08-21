@@ -4,7 +4,6 @@ var e2eUtils = require('./../e2eUtils.js');
 var path = require('path');
 
 
-
 describe('Match reporting through the interactive bracket', function () {
     beforeEach(function () {
         browser.get(homeAddress);
@@ -34,10 +33,12 @@ describe('Match reporting through the interactive bracket', function () {
         element(by.id('score2')).sendKeys('');
         element(by.id('score2')).sendKeys(0);
 
+        element(by.id('closeMatch')).click();
+
         element(by.id('doReport')).click();
     }
 
-    describe('In ADMIN section', function() {
+    describe('In ADMIN section', function () {
         it('should be able to report a match if tournament has started', function () {
             setupTournamentWith4Players();
             var match1 = element(by.id('matchNumber-1'));
@@ -90,7 +91,7 @@ describe('Match reporting through the interactive bracket', function () {
 
             expect(match1.getAttribute('href')).toEqual('/images/edit.png');
         });
-        it('should not display the unreport button if the next match has already been reported', function(){
+        it('should not display the unreport button if the next match has already been reported', function () {
             setupTournamentWith4Players();
             element(by.id('reportRights-2')).click();
             var match1 = element(by.id('matchNumber-1'));
@@ -106,6 +107,85 @@ describe('Match reporting through the interactive bracket', function () {
             expect(match3.getAttribute('href')).toEqual('/images/delete.png');
         });
 
+        describe('continuous reporting', function () {
+            it('should allow to report a partial score (1-1) if user does not check the "final score" box', function () {
+                setupTournamentWith4Players();
+                var reportingButton = element(by.id('matchNumber-1'));
+                expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
+                reportingButton.click();
+
+                element(by.id('score1')).clear();
+                element(by.id('score1')).sendKeys(1);
+
+                element(by.id('score2')).clear();
+                element(by.id('score2')).sendKeys(1);
+
+                element(by.id('doReport')).click();
+
+                expect(element(by.id('player1-for-match-1')).getText()).toContain('1 player 1');
+                expect(element(by.id('player2-for-match-1')).getText()).toContain('1 player 2');
+                expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
+            });
+
+
+            it('should be able to report a first time and then get the current score when reporting for a second time', function () {
+                setupTournamentWith4Players();
+                var reportingButton = element(by.id('matchNumber-1'));
+                expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
+                reportingButton.click();
+
+                element(by.id('score1')).clear();
+                element(by.id('score1')).sendKeys(1);
+
+                element(by.id('score2')).clear();
+                element(by.id('score2')).sendKeys(1);
+
+                element(by.id('doReport')).click();
+
+                reportingButton.click();
+
+                expect(element(by.id('score1')).getAttribute('value')).toEqual('1');
+                expect(element(by.id('score2')).getAttribute('value')).toEqual('1');
+
+                element(by.id('score1')).clear();
+                element(by.id('score1')).sendKeys(2);
+
+                element(by.id('score2')).clear();
+                element(by.id('score2')).sendKeys(1);
+
+                element(by.id('closeMatch')).click();
+
+                element(by.id('doReport')).click();
+
+                expect(element(by.id('player1-for-match-1')).getText()).toContain('2 player 1');
+                expect(element(by.id('player2-for-match-1')).getText()).toContain('1 player 2');
+                expect(reportingButton.getAttribute('href')).toEqual('/images/delete.png');
+            });
+
+            it('should not close a match w/ equal scores even if the close box was checked when score was valid', function () {
+                setupTournamentWith4Players();
+                var reportingButton = element(by.id('matchNumber-1'));
+                expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
+                reportingButton.click();
+
+                element(by.id('score1')).clear();
+                element(by.id('score1')).sendKeys(2);
+
+                element(by.id('score2')).clear();
+                element(by.id('score2')).sendKeys(1);
+
+                element(by.id('closeMatch')).click();
+
+                element(by.id('score2')).clear();
+                element(by.id('score2')).sendKeys(2);
+
+                element(by.id('doReport')).click();
+
+                expect(element(by.id('player1-for-match-1')).getText()).toContain('2 player 1');
+                expect(element(by.id('player2-for-match-1')).getText()).toContain('2 player 2');
+                expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
+            });
+        });
     });
 
     describe('In USER section', function () {
@@ -116,7 +196,7 @@ describe('Match reporting through the interactive bracket', function () {
 
         it('should be able to report a match if tournament has started and reporting rights were left untouched', function () {
             setup4PlayerTournamentAndGoToPublicPage();
-            e2eUtils.testIntoPopup(function(finished){
+            e2eUtils.testIntoPopup(function (finished) {
                 var match1 = element(by.id('matchNumber-1'));
                 report2NilForPlayer1(match1);
 
@@ -162,6 +242,100 @@ describe('Match reporting through the interactive bracket', function () {
                 finished();
             });
 
+        });
+        describe('continuous reporting', function () {
+            it('should allow to report a partial score (1-1) if user does not check the "final score" box', function () {
+                setupTournamentWith4Players();
+                element(by.id('playerSignupPageLink')).click();
+                e2eUtils.testIntoPopup(function (finished) {
+                    var reportingButton = element(by.id('matchNumber-1'));
+                    expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
+                    reportingButton.click();
+
+                    element(by.id('score1')).clear();
+                    element(by.id('score1')).sendKeys(1);
+
+                    element(by.id('score2')).clear();
+                    element(by.id('score2')).sendKeys(1);
+
+                    expect(element(by.id('closeMatch')).isDisplayed()).toBe(false);
+
+                    element(by.id('doReport')).click();
+
+                    expect(element(by.id('player1-for-match-1')).getText()).toContain('1 player 1');
+                    expect(element(by.id('player2-for-match-1')).getText()).toContain('1 player 2');
+                    expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
+                    finished();
+                });
+            });
+
+
+            it('should be able to report a first time and then get the current score when reporting for a second time', function () {
+                setupTournamentWith4Players();
+                element(by.id('playerSignupPageLink')).click();
+                e2eUtils.testIntoPopup(function (finished) {
+                    var reportingButton = element(by.id('matchNumber-1'));
+                    expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
+                    reportingButton.click();
+
+                    element(by.id('score1')).clear();
+                    element(by.id('score1')).sendKeys(1);
+
+                    element(by.id('score2')).clear();
+                    element(by.id('score2')).sendKeys(1);
+
+                    element(by.id('doReport')).click();
+
+                    reportingButton.click();
+
+                    expect(element(by.id('score1')).getAttribute('value')).toEqual('1');
+                    expect(element(by.id('score2')).getAttribute('value')).toEqual('1');
+
+                    element(by.id('score1')).clear();
+                    element(by.id('score1')).sendKeys(2);
+
+                    element(by.id('score2')).clear();
+                    element(by.id('score2')).sendKeys(1);
+
+                    element(by.id('closeMatch')).click();
+
+                    element(by.id('doReport')).click();
+
+                    expect(element(by.id('player1-for-match-1')).getText()).toContain('2 player 1');
+                    expect(element(by.id('player2-for-match-1')).getText()).toContain('1 player 2');
+                    expect(reportingButton.getAttribute('href')).toEqual('/images/delete.png');
+                    finished();
+                });
+            });
+
+            //erreur si score invalide pour une fermeture : report continu
+            it('should not close a match w/ equal scores even if the close box was checked when score was valid', function () {
+                setupTournamentWith4Players();
+                element(by.id('playerSignupPageLink')).click();
+                e2eUtils.testIntoPopup(function (finished) {
+                    var reportingButton = element(by.id('matchNumber-1'));
+                    expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
+                    reportingButton.click();
+
+                    element(by.id('score1')).clear();
+                    element(by.id('score1')).sendKeys(2);
+
+                    element(by.id('score2')).clear();
+                    element(by.id('score2')).sendKeys(1);
+
+                    element(by.id('closeMatch')).click();
+
+                    element(by.id('score2')).clear();
+                    element(by.id('score2')).sendKeys(2);
+
+                    element(by.id('doReport')).click();
+
+                    expect(element(by.id('player1-for-match-1')).getText()).toContain('2 player 1');
+                    expect(element(by.id('player2-for-match-1')).getText()).toContain('2 player 2');
+                    expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
+                    finished();
+                });
+            });
         });
     });
 });

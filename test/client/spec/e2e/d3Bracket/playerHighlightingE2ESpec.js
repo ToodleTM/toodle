@@ -38,6 +38,8 @@ function report2NilForPlayer1(reportingButton) {
     element(by.id('score2')).sendKeys('');
     element(by.id('score2')).sendKeys(0);
 
+    element(by.id('closeMatch')).click();
+
     element(by.id('doReport')).click();
 }
 function setupPlayerTournamentReport2FirstMatches() {

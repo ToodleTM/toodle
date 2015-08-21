@@ -36,12 +36,14 @@ describe('Match reporting through the interactive bracket', function () {
         element(by.id('score2')).sendKeys('');
         element(by.id('score2')).sendKeys(0);
 
+        element(by.id('closeMatch')).click();
+
         element(by.id('doReport')).click();
     }
 
     function report2NilForPlayer2(buttonId) {
         var match1 = element(by.id(buttonId));
-        var buttonIcon = element(by.id(buttonId+'-img'));
+        var buttonIcon = element(by.id(buttonId + '-img'));
         expect(buttonIcon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
         match1.click();
 
@@ -50,6 +52,8 @@ describe('Match reporting through the interactive bracket', function () {
 
         element(by.id('score2')).sendKeys('');
         element(by.id('score2')).sendKeys(2);
+
+        element(by.id('closeMatch')).click();
 
         element(by.id('doReport')).click();
     }
@@ -165,6 +169,98 @@ describe('Match reporting through the interactive bracket', function () {
             report2NilForPlayer1('matchNumber-5');
             checkPlayerRankingsInGroup('player 4', 'player 3', 'player 2', 'player 1');
         });
+
+        describe('continuous reporting', function () {
+            it('should allow to report a partial score (1-1) if user does not check the "final score" box', function () {
+                setupTournamentWith4Players();
+                var reportingButton = element(by.id('matchNumber-1'));
+                var icon = element(by.id('matchNumber-1-img'));
+                expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                reportingButton.click();
+
+                element(by.id('score1')).clear();
+                element(by.id('score1')).sendKeys(1);
+
+                element(by.id('score2')).clear();
+                element(by.id('score2')).sendKeys(1);
+
+
+
+                element(by.id('doReport')).click();
+
+                expect(element(by.xpath('//table[@class="group-matches"]//tr[1]//td[2]')).getText()).toEqual('1');
+                expect(element(by.xpath('//table[@class="group-matches"]//tr[1]//td[3]')).getText()).toEqual('1');
+
+                icon = element(by.id('matchNumber-1-img'));
+                expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+            });
+
+            it('should be able to report a first time and then get the current score when reporting for a second time', function () {
+                setupTournamentWith4Players();
+                var reportingButton = element(by.id('matchNumber-1'));
+                var icon = element(by.id('matchNumber-1-img'));
+                expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                reportingButton.click();
+
+                element(by.id('score1')).clear();
+                element(by.id('score1')).sendKeys(1);
+
+                element(by.id('score2')).clear();
+                element(by.id('score2')).sendKeys(1);
+
+                element(by.id('doReport')).click();
+
+                reportingButton.click();
+
+                expect(element(by.id('score1')).getAttribute('value')).toEqual('1');
+                expect(element(by.id('score2')).getAttribute('value')).toEqual('1');
+
+                element(by.id('score1')).clear();
+                element(by.id('score1')).sendKeys(2);
+
+                element(by.id('score2')).clear();
+                element(by.id('score2')).sendKeys(1);
+
+                element(by.id('closeMatch')).click();
+
+                element(by.id('doReport')).click();
+
+                expect(element(by.xpath('//table[@class="group-matches"]//tr[1]//td[2]')).getText()).toEqual('2');
+                expect(element(by.xpath('//table[@class="group-matches"]//tr[1]//td[3]')).getText()).toEqual('1');
+                icon = element(by.id('matchNumber-1-img'));
+                expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-trash match-unreport-button');
+                icon = element(by.id('matchNumber-2-img'));
+                expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+            });
+
+            it('should not close a match w/ equal scores even if the close box was checked when score was valid (2-1 then 2-2)', function () {
+                setupTournamentWith4Players();
+                var reportingButton = element(by.id('matchNumber-1'));
+                var icon = element(by.id('matchNumber-1-img'));
+                expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                reportingButton.click();
+
+                element(by.id('score1')).clear();
+                element(by.id('score1')).sendKeys(2);
+
+                element(by.id('score2')).clear();
+                element(by.id('score2')).sendKeys(1);
+
+                element(by.id('closeMatch')).click();
+
+                element(by.id('score2')).clear();
+                element(by.id('score2')).sendKeys(2);
+
+                element(by.id('doReport')).click();
+
+                expect(element(by.xpath('//table[@class="group-matches"]//tr[1]//td[2]')).getText()).toEqual('2');
+                expect(element(by.xpath('//table[@class="group-matches"]//tr[1]//td[3]')).getText()).toEqual('2');
+                icon = element(by.id('matchNumber-1-img'));
+                expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                icon = element(by.id('matchNumber-2-img'));
+                expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+            });
+        });
     });
     describe('In USER section', function () {
         it('should be able to report a match if tournament has started and reporting rights were left untouched', function () {
@@ -214,6 +310,108 @@ describe('Match reporting through the interactive bracket', function () {
                 expect(icon.isPresent()).toBe(false);
 
                 finished();
+            });
+        });
+        describe('continuous reporting', function () {
+            it('should allow to report a partial score (1-1) if user does not check the "final score" box', function () {
+                setupTournamentWith4Players();
+                element(by.id('playerSignupPageLink')).click();
+
+                e2eUtils.testIntoPopup(function (finished) {
+                    var reportingButton = element(by.id('matchNumber-1'));
+                    var icon = element(by.id('matchNumber-1-img'));
+                    expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                    reportingButton.click();
+
+                    element(by.id('score1')).clear();
+                    element(by.id('score1')).sendKeys(1);
+
+                    element(by.id('score2')).clear();
+                    element(by.id('score2')).sendKeys(1);
+
+                    expect(element(by.id('closeMatch')).isDisplayed()).toBe(false);
+
+                    element(by.id('doReport')).click();
+
+                    expect(element(by.xpath('//table[@class="group-matches"]//tr[1]//td[2]')).getText()).toEqual('1');
+                    expect(element(by.xpath('//table[@class="group-matches"]//tr[1]//td[3]')).getText()).toEqual('1');
+
+                    icon = element(by.id('matchNumber-1-img'));
+                    expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                    finished();
+                });
+            });
+            it('should be able to report a first time and then get the current score when reporting for a second time', function () {
+                setupTournamentWith4Players();
+                element(by.id('playerSignupPageLink')).click();
+                e2eUtils.testIntoPopup(function (finished) {
+                    var reportingButton = element(by.id('matchNumber-1'));
+                    var icon = element(by.id('matchNumber-1-img'));
+                    expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                    reportingButton.click();
+
+                    element(by.id('score1')).clear();
+                    element(by.id('score1')).sendKeys(1);
+
+                    element(by.id('score2')).clear();
+                    element(by.id('score2')).sendKeys(1);
+
+                    element(by.id('doReport')).click();
+
+                    reportingButton.click();
+
+                    expect(element(by.id('score1')).getAttribute('value')).toEqual('1');
+                    expect(element(by.id('score2')).getAttribute('value')).toEqual('1');
+
+                    element(by.id('score1')).clear();
+                    element(by.id('score1')).sendKeys(2);
+
+                    element(by.id('score2')).clear();
+                    element(by.id('score2')).sendKeys(1);
+
+                    element(by.id('closeMatch')).click();
+
+                    element(by.id('doReport')).click();
+
+                    expect(element(by.xpath('//table[@class="group-matches"]//tr[1]//td[2]')).getText()).toEqual('2');
+                    expect(element(by.xpath('//table[@class="group-matches"]//tr[1]//td[3]')).getText()).toEqual('1');
+                    icon = element(by.id('matchNumber-1-img'));
+                    expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-trash match-unreport-button');
+                    icon = element(by.id('matchNumber-2-img'));
+                    expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                    finished();
+                });
+            });
+            it('should not close a match w/ equal scores even if the close box was checked when score was valid (2-1 then 2-2)', function () {
+                setupTournamentWith4Players();
+                element(by.id('playerSignupPageLink')).click();
+                e2eUtils.testIntoPopup(function (finished) {
+                    var reportingButton = element(by.id('matchNumber-1'));
+                    var icon = element(by.id('matchNumber-1-img'));
+                    expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                    reportingButton.click();
+
+                    element(by.id('score1')).clear();
+                    element(by.id('score1')).sendKeys(2);
+
+                    element(by.id('score2')).clear();
+                    element(by.id('score2')).sendKeys(1);
+
+                    element(by.id('closeMatch')).click();
+
+                    element(by.id('score2')).clear();
+                    element(by.id('score2')).sendKeys(2);
+
+                    element(by.id('doReport')).click();
+
+                    expect(element(by.xpath('//table[@class="group-matches"]//tr[1]//td[2]')).getText()).toEqual('2');
+                    expect(element(by.xpath('//table[@class="group-matches"]//tr[1]//td[3]')).getText()).toEqual('2');
+                    icon = element(by.id('matchNumber-1-img'));
+                    expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                    icon = element(by.id('matchNumber-2-img'));
+                    expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                    finished();
+                });
             });
         });
     });

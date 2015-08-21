@@ -606,7 +606,7 @@ describe('D3ToBracket renderer', function () {
             //action
             var actual = d3Bracket.getReportingButtonIcon({canReport: true, player1: {}, player2: {}}, 3);
             //assert
-            assert.equal(actual, '/images/arrow-right-green.png');
+            assert.equal(actual, '/images/edit.png');
         });
 
         it('should return red if match can be unreported', function () {
@@ -614,7 +614,7 @@ describe('D3ToBracket renderer', function () {
             //action
             var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: {}, player1: {}, player2: {}}, 3);
             //assert
-            assert.equal(actual, '/images/arrow-left-red.png');
+            assert.equal(actual, '/images/delete.png');
         });
 
         it('should not return red if match is in fact a defwin (1st player not defined)', function () {
@@ -646,7 +646,7 @@ describe('D3ToBracket renderer', function () {
             //action
             var actual = d3Bracket.getReportingButtonIcon({complete: true, parent: null, player1: {}, player2: {}}, 3);
             //assert
-            assert.equal(actual, '/images/arrow-left-red.png');
+            assert.equal(actual, '/images/delete.png');
         });
 
         it('should not show the reporting button if admins did not give any reporting rights to the user', function () {
@@ -662,7 +662,7 @@ describe('D3ToBracket renderer', function () {
             //action
             var actual = d3Bracket.getReportingButtonIcon({canReport: true}, 2);
             //assert
-            assert.equal(actual, '/images/arrow-right-green.png');
+            assert.equal(actual, '/images/edit.png');
         });
 
         it('should not show the unreporting button only if admins gave simple reporting rights to users', function () {

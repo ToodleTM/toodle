@@ -195,7 +195,7 @@ describe('SimpleGSLGroups - getMatchesToReport', function () {
 
         engine.initBracket(players, initBracketCallback);
         _.each(matchesToReport, function (matchToReport) {
-            engine.reportWin(matchToReport, 2, 0, groups, function () {
+            engine.reportWin(matchToReport, 2, 0, groups, true, function () {
             });
         });
         //action

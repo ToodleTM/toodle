@@ -165,13 +165,22 @@ angular.module('toodleApp').controller('ModalPreconfigureCtrl', function ($scope
 
 angular.module('toodleApp').controller('ModalReportCtrl', function ($scope, $modalInstance, firstGameToReport) {
     $scope.firstGameToReport = firstGameToReport;
+    $scope.score1 = $scope.firstGameToReport.score1? $scope.firstGameToReport.score1 : 0;
+    $scope.score2 = $scope.firstGameToReport.score2 ? $scope.firstGameToReport.score2 : 0;
+    $scope.matchComplete = false;
+
     $scope.reportMatch = function () {
-        $modalInstance.close([$scope.score1, $scope.score2]);
+        $modalInstance.close([$scope.score1, $scope.score2, $scope.scoreIsFinal && $scope.matchComplete]);
     };
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+
+    $scope.isScoreFinal = function () {
+        $scope.scoreIsFinal = $scope.score1 !== '' && $scope.score2 !== '' && $scope.score1 !== $scope.score2;
+    };
+    $scope.isScoreFinal();
 });
 
 angular.module('toodleApp').controller('ModalUnreportCtrl', function ($scope, $modalInstance, gameToUnreport) {

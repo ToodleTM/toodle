@@ -48,15 +48,15 @@ describe('getWinnersFromGroup', function () {
         //setup
         var getWinnersFropGroupCallbackSpy = sinon.spy();
         engine.initBracket([john, jane, bob, alice], initBracketCallback);
-        engine.reportWin(1, 2, 0, groups, function () {
+        engine.reportWin(1, 2, 0, groups, true, function () {
         });
-        engine.reportWin(2, 2, 0, groups, function () {
+        engine.reportWin(2, 2, 0, groups, true, function () {
         });
-        engine.reportWin(3, 2, 0, groups, function () {
+        engine.reportWin(3, 2, 0, groups, true, function () {
         });
-        engine.reportWin(4, 2, 0, groups, function () {
+        engine.reportWin(4, 2, 0, groups, true, function () {
         });
-        engine.reportWin(5, 2, 0, groups, function () {
+        engine.reportWin(5, 2, 0, groups, true, function () {
         });
         //action
         engine.getWinnersFromGroup(groups[1], engine, getWinnersFropGroupCallbackSpy);
@@ -70,13 +70,13 @@ describe('getWinnersFromGroup', function () {
         //setup
         var getWinnersFropGroupCallbackSpy = sinon.spy();
         engine.initBracket([john, jane, bob, alice], initBracketCallback);
-        engine.reportWin(1, 2, 0, groups, function () {
+        engine.reportWin(1, 2, 0, groups, true, function () {
         });
-        engine.reportWin(2, 2, 0, groups, function () {
+        engine.reportWin(2, 2, 0, groups, true, function () {
         });
-        engine.reportWin(3, 2, 0, groups, function () {
+        engine.reportWin(3, 2, 0, groups, true, function () {
         });
-        engine.reportWin(4, 2, 0, groups, function () {
+        engine.reportWin(4, 2, 0, groups, true, function () {
         });
         //action
         engine.getWinnersFromGroup(groups[1], engine, getWinnersFropGroupCallbackSpy);

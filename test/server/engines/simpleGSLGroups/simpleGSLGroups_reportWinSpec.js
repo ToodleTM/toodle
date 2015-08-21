@@ -50,7 +50,7 @@ describe('SimpleGSLGroups - reportwin', function () {
             var reportWinSpy = sinon.spy();
             engine.initBracket(players, initBracketCallback);
             //action
-            engine.reportWin(matchNumber, score1, score2, groups, reportWinSpy);
+            engine.reportWin(matchNumber, score1, score2, groups, true, reportWinSpy);
             //assert
             assert.equal(reportWinSpy.getCall(0).args[0].message, expectedErrorMessage);
         }
@@ -84,9 +84,9 @@ describe('SimpleGSLGroups - reportwin', function () {
             var reportWinSpy = sinon.spy();
             var players = [john, jane, bob, alice, cole, peter, franz, patrick];
             engine.initBracket(players, initBracketCallback);
-            engine.reportWin(2, 2, 0, groups, reportWinSpy);
+            engine.reportWin(2, 2, 0, groups, true, reportWinSpy);
             //action
-            engine.reportWin(2, 2, 0, groups, reportWinSpy);
+            engine.reportWin(2, 2, 0, groups, true, reportWinSpy);
             //assert
             assert.equal(reportWinSpy.getCall(0).args[0], null);
             assert.equal(reportWinSpy.getCall(1).args[0].message, 'alreadyReported');
@@ -99,12 +99,12 @@ describe('SimpleGSLGroups - reportwin', function () {
         var players = [john, jane, bob, alice, cole, peter, franz, patrick];
         engine.initBracket(players, initBracketCallback);
         //action
-        engine.reportWin(1, 2, 0, groups, reportWinSpy);
+        engine.reportWin(1, 2, 0, groups, true, reportWinSpy);
         //assert
         assert.equal(reportWinSpy.getCall(0).args[0], null);
         assert.deepEqual(reportWinSpy.getCall(0).args[1][1].matches[1], {
-            player1Score: 2,
-            player2Score: 0,
+            score1: 2,
+            score2: 0,
             complete: true,
             round: 1,
             player1: john,
@@ -121,7 +121,7 @@ describe('SimpleGSLGroups - reportwin', function () {
             var players = [john, jane, bob, alice, cole, peter, franz, patrick];
             engine.initBracket(players, initBracketCallback);
             //action
-            engine.reportWin(matchToReport, 0, 2, groups, reportWinSpy);
+            engine.reportWin(matchToReport, 0, 2, groups, true, reportWinSpy);
             //assert
             assert.equal(reportWinSpy.getCall(0).args[0], null);
             assert.deepEqual(groups[1].matches[matchToCheck].player1, expectedPlayer1);
@@ -151,10 +151,10 @@ describe('SimpleGSLGroups - reportwin', function () {
             var reportWinSpy = sinon.spy();
             var players = [john, jane, bob, alice, cole, peter, franz, patrick];
             engine.initBracket(players, initBracketCallback);
-            engine.reportWin(1, 0, 2, groups, reportWinSpy);
-            engine.reportWin(2, 0, 2, groups, reportWinSpy);
+            engine.reportWin(1, 0, 2, groups, true, reportWinSpy);
+            engine.reportWin(2, 0, 2, groups, true, reportWinSpy);
             //action
-            engine.reportWin(matchToReport, 0, 2, groups, reportWinSpy);
+            engine.reportWin(matchToReport, 0, 2, groups, true, reportWinSpy);
             //assert
             assert.deepEqual(groups[1].matches[5].player1, expectedPlayer1);
             assert.deepEqual(groups[1].matches[5].player2, expectedPlayer2);
@@ -175,11 +175,11 @@ describe('SimpleGSLGroups - reportwin', function () {
             var reportWinSpy = sinon.spy();
             var players = [john, jane, bob, alice, cole, peter, franz, patrick];
             engine.initBracket(players, initBracketCallback);
-            engine.reportWin(1, 0, 2, groups, reportWinSpy);
-            engine.reportWin(2, 0, 2, groups, reportWinSpy);
-            engine.reportWin(3, 0, 2, groups, reportWinSpy);
+            engine.reportWin(1, 0, 2, groups, true, reportWinSpy);
+            engine.reportWin(2, 0, 2, groups, true, reportWinSpy);
+            engine.reportWin(3, 0, 2, groups, true, reportWinSpy);
             //action
-            engine.reportWin(4, 0, 2, groups, reportWinSpy);
+            engine.reportWin(4, 0, 2, groups, true, reportWinSpy);
             //assert
             assert.deepEqual(groups[1].matches[5].player1, alice);
             assert.deepEqual(groups[1].matches[5].player2, jane);
@@ -195,9 +195,9 @@ describe('SimpleGSLGroups - reportwin', function () {
             var reportWinSpy = sinon.spy();
             var players = [john, jane, bob, alice, cole, peter, franz, patrick];
             engine.initBracket(players, initBracketCallback);
-            engine.reportWin(matchNumberToTest, 0, 2, groups, reportWinSpy);
+            engine.reportWin(matchNumberToTest, 0, 2, groups, true, reportWinSpy);
             //action
-            engine.reportWin(matchNumberToCheck, 0, 2, groups, reportWinSpy);
+            engine.reportWin(matchNumberToCheck, 0, 2, groups, true, reportWinSpy);
             //assert
             assert.equal(reportWinSpy.getCall(1).args[0].message, 'previousMatchesNotComplete');
         }
@@ -223,11 +223,11 @@ describe('SimpleGSLGroups - reportwin', function () {
             var reportWinSpy = sinon.spy();
             var players = [john, jane, bob, alice, cole, peter, franz, patrick];
             engine.initBracket(players, initBracketCallback);
-            engine.reportWin(1, 0, 2, groups, reportWinSpy);
-            engine.reportWin(2, 0, 2, groups, reportWinSpy);
-            engine.reportWin(3, 0, 2, groups, reportWinSpy);
+            engine.reportWin(1, 0, 2, groups, true, reportWinSpy);
+            engine.reportWin(2, 0, 2, groups, true, reportWinSpy);
+            engine.reportWin(3, 0, 2, groups, true, reportWinSpy);
             //action
-            engine.reportWin(5, 0, 2, groups, reportWinSpy);
+            engine.reportWin(5, 0, 2, groups, true, reportWinSpy);
             //assert
             assert.equal(reportWinSpy.getCall(3).args[0].message, 'previousMatchesNotComplete');
         });
@@ -237,11 +237,11 @@ describe('SimpleGSLGroups - reportwin', function () {
             var reportWinSpy = sinon.spy();
             var players = [john, jane, bob, alice, cole, peter, franz, patrick];
             engine.initBracket(players, initBracketCallback);
-            engine.reportWin(1, 0, 2, groups, reportWinSpy);
-            engine.reportWin(2, 0, 2, groups, reportWinSpy);
-            engine.reportWin(4, 0, 2, groups, reportWinSpy);
+            engine.reportWin(1, 0, 2, groups, true, reportWinSpy);
+            engine.reportWin(2, 0, 2, groups, true, reportWinSpy);
+            engine.reportWin(4, 0, 2, groups, true, reportWinSpy);
             //action
-            engine.reportWin(5, 0, 2, groups, reportWinSpy);
+            engine.reportWin(5, 0, 2, groups, true, reportWinSpy);
             //assert
             assert.equal(reportWinSpy.getCall(3).args[0].message, 'previousMatchesNotComplete');
         });
@@ -251,11 +251,59 @@ describe('SimpleGSLGroups - reportwin', function () {
             var reportWinSpy = sinon.spy();
             var players = [john, jane, bob, alice, cole, peter, franz, patrick];
             engine.initBracket(players, initBracketCallback);
-            engine.reportWin(1, 0, 2, groups, reportWinSpy);
+            engine.reportWin(1, 0, 2, groups, true, reportWinSpy);
             //action
-            engine.reportWin(5, 0, 2, groups, reportWinSpy);
+            engine.reportWin(5, 0, 2, groups, true, reportWinSpy);
             //assert
             assert.equal(reportWinSpy.getCall(1).args[0].message, 'previousMatchesNotComplete');
+        });
+
+    });
+    describe('Continuous reporting', function () {
+        it('should not flag a match as complete nor update win / loss scores if relevant flag is not set', function () {
+            //setup
+            var reportWinSpy = sinon.spy();
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, initBracketCallback);
+            //action
+            engine.reportWin(1, 0, 2, groups, false, reportWinSpy);
+            //assert
+            assert.equal(groups[1].matches[1].complete, false);
+            assert.equal(groups[1].matches[1].player1.winCount, 0);
+            assert.equal(groups[1].matches[1].player1.win, 0);
+            assert.equal(groups[1].matches[1].player1.lossCount, 0);
+            assert.equal(groups[1].matches[1].player1.loss, 0);
+            assert.equal(groups[1].matches[1].player2.winCount, 0);
+            assert.equal(groups[1].matches[1].player2.win, 0);
+            assert.equal(groups[1].matches[1].player2.lossCount, 0);
+            assert.equal(groups[1].matches[1].player2.loss, 0);
+        });
+
+        it('should not seed players in upcoming matches if relevant flag is not set', function () {
+            //setup
+            var reportWinSpy = sinon.spy();
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, initBracketCallback);
+            //action
+            engine.reportWin(1, 0, 2, groups, false, reportWinSpy);
+            //assert
+            assert.equal(groups[1].matches[3].player1, null);
+            assert.equal(groups[1].matches[4].player1, null);
+            assert.equal(groups[1].matches[3].player2, null);
+            assert.equal(groups[1].matches[4].player2, null);
+        });
+
+        it('should allow reporting a match with no decisive scores if matchComplete flag is false', function(){
+            //setup
+            var reportWinSpy = sinon.spy();
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, initBracketCallback);
+            //action
+            engine.reportWin(1, 2, 2, groups, false, reportWinSpy);
+            //assert
+            assert.equal(groups[1].matches[1].complete, false);
+            assert.equal(groups[1].matches[1].score1, 2);
+            assert.equal(groups[1].matches[1].score2, 2);
         });
 
     });
@@ -333,7 +381,7 @@ describe('SimpleGSLGroups - reportwin', function () {
             sinon.spy(engine, 'updatePlayerInGroupList');
             engine.initBracket(players, initBracketCallback);
             //action
-            engine.reportWin(1, 2, 0, groups, reportWinSpy);
+            engine.reportWin(1, 2, 0, groups, true, reportWinSpy);
             //assert
             assert.equal(engine.updatePlayersScores.calledOnce, true);
             assert.equal(engine.updatePlayerInGroupList.calledTwice, true);
