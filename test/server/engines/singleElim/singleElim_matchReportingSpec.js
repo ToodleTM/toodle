@@ -124,6 +124,25 @@ describe('SingleElim - Match reporting', function () {
             });
         });
 
+        describe('unreporting a forfeit', function(){
+           it('should reset the "forfeit" flag and winner property of a match', function(){
+               //setup
+               engine.initBracket([john, jane, bob, alice], callbackSpy);
+               actualBracket[1].score1 = 2;
+               actualBracket[1].score2 = 0;
+               actualBracket[1].complete = true;
+               actualBracket[3].player1 = john;
+               actualBracket[1].forfeit = true;
+               actualBracket[1].winner = 1;
+               //action
+               engine.unreport(1, actualBracket, callbackSpy);
+               //assert
+               var spyCallParam = callbackSpy.getCall(0).args[1];
+               assert.equal(spyCallParam[1].forfeit, null);
+               assert.equal(spyCallParam[1].winner, null);
+           });
+        });
+
     });
     describe('Report match', function () {
         it('should update next match with match winner', function () {

@@ -168,13 +168,22 @@ angular.module('toodleApp').controller('ModalReportCtrl', function ($scope, $mod
     $scope.score1 = $scope.firstGameToReport.score1? $scope.firstGameToReport.score1 : 0;
     $scope.score2 = $scope.firstGameToReport.score2 ? $scope.firstGameToReport.score2 : 0;
     $scope.matchComplete = false;
+    $scope.forfeitSlot = null;
 
     $scope.reportMatch = function () {
-        $modalInstance.close([$scope.score1, $scope.score2, $scope.scoreIsFinal && $scope.matchComplete]);
+        $modalInstance.close([$scope.score1, $scope.score2, $scope.scoreIsFinal && $scope.matchComplete, $scope.forfeitSlot]);
     };
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
+    };
+
+    $scope.toggleForfeit = function(slotNumber){
+        if($scope.forfeitSlot && $scope.forfeitSlot === slotNumber) {
+            $scope.forfeitSlot = null;
+        } else {
+            $scope.forfeitSlot = slotNumber;
+        }
     };
 
     $scope.isScoreFinal = function () {

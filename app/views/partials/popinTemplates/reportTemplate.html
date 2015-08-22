@@ -10,17 +10,32 @@
         <legend translate="admin.actions.reporting.describeReport"></legend>
         <fieldset>
             <div class="row">
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-6 {{forfeitSlot === 1 ? 'forfeitPlayer' : ''}}">
                     <label class="control-label" for="score1"> {{firstGameToReport.player1.name}} <span
-                            translate="admin.actions.reporting.playerScore"></span></label>
-                    <input type="tel" id="score1" ng-model="score1" class="form-control"
-                           ng-change="isScoreFinal()"/>
+                            translate="admin.actions.reporting.playerScore"></span> <span ng-if="forfeitSlot === 1" translate="admin.actions.reporting.forfeit"></span></span></label>
+
+                    <div class="input-group">
+                        <input type="tel" id="score1" ng-model="score1" ng-change="isScoreFinal()" type="text"
+                               class="form-control" ng-disabled="forfeitSlot">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="toggleForfeit(1)"><span class="glyphicon glyphicon-ban-circle"></span></button>
+      </span>
+                    </div>
+
 
                 </div>
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-6 {{forfeitSlot === 2 ? 'forfeitPlayer' : ''}}">
                     <label class="control-label" for="score2"> {{firstGameToReport.player2.name}} <span
-                            translate="admin.actions.reporting.playerScore"></span></label>
-                    <input type="tel" id="score2" ng-model="score2" class="form-control" ng-change="isScoreFinal()"/>
+                            translate="admin.actions.reporting.playerScore"></span> <span ng-if="forfeitSlot === 2"
+                                                                                          translate="admin.actions.reporting.forfeit"></span></label>
+
+                    <div class="input-group">
+                        <input type="tel" id="score2" ng-model="score2" ng-change="isScoreFinal()" type="text"
+                               class="form-control" ng-disabled="forfeitSlot">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="toggleForfeit(2)"><span class="glyphicon glyphicon-ban-circle"></span></button>
+      </span>
+                    </div>
                 </div>
                 <input type="hidden" ng-model="firstGameToReport.number">
             </div>

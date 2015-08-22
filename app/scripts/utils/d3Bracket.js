@@ -21,9 +21,11 @@ function insertNodes(currentNode, bracket) {
     result.name = currentNode.number;
     result.parent = currentNode.next || null;
     result.complete = currentNode.complete;
+    result.forfeit = currentNode.forfeit;
+    result.winner = currentNode.winner;
     result.canReport = !currentNode.complete && _.every(previousMatches, function (item) {
-        return item.complete;
-    });
+            return item.complete;
+        });
     result.defwin = currentNode.defwin;
     result.score1 = currentNode.score1;
     result.score2 = currentNode.score2;
@@ -58,8 +60,9 @@ var TEXT_IN_NODE_VALIGN_TOP = -5;
 var TEXT_IN_NODE_VALIGN_BOTTOM = 15;
 var NODE_FILL_COLOR = '#fff';
 var NODE_INNER_SEPARATION_COLOR = '#ddd';
-var NODE_OUTER_COLOR_FINISHED = '#8c8';
-var NODE_OUTER_COLOR_ONGOING = 'orange';
+var NODE_OUTER_COLOR_FINISHED = '#096';
+var NODE_OUTER_COLOR_ONGOING = '#09f';
+var NODE_OUTER_COLOR_FORFEIT = '#f96';
 var NODE_OUTER_COLOR = '#ccd';
 
 var TREE_LEVELS_HORIZONTAL_DEPTH = 300;
@@ -68,7 +71,7 @@ var TOURNAMENT_PRIVILEGES_ALL = 3;
 var TOURNAMENT_PRIVILEGES_REPORT_ONLY = 2;
 
 D3Bracket.prototype.chooseOuterNodeColor = function (d) {
-    return (d.complete ? NODE_OUTER_COLOR_FINISHED :
+    return (d.forfeit ? NODE_OUTER_COLOR_FORFEIT : d.complete ? NODE_OUTER_COLOR_FINISHED :
         d.canReport ? NODE_OUTER_COLOR_ONGOING : NODE_OUTER_COLOR);
 };
 
@@ -124,46 +127,54 @@ D3Bracket.prototype.drawSingleNode = function (nodeEnter, lineFunction, reportin
         .attr('stroke', NODE_INNER_SEPARATION_COLOR)
         .attr('stroke-width', 1);
 
-        nodeEnter.append('svg:image')
-            .attr('class', 'circle')
-            .attr('xlink:href', function (d) {
-                return self.getReportingButtonIcon(d, reportingRights);
-            })
-            .attr('id', function (d) {
-                return 'matchNumber-' + d.name;
-            })
-            .attr('x', NODE_WIDTH + 'px' )
-            .attr('y', '-10px')
-            .attr('width', '20px')
-            .attr('height', '20px')
-            .style('cursor', 'pointer')
-            .on('click', function (d) {
-                if (playerCanAtLeastReport(d, reportingRights) || playerCanReportAndUnreport(d, reportingRights)) {
-                    self.triggerReportingEvent(d, reportingTrigger, unreportingTrigger);
-                }
-            });
+    nodeEnter.append('svg:image')
+        .attr('class', 'circle')
+        .attr('xlink:href', function (d) {
+            return self.getReportingButtonIcon(d, reportingRights);
+        })
+        .attr('id', function (d) {
+            return 'matchNumber-' + d.name;
+        })
+        .attr('x', NODE_WIDTH + 'px')
+        .attr('y', '-10px')
+        .attr('width', '20px')
+        .attr('height', '20px')
+        .style('cursor', 'pointer')
+        .on('click', function (d) {
+            if (playerCanAtLeastReport(d, reportingRights) || playerCanReportAndUnreport(d, reportingRights)) {
+                self.triggerReportingEvent(d, reportingTrigger, unreportingTrigger);
+            }
+        });
 };
 D3Bracket.prototype.firstPlayerToSwapPosition = null;
 
-D3Bracket.prototype.selectPlayerToSwap = function(node, swapCallback, slot1){
-    var playerSlot = slot1? 'player1':'player2';
+D3Bracket.prototype.selectPlayerToSwap = function (node, swapCallback, slot1) {
+    var playerSlot = slot1 ? 'player1' : 'player2';
     var currentPlayer = node[playerSlot];
     var swapIcon = '/images/swapPlayers.png';
     var selectedIcon = '/images/selectedPlayer.png';
     var clickable = '/images/clickable.png';
     var clicked = '/images/clicked.png';
-    var slotNumber = slot1? 1 : 2;
-    if(!this.firstPlayerToSwapPosition){
-        this.firstPlayerToSwapPosition = {number:node.name, isPlayer1:slot1, name:currentPlayer? currentPlayer.name:null};
-        $('#matchNumber-'+node.name+'-'+slotNumber).attr('href', selectedIcon);
-        $('#clickable-' + node.name +'-'+ slotNumber).attr('href', clicked);
+    var slotNumber = slot1 ? 1 : 2;
+    if (!this.firstPlayerToSwapPosition) {
+        this.firstPlayerToSwapPosition = {
+            number: node.name,
+            isPlayer1: slot1,
+            name: currentPlayer ? currentPlayer.name : null
+        };
+        $('#matchNumber-' + node.name + '-' + slotNumber).attr('href', selectedIcon);
+        $('#clickable-' + node.name + '-' + slotNumber).attr('href', clicked);
     } else {
-        if(this.firstPlayerToSwapPosition.number === node.name && this.firstPlayerToSwapPosition.isPlayer1 === slot1){
+        if (this.firstPlayerToSwapPosition.number === node.name && this.firstPlayerToSwapPosition.isPlayer1 === slot1) {
             this.firstPlayerToSwapPosition = null;
-            $('#matchNumber-'+node.name+'-'+slotNumber).attr('href', swapIcon);
+            $('#matchNumber-' + node.name + '-' + slotNumber).attr('href', swapIcon);
             $('#clickable-' + node.name + '-' + slotNumber).attr('href', clickable);
         } else {
-            var secondPlayerToSwapPosition = {number:node.name, isPlayer1:slot1, name:currentPlayer? currentPlayer.name:null};
+            var secondPlayerToSwapPosition = {
+                number: node.name,
+                isPlayer1: slot1,
+                name: currentPlayer ? currentPlayer.name : null
+            };
             swapCallback([this.firstPlayerToSwapPosition, secondPlayerToSwapPosition]);
             this.firstPlayerToSwapPosition = null;
         }
@@ -193,13 +204,13 @@ D3Bracket.prototype.drawPreconfigureNode = function (nodeEnter, lineFunction, sw
         .attr('stroke', NODE_INNER_SEPARATION_COLOR)
         .attr('stroke-width', 1);
 
-        var swapIcon = '/images/swapPlayers.png';
+    var swapIcon = '/images/swapPlayers.png';
 
     nodeEnter.append('svg:image')
         .attr('class', 'circle')
         .attr('xlink:href', swapIcon)
         .attr('id', function (d) {
-            return 'matchNumber-' + d.name+'-1';
+            return 'matchNumber-' + d.name + '-1';
         })
         .attr('x', (NODE_WIDTH - 7) + 'px')
         .attr('y', '-18px')
@@ -214,7 +225,7 @@ D3Bracket.prototype.drawPreconfigureNode = function (nodeEnter, lineFunction, sw
         .attr('class', 'circle')
         .attr('xlink:href', swapIcon)
         .attr('id', function (d) {
-            return 'matchNumber-' + d.name+'-2';
+            return 'matchNumber-' + d.name + '-2';
         })
         .attr('x', (NODE_WIDTH - 7) + 'px')
         .attr('y', '3px')
@@ -247,13 +258,26 @@ D3Bracket.prototype.getIconToShow = function (d, player1) {
     return '';
 };
 
-D3Bracket.prototype.getFontWeightForPlayerName = function (matchCompleted, playerScore, opponentScore) {
+D3Bracket.prototype.getFontWeightForPlayerName = function (node) {
+    var matchCompleted = node.complete,
+        playerScore = node.playerScore,
+        opponentScore = node.opponentScore,
+        forfeit = node.forfeit,
+        winner = node.winner,
+        currentSlot = node.currentSlot,
+        valueToReturn = '';
     if (matchCompleted) {
-        if (playerScore > opponentScore) {
-            return '900';
+        if (forfeit) {
+            if(winner === currentSlot){
+                valueToReturn = '900';
+            }
+        } else {
+            if (playerScore > opponentScore) {
+                valueToReturn = '900';
+            }
         }
     }
-    return '';
+    return valueToReturn;
 };
 
 function appendTextToNode(node, textVAlign) {
@@ -279,21 +303,32 @@ D3Bracket.prototype.drawFirstPlayerNameInNode = function (nodes, callback, preco
             return that.getTextToDraw(d.player1, d.score1);
         })
         .style('font-weight', function (d) {
-            return that.getFontWeightForPlayerName(d.complete, d.score1, d.score2);
+            return that.getFontWeightForPlayerName({
+                complete: d.complete,
+                playerScore: d.score1,
+                opponentScore: d.score2,
+                forfeit: d.forfeit, winner: d.winner,currentSlot:1
+            });
         })
-        .attr('id', function(d){
-            return 'player1-for-match-'+ d.name;
+        .style('font-style', function (d) {
+            return d.winner !== 1 && d.forfeit ? 'italic' : '';
+        })
+        .style('text-decoration', function (d) {
+            return d.winner !== 1 && d.forfeit ? 'line-through' : '';
+        })
+        .attr('id', function (d) {
+            return 'player1-for-match-' + d.name;
         });
     nodes.append('svg:image')
         .attr('xlink:href', '/images/clickable.png')
-        .attr('id', function(d){
-            return 'clickable-' + d.name+'-1';
+        .attr('id', function (d) {
+            return 'clickable-' + d.name + '-1';
         })
         .attr('x', '0px')
         .attr('y', '-20px')
         .attr('width', '150px')
         .attr('height', '20px')
-        .attr('cursor', function(){
+        .attr('cursor', function () {
             return preconfigureMode ? 'pointer' : 'crosshair';
         })
         .on('click', function (d) {
@@ -323,10 +358,23 @@ D3Bracket.prototype.drawSecondPlayerNameInNode = function (nodes, callback, prec
             return that.getTextToDraw(d.player2, d.score2);
         })
         .style('font-weight', function (d) {
-            return that.getFontWeightForPlayerName(d.complete, d.score2, d.score1);
+            return that.getFontWeightForPlayerName({
+                complete: d.complete,
+                playerScore: d.score2,
+                opponentScore: d.score1,
+                forfeit: d.forfeit,
+                winner: d.winner,
+                currentSlot:2
+            });
         })
-        .attr('id', function(d){
-            return 'player2-for-match-'+ d.name;
+        .style('font-style', function (d) {
+            return d.winner !== 2 && d.forfeit ? 'italic' : '';
+        })
+        .style('text-decoration', function (d) {
+            return d.winner !== 2 && d.forfeit ? 'line-through' : '';
+        })
+        .attr('id', function (d) {
+            return 'player2-for-match-' + d.name;
         });
 
     nodes.append('svg:image')
@@ -418,8 +466,8 @@ D3Bracket.prototype.drawLinesBetweenNodes = function (svg, links, playerToHighli
         .interpolate('linear');
     link = this.markHighlightedNodes(link, playerToHighlight);
     link.enter().insert('path', 'g')
-        .attr('id', function(d){
-            return 'linkfrom-'+ d.source.name+'-to-'+ d.target.name;
+        .attr('id', function (d) {
+            return 'linkfrom-' + d.source.name + '-to-' + d.target.name;
         })
         .attr('class', function (d) {
             if (d.source.highlight && d.target.highlight) {
@@ -477,8 +525,8 @@ D3Bracket.prototype.setViewDimensions = function (bracket) {
     var depth = Math.log(numNodes + 1) / Math.log(2);
     this.WIDTH = 300 * Math.round(depth);
 
-    var baseHeight = NODE_HEIGHT+5;
-    var numberOfLeaves = numNodes? numNodes/2 +1 : 0;
+    var baseHeight = NODE_HEIGHT + 5;
+    var numberOfLeaves = numNodes ? numNodes / 2 + 1 : 0;
     var numberOfSpacesBetweenMatchSlots = Math.floor(numberOfLeaves / 2);
     this.HEIGHT = (numberOfLeaves + numberOfSpacesBetweenMatchSlots) * baseHeight;
 };
@@ -502,7 +550,7 @@ D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playe
     var margin = {top: 0, right: 0, bottom: 0, left: 0};
     var svg = this.appendSvgCanvas(margin, d3);
     var node = this.translateOrigin(this.giveAnIdToEachNode(svg, nodes));
-    if(preconfigureMode){
+    if (preconfigureMode) {
         this.drawPreconfigureNode(node, this.drawLine(d3), function (d) {
             controllerReference.swapPlayers(d);
         });
@@ -519,9 +567,9 @@ D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playe
     this.drawLinesBetweenNodes(svg, links, playerToHighlight);
 };
 
-D3Bracket.prototype.render = function(tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode){
+D3Bracket.prototype.render = function (tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode) {
     var bracketHtml = document.getElementById('bracket');
-    if(bracketHtml){
+    if (bracketHtml) {
         document.getElementById('bracket').innerHTML = '';
         this.drawBracket(tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode);
     }

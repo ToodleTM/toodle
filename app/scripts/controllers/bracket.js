@@ -79,7 +79,12 @@ angular.module('toodleApp')
                 $scope.score1 = scores[0];
                 $scope.score2 = scores[1];
                 $scope.matchComplete = scores[2];
-                $scope.reportMatch();
+                $scope.forfeitSlot = scores[3];
+                if($scope.forfeitSlot){
+                    $scope.forfeit();
+                } else {
+                    $scope.reportMatch();
+                }
             }, function () {
             });
         };
@@ -118,6 +123,28 @@ angular.module('toodleApp')
                 $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
                 updateSwapPlayersForm(data);
+                $rootScope.$emit('updatedMatch', data);
+            }).error(function (data) {
+                $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
+                $scope.tourneyReportingKo = true;
+            });
+        };
+
+        $scope.forfeit = function () {
+            $scope.tourneyReportingKo = false;
+            $http.post('/api/tournament/forfeitMatch/', {
+                tournamentId: $scope.tournamentId,
+                signupID: $scope.tournamentInfo.signupID,
+                number: $scope.firstGameToReport.name,
+                score1: $scope.score1,
+                score2: $scope.score2,
+                forfeitSlot: $scope.forfeitSlot
+            }).success(function (data) {
+                $scope.tournamentInfo = data;
+                $scope.score1 = 0;
+                $scope.score2 = 0;
+                $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
+                $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
                 $rootScope.$emit('updatedMatch', data);
             }).error(function (data) {
                 $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;

@@ -535,11 +535,11 @@ describe('D3ToBracket renderer', function () {
         }
 
         it('should use a green border color if the match is finished', function () {
-            testColor({complete: true}, '#8c8');
+            testColor({complete: true}, '#096');
         });
 
         it('should use an orange border color if the match is ongoing', function () {
-            testColor({canReport: true}, 'orange');
+            testColor({canReport: true}, '#09f');
         });
 
         it('should use a default border color if the match is upcoming', function () {
@@ -547,7 +547,11 @@ describe('D3ToBracket renderer', function () {
         });
 
         it('should display a green border if for some reason the match is "finished"_and_ "ongoing" (should not happen)', function () {
-            testColor({complete: true, canReport: true}, '#8c8');
+            testColor({complete: true, canReport: true}, '#096');
+        });
+
+        it('should display a green border if for some reason the match is "finished"_and_ "ongoing" (should not happen)', function () {
+            testColor({forfeit: true}, '#f96');
         });
     });
 
@@ -693,12 +697,36 @@ describe('D3ToBracket renderer', function () {
         });
         it('should return 900 for player 1 if match is complete and player 1 has won', function () {
             //setup
+            var node = {complete: true, playerScore: 1, opponentScore: 0};
             //action
-            var actual = d3Bracket.getFontWeightForPlayerName(true, 1, 0);
+            var actual = d3Bracket.getFontWeightForPlayerName(node);
             //assert
             assert.equal(actual, '900');
         });
-
+        it('should return 900 if match is flagged as "forfeit" and currentPlayer is advancing', function(){
+            //setup
+            var node = {complete: true, forfeit:true, winner:1, playerScore: 1, opponentScore: 1, currentSlot:1};
+            //action
+            var actual = d3Bracket.getFontWeightForPlayerName(node);
+            //assert
+            assert.equal(actual, '900');
+        });
+        it('should return an empty string if match is flagged as "forfeit" and currentPlayer is _not_ advancing', function () {
+            //setup
+            var node = {complete: true, forfeit: true, winner: 1, playerScore: 1, opponentScore: 1, currentSlot: 2};
+            //action
+            var actual = d3Bracket.getFontWeightForPlayerName(node);
+            //assert
+            assert.equal(actual, '');
+        });
+        it('should return an empty string if player has a better score than his opponent but has forfeit the tournament', function () {
+            //setup
+            var node = {complete: true, forfeit: true, winner: 1, playerScore: 2, opponentScore: 1, currentSlot: 2};
+            //action
+            var actual = d3Bracket.getFontWeightForPlayerName(node);
+            //assert
+            assert.equal(actual, '');
+        });
     });
 
     describe('mark highlighed nodes', function () {
