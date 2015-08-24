@@ -25,7 +25,11 @@ beforeEach(function () {
     engine = new SimpleGSLGroups();
     groups = {};
     callbackSpy = sinon.spy(function (err, data) {
-        actualBracket = JSON.parse(JSON.stringify(data));
+        if (data) {
+            actualBracket = JSON.parse(JSON.stringify(data));
+        } else {
+            actualBracket = null;
+        }
     });
 
     john = {name: 'john'};

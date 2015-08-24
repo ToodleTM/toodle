@@ -17,7 +17,11 @@ var patrick = {name: 'patrick'};
 beforeEach(function () {
     engine = new SingleElim();
     callbackSpy = sinon.spy(function (err, data) {
-        actualBracket = data;
+        if(data){
+            actualBracket = JSON.parse(JSON.stringify(data));
+        } else {
+            actualBracket = null;
+        }
     });
 });
 
@@ -33,7 +37,7 @@ describe('SingleElim - Match reporting', function () {
             //action
             engine.unreport(1, actualBracket, callbackSpy);
             //assert
-            var spyCallParam = callbackSpy.getCall(0).args[1];
+            var spyCallParam = callbackSpy.getCall(1).args[1];
             assert.equal(Object.keys(spyCallParam).length, 3);
             assert.equal(spyCallParam[3].player1, null);
             assert.equal(spyCallParam[3].player2, null);
@@ -311,6 +315,17 @@ describe('SingleElim - Match reporting', function () {
             assert.equal(actualBracket[1].complete, true);
             assert.equal(actualBracket[2].complete, true);
             assert.equal(actualBracket[3].complete, false);
+        });
+
+        it('should return an error if target match is already forfeit', function () {
+            //setup
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, callbackSpy);
+            engine.forfeit(1, 1, 2, 0, actualBracket, callbackSpy);
+            //action
+            engine.reportWin(1, 2, 0, actualBracket, true, callbackSpy);
+            //assert
+            assert.deepEqual(callbackSpy.getCall(2).args[0], {message: 'alreadyReported'});
         });
 
         //il faut aussi un test pour le dernier match qui ne se report pas tout à fait de la même manière que les autres

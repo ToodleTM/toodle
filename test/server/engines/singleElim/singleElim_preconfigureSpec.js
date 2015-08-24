@@ -17,7 +17,11 @@ var patrick = {name: 'patrick'};
 beforeEach(function () {
     engine = new SingleElim();
     callbackSpy = sinon.spy(function (err, data) {
-        actualBracket = data;
+        if (data) {
+            actualBracket = JSON.parse(JSON.stringify(data));
+        } else {
+            actualBracket = null;
+        }
     });
 });
 

@@ -92,27 +92,41 @@ describe('SimpleGSLGroups - reportwin', function () {
             assert.equal(reportWinSpy.getCall(1).args[0].message, 'alreadyReported');
         });
     });
+    describe('player reporting', function(){
+        it('should update match information when reporting', function () {
+            //setup
+            var reportWinSpy = sinon.spy();
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, initBracketCallback);
+            //action
+            engine.reportWin(1, 2, 0, groups, true, reportWinSpy);
+            //assert
+            assert.equal(reportWinSpy.getCall(0).args[0], null);
+            assert.deepEqual(reportWinSpy.getCall(0).args[1][1].matches[1], {
+                score1: 2,
+                score2: 0,
+                complete: true,
+                round: 1,
+                player1: john,
+                player2: alice,
+                group: 1,
+                number: 1
+            });
+        });
 
-    it('should update match information when reporting', function () {
-        //setup
-        var reportWinSpy = sinon.spy();
-        var players = [john, jane, bob, alice, cole, peter, franz, patrick];
-        engine.initBracket(players, initBracketCallback);
-        //action
-        engine.reportWin(1, 2, 0, groups, true, reportWinSpy);
-        //assert
-        assert.equal(reportWinSpy.getCall(0).args[0], null);
-        assert.deepEqual(reportWinSpy.getCall(0).args[1][1].matches[1], {
-            score1: 2,
-            score2: 0,
-            complete: true,
-            round: 1,
-            player1: john,
-            player2: alice,
-            group: 1,
-            number: 1
+        it('should return an error if target match is already forfeit', function(){
+            //setup
+            var reportWinSpy = sinon.spy();
+            var players = [john, jane, bob, alice, cole, peter, franz, patrick];
+            engine.initBracket(players, initBracketCallback);
+            engine.forfeit(1, 1, 2, 0, groups, reportWinSpy);
+            //action
+            engine.reportWin(1, 2, 0, groups, true, reportWinSpy);
+            //assert
+            assert.deepEqual(reportWinSpy.getCall(1).args[0], {message:'alreadyReported'});
         });
     });
+
 
     describe('player seeding', function () {
         function testPlayerSeedingInUpcomingMatchFromRound1(matchToReport, matchToCheck, expectedPlayer1, expectedPlayer2) {
