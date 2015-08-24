@@ -2,7 +2,8 @@
 var homeAddress = 'http://localhost';
 describe('User having the admin link of a tournament', function () {
     beforeEach(function(){
-        browser.get(homeAddress);
+        browser.driver.get(homeAddress);
+        browser.waitForAngular();
     });
     it('should be able to edit all fields', function () {
         element(by.id('tournamentName')).sendKeys('protractor');

@@ -3,7 +3,8 @@ var homeAddress = 'http://localhost';
 var e2eUtils = require('./e2eUtils.js');
 describe('Start tournament', function () {
     beforeEach(function(){
-        browser.get(homeAddress);
+        browser.driver.get(homeAddress);
+        browser.waitForAngular();
     });
 
     it('Should not allow tournament start if tournament contains no players', function () {

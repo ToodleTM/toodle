@@ -25,7 +25,7 @@ beforeEach(function () {
     engine = new SimpleGSLGroups();
     groups = {};
     callbackSpy = sinon.spy(function (err, data) {
-        actualBracket = data;
+        actualBracket = JSON.parse(JSON.stringify(data));
     });
 
     john = {name: 'john'};
@@ -343,6 +343,22 @@ describe('SimpleGSLGroups - unreportWin', function () {
             assert.equal(unreportSpy.getCall(0).args[1][2].matches[9].player2, null);
             assert.equal(unreportSpy.getCall(0).args[1][2].matches[7].player1Score, null);
             assert.equal(unreportSpy.getCall(0).args[1][2].matches[7].player2Score, null);
+        });
+
+        it('should remove forfeit flags when unreporting a forfeit', function () {
+            //setup
+            var unreportSpy = sinon.spy();
+            engine.initBracket([john, jane, bob, alice, cole, peter, franz, giulietta], initBracketCallback);
+            engine.forfeit(6, 2, 1, 2, groups, function () {
+            });
+            //action
+            engine.unreport(6, groups, unreportSpy);
+            //assert
+            assert.equal(unreportSpy.getCall(0).args[0], null);
+            assert.equal(unreportSpy.getCall(0).args[1][2].matches[6].player1, cole);
+            assert.equal(unreportSpy.getCall(0).args[1][2].matches[6].player2, giulietta);
+            assert.equal(unreportSpy.getCall(0).args[1][2].matches[6].winner, null);
+            assert.equal(unreportSpy.getCall(0).args[1][2].matches[6].forfeit, null);
         });
     });
 });

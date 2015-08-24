@@ -107,13 +107,13 @@ describe('SingleElim - Defwin / forfeit', function () {
             //setup
             engine.initBracket([john, jane, bob, alice], callbackSpy);
             //action
-            engine.forfeit(1, 1, 2, 2, actualBracket, callbackSpy);
+            engine.forfeit(1, 1, 3, 2, actualBracket, callbackSpy);
             //assert
             assert.equal(callbackSpy.getCall(1).args[0], null);
             assert.deepEqual(callbackSpy.getCall(1).args[1][1].complete, true);
             assert.deepEqual(callbackSpy.getCall(1).args[1][1].forfeit, true);
             assert.deepEqual(callbackSpy.getCall(1).args[1][1].winner, 2);
-            assert.deepEqual(callbackSpy.getCall(1).args[1][1].score1, 2);
+            assert.deepEqual(callbackSpy.getCall(1).args[1][1].score1, 3);
             assert.deepEqual(callbackSpy.getCall(1).args[1][1].score2, 2);
         });
     });

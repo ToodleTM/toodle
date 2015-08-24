@@ -24,7 +24,7 @@ beforeEach(function () {
     engine = new SimpleGSLGroups();
     groups = {};
     callbackSpy = sinon.spy(function (err, data) {
-        actualBracket = data;
+        actualBracket = JSON.parse(JSON.stringify(data));
     });
 
     john = {name: 'john'};
@@ -73,23 +73,25 @@ describe('SimpleGSLGroups - getPlayersOrderedByScore', function () {
         assert.equal(getPlayersOrderedByScoreCallback.getCall(0).args[0].message, 'tooFewPlayers');
     });
 
-    it('should return an ordered list of players based on their goal-average (all no-matches)', function () {
+    it('should return an ordered list of players based on their goal-average (matches won)', function () {
         //setup
         var getPlayersOrderedByScoreCallback = sinon.spy();
         var group = {players: [john, cole, patrick, alice]};
-        group.players[3].winCount = 4;
-        group.players[3].lossCount = 0;
-        group.players[2].winCount = 4;
-        group.players[2].lossCount = 2;
-        group.players[0].winCount = 2;
-        group.players[0].lossCount = 4;
-        group.players[1].winCount = 0;
-        group.players[1].lossCount = 4;
+        //john
+        group.players[0].win = 1;
+        group.players[0].loss = 2;
+        //cole
+        group.players[1].win = 2;
+        group.players[1].loss = 1;
+        //patrick
+        group.players[2].loss = 2;
+        //alice
+        group.players[3].win = 2;
         //action
         engine.getPlayersOrderedByScore(group, getPlayersOrderedByScoreCallback);
         //assert
         assert.equal(getPlayersOrderedByScoreCallback.calledOnce, true);
         assert.equal(getPlayersOrderedByScoreCallback.getCall(0).args[0], null);
-        assert.deepEqual(getPlayersOrderedByScoreCallback.getCall(0).args[1], [alice, patrick, john, cole]);
+        assert.deepEqual(getPlayersOrderedByScoreCallback.getCall(0).args[1], [alice, cole, john, patrick]);
     });
 });

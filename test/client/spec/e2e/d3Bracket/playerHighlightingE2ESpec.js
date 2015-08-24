@@ -3,7 +3,8 @@ var homeAddress = 'http://localhost';
 var e2eUtils = require('./../e2eUtils.js');
 var path = require('path');
 beforeEach(function () {
-    browser.get(homeAddress);
+    browser.driver.get(homeAddress);
+    browser.waitForAngular();
 });
 
 function setupTournamentWith4Players() {

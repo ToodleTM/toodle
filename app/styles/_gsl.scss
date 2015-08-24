@@ -1,0 +1,126 @@
+.simple-gsl-global-container {
+  padding-left: 19px;
+  padding-right: 19px;
+}
+
+.group-table-container {
+  display: inline-block;
+}
+
+.group-block {
+  min-width: 275px;
+  margin-right: 4em;
+  margin-bottom: 2em;
+  background-color: #f2f2f2;
+  border: 1px solid gray;
+
+  & .match-winner {
+    font-weight: bold;
+    background-color: #cfc;
+  }
+
+  //var NODE_OUTER_COLOR_FINISHED = '#096';
+  //var NODE_OUTER_COLOR_ONGOING = '#09f';
+  //var NODE_OUTER_COLOR_FORFEIT = '#f96';
+  & .match-forfeiter {
+    background-color: #f96;
+    font-style:italic;
+    text-decoration: line-through;
+    font-weight:normal;
+  }
+
+  & .group-player-line {
+    & td {
+      border: 1px solid gray;
+    }
+
+    & .group-rank {
+      width: 20px;
+      text-align: center;
+    }
+    & .group-player-tag {
+      padding-left: 3px;
+      width: 180px;
+    }
+
+    & .group-player-score {
+      width: 30px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    & .group-player-totals {
+      width: 30px;
+      text-align: center;
+    }
+
+    & .group-player-winner {
+      background-color: #cfc;
+    }
+
+    & .group-player-loser {
+      background-color: #fda;
+    }
+  }
+
+  & .group-title {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid gray;
+  }
+
+  & tr td table.group-matches {
+    width: 100%;
+    & tr {
+      border-bottom: 1px solid gray;
+    }
+    & tr td {
+      &.player1 {
+        padding-right: 3px;
+        border-right: 1px solid gray;
+        width: 120px;
+        text-align: right;
+      }
+
+      &.score1 {
+        text-align: center;
+        border-right: 1px solid gray;
+        width: 15px;
+      }
+
+      &.score2 {
+        text-align: center;
+        width: 15px;
+      }
+
+      &.player2 {
+        padding-left: 3px;
+        border-left: 1px solid gray;
+        width: 115px;
+      }
+
+      & img {
+        top: -4px;
+        right: -8px;
+        height: 22px;
+        width: 22px;
+      }
+
+      & span {
+        position: absolute;
+        top: 25%;
+        cursor: pointer;
+        & .match-report-button {
+          right: -8px;
+        }
+        & .match-unreport-button {
+          right: -6px;
+        }
+      }
+
+      & span {
+        height: 1.5em;
+      }
+    }
+  }
+}

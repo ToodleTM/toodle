@@ -26,7 +26,7 @@ beforeEach(function () {
     engine = new SimpleGSLGroups();
     groups = {};
     callbackSpy = sinon.spy(function (err, data) {
-        actualBracket = data;
+        actualBracket = JSON.parse(JSON.stringify(data));
     });
 
     john = {name: 'john'};
@@ -60,8 +60,8 @@ describe('SimpleGSLGroups - winners', function () {
         //setup
         var winnersCallback = sinon.spy();
         engine.initBracket([john, jane, bob, alice], initBracketCallback);
-        bob.winCount = 1;
-        alice.winCount = 1;
+        bob.win = 1;
+        alice.win = 1;
         groups[1].matches[5].player1 = bob;
         groups[1].matches[5].player2 = alice;
         groups[1].matches[5].complete = true;
@@ -77,8 +77,8 @@ describe('SimpleGSLGroups - winners', function () {
         //setup
         var winnersCallback = sinon.spy();
         engine.initBracket([john, jane, bob, alice, cole, franz, giulietta, peter], initBracketCallback);
-        peter.winCount = 1;
-        franz.winCount = 1;
+        peter.win = 1;
+        franz.win = 1;
         groups[2].matches[10].player1 = peter;
         groups[2].matches[10].player2 = franz;
         groups[2].matches[10].complete = true;

@@ -1,8 +1,11 @@
 'use strict';
 var homeAddress = 'http://localhost';
 describe('Admin', function () {
+    beforeEach(function () {
+        browser.driver.get(homeAddress);
+        browser.waitForAngular();
+    });
     it('should switch the language to french if user selects french in the top menu', function(){
-        browser.get(homeAddress);
         element(by.id('activeLanguage')).click();
 
         element(by.id('language-fr')).click();

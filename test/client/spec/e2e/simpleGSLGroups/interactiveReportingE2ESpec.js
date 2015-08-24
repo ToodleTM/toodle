@@ -5,11 +5,8 @@ var path = require('path');
 
 describe('Match reporting through the interactive bracket', function () {
     beforeEach(function () {
-        browser.get(homeAddress);
-    });
-
-    afterEach(function () {
-        browser.manage().deleteAllCookies();
+        browser.driver.get(homeAddress);
+        browser.waitForAngular();
     });
     function setupTournamentWith4Players() {
         element(by.id('tournamentName')).sendKeys('protractor');
@@ -155,7 +152,7 @@ describe('Match reporting through the interactive bracket', function () {
             checkPlayerRankingsInGroup('player 1', 'player 2', 'player 3', 'player 4');
 
             report2NilForPlayer2('matchNumber-1');
-            checkPlayerRankingsInGroup('player 4', 'player 1', 'player 3', 'player 2');
+            checkPlayerRankingsInGroup('player 4', 'player 2', 'player 3', 'player 1');
 
             report2NilForPlayer2('matchNumber-2');
             checkPlayerRankingsInGroup('player 3', 'player 4', 'player 1', 'player 2');

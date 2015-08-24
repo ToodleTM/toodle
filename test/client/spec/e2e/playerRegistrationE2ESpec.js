@@ -4,7 +4,8 @@ var e2eUtils = require('./e2eUtils.js');
 
 describe('User having the registration URL', function () {
     beforeEach(function(){
-        browser.get(homeAddress);
+        browser.driver.get(homeAddress);
+        browser.waitForAngular();
     });
 
     it('should not allow tournament to start if no players are registered', function(){
@@ -209,7 +210,4 @@ describe('User having the registration URL', function () {
 
         expect(element(by.id('runTournament')).getText()).toEqual('Start brackets');
     });
-
-    //it('should redirect the user to the admin page if tournament was alreadycreated ', function () {
-    //});
 });

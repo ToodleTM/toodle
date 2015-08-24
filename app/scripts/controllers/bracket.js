@@ -18,12 +18,19 @@ angular.module('toodleApp')
                 })) {
                 if (group.players.length === 4) {
                     var orderedList = lodashForApp.sortBy(group.players, function (player) {
-                        return player.lossCount - player.winCount;
+                        if(!player.win){
+                            player.win = 0;
+                        }
+                        if(!player.loss){
+                            player.loss = 0;
+                        }
+                        return player.loss - player.win;
                     });
                     return orderedList;
                 }
+            } else {
+                return group.players;
             }
-            return group.players;
         };
 
         function updateSwapPlayersForm(data) {

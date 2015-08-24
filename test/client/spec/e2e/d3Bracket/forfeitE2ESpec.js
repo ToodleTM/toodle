@@ -5,10 +5,8 @@ var path = require('path');
 
 describe('Match reporting through the interactive bracket', function () {
     beforeEach(function () {
-        browser.get(homeAddress);
-    });
-    afterEach(function () {
-        browser.manage().deleteAllCookies();
+        browser.driver.get(homeAddress);
+        browser.waitForAngular();
     });
     function setupTournamentWith4Players() {
         element(by.id('tournamentName')).sendKeys('protractor');

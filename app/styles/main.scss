@@ -1,4 +1,7 @@
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+@import '_gsl.scss';
+@import '_admin.scss';
+@import '_singleElim.scss';
 
 .modal.fade {
   opacity: 1;
@@ -173,48 +176,6 @@ body {
   border-left: 8px solid transparent;
 }
 
-.playerInList:hover {
-  background-color: #efefef;
-}
-
-.playerInList i {
-  font-size: xx-small;
-  float: right;
-  top: 4px;
-  right: 8px;
-  cursor: pointer;
-}
-
-.playerInListInfo {
-  display: none;
-  float: right;
-  color: red;
-}
-
-.playerInList span span img {
-  margin-top: -4px;
-  margin-right: 8px;
-}
-
-#playersList ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  margin-bottom: 10px;
-}
-
-.playersStaticList {
-  overflow-y: scroll;
-  max-height: 20em;
-  cursor: default;
-}
-
-#playersList ul li {
-  margin: 5px;
-  padding: 5px;
-  width: 100%;
-}
-
 .toodle-header {
   position: relative;
 }
@@ -267,42 +228,9 @@ body {
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0) inset;
 }
 
-.expandedtabs {
-  padding-left: 10px;
-  padding-right: 10px;
-  border: 1px solid #E3E3E3;
-  border-radius: 4px;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset;
-  &.expandedtabs-title {
-    border: 0
-  }
-
-  &.expandedtabs-content {
-    background-color: #fff;
-    border-top: 0;
-  }
-
-  &.expandedtabs-middle {
-    border-bottom: 0;
-  }
-  & #sortablePlayerList {
-    margin-right: 5px;
-  }
-}
-
-.bracket-highlight {
-  fill: none;
-  stroke: green;
-  stroke-width: 3px;
-}
-
 nav.navbar-language-select {
   padding-left: 0;
   margin-right: 15px;
-}
-
-#activeLanguage {
-  //  padding-left: 40px;
 }
 
 nav div {
@@ -447,117 +375,5 @@ nav div {
 
   &.tournament-create {
     position: relative;
-  }
-}
-
-.group-table-container {
-  display: inline-block;
-}
-
-.group-block {
-  min-width: 280px;
-  margin-right: 4em;
-  margin-bottom: 2em;
-  background-color: #f2f2f2;
-  border: 1px solid gray;
-
-  & .match-winner {
-    font-weight: bold;
-    background-color: #cfc;
-  }
-
-  & .group-player-line {
-    & td {
-      border: 1px solid gray;
-    }
-
-    & .group-rank {
-      width: 20px;
-      text-align: center;
-    }
-    & .group-player-tag {
-      padding-left: 3px;
-      width: 180px;
-    }
-
-    & .group-player-score {
-      width: 30px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    & .group-player-totals {
-      width: 30px;
-      text-align: center;
-    }
-
-    & .group-player-winner {
-      background-color: #cfc;
-    }
-
-    & .group-player-loser {
-      background-color: #fda;
-    }
-  }
-
-  & .group-title {
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid gray;
-  }
-
-  & tr td table.group-matches {
-    width: 100%;
-    & tr {
-      border-bottom: 1px solid gray;
-    }
-    & tr td {
-      &.player1 {
-        padding-right: 3px;
-        border-right: 1px solid gray;
-        width: 120px;
-        text-align: right;
-      }
-
-      &.score1 {
-        text-align: center;
-        border-right: 1px solid gray;
-        width: 15px;
-      }
-
-      &.score2 {
-        text-align: center;
-        width: 15px;
-      }
-
-      &.player2 {
-        padding-left: 3px;
-        border-left: 1px solid gray;
-        width: 115px;
-      }
-
-      & img {
-        top: -4px;
-        right: -8px;
-        height: 22px;
-        width: 22px;
-      }
-
-      & span {
-        position: absolute;
-        top: 25%;
-        cursor: pointer;
-        & .match-report-button {
-          right: -8px;
-        }
-        & .match-unreport-button {
-          right: -6px;
-        }
-      }
-
-      & span {
-        height: 1.5em;
-      }
-    }
   }
 }
