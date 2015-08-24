@@ -1,7 +1,7 @@
 'use strict';
 var homeAddress = 'http://localhost';
 describe('User having the admin link of a tournament', function () {
-    beforeEach(function(){
+    beforeEach(function () {
         browser.driver.get(homeAddress);
         browser.waitForAngular();
     });
@@ -29,5 +29,26 @@ describe('User having the admin link of a tournament', function () {
         expect(element(by.xpath('//div[@id="reportRights"]//input[@id="reportRights-0"]')).getAttribute('checked')).toEqual(null);
         expect(element(by.xpath('//div[@id="reportRights"]//input[@id="reportRights-1"]')).getAttribute('checked')).toEqual('true');
         expect(element(by.xpath('//div[@id="reportRights"]//input[@id="reportRights-2"]')).getAttribute('checked')).toEqual(null);
+    });
+
+    it('should display a factions list and allow to register a player with a specific faction', function () {
+        element(by.id('tournamentName')).sendKeys('protractor');
+        element(by.id('registerTournamentButton')).click();
+
+        element(by.id('inputNick')).sendKeys('player 1');
+        element(by.xpath('//select[@name="inputFaction"]')).sendKeys('Starcraft 2 - Terran');
+        element(by.id('registerPlayerGo')).click();
+
+        element(by.id('runTournament')).click();
+        element(by.id('doConfigure')).click();
+
+        element(by.id('displaySettings')).click();
+        element(by.id('playerManagement')).click();
+
+        element(by.id('inputNick')).sendKeys('player 2');
+        element(by.xpath('//select[@name="inputFaction"]')).sendKeys('Starcraft 2 - Zerg');
+        element(by.id('registerPlayerGo')).click();
+        expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li[1]/span/span/img')).getAttribute('src')).toContain('/images/icon-terran.png');
+        expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li[2]/span/span/img')).getAttribute('src')).toContain('/images/icon-zerg.png');
     });
 });

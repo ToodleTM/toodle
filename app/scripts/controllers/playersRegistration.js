@@ -3,7 +3,7 @@
 angular.module('toodleApp')
     .controller('PlayersRegistrationCtrl', function ($rootScope, $scope, $location, $http, $upload, $cookies, $cookieStore, $modal) {
         $scope.tournamentId = $location.$$path.split('/')[2];
-        $scope.nick = '';
+        $scope.inputs = {nick: '', faction: null};
         $scope.playerList = null;
         _paq.push(['setDocumentTitle', 'Admin Page']);
         _paq.push(['trackPageView']);
@@ -69,11 +69,19 @@ angular.module('toodleApp')
                 $scope.tournamentStartDate = $scope.tournamentInfo.startDate;
                 $cookieStore.put('toodle-'+$scope.tournamentInfo.signupID, data._id);
 
-                if ($scope.tournamentInfo.game) {
-                    $http.get('/views/resources/factions.json').success(function (data) {
-                        $scope.factions = data[$scope.tournamentInfo.game];
-                    });
-                }
+                $http.get('/views/resources/factions.json').success(function (factionsMap) {
+                    var factionsArray = [];
+                    for (var key in factionsMap) {
+                        for (var item in factionsMap[key]) {
+                            factionsArray.push({
+                                name: key + ' - ' + factionsMap[key][item],
+                                tracker: factionsMap[key][item].toLowerCase()
+                            });
+                        }
+                    }
+
+                    $scope.factions = factionsArray;
+                });
             })
             .error(function (error, status) {
                 if (status === 404) {
@@ -92,11 +100,6 @@ angular.module('toodleApp')
                     $scope.tournamentInfo = data;
                     $scope.alertMessage = 'admin.update.success';
                     $scope.updateOk = true;
-                    if ($scope.tournamentInfo.game) {
-                        $http.get('/views/resources/factions.json').success(function (data) {
-                            $scope.factions = data[$scope.tournamentInfo.game];
-                        });
-                    }
                     $scope.availableEngines.forEach(function (item) {
                         if (item.name === $scope.tournamentInfo.engine) {
                             $scope.engine = item;
@@ -135,11 +138,11 @@ angular.module('toodleApp')
 
         $scope.addPlayer = function () {
             $scope.hideUpdateAlert();
-            if ($scope.nick) {
+            if ($scope.inputs.nick) {
                 $http.post('/api/tournament/addPlayer/', {
                     'tournamentId': $scope.tournamentInfo._id,
-                    nick: $scope.nick,
-                    faction: $scope.faction
+                    nick: $scope.inputs.nick,
+                    faction: $scope.inputs.faction ? $scope.inputs.faction.tracker : null
                 })
                     .success(function (data) {
                         $scope.tournamentInfo = data;
@@ -158,12 +161,11 @@ angular.module('toodleApp')
                         $scope.updateKo = true;
 
                     });
-                $scope.nick = '';
+                $scope.inputs.nick = '';
             } else {
                 $scope.errorMessage = 'play.register.errors.noEmptyNick';
                 $scope.alertMessage = 'play.register.fail';
                 $scope.updateKo = true;
-
             }
         };
 

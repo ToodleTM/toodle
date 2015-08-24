@@ -17,13 +17,12 @@
                         <div class="form-group col-sm-5">
                             <input type="text" name="inputNick" id="inputNick" class="form-control"
                                    placeholder="{{ 'admin.actions.playerNickPlaceholder' | translate}}"
-                                   ng-model="nick"/>
-
+                                   ng-model="inputs.nick"/>
                         </div>
                         <div class="form-group col-sm-4">
-                            <select name="inputFaction" class="form-control" ng-model="faction"
-                                    ng-options="item for item in factions track by item">
-                                <option value=""> -- Choose a faction --</option>
+                            <select name="inputFaction" class="form-control" ng-model="inputs.faction"
+                                    ng-options="item.name for item in factions track by item.tracker">
+                                <option value="" translate="common.chooseFaction"></option>
                             </select>
                         </div>
                         <div class="form-group col-sm-1">

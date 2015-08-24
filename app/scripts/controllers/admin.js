@@ -111,11 +111,6 @@ angular.module('toodleApp')
                     $scope.tournamentInfo = data;
                     $scope.alertMessage = 'admin.update.success';
                     $scope.tournamentInfo.formStartDate = $scope.tournamentInfo.startDate;
-                    if ($scope.tournamentInfo.game) {
-                        $http.get('/views/resources/factions.json').success(function (data) {
-                            $scope.factions = data[$scope.tournamentInfo.game];
-                        });
-                    }
                     $scope.availableEngines.forEach(function (item) {
                         if (item.name === $scope.tournamentInfo.engine) {
                             $scope.tournamentInfo.engineObject = item;
