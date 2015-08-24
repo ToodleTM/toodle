@@ -88,7 +88,6 @@ angular.module('toodleApp')
                 updateMatchesToUnreport();
             })
             .error(function (error, status) {
-                $('#content *').hide();
                 if (status === 404) {
                     $scope.error = 'noSuchTournament';
                 } else {

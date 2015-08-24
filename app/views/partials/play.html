@@ -1,12 +1,12 @@
 <div ng-include="'partials/navbar'"></div>
 
-<div id="notFound" class="alert alert-danger ng-binding" role="alert" hidden="" style="display: none;">
+<div ng-show="notFound" id="notFound" class="alert alert-danger ng-binding" role="alert" hidden="" style="display: none;">
     <button type="button" class="close alert-fix-close" ng-click="hideAlerts()" style="display: none;"><span
             aria-hidden="true" style="display: none;">×</span><span class="sr-only" style="display: none;">Close</span>
     </button>
     <span translate="play.notFound"></span>
 </div>
-<div id="content">
+<div id="content" ng-show="!hideContent">
     <div class="well clearwell">
         <h1><a href="#"
                ng-click="toggleCollapse()" id="displaySettings"><span translate="play.header.tournament"></span>
@@ -69,13 +69,13 @@
                                 </div>
                             </form>
                         </div>
-                        <div id="registrationOk" class="alert alert-success alert-dismissible app-alert" role="alert"
+                        <div ng-show="registrationOkDisplay" id="registrationOk" class="alert alert-success alert-dismissible app-alert" role="alert"
                              hidden>
                             <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                                     aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                             <span translate="play.register.success"></span>
                         </div>
-                        <div id="registrationKo" class="alert alert-danger alert-dismissible app-alert" role="alert"
+                        <div ng-show="registrationKoDisplay" id="registrationKo" class="alert alert-danger alert-dismissible app-alert" role="alert"
                              hidden>
                             <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                                     aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>

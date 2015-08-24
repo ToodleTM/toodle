@@ -4,7 +4,7 @@ exports.config = {
     capabilities:{
         'browserName':'firefox',
         'shardTestFiles':true,
-        'maxInstances':2
+        'maxInstances':1
     },
     seleniumArgs: ['-browserTimeout=60'],
     jasmineNodeOpts: {
