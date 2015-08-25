@@ -81,8 +81,8 @@ angular.module('toodleApp')
 
         $scope.createDefaultBracketAndGoBack = function () {
             $http.post('api/tournament/genBracketForTournament', {tournamentId: $scope.tournamentId}).success(function (data) {
-                $scope.tournamentInfo.bracket = data;
-                $window.location = $location.$$path.replace('/preconfigure', '');
+                $scope.tournamentInfo = data;
+                $scope.renderBracket();
             }).error(function () {
 
             });

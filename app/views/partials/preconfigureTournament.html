@@ -33,11 +33,11 @@
                 <span class="col-sm-8"></span>
 
                 <button ng-click="createDefaultBracketAndGoBack()"
-                        class="col-sm-2 btn btn-default"
-                        title="{{ 'admin.actions.run.runningTooltip' | translate }}" translate="preconfigure.cancel">
+                        class="col-sm-2 btn btn-default" id="reset"
+                        title="{{ 'admin.actions.run.runningTooltip' | translate }}" translate="preconfigure.reset">
                 </button>
                 <button ng-click="updateBracketDataAndStart()"
-                        class="btn btn-primary col-sm-2"
+                        class="btn btn-primary col-sm-2" id="confirmPreconfigure"
                         title="{{ 'admin.actions.run.runningTooltip' | translate }}" translate="preconfigure.start">
                 </button>
             </div>

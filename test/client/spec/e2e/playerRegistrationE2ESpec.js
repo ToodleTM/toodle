@@ -209,7 +209,7 @@ describe('User having the registration URL', function () {
         expect(element(by.id('runTournament')).getText()).toEqual('Start brackets');
     });
 
-    it('should display a factions list and allow to register a player with a specific faction', function(){
+    it('should display a factions list and allow to register a player with a specific faction - ADMIN page', function(){
         element(by.id('tournamentName')).sendKeys('protractor');
         element(by.id('registerTournamentButton')).click();
 
@@ -219,7 +219,7 @@ describe('User having the registration URL', function () {
         expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li/span/span/img')).getAttribute('src')).toContain('/images/icon-terran.png');
     });
 
-    it('should display a factions list and allow to register a player with a specific faction', function () {
+    it('should display a factions list and allow to register a player with a specific faction - USER page', function () {
         element(by.id('tournamentName')).sendKeys('protractor');
         element(by.id('registerTournamentButton')).click();
 

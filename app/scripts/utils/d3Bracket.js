@@ -162,13 +162,13 @@ D3Bracket.prototype.selectPlayerToSwap = function (node, swapCallback, slot1) {
             isPlayer1: slot1,
             name: currentPlayer ? currentPlayer.name : null
         };
-        $('#matchNumber-' + node.name + '-' + slotNumber).attr('href', selectedIcon);
-        $('#clickable-' + node.name + '-' + slotNumber).attr('href', clicked);
+        document.getElementById('matchNumber-' + node.name + '-' + slotNumber).setAttribute('href', selectedIcon);
+        document.getElementById('clickable-' + node.name + '-' + slotNumber).setAttribute('href', clicked);
     } else {
         if (this.firstPlayerToSwapPosition.number === node.name && this.firstPlayerToSwapPosition.isPlayer1 === slot1) {
             this.firstPlayerToSwapPosition = null;
-            $('#matchNumber-' + node.name + '-' + slotNumber).attr('href', swapIcon);
-            $('#clickable-' + node.name + '-' + slotNumber).attr('href', clickable);
+            document.getElementById('matchNumber-' + node.name + '-' + slotNumber).setAttribute('href', swapIcon);
+            document.getElementById('clickable-' + node.name + '-' + slotNumber).setAttribute('href', clickable);
         } else {
             var secondPlayerToSwapPosition = {
                 number: node.name,

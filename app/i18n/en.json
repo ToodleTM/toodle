@@ -190,6 +190,7 @@
     "modalTitle":"Preconfigure tournament and start",
     "title":"Preconfiguring bracket ",
     "cancel":"Cancel",
+    "reset":"Reset",
     "start":"Start",
     "notAvailable":"Tournament does not exist or is already running. Cannot preconfigure.",
     "incompatibleEngine":"The engine selected is not compatible with this feature.",

@@ -3,7 +3,7 @@ var homeAddress = 'http://localhost';
 var path = require('path');
 
 
-describe('Match reporting through the interactive bracket', function () {
+describe('Player forfeits while bracket is ongoing', function () {
     beforeEach(function () {
         browser.driver.get(homeAddress);
         browser.waitForAngular();
