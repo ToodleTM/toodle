@@ -219,6 +219,59 @@ describe('User having the registration URL', function () {
         expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li/span/span/img')).getAttribute('src')).toContain('/images/icon-terran.png');
     });
 
+    it('should refocus on the player nick input once user validates - Players registration page', function () {
+        element(by.id('tournamentName')).sendKeys('protractor');
+        element(by.id('registerTournamentButton')).click();
+
+        element(by.id('inputNick')).sendKeys('player 1');
+        element(by.id('registerPlayerGo')).click();
+
+        expect(element(by.id('inputNick')).getAttribute('id')).toEqual(browser.driver.switchTo().activeElement().getAttribute('id'));
+    });
+
+    it('should refocus on the player nick input once user validates - ADMIN page', function () {
+        element(by.id('tournamentName')).sendKeys('protractor');
+        element(by.id('registerTournamentButton')).click();
+
+        element(by.id('inputNick')).sendKeys('player 1');
+        element(by.id('registerPlayerGo')).click();
+
+        element(by.id('runTournament')).click();
+        element(by.id('doConfigure')).click();
+
+        element(by.id('displaySettings')).click();
+        element(by.id('playerManagement')).click();
+
+        element(by.id('inputNick')).sendKeys('player 2');
+        element(by.id('registerPlayerGo')).click();
+
+        expect(element(by.id('inputNick')).getAttribute('id')).toEqual(browser.driver.switchTo().activeElement().getAttribute('id'));
+    });
+
+    it('should refocus on the player nick input once user validates - USER page', function () {
+        element(by.id('tournamentName')).sendKeys('protractor');
+        element(by.id('registerTournamentButton')).click();
+
+        element(by.id('inputNick')).sendKeys('player 1');
+        element(by.id('registerPlayerGo')).click();
+
+        element(by.id('runTournament')).click();
+        element(by.id('doConfigure')).click();
+
+        element(by.id('playerSignupPageLink')).click();
+
+        e2eUtils.testIntoPopup(function (finished) {
+            element(by.id('displaySettings')).click();
+            element(by.id('playerManagement')).click();
+
+            element(by.id('inputNick')).sendKeys('player 2');
+            element(by.id('registerPlayerGo')).click();
+
+            expect(element(by.id('inputNick')).getAttribute('id')).toEqual(browser.driver.switchTo().activeElement().getAttribute('id'));
+            finished();
+        });
+    });
+
     it('should display a factions list and allow to register a player with a specific faction - USER page', function () {
         element(by.id('tournamentName')).sendKeys('protractor');
         element(by.id('registerTournamentButton')).click();
@@ -243,6 +296,5 @@ describe('User having the registration URL', function () {
             expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li[2]/span/span/img')).getAttribute('src')).toContain('/images/icon-zerg.png');
             finished();
         });
-
     });
 });

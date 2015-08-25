@@ -89,6 +89,7 @@ angular.module('toodleApp')
                     $scope.registrationOkDisplay = true;
                     $scope.playerList = data.players;
                     $scope.inputs.nick = '';
+                    document.getElementById('inputNick').focus();
                 }).error(function(error){
                     $scope.inputs.nick = '';
                     $scope.errorMessage = 'play.register.errors.'+error.message;

@@ -217,6 +217,7 @@ angular.module('toodleApp')
                         $scope.tournamentInfo = data;
                         $scope.playerList = $scope.tournamentInfo.players;
                         $scope.alertMessage = 'play.register.success';
+                        document.getElementById('inputNick').focus();
                     })
                     .error(function (data, statusCode) {
                         if (statusCode === '404') {
