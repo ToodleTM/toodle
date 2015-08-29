@@ -13,13 +13,19 @@
     "mandatory":"Mandatory"
   },
   "footer": {
-    "love": "♥ from the Toodle team"
+    "love": "♥ from the Toodle team",
+    "news":"What's new ?",
+    "why":"Why Toodle?",
+    "about":"About the team",
+    "privacy":"Privacy",
+    "tos":"Terms of service"
   },
   "header": {
     "title": "oodle",
     "login": "Login",
     "welcome":"Hello",
-    "logout":"Logout"
+    "logout":"Logout",
+    "tos":"Terms of service"
   },
   "admin": {
     "intro": "Click here to display tournament settings.",
@@ -39,7 +45,7 @@
       "numberOfPlayers": "Number of players",
       "submit": "Submit changes",
       "game": "Game",
-      "startDate": "Start date",
+      "startDate": "Start date (optional)",
       "userPrivileges": {
         "title": "Non-admin user privileges",
         "atWill": "Report / unreport at will",

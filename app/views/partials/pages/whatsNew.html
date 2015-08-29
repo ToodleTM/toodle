@@ -1,0 +1,164 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="content">
+    <div class="form-horizontal">
+        <div class="row">
+            <h1 class="col-sm-12">What's new ?</h1>
+
+            <h2>Last version (August 24th 2015, v1.2.1)</h2>
+
+            <p>This release represents a major GUI overhaul. This release is meant to :</p>
+            <ul>
+                <li>Simplify even more tournament creation</li>
+                <li>Add a few missing features and improvements</li>
+            </ul>
+            <h3>On the GUI overhaul side : </h3>
+            <ul>
+                <li>Creating a tournament immediately takes you to the essential part : registering the players and
+                    defining the type of tournament you want
+                </li>
+                <li>Admin and "regular player" pages were changed so that all tournament fine tuning is hidden and the
+                    first thing you see is your bracket. If you want to access to all fine tuning settings, just click
+                    the main title and the menu will deploy.
+                </li>
+            </ul>
+            <h3>On the features side : </h3>
+
+            <p> This release has seen the addition of various features that should be useful :
+            </p>
+            <ul>
+                <li>Both "Single Elimination Bracket" and "Simple GSL Groups" engines now support :
+                    <ul>
+                        <li>
+                            Player forfeits
+                        </li>
+                        <li>
+                            Continuous reporting
+                        </li>
+                        <li>
+                            Pre-arrangement of players before tournament starts (by clicking the spots you want to swap)
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <h3>Various noticeable changes</h3>
+            <h4>What disappeared</h4>
+
+            <p>The "lock tournament" feature is no more, it might be back someday, you never know ;)</p>
+            <h4>What appeared</h4>
+
+            <p>No more clicking validation buttons all the time, each action auto-saves what you just did.</p>
+
+            <p>Adding multiple players one by one always refocuses the nickname input field (provided addition went
+                well)</p>
+
+            <h3>More in detail :</h3>
+            <h4>Registration screen</h4>
+
+            <p>It now integrates not only the tournament name, but you can also specify the description or the start
+                date here.</p>
+
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/screen1.png"/>
+                <span class="legend">it takes you directly to the next step once you validate</span>
+            </div>
+            <h4>Player registration / engine choice</h4>
+
+            <p>This is a new step, it allows you to configure the essentials (register some players, choose the engine,
+                get the tournament started)</p>
+
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/screen2.png"/>
+                <span class="legend">The two more important decisions for your tournament</span>
+            </div>
+            <p>You can then start the tournament right away, choose to leave additional players who'd want to register
+                time to do so by using the "Configure" option when starting, or choose to move players around w/ the
+                preconfiguration option.</p>
+
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/screen2-configure.png"/>
+                <span class="legend">The middle option creates the tournament but does not start it right away</span>
+            </div>
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/screen2-prearrange.png"/>
+                <span class="legend">Each compatible engine will show a submenu for the start button, allowing you to pre-arrange players</span>
+            </div>
+            <h4>Pre-arrangement / players move around</h4>
+
+            <p>The "let me configure players" option, when it is available, takes you to a page that show you the
+                tournament as it is arranged by default, given the players registered and the order they were registered
+                in, and lets you move players around by clicking on a slot and then on another.</p>
+
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/screen3-bracket.png"/>
+                <span class="legend">Before swapping players around</span>
+            </div>
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/screen3-bracket-selected.png"/>
+                <span class="legend">Echo_pwner is selected</span>
+            </div>
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/screen3-bracket-done.png"/>
+                <span class="legend">After clicking on Echo_pwner and Corvo, the 2 players are swapped, clicking twice on the same player deselects him</span>
+            </div>
+            <h4>Bracket / Groups revamp</h4>
+
+            <p>We've changed the icons used to report / unreport games (no more ugly circles, "<span
+                    class="glyphicon glyphicon-edit"></span>" and "<span
+                    class="glyphicon glyphicon-trash"></span>" instead). We also changed several
+                colours so that the bracket / group displays should not burn through people's retinas as much.</p>
+
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/newicons-bracket.png"/>
+                <span class="legend">New icons for the bracket</span>
+            </div>
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/newicons-groups.png"/>
+                <span class="legend">New icons for groups</span>
+            </div>
+            <h4>Forfeits</h4>
+
+            <p>The match reporting dialog now allows for forfeits to be reported, you can forfeit a player by clicking
+                on the little "<span
+                        class="glyphicon glyphicon-ban-circle"></span>" logo in the field for his score. The engines
+                will then count this as a win for the other player and save the scores for that match</p>
+
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/forfeit.png"/>
+                <span class="legend">Forfeit crosses the forfeit player name out and locks all inputs</span>
+            </div>
+
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/forfeit-display.png"/>
+                <span class="legend">Forfeits are displayed differently from victories so you can keep track at a glance</span>
+            </div>
+            <h4>Continuous reporting</h4>
+
+            <p>The reporting feature now allows to save a partial score. When a score is valid to report a victory
+                (scores are different).</p>
+
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/continuous.png"/>
+                <span class="legend">A checkbox pops up for the reporter to select if the score reported is final or
+                not</span>
+            </div>
+            <h4>Admin page</h4>
+
+            <p>Most fine tuning tools are now hidden in a menu, so that the first thing you see in the admin page is the
+                actual bracket when a tournament has started</p>
+
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/screen4-main-deployed.png"/>
+                <span class="legend">Clicking on the tournament name, or the caret next to it, will deploy this menu, clicking again will hide it.</span>
+            </div>
+            <div class="image-container">
+                <img src="images/whatsnew/08302015/screen4-main-players.png"/>
+                <span class="legend">The second tab show player management features.</span>
+            </div>
+            <p>A roughly equivalent menu (except not allowing tournament modificationss, just displaying infos and
+                allowing
+                players to register) exists for the tournament's public page</p>
+        </div>
+
+    </div>
+</div>
+<div ng-include="'partials/footer'"></div>

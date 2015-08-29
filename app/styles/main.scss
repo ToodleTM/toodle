@@ -3,6 +3,7 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 @import '_admin.scss';
 @import '_singleElim.scss';
 @import '_simpleGSLGroups.scss';
+@import '_whatsNew.scss';
 .modal.fade {
   opacity: 1;
 }
@@ -16,17 +17,6 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 .image {
   width: 45%;
   margin-left: 25%;
-}
-
-.caret-right {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  margin-left: 2px;
-  vertical-align: middle;
-  border-left: 6px dashed;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
 }
 
 .forfeitPlayer {
@@ -44,6 +34,10 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
   }
 }
 
+#displaySettings {
+  position:relative;
+}
+
 .caret-big {
   display: inline-block;
   width: 0;
@@ -53,6 +47,23 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
   border-top: 6px dashed;
   border-right: 6px solid transparent;
   border-left: 6px solid transparent;
+  position:absolute;
+  top:17px;
+  right:-20px;
+}
+
+.caret-right {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-left: 6px dashed;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  position: absolute;
+  top: 17px;
+  right: -20px;
 }
 
 .full button span {
@@ -85,6 +96,7 @@ body {
 
   & .footer-links {
     float: right;
+    max-width:78%;
   }
 }
 

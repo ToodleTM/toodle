@@ -1,0 +1,17 @@
+.image-container{
+  position:relative;
+  & img {
+    margin-left:10%;
+    max-width: 80%;
+  }
+
+  & .legend {
+    width:100%;
+    float:left;
+    text-align: center;
+    font-size: .85em;
+    font-style: italic;
+  }
+  margin-top:5%;
+  margin-bottom:5%;
+}

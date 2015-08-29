@@ -13,7 +13,12 @@
     "mandatory": "Obligatoire"
   },
   "footer": {
-    "love": "♥ de l'équipe Toodle"
+    "love": "♥ de l'équipe Toodle",
+    "news": "Quoi de neuf ?",
+    "why": "Pourquoi Toodle?",
+    "about": "L'équipe",
+    "privacy": "Politique de confidentialité",
+    "tos": "Conditions d'utilisation"
   },
   "header": {
     "title": "oodle",
@@ -39,7 +44,7 @@
       "numberOfPlayers": "Nombre de joueurs",
       "submit": "Valider les changements",
       "game": "Jeu",
-      "startDate": "Date de début",
+      "startDate": "Date de début (optionnelle)",
       "userPrivileges": {
         "title": "Privilèges pour les non-administrateurs",
         "atWill": "Report / unreport",

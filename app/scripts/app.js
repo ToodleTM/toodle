@@ -48,6 +48,9 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
         .when('/tos', {
             templateUrl:'partials/pages/tos.html'
         })
+        .when('/whats-new', {
+            templateUrl: 'partials/pages/whatsNew.html'
+        })
         .otherwise({
             redirectTo: '/'
         });
