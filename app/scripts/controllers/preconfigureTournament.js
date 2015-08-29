@@ -32,20 +32,17 @@ angular.module('toodleApp')
                     if ($scope.canSwapPlayers) {
                         resetPlayerNamesToSwap();
                         $scope.playerList = data.players;
-                        $scope.engineTemplate = '/partials/engineTemplates/' + data.engine;
+                        $scope.engineTemplate = '/partials/engineTemplates/' + data.engine+'Preconfigure';
                         $scope.renderer = availableRenderers[$scope.tournamentInfo.engine];
                         $scope.groups = [];
                         $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
-                        if (!$scope.tournamentInfo.bracket) {
-                            $http.post('api/tournament/genBracketForTournament', {tournamentId: $scope.tournamentId}).success(function (data) {
-                                $scope.tournamentInfo = data;
-                                $scope.displayBracket(data);
-                            }).error(function () {
-
-                            });
-                        } else {
+                        $http.post('api/tournament/genBracketForTournament', {tournamentId: $scope.tournamentId}).success(function (data) {
+                            $scope.tournamentInfo = data;
                             $scope.displayBracket(data);
-                        }
+                        }).error(function (err) {
+                            $scope.error = true;
+                            $scope.errorMessage = err.message;
+                        });
                     } else {
                         $scope.incompatibleEngine = true;
                     }
@@ -56,6 +53,27 @@ angular.module('toodleApp')
         }).error(function () {
             $scope.tournamentLookupError = true;
         });
+
+        $scope.getPlayersOrderedByScore = function (group) {
+            if (group.players && lodashForApp.find(group.matches, function (match) {
+                    return match.complete;
+                })) {
+                if (group.players.length === 4) {
+                    var orderedList = lodashForApp.sortBy(group.players, function (player) {
+                        if (!player.win) {
+                            player.win = 0;
+                        }
+                        if (!player.loss) {
+                            player.loss = 0;
+                        }
+                        return player.loss - player.win;
+                    });
+                    return orderedList;
+                }
+            } else {
+                return group.players;
+            }
+        };
 
         $scope.displayBracket = function (data) {
             $http.get('api/available-engines').success(function (engines) {
@@ -68,7 +86,8 @@ angular.module('toodleApp')
                 });
                 $scope.controllerReferencesForRenderer = {
                     swapPlayers: $scope.swapPlayers,
-                    groups: $scope.groups
+                    groups: $scope.groups,
+                    getPlayersOrderedByScore:$scope.getPlayersOrderedByScore
                 };
                 if (!$scope.tournamentInfo.running) {
                     $scope.renderBracket();
@@ -76,10 +95,11 @@ angular.module('toodleApp')
                     $scope.running = false;
                 }
             }).error(function () {
+
             });
         };
 
-        $scope.createDefaultBracketAndGoBack = function () {
+        $scope.resetBracket = function () {
             $http.post('api/tournament/genBracketForTournament', {tournamentId: $scope.tournamentId}).success(function (data) {
                 $scope.tournamentInfo = data;
                 $scope.renderBracket();
@@ -120,6 +140,56 @@ angular.module('toodleApp')
                     resetPlayerNamesToSwap();
                     $scope.tourneyReportingKo = true;
                 });
+        };
+
+        $scope.getPlayerSlotInGroup = function (groupNumber, playerName){
+            var groupPlayers = $scope.tournamentInfo.bracket[groupNumber].players;
+            var slot = null;
+            groupPlayers.forEach(function(player, key){
+                if(player.name === playerName){
+                    slot = key;
+                }
+            });
+            return slot;
+        };
+
+        $scope.stripPlayerName = function(playerName){
+            return playerName.replace(' ', '');
+        };
+
+        $scope.selectPlayerToSwap = function (groupNumber, playerName) {
+            var playerSlot = $scope.getPlayerSlotInGroup(groupNumber, playerName);
+            var currentPlayer = $scope.tournamentInfo.bracket[groupNumber].players[playerSlot];
+            var swapIcon = '/images/swapPlayers.png';
+            var selectedIcon = '/images/selectedPlayer.png';
+            var clickable = '/images/clickable.png';
+            var clicked = '/images/clicked.png';
+            var strippedPlayerName = playerName.replace(' ', '');
+            if (!$scope.firstPlayerToSwapPosition) {
+                $scope.firstPlayerToSwapPosition = {
+                    number: groupNumber,
+                    playerNumber: playerSlot,
+                    isPlayer1: playerName,
+                    name: currentPlayer ? currentPlayer.name : null
+                };
+                document.getElementById('slot-'+groupNumber+'-'+strippedPlayerName).setAttribute('src', selectedIcon);
+                document.getElementById('clickable-' + groupNumber + '-' + strippedPlayerName).setAttribute('src', clicked);
+            } else {
+                if ($scope.firstPlayerToSwapPosition.number === groupNumber && $scope.firstPlayerToSwapPosition.isPlayer1 === playerName) {
+                    $scope.firstPlayerToSwapPosition = null;
+                    document.getElementById('slot-' + groupNumber + '-' + strippedPlayerName).setAttribute('src', swapIcon);
+                    document.getElementById('clickable-' + groupNumber + '-' + strippedPlayerName).setAttribute('src', clickable);
+                } else {
+                    var secondPlayerToSwapPosition = {
+                        number: groupNumber,
+                        playerNumber: playerSlot,
+                        isPlayer1: playerName,
+                        name: currentPlayer ? currentPlayer.name : null
+                    };
+                    $scope.swapPlayers([$scope.firstPlayerToSwapPosition, secondPlayerToSwapPosition]);
+                    $scope.firstPlayerToSwapPosition = null;
+                }
+            }
         };
     }
 );

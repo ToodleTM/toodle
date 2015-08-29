@@ -159,6 +159,7 @@ D3Bracket.prototype.selectPlayerToSwap = function (node, swapCallback, slot1) {
     if (!this.firstPlayerToSwapPosition) {
         this.firstPlayerToSwapPosition = {
             number: node.name,
+            playerNumber:slotNumber,
             isPlayer1: slot1,
             name: currentPlayer ? currentPlayer.name : null
         };
@@ -172,6 +173,7 @@ D3Bracket.prototype.selectPlayerToSwap = function (node, swapCallback, slot1) {
         } else {
             var secondPlayerToSwapPosition = {
                 number: node.name,
+                playerNumber:slotNumber,
                 isPlayer1: slot1,
                 name: currentPlayer ? currentPlayer.name : null
             };

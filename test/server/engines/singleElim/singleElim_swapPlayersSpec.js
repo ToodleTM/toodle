@@ -62,15 +62,7 @@ describe('SingleElim - SwapPlayers', function () {
             }
         };
         //action
-        engine.swapPlayers({
-            number: 1,
-            player1: player1InMatch1,
-            player2: player2InMatch1
-        }, match1Selector, {
-            number: 2,
-            player1: player1InMatch2,
-            player2: player2InMatch2
-        }, match2Selector, bracket, callbackSpy);
+        engine.swapPlayers(1, match1Selector, 2, match2Selector, bracket, callbackSpy);
         //assert
         assert.equal(callbackSpy.calledOnce, true);
         assert.equal(callbackSpy.getCall(0).args[0], null);
@@ -95,22 +87,22 @@ describe('SingleElim - SwapPlayers', function () {
     }
 
     it('should be able to swap an empty slot in match1 with an actual player in match2 (player1 selected in both matches)', function () {
-        testSwapNullPlayers(null, jane, john, null, 'player1', 'player1',
+        testSwapNullPlayers(null, jane, john, null, 1, 1,
             john, jane, null, null);
     });
 
     it('should be able to swap an empty slot in match2 with an actual player in match1 (player2 selected in both matches)', function () {
-        testSwapNullPlayers(null, jane, bob, null, 'player2', 'player2',
+        testSwapNullPlayers(null, jane, bob, null, 2, 2,
             null, null, bob, jane);
     });
 
     it('should be able to swap an empty slot in match1 with an actual player in match2 (player1 / player2)', function () {
-        testSwapNullPlayers(null, john, null, bob, 'player1', 'player2',
+        testSwapNullPlayers(null, john, null, bob, 1, 2,
             bob, john, null, null);
     });
 
     it('should be able to swap an empty slot in match1 with an actual player in match2 (player2 / player1)', function () {
-        testSwapNullPlayers(john, null, jane, null, 'player2', 'player1',
+        testSwapNullPlayers(john, null, jane, null, 2, 1,
             john, jane, null, null);
     });
 
@@ -122,10 +114,7 @@ describe('SingleElim - SwapPlayers', function () {
             bracket = data;
         });
         //action
-        engine.swapPlayers({number: 1, player1: john}, 'player1', {
-            number: 2,
-            player2: alice
-        }, 'player2', bracket, callbackSpy);
+        engine.swapPlayers(1, 1, 2, 2, bracket, callbackSpy);
         //assert
         assert.equal(callbackSpy.calledOnce, true);
         assert.deepEqual(callbackSpy.getCall(0).args[0], null);

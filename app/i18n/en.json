@@ -194,7 +194,10 @@
     "start":"Start",
     "notAvailable":"Tournament does not exist or is already running. Cannot preconfigure.",
     "incompatibleEngine":"The engine selected is not compatible with this feature.",
-    "noMatchingTournament":"No tournament matching this ID was found"
+    "noMatchingTournament":"No tournament matching this ID was found",
+    "error": {
+      "noPlayers":"No players registered, can't create a preconfiguration tournament"
+    }
   },
   "common": {
     "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported.",

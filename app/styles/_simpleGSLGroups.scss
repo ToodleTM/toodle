@@ -1,0 +1,17 @@
+.preconf{
+  position:relative;
+  cursor: pointer;
+  & .preconf-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  & .preconf-swapIcon {
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    top:4px;
+    right:-8px;
+  }
+}

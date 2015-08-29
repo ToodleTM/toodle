@@ -6,19 +6,23 @@
                 class="sr-only">Close</span></button>
         <span translate="admin.actions.reporting.reportingOk"></span>
     </div>
-    <div ng-show="tourneyReportingKo" id="tourneyReportingKo" class="alert alert-danger alert-dismissible app-alert"
+    <div ng-show="error" id="tourneyReportingKo" class="alert alert-danger alert-dismissible app-alert"
          role="alert" hidden>
         <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
-        <span translate="admin.actions.reporting.reportingKo"></span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
+        <span translate="admin.actions.preconfigure."></span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
     </div>
 </div>
 
 <div ng-show="tournamentLookupError" id="notFound" class="alert alert-danger ng-binding" role="alert">
     <span translate="preconfigure.noMatchingTournament"></span>
 </div>
-<div ng-show="!tournamentLookupError" id="content">
+
+<div ng-show="error" id="noPlayers" class="alert alert-danger ng-binding" role="alert">
+    <span translate="preconfigure.error.noPlayers"></span>
+</div>
+<div ng-show="!tournamentLookupError && !error" id="content">
     <div ng-show="!tournamentRunning && !incompatibleEngine">
         <h1><span translate="preconfigure.title"></span> <a
                 href="/play/{{tournamentInfo.signupID}}">{{tournamentInfo.tournamentName}}</a></h1>
@@ -32,7 +36,7 @@
             <div class="row">
                 <span class="col-sm-8"></span>
 
-                <button ng-click="createDefaultBracketAndGoBack()"
+                <button ng-click="resetBracket()"
                         class="col-sm-2 btn btn-default" id="reset"
                         title="{{ 'admin.actions.run.runningTooltip' | translate }}" translate="preconfigure.reset">
                 </button>

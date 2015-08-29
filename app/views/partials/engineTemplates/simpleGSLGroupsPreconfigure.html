@@ -1,0 +1,21 @@
+<div class="simple-gsl-global-container">
+    <div class="group-table-container" ng-repeat="group in groups">
+        <table class="group-block" id="group-{{group.number}}">
+            <tr>
+                <th colspan="4" class="group-title">
+                    <b><span translate="bracket.group"></span> {{ group.number }}</b>
+                </th>
+            </tr>
+            <tr ng-repeat="player in group.players" class="group-player-line" style="width:100%;position:relative">
+                <td class="group-rank"> <b>{{$index +1}}.</b></td>
+                <td class="group-player-tag preconf" ng-click="selectPlayerToSwap(group.number, player.name)" >
+                    <img id="clickable-{{group.number}}-{{stripPlayerName(player.name)}}" class="preconf-overlay" src="/images/clickable.png">
+                    <span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px"></span>
+                    <span>{{ player.name }}</span>
+                    <img class="preconf-swapIcon" id="slot-{{group.number}}-{{stripPlayerName(player.name)}}" src="/images/swapPlayers.png"/>
+                </td>
+            </tr>
+            <tr>
+        </table>
+    </div>
+</div>

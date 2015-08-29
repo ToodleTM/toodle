@@ -201,8 +201,8 @@ describe('TournamentService - Preconfiguration', function () {
         tournamentService.selectPlayerMatch = stub;
         var req = {
             body: {
-                playerInMatch1: {name: '22', number: 2, isPlayer1: false},
-                playerInMatch2: {name: '11', number: 1, isPlayer1: true}
+                playerInMatch1: {name: '22', number: 2, playerNumber:2},
+                playerInMatch2: {name: '11', number: 1, playerNumber:1}
             }
         };
         var tournamentModel = {
@@ -220,18 +220,10 @@ describe('TournamentService - Preconfiguration', function () {
         }, tournamentModel);
         //assert
         assert.equal(engine.swapPlayers.calledOnce, true);
-        assert.deepEqual(engine.swapPlayers.getCall(0).args[0], {
-            number: 2,
-            player1: {name: '21'},
-            player2: {name: '22'}
-        });
-        assert.equal(engine.swapPlayers.getCall(0).args[1], 'player2');
-        assert.deepEqual(engine.swapPlayers.getCall(0).args[2], {
-            number: 1,
-            player1: {name: '11'},
-            player2: {name: '12'}
-        });
-        assert.equal(engine.swapPlayers.getCall(0).args[3], 'player1');
+        assert.deepEqual(engine.swapPlayers.getCall(0).args[0], 2);
+        assert.equal(engine.swapPlayers.getCall(0).args[1], 2);
+        assert.deepEqual(engine.swapPlayers.getCall(0).args[2], 1);
+        assert.equal(engine.swapPlayers.getCall(0).args[3], 1);
     });
 
     function errorReturnTestWhenPlayersToSwapNotProperlyDefined(requestBody, expectedMessage) {
