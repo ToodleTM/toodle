@@ -184,6 +184,31 @@ describe('Match reporting through the interactive bracket', function () {
                 expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
             });
         });
+
+        it('should interpret the "ENTER" keyboard input as a click on "Go!"', function () {
+            setupTournamentWith4Players();
+            var reportingButton = element(by.id('matchNumber-1'));
+            expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
+            reportingButton.click();
+
+            element(by.id('score1')).clear();
+            element(by.id('score1')).sendKeys(2);
+
+            element(by.id('score2')).clear();
+            element(by.id('score2')).sendKeys(1);
+
+            element(by.id('closeMatch')).click();
+
+            element(by.id('score2')).clear();
+            element(by.id('score2')).sendKeys(2);
+
+
+            browser.actions().sendKeys(protractor.Key.ENTER).perform();
+
+            expect(element(by.id('player1-for-match-1')).getText()).toContain('2 player 1');
+            expect(element(by.id('player2-for-match-1')).getText()).toContain('2 player 2');
+            expect(reportingButton.getAttribute('href')).toEqual('/images/edit.png');
+        });
     });
 
     describe('In USER section', function () {

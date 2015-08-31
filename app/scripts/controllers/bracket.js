@@ -33,17 +33,6 @@ angular.module('toodleApp')
             }
         };
 
-        //function updateSwapPlayersForm(data) {
-        //    var eligibleMatches = lodashForApp.filter(data.bracket, function (match) {
-        //        return !match.complete;
-        //    });
-        //    $scope.swappablePlayers = [];
-        //    lodashForApp.each(eligibleMatches, function (match) {
-        //        $scope.swappablePlayers.push({number:match.number, playerNumber:1, isPlayer1:true, name:match.player1? match.player1.name:'', label:match.player1? match.player1.name:'1st slot from match '+match.number});
-        //        $scope.swappablePlayers.push({number:match.number, playerNumber:2, isPlayer1:false, name:match.player2? match.player2.name:'', label:match.player2? match.player2.name:'2nd slot from match '+match.number});
-        //    });
-        //}
-
         $http.get( endpoint+'/' + tournamentId).success(function (data) {
             $scope.content = true;
             $scope.tournamentInfo = data;
