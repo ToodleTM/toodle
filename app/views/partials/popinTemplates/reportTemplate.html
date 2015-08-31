@@ -18,7 +18,7 @@
 
                     <div class="input-group">
                         <input type="tel" id="score1" ng-model="score1" ng-change="isScoreFinal()" type="text"
-                               class="form-control" ng-disabled="forfeitSlot">
+                               class="form-control" ng-disabled="forfeitSlot" ng-focus="emptyScore1IfValueIsZero()">
       <span class="input-group-btn">
         <button id="forfeit-1" class="btn btn-default" type="button" ng-click="toggleForfeit(1)"><span
                 class="glyphicon glyphicon-ban-circle"></span></button>
@@ -34,7 +34,7 @@
 
                     <div class="input-group">
                         <input type="tel" id="score2" ng-model="score2" ng-change="isScoreFinal()" type="text"
-                               class="form-control" ng-disabled="forfeitSlot">
+                               class="form-control" ng-disabled="forfeitSlot" ng-focus="emptyScore2IfValueIsZero()">
       <span class="input-group-btn">
         <button id="forfeit-2" class="btn btn-default" type="button" ng-click="toggleForfeit(2)"><span
                 class="glyphicon glyphicon-ban-circle"></span></button>

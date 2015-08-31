@@ -171,13 +171,13 @@ angular.module('toodleApp').controller('ModalPreconfigureCtrl', function ($scope
 
 angular.module('toodleApp').controller('ModalReportCtrl', function ($scope, $modalInstance, firstGameToReport) {
     $scope.firstGameToReport = firstGameToReport;
-    $scope.score1 = $scope.firstGameToReport.score1? $scope.firstGameToReport.score1 : 0;
+    $scope.score1 = $scope.firstGameToReport.score1 ? $scope.firstGameToReport.score1 : 0;
     $scope.score2 = $scope.firstGameToReport.score2 ? $scope.firstGameToReport.score2 : 0;
     $scope.matchComplete = false;
     $scope.forfeitSlot = null;
 
     $scope.reportMatch = function () {
-        $modalInstance.close([$scope.score1, $scope.score2, $scope.scoreIsFinal && $scope.matchComplete, $scope.forfeitSlot]);
+        $modalInstance.close([$scope.score1 || 0, $scope.score2 || 0, $scope.scoreIsFinal && $scope.matchComplete, $scope.forfeitSlot]);
     };
 
     $scope.cancel = function () {
@@ -189,6 +189,17 @@ angular.module('toodleApp').controller('ModalReportCtrl', function ($scope, $mod
             $scope.forfeitSlot = null;
         } else {
             $scope.forfeitSlot = slotNumber;
+        }
+    };
+
+    $scope.emptyScore1IfValueIsZero = function(){
+        if($scope.score1 === 0 || $scope.score1 === '0'){
+            $scope.score1 = '';
+        }
+    };
+    $scope.emptyScore2IfValueIsZero = function () {
+        if ($scope.score2 === 0 || $scope.score2 === '0') {
+            $scope.score2 = '';
         }
     };
 
