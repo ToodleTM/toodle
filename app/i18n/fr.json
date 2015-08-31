@@ -120,8 +120,8 @@
         "secondPlayer":"2nd joueur",
         "doSwap":"Échanger!"
       },
-      "addPlayer": "Ajouter un joueur au tournoi",
-      "addMultiplePlayers": "Ajouter des joueurs depuis une liste",
+      "addPlayer": "Ajoutes les joueurs un par un ...",
+      "addMultiplePlayers": "... ou tous d'un coup avec un fichier",
       "playerNickPlaceholder": "Pseudo du joueur",
       "multipleRegistrationSuccessful": "Les nouveaux joueurs ont été ajoutés",
       "multipleSeedTooltip": "Ici, tu peux utiliser un fichier CSV (avec des virgules comme séparateurs). La première ligne est un entête et doit contenir les noms des propriétés (ex : 'name, faction') désignées par les colonnes. L'ordre des colonnes n'importe pas mais il devrait toujours y avoir la colonne 'name'.",

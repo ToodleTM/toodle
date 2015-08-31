@@ -51,6 +51,9 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
         .when('/whats-new', {
             templateUrl: 'partials/pages/whatsNew.html'
         })
+        .when('/csv-howto', {
+            templateUrl:'partials/pages/csv.html'
+        })
         .otherwise({
             redirectTo: '/'
         });

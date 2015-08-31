@@ -7,10 +7,11 @@
         {{ 'admin.error.'+error | translate}}
     </div>
     <h1><span translate="admin.header.tournament"></span> <span
-            id="tournamentName">{{tournamentInfo.tournamentName}}</span> : <span translate="playersRegistration.whosPlaying"></span></h1>
+            id="tournamentName">{{tournamentInfo.tournamentName}}</span> : <span
+            translate="playersRegistration.whosPlaying"></span></h1>
     <fieldset ng-show="!tournamentInfo.running">
         <div class="row">
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-12">
                 <legend translate="admin.actions.addPlayer"></legend>
                 <div class="row">
                     <form ng-submit="addPlayer()">
@@ -33,7 +34,9 @@
                     </form>
                 </div>
             </div>
-            <div class="form-group col-sm-6">
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
                 <form>
                     <legend translate="admin.actions.addMultiplePlayers">*&nbsp;<i
                             class="glyphicon glyphicon-question-sign what-is-this"
@@ -42,7 +45,7 @@
                         <div class="form-group col-sm-12">
                             <input id="multiSeedInput" type="file" ng-file-select="onFileSelect($files)">
 
-                            <p>* : <span translate="admin.misc.fileMustBeCSV"></span></p>
+                            <p>* : <span translate="admin.misc.fileMustBeCSV"></span><a href="/csv-howto">  <i class="glyphicon glyphicon-question-sign"></i></a></p>
                         </div>
                     </div>
                 </form>
@@ -77,7 +80,8 @@
         <button type="button" class="close alert-fix-close" id="dismissAlertKo" ng-click="hideUpdateAlert()"><span
                 aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span></button>
-        <span translate="{{alertMessage}}" id="alertMessage">{{alertMessage |translate}}</span> (<span id="alertDetails" translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
+        <span translate="{{alertMessage}}" id="alertMessage">{{alertMessage |translate}}</span> (<span id="alertDetails"
+                                                                                                       translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
     </div>
 
     <fieldset>
@@ -92,7 +96,8 @@
                 </select>
             </div>
             <div class="form-group col-sm-6" style="position:relative">
-                <label class="control-label" for="engine" >&nbsp;</label><br/>
+                <label class="control-label" for="engine">&nbsp;</label><br/>
+
                 <div class="btn-group" dropdown ng-if="!tournamentInfo.running" style="float:right">
                     <button type="button" class="btn btn-danger" id="runTournament" ng-click="openRunDialog()"
                             class="btn btn-danger"
@@ -100,14 +105,15 @@
                             translate="admin.actions.run.notRunning">
                         {{'admin.actions.run.notRunning' | translate}}
                     </button>
-                    <button ng-if="canSwapPlayers" id="extraStartOptions" type="button" class="btn btn-danger dropdown-toggle" dropdown-toggle>
+                    <button ng-if="canSwapPlayers" id="extraStartOptions" type="button"
+                            class="btn btn-danger dropdown-toggle" dropdown-toggle>
                         <span class="caret"></span>
                     </button>
                     <ul ng-if="canSwapPlayers" id="extraStartOptionsMenu" class="dropdown-menu" role="menu">
                         <li><a href="#" ng-click="openRunDialog()" translate="admin.actions.run.runDefault"></a></li>
                         <li class="divider"></li>
                         <li><a href="#" id="goPreconfigure" ng-click="openPreconfigureDialog()"
-                                                      translate="admin.actions.run.preconfigure"></a></li>
+                               translate="admin.actions.run.preconfigure"></a></li>
                     </ul>
                 </div>
             </div>
