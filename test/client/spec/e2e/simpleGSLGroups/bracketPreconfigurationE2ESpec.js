@@ -147,4 +147,21 @@ describe('Bracket preconfiguration', function () {
         expect(element(by.xpath('//table[@id="group-1"]//tr[3]/td[2]/span[2]')).getText()).toContain('player 8');
         expect(element(by.xpath('//table[@id="group-2"]//tr[5]/td[2]/span[2]')).getText()).toContain('player 2');
     });
+
+    it('should reset selected players if user hits the reset button in the meantime', function () {
+        setupTournamentWith8Players();
+        goToThePreconfigurationPage();
+
+        expect(element(by.xpath('//table[@id="group-1"]//tr[2]/td[2]/span[2]')).getText()).toContain('player 1');
+        var slot1 = element(by.id('clickable-1-player1'));
+        slot1.click();
+        element(by.id('reset')).click();
+
+        var slot2 = element(by.id('clickable-1-player2'));
+        slot2.click();
+        expect(element(by.xpath('//table[@id="group-1"]//tr[2]/td[2]/span[2]')).getText()).toContain('player 1');
+        expect(element(by.xpath('//table[@id="group-1"]//tr[3]/td[2]/span[2]')).getText()).toContain('player 2');
+        expect(slot1.getAttribute('src')).toContain('clickable.png');
+        expect(slot2.getAttribute('src')).toContain('clicked.png');
+    });
 });

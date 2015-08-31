@@ -112,4 +112,22 @@ describe('Bracket preconfiguration', function () {
         expect(element(by.id('player2-for-match-2')).getText()).toEqual('- player 1');
         expect(browser.driver.getCurrentUrl()).toMatch(/.*\/admin\/(?!preconfigure).*/);
     });
+
+    it('should reset selected players if user hits the reset button in the meantime', function(){
+        setupTournamentWith4Players();
+        element(by.id('extraStartOptions')).click();
+        element(by.id('goPreconfigure')).click();
+        element(by.id('preconfigure')).click();
+        expect(element(by.id('player1-for-match-1')).getText()).toEqual('- player 1');
+        var slot1 = element(by.id('clickable-1-1'));
+        slot1.click();
+        element(by.id('reset')).click();
+
+        var slot2 = element(by.id('clickable-1-2'));
+        slot2.click();
+        expect(element(by.id('player1-for-match-1')).getText()).toEqual('- player 1');
+        expect(element(by.id('player2-for-match-1')).getText()).toEqual('- player 2');
+        expect(slot1.getAttribute('href')).toContain('/images/clickable.png');
+        expect(slot2.getAttribute('href')).toContain('/images/clicked.png');
+    });
 });

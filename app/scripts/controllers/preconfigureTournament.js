@@ -102,6 +102,7 @@ angular.module('toodleApp')
         $scope.resetBracket = function () {
             $http.post('api/tournament/genBracketForTournament', {tournamentId: $scope.tournamentId}).success(function (data) {
                 $scope.tournamentInfo = data;
+                $scope.firstPlayerToSwapPosition = null;
                 $scope.renderBracket();
             }).error(function () {
 
