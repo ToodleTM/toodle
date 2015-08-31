@@ -257,6 +257,50 @@ describe('Match reporting through the interactive bracket', function () {
                 icon = element(by.id('matchNumber-2-img'));
                 expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
             });
+
+            it('should not change players background colors on matches if match is not over (1st player has highest score)', function(){
+                setupTournamentWith4Players();
+                var reportingButton = element(by.id('matchNumber-1'));
+                var icon = element(by.id('matchNumber-1-img'));
+                expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                reportingButton.click();
+
+                element(by.id('score1')).clear();
+                element(by.id('score1')).sendKeys(2);
+
+                element(by.id('score2')).clear();
+                element(by.id('score2')).sendKeys(1);
+
+
+                element(by.id('doReport')).click();
+
+                expect(element(by.xpath('//*[@id="group-1"]/tbody/tr[8]/td/table/tbody/tr[1]/td[1]')).getAttribute('class')).toEqual('player1');
+                expect(element(by.xpath('//*[@id="group-1"]/tbody/tr[8]/td/table/tbody/tr[1]/td[2]')).getAttribute('class')).toEqual('score1');
+                expect(element(by.xpath('//*[@id="group-1"]/tbody/tr[8]/td/table/tbody/tr[1]/td[3]')).getAttribute('class')).toEqual('score2');
+                expect(element(by.xpath('//*[@id="group-1"]/tbody/tr[8]/td/table/tbody/tr[1]/td[4]')).getAttribute('class')).toEqual('player2');
+            });
+
+            it('should not change players background colors on matches if match is not over (2nd player has highest score)', function () {
+                setupTournamentWith4Players();
+                var reportingButton = element(by.id('matchNumber-1'));
+                var icon = element(by.id('matchNumber-1-img'));
+                expect(icon.getAttribute('class')).toContain('glyphicon glyphicon-edit match-report-button');
+                reportingButton.click();
+
+                element(by.id('score1')).clear();
+                element(by.id('score1')).sendKeys(1);
+
+                element(by.id('score2')).clear();
+                element(by.id('score2')).sendKeys(2);
+
+
+                element(by.id('doReport')).click();
+
+                expect(element(by.xpath('//*[@id="group-1"]/tbody/tr[8]/td/table/tbody/tr[1]/td[1]')).getAttribute('class')).toEqual('player1');
+                expect(element(by.xpath('//*[@id="group-1"]/tbody/tr[8]/td/table/tbody/tr[1]/td[2]')).getAttribute('class')).toEqual('score1');
+                expect(element(by.xpath('//*[@id="group-1"]/tbody/tr[8]/td/table/tbody/tr[1]/td[3]')).getAttribute('class')).toEqual('score2');
+                expect(element(by.xpath('//*[@id="group-1"]/tbody/tr[8]/td/table/tbody/tr[1]/td[4]')).getAttribute('class')).toEqual('player2');
+            });
         });
     });
     describe('In USER section', function () {
