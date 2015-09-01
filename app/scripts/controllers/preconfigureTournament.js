@@ -1,6 +1,6 @@
 'use strict';
 angular.module('toodleApp')
-    .controller('PreconfigureTournamentCtrl', function ($scope, $location, $http, $cookies, $window) {
+    .controller('PreconfigureTournamentCtrl', function ($scope, $location, $http, $window) {
         $scope.tournamentId = $location.$$path.split('/')[3];
         $scope.nick = '';
         $scope.playerList = null;

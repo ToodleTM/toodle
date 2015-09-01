@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('MyTournamentsCtrl', function ($scope, $location, $translate, $cookies, $cookieStore, $http) {
+    .controller('MyTournamentsCtrl', function ($scope, $location, $translate, $http) {
         $scope.tournamentUsersToDisplay = [];
         $scope.searchType = $location.$$search.type;
         $http.get('/api/my/tournaments?type='+$scope.searchType)

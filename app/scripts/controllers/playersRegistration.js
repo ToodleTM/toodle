@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('PlayersRegistrationCtrl', function ($rootScope, $scope, $location, $http, $upload, $cookies, $cookieStore, $modal) {
+    .controller('PlayersRegistrationCtrl', function ($rootScope, $scope, $location, $http, $upload, $modal) {
         $scope.tournamentId = $location.$$path.split('/')[2];
         $scope.inputs = {nick: '', faction: null};
         $scope.playerList = null;
@@ -67,7 +67,6 @@ angular.module('toodleApp')
                 $scope.tournamentInfo = data;
                 $scope.playerList = $scope.tournamentInfo.players;
                 $scope.tournamentStartDate = $scope.tournamentInfo.startDate;
-                $cookieStore.put('toodle-'+$scope.tournamentInfo.signupID, data._id);
 
                 $http.get('/views/resources/factions.json').success(function (factionsMap) {
                     var factionsArray = [];

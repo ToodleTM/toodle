@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('NavbarCtrl', function ($scope, $location, $translate, $cookies, $cookieStore, $http, $window) {
-        $scope.selectedLanguage = $cookies['toodle-lang'] && $cookies['toodle-lang'] !== 'undefined' ?JSON.parse($cookies['toodle-lang']):'en';
+    .controller('NavbarCtrl', function ($scope, $location, $translate, $cookieStore, $http, $window) {
+        $scope.selectedLanguage = $cookieStore.get('toodle-lang') ? $cookieStore.get('toodle-lang') : 'en';
         $scope.userName ='';
         $scope.userIcon = '';
         $scope.login = function(provider){

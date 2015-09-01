@@ -6,7 +6,6 @@ var app = angular.module('toodleApp', [
     'ngRoute',
     'pascalprecht.translate',
     'angularFileUpload',
-    'ngCookies',
     'ui.bootstrap'
 ]);
 
@@ -84,7 +83,7 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
         };
     }]);
 })
-    .run(function ($rootScope) { // $rootScope, $location
+    .run(function ($rootScope) {
         $rootScope.hideAlerts = function () {
             $('.app-alert').fadeOut();
         };
