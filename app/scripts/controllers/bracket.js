@@ -42,7 +42,6 @@ angular.module('toodleApp')
             $scope.groups = [];
             $scope.tournamentId = $location.$$path.split('/')[1] === 'admin' ? $location.$$path.split('/')[2] : null;
             $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
-            //updateSwapPlayersForm(data);
             $scope.controllerReferencesForRenderer = {
                 togglePlayerHighlight: $scope.togglePlayerHighlight,
                 report: $scope.report,
@@ -167,7 +166,6 @@ angular.module('toodleApp')
                 $scope.tournamentInfo = data;
                 $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
-                //updateSwapPlayersForm(data);
                 $rootScope.$emit('updatedMatch', data);
             }).error(function (data) {
                 $scope.errorMessage = data;
