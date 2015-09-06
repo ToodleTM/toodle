@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('MainCtrl', function ($scope, $http, $location, $window) {
+    .controller('MainCtrl', function ($scope, $http, $location, $window, $translatePartialLoader, $translate) {
+        $translatePartialLoader.addPart('app/create');
+        $translate.refresh();
         $scope.tournamentName = '';
         $scope.tournamentDescription = '';
         $scope.tournamentStartDate = '';

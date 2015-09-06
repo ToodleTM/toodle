@@ -1,6 +1,8 @@
 'use strict';
 angular.module('toodleApp')
-    .controller('BracketCtrl', function ($rootScope, $scope, $location, $http, $modal) {
+    .controller('BracketCtrl', function ($rootScope, $scope, $location, $http, $modal, $translatePartialLoader, $translate) {
+        $translatePartialLoader.addPart('app/create');
+        $translate.refresh();
         var tournamentId = $location.$$path.split('/')[2];
         var displayMode = $location.$$path.split('/')[1];
         var endpoint = displayMode === 'play'? 'api/play' : 'api/tournament/admin';

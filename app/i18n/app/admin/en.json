@@ -1,32 +1,4 @@
 {
-  "quickAdd": {
-    "registerMessage": "Register a new tournament!",
-    "success": {
-      "pre": "The tournament has been created! You can administer it using",
-      "mid": ", and you can send",
-      "end": "to allow your users to enroll.",
-      "thisLink": "this link"
-    },
-    "fail": "Something bad happened, the tournament was not created. Please try again.",
-    "tournamentNamePlaceholder": "Your tournament name here",
-    "go": "Go !",
-    "mandatory":"Mandatory"
-  },
-  "footer": {
-    "love": "♥ from the Toodle team",
-    "news":"What's new ?",
-    "why":"Why Toodle?",
-    "about":"About the team",
-    "privacy":"Privacy",
-    "tos":"Terms of service"
-  },
-  "header": {
-    "title": "oodle",
-    "login": "Login",
-    "welcome":"Hello",
-    "logout":"Logout",
-    "tos":"Terms of service"
-  },
   "admin": {
     "intro": "Click here to display tournament settings.",
     "header": {
@@ -34,7 +6,7 @@
       "adminPage": "admin page"
     },
     "form": {
-      "generalSettingsTab":"General settings",
+      "generalSettingsTab": "General settings",
       "playerManagementTab": "Player management",
       "configure": "Configure your tournament",
       "pickGame": "-- Pick a game --",
@@ -53,23 +25,23 @@
         "nothing": "Neither report nor unreport"
       },
       "cantUpdateEngineWhileRunning": "You can't update the tournament engine while tournament is live.",
-      "notFound":"Tournament to update not found."
+      "notFound": "Tournament to update not found."
     },
     "actions": {
       "lock": "Lock registrations",
       "lockTooltip": "Prevent additional people from entering the tournament",
       "open": "Open registrations",
       "openTooltip": "Allow more people to enter the tournament",
-      "adminOptions":"Show admin options",
+      "adminOptions": "Show admin options",
       "run": {
         "running": "Stop brackets",
         "notRunning": "Start brackets",
-        "runDefault":"Start w/ default parameters",
-        "preconfigure":"Let me configure players",
+        "runDefault": "Start w/ default parameters",
+        "preconfigure": "Let me configure players",
         "runningTooltip": "Start tournament, users won't be able to register anymore",
         "notRunningTooltip": "Stop tournament, users will be able to register again",
         "confirm": "Go!",
-        "configure":"Configure",
+        "configure": "Configure",
         "cancel": "Cancel",
         "willStop": "This will stop the current tournament and allow users to register again. WARNING: This _will_ destroy the current bracket",
         "willStart": "This will start the tournament and prevent users from registering.",
@@ -85,8 +57,8 @@
       },
       "reporting": {
         "title": "Reporting",
-        "closeMatch":"This is the final score",
-        "forfeit":"(forfeit)",
+        "closeMatch": "This is the final score",
+        "forfeit": "(forfeit)",
         "reportMatch": "Report a game",
         "unreportMatch": "Unreport a game",
         "reportButton": "Go to the form",
@@ -113,13 +85,13 @@
           "errorUnreportingMatch": "Service error. It can be temporary, try again in a few minutes and if the problem is still there you should get in touch w/ your admin or, if none is present, tweet the main dev (@ToodleTM)."
         }
       },
-      "swapPlayers":{
-        "errorWhenGettingPlayersToSwap":"You probably forgot to select one of the players to swap. If that's not the case, get in touch with the admin",
-        "noSwappablePlayersFound":"Player nicks do not match players partaking in that tournament",
-        "title":"Swap players",
-        "firstPlayer":"1st player",
-        "secondPlayer":"2nd player",
-        "doSwap":"Go!"
+      "swapPlayers": {
+        "errorWhenGettingPlayersToSwap": "You probably forgot to select one of the players to swap. If that's not the case, get in touch with the admin",
+        "noSwappablePlayersFound": "Player nicks do not match players partaking in that tournament",
+        "title": "Swap players",
+        "firstPlayer": "1st player",
+        "secondPlayer": "2nd player",
+        "doSwap": "Go!"
       },
       "addPlayer": "Add new players once at a time ...",
       "addMultiplePlayers": "... or a group of players using a file",
@@ -147,112 +119,5 @@
       "notACSVFile": "File does not seem to be a CSV file",
       "noNameField": "No Column for player nicks in this file. Remember that the 1st line of your CSV should define the columns. A valid 1st line here is : 'name, faction'"
     }
-  },
-  "play": {
-    "playersTab":"Players and registration",
-    "intro": "This the tournament page. You can enter the tournament and watch the players list until it's started. Then you can go back here to report your games and look at the tournament status.",
-    "header": {
-      "tournament": "Tournament",
-      "playPage": "public page"
-    },
-    "enter": {
-      "go": "Go!",
-      "nick": "Nick",
-      "nickPlaceholder": "Your nick here",
-      "register": "Enter the tournament!"
-    },
-    "register": {
-      "registeredPlayers": "Registered players",
-      "noPlayers": "No registered players at the moment",
-      "success": "Successfully registered",
-      "fail": "Player registration failed",
-      "errors": {
-        "noDuplicateNick": "A player with that name is already registered",
-        "noEmptyNick": "Empty nicks are not allowed",
-        "registrationLocked": "You can't enter this tournament, registration is locked",
-        "noSuchTournament": "No such tournament has been registered, check your URL or go back to the main page to create a new tournament.",
-        "tournamentAlreadyRunning": "Tournament is already running"
-      }
-    },
-    "report": {
-      "success": "Match reported",
-      "fail": "An error occurred when reporting match",
-      "buttonCaption": "Report Match",
-      "description": "Report a match you played for this tournament"
-    },
-    "noGame": "No game specified",
-    "noGameType": "No game type specified",
-    "infos": "Info about this tournament",
-    "bracket": "The bracket",
-    "notFound": "No such tournament seems to exist, are you sure it's the right URL ?"
-  },
-  "bracket": {
-    "header": "This is the current state of tournament",
-    "tournamentNotRunningWarning": "Tournament is not currently running, please come back later!",
-    "playerToHighlight": "Player actually highlighted ",
-    "group": "Group"
-  },
-  "preconfigure":{
-    "modalTitle":"Preconfigure tournament and start",
-    "title":"Preconfiguring bracket ",
-    "cancel":"Cancel",
-    "reset":"Reset",
-    "start":"Start",
-    "notAvailable":"Tournament does not exist or is already running. Cannot preconfigure.",
-    "incompatibleEngine":"The engine selected is not compatible with this feature.",
-    "noMatchingTournament":"No tournament matching this ID was found",
-    "error": {
-      "noPlayers":"No players registered, can't create a preconfiguration tournament"
-    }
-  },
-  "common": {
-    "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported.",
-    "chooseFaction":"-- Choose a faction --"
-  },
-  "tournaments":{
-    "tableTitles":{
-      "tournament":"Tournament name",
-      "creator":"I created it",
-      "admin":"I admin it",
-      "play":"I play in it"
-    },
-    "navbar":{
-      "created":"What I created",
-      "admin":"What I admin",
-      "disconnect":"Logout",
-      "languages":{
-        "french":"French",
-        "english":"English"
-      },
-      "login":{
-        "twitter":"Login with Twitter",
-        "gplus":"Login with G+"
-      }
-    },
-    "pageTitles":{
-      "created":"Tournaments I created (and thus admin)",
-      "admin":"Tournaments I admin"
-    }
-  },
-  "about":{
-    "team":"The team",
-    "who":"Who's that guy ?",
-    "role":"Role in the project",
-    "people":{
-      "evain":{
-        "name":"Alexandre \"Bri0che\" Evain",
-        "who": "I'm an IT / network security consultant that loves e-sports in general",
-        "role":"I bring new ideas, and try and bring structures to use our app for their tournaments."
-      },
-      "martin":{
-        "name":"Martin \"Hoshin\" Bahier",
-        "who":"I'm an IT consultant / software craftsman that happens to be quite Starcraft 2 addicted even though my skills are kinda sub par in that area ^^'.",
-        "role":"I develop most of what you see in the app. I'm also in charge of the more \"operations\" oriented aspects of the project (deployment on www.toodle.it & such) and part of QA (i.e : checking nothing is broken)."
-      }
-    }
-  },
-  "playersRegistration":{
-    "selectEngineAndGo":"Select an engine and start the tournament",
-    "whosPlaying":"Who's playing?"
   }
 }

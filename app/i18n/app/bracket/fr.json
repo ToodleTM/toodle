@@ -1,0 +1,8 @@
+{
+  "bracket": {
+    "header": "Voici l'état actuel du tournoi",
+    "tournamentNotRunningWarning": "Le tournoi n'a pas encore commencé, reviens plus tard!",
+    "playerToHighlight": "Parcours de joueur mis en valeur ",
+    "group": "Groupe"
+  }
+}

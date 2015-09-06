@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('PlayersRegistrationCtrl', function ($rootScope, $scope, $location, $http, $upload, $modal) {
+    .controller('PlayersRegistrationCtrl', function ($rootScope, $scope, $location, $http, $upload, $modal, $translatePartialLoader, $translate) {
+        $translatePartialLoader.addPart('app/playersRegistration');
+        $translate.refresh();
         $scope.tournamentId = $location.$$path.split('/')[2];
         $scope.inputs = {nick: '', faction: null};
         $scope.playerList = null;

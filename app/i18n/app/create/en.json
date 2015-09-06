@@ -1,0 +1,15 @@
+{
+  "quickAdd": {
+    "registerMessage": "Register a new tournament!",
+    "success": {
+      "pre": "The tournament has been created! You can administer it using",
+      "mid": ", and you can send",
+      "end": "to allow your users to enroll.",
+      "thisLink": "this link"
+    },
+    "fail": "Something bad happened, the tournament was not created. Please try again.",
+    "tournamentNamePlaceholder": "Your tournament name here",
+    "go": "Go !",
+    "mandatory": "Mandatory"
+  }
+}

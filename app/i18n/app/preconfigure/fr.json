@@ -1,0 +1,15 @@
+{
+  "preconfigure": {
+    "modalTitle": "Préconfigurer le tournoi",
+    "title": "Préconfiguration du bracket ",
+    "cancel": "Annuler",
+    "reset": "Remise à zéro",
+    "start": "Démarrer",
+    "notAvailable": "Ce tournoi n'existe pas ou est déjà en cours. Impossible d'en configurer l'arbre",
+    "incompatibleEngine": "Le moteur sélectionné n'est pas compatible avec cette fonctionnalité.",
+    "noMatchingTournament": "Aucun tournoi avec cet ID m'a été trouvé.",
+    "error": {
+      "noPlayers": "Pas de joueurs enregistrés pour générer le tournoi de préconfiguration"
+    }
+  }
+}

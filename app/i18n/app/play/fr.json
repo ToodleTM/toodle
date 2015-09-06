@@ -1,0 +1,40 @@
+{
+  "play": {
+    "playersTab": "Joueurs et enregistrement",
+    "intro": "Ceci est la page de tournoi. Tu peux t'y inscrire tant qu'il n'est pas commencé et consulter la liste des joueurs. Une fois le tournoi commencé tu peux aussi y revenir pour enregistrer tes résultats ou t'informer sur son déroulement.",
+    "header": {
+      "tournament": "Page d'informations du tournoi",
+      "playPage": "page publique"
+    },
+    "enter": {
+      "go": "Go!",
+      "nick": "Pseudo",
+      "nickPlaceholder": "Ton pseudo",
+      "register": "S'inscrire au tournoi!"
+    },
+    "register": {
+      "registeredPlayers": "Joueurs inscrits",
+      "noPlayers": "Aucun joueur inscrit pour l'instant",
+      "success": "Enregistrement OK",
+      "fail": "Impossible de s'enregistrer",
+      "errors": {
+        "noDuplicateNick": "Un joueur avec ce nom là s'est déjà enregistré pour ce tournoi",
+        "noEmptyNick": "Le pseudo ne doit ni être vide, ni ne contenir que des espaces.",
+        "registrationLocked": "Les inscriptions sont désactivées pour ce tournoi.",
+        "noSuchTournament": "Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi.",
+        "tournamentAlreadyRunning": "Le tournoi a déjà commencé"
+      }
+    },
+    "report": {
+      "success": "Match enregistré",
+      "fail": "Une erreur s'est produite en enregistrant le match",
+      "buttonCaption": "Enregistrer le match",
+      "description": "Enregistres le résultat d'un match que tu as joué pendant le tournoi"
+    },
+    "noGame": "Pas de jeu renseigné",
+    "noGameType": "Pas de type d'arbre renseigné",
+    "infos": "Voici les infos de ce tournoi",
+    "bracket": "L'arbre",
+    "notFound": "Aucun tournoi avec cet identifiant n'a été trouvé. Est-ce bien la bonne URL?"
+  }
+}

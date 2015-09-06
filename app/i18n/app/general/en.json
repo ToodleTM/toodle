@@ -1,0 +1,21 @@
+{
+  "footer": {
+    "love": "♥ from the Toodle team",
+    "news":"What's new ?",
+    "why":"Why Toodle?",
+    "about":"About the team",
+    "privacy":"Privacy",
+    "tos":"Terms of service"
+  },
+  "header": {
+    "title": "oodle",
+    "login": "Login",
+    "welcome":"Hello",
+    "logout":"Logout",
+    "tos":"Terms of service"
+  },
+  "common": {
+    "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported.",
+    "chooseFaction":"-- Choose a faction --"
+  }
+}

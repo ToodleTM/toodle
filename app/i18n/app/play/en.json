@@ -1,0 +1,40 @@
+{
+  "play": {
+    "playersTab": "Players and registration",
+    "intro": "This the tournament page. You can enter the tournament and watch the players list until it's started. Then you can go back here to report your games and look at the tournament status.",
+    "header": {
+      "tournament": "Tournament",
+      "playPage": "public page"
+    },
+    "enter": {
+      "go": "Go!",
+      "nick": "Nick",
+      "nickPlaceholder": "Your nick here",
+      "register": "Enter the tournament!"
+    },
+    "register": {
+      "registeredPlayers": "Registered players",
+      "noPlayers": "No registered players at the moment",
+      "success": "Successfully registered",
+      "fail": "Player registration failed",
+      "errors": {
+        "noDuplicateNick": "A player with that name is already registered",
+        "noEmptyNick": "Empty nicks are not allowed",
+        "registrationLocked": "You can't enter this tournament, registration is locked",
+        "noSuchTournament": "No such tournament has been registered, check your URL or go back to the main page to create a new tournament.",
+        "tournamentAlreadyRunning": "Tournament is already running"
+      }
+    },
+    "report": {
+      "success": "Match reported",
+      "fail": "An error occurred when reporting match",
+      "buttonCaption": "Report Match",
+      "description": "Report a match you played for this tournament"
+    },
+    "noGame": "No game specified",
+    "noGameType": "No game type specified",
+    "infos": "Info about this tournament",
+    "bracket": "The bracket",
+    "notFound": "No such tournament seems to exist, are you sure it's the right URL ?"
+  }
+}

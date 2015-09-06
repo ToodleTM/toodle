@@ -1,31 +1,4 @@
 {
-  "quickAdd": {
-    "registerMessage": "Créez un nouveau tournoi!",
-    "success": {
-      "pre": "Le tournoi a été créé! Vous pouvez l'administrer en utilisant",
-      "mid": ", et vous pouvez envoyer ",
-      "end": "pour permettre aux participants de d'inscrire.",
-      "thisLink": "ce lien"
-    },
-    "fail": "Une erreur est survenue, Le tournoi n'a pas été créé. Veuillez réessayer.",
-    "tournamentNamePlaceholder": "Votre nom de tournoi ici",
-    "go": "Go !",
-    "mandatory": "Obligatoire"
-  },
-  "footer": {
-    "love": "♥ de l'équipe Toodle",
-    "news": "Quoi de neuf ?",
-    "why": "Pourquoi Toodle?",
-    "about": "L'équipe",
-    "privacy": "Politique de confidentialité",
-    "tos": "Conditions d'utilisation"
-  },
-  "header": {
-    "title": "oodle",
-    "login": "Connexion",
-    "welcome":"Salut",
-    "logout":"Se déconnecter"
-  },
   "admin": {
     "intro": "Cliques ici pour consulter les détails de ce tournoi.",
     "header": {
@@ -63,8 +36,8 @@
       "run": {
         "running": "Arrêter l'arbre",
         "notRunning": "Démarrer l'arbre",
-        "runDefaults":"Démarrer avec les réglages par défaut",
-        "preconfigure":"Me laisser configurer l'arbre",
+        "runDefaults": "Démarrer avec les réglages par défaut",
+        "preconfigure": "Me laisser configurer l'arbre",
         "runningTooltip": "Démarrer le tournoi. Les joueurs ne pourront plus s'inscrire",
         "notRunningTooltip": "Arrêter le tournoi, les joueurs pourront a nouveau s'inscrire",
         "confirm": "Go!",
@@ -112,13 +85,13 @@
           "errorUnreportingMatch": "Erreur du service. C'est peut être temporaire, ré-essayes dans quelques minutes et si ća ne fonctionne toujours pas essayes de contacter l'admin ou, à défaut, le dev principal sur Twitter (@ToodleTM)"
         }
       },
-      "swapPlayers":{
-        "errorWhenGettingPlayersToSwap":"Tu as probablement oublié de sélectionner un des joueurs à échanger. Si ce n'est pas le cas, contacte l'admin.",
-        "noSwappablePlayersFound":"Les joueurs à échanger ne figurent pas dans ce tournoi",
-        "title":"Intervertir deux joueurs",
-        "firstPlayer":"1er joueur",
-        "secondPlayer":"2nd joueur",
-        "doSwap":"Échanger!"
+      "swapPlayers": {
+        "errorWhenGettingPlayersToSwap": "Tu as probablement oublié de sélectionner un des joueurs à échanger. Si ce n'est pas le cas, contacte l'admin.",
+        "noSwappablePlayersFound": "Les joueurs à échanger ne figurent pas dans ce tournoi",
+        "title": "Intervertir deux joueurs",
+        "firstPlayer": "1er joueur",
+        "secondPlayer": "2nd joueur",
+        "doSwap": "Échanger!"
       },
       "addPlayer": "Ajoutes les joueurs un par un ...",
       "addMultiplePlayers": "... ou tous d'un coup avec un fichier",
@@ -146,112 +119,5 @@
       "notACSVFile": "Le fichier ne semble pas être au format CSV",
       "noNameField": "Pas de colonne spécifiée pour les pseudos. N'oublies pas que dans le fichier CSV à fournir la première ligne doit définir les colonnes. Par exemple : 'name, faction'"
     }
-  },
-  "play": {
-    "playersTab": "Joueurs et enregistrement",
-    "intro": "Ceci est la page de tournoi. Tu peux t'y inscrire tant qu'il n'est pas commencé et consulter la liste des joueurs. Une fois le tournoi commencé tu peux aussi y revenir pour enregistrer tes résultats ou t'informer sur son déroulement.",
-    "header": {
-      "tournament": "Page d'informations du tournoi",
-      "playPage": "page publique"
-    },
-    "enter": {
-      "go": "Go!",
-      "nick": "Pseudo",
-      "nickPlaceholder": "Ton pseudo",
-      "register": "S'inscrire au tournoi!"
-    },
-    "register": {
-      "registeredPlayers": "Joueurs inscrits",
-      "noPlayers": "Aucun joueur inscrit pour l'instant",
-      "success": "Enregistrement OK",
-      "fail": "Impossible de s'enregistrer",
-      "errors": {
-        "noDuplicateNick": "Un joueur avec ce nom là s'est déjà enregistré pour ce tournoi",
-        "noEmptyNick": "Le pseudo ne doit ni être vide, ni ne contenir que des espaces.",
-        "registrationLocked": "Les inscriptions sont désactivées pour ce tournoi.",
-        "noSuchTournament": "Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi.",
-        "tournamentAlreadyRunning": "Le tournoi a déjà commencé"
-      }
-    },
-    "report": {
-      "success": "Match enregistré",
-      "fail": "Une erreur s'est produite en enregistrant le match",
-      "buttonCaption": "Enregistrer le match",
-      "description": "Enregistres le résultat d'un match que tu as joué pendant le tournoi"
-    },
-    "noGame": "Pas de jeu renseigné",
-    "noGameType": "Pas de type d'arbre renseigné",
-    "infos": "Voici les infos de ce tournoi",
-    "bracket": "L'arbre",
-    "notFound": "Aucun tournoi avec cet identifiant n'a été trouvé. Est-ce bien la bonne URL?"
-  },
-  "bracket": {
-    "header": "Voici l'état actuel du tournoi",
-    "tournamentNotRunningWarning": "Le tournoi n'a pas encore commencé, reviens plus tard!",
-    "playerToHighlight": "Parcours de joueur mis en valeur ",
-    "group": "Groupe"
-  },
-  "preconfigure":{
-    "modalTitle":"Préconfigurer le tournoi",
-    "title":"Préconfiguration du bracket ",
-    "cancel":"Annuler",
-    "reset": "Remise à zéro",
-    "start":"Démarrer",
-    "notAvailable":"Ce tournoi n'existe pas ou est déjà en cours. Impossible d'en configurer l'arbre",
-    "incompatibleEngine": "Le moteur sélectionné n'est pas compatible avec cette fonctionnalité.",
-    "noMatchingTournament":"Aucun tournoi avec cet ID m'a été trouvé.",
-    "error": {
-      "noPlayers": "Pas de joueurs enregistrés pour générer le tournoi de préconfiguration"
-    }
-  },
-  "common": {
-    "errorFindingMatchesToReport": "Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer.",
-    "chooseFaction": "-- Choisis une faction --"
-  },
-  "tournaments":{
-    "tableTitles":{
-      "tournament":"Nom du tournoi",
-      "creator":"Je l'ai créé",
-      "admin":"Je l'admin",
-      "play":"Je joue dedans"
-    },
-    "navbar":{
-      "created":"Tournois créés",
-      "admin":"Tournois administrés",
-      "disconnect":"Déconnexion",
-      "languages": {
-        "french": "Français",
-        "english": "Anglais"
-      },
-      "login": {
-        "twitter": "Se connecter avec Twitter",
-        "gplus": "Se connecter avec G+"
-      }
-    },
-    "pageTitles":{
-      "created":"Les tournois que j'ai créés (et que donc j'admin)",
-      "admin":"Les tournois que j'admin"
-    }
-  },
-  "about":{
-    "team":"L'équipe",
-    "who":"C'est qui lui ?",
-    "role":"Role dans le projet",
-    "people":{
-      "evain":{
-        "name":"Alexandre \"Bri0che\" Evain",
-        "who": "Je suis un consultant IT / sécurité amoureux d'e-sport",
-        "role":"J'apporte des nouvelles idées et essaye de convaincre des nouvelles structures d'utiliser notre appli"
-      },
-      "martin":{
-        "name":"Martin \"Hoshin\" Bahier",
-        "who":"Je suis un consultant IT / software craftsman pas mal accro à SC2 bien que je n'y sois pas (du tout) doué ^^'.",
-        "role":"Je développe l'essentiel de l'application. Je suis aussi responsable de la partie \"opérations\" du projet (déploiement de l'appli & co) et de la partie \"Assurance Qualité\" (i:e s'assurer que rien n'explose en vol) "
-      }
-    }
-  },
-  "playersRegistration": {
-    "selectEngineAndGo": "Sélectionne un format et démarres le tournoi",
-    "whosPlaying": "Qui joue?"
   }
 }

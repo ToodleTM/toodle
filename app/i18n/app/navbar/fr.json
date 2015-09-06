@@ -1,0 +1,17 @@
+{
+  "tournaments":{
+    "navbar": {
+      "created": "Tournois créés",
+      "admin": "Tournois administrés",
+      "disconnect": "Déconnexion",
+      "languages": {
+        "french": "Français",
+        "english": "Anglais"
+      },
+      "login": {
+        "twitter": "Se connecter avec Twitter",
+        "gplus": "Se connecter avec G+"
+      }
+    }
+  }
+}

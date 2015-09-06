@@ -1,0 +1,17 @@
+{
+  "tournaments":{
+    "navbar": {
+      "created": "What I created",
+      "admin": "What I admin",
+      "disconnect": "Logout",
+      "languages": {
+        "french": "French",
+        "english": "English"
+      },
+      "login": {
+        "twitter": "Login with Twitter",
+        "gplus": "Login with G+"
+      }
+    }
+  }
+}

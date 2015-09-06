@@ -1,0 +1,14 @@
+{
+  "tournaments": {
+    "tableTitles": {
+      "tournament": "Tournament name",
+      "creator": "I created it",
+      "admin": "I admin it",
+      "play": "I play in it"
+    },
+    "pageTitles": {
+      "created": "Tournaments I created (and thus admin)",
+      "admin": "Tournaments I admin"
+    }
+  }
+}

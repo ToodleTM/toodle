@@ -9,7 +9,7 @@ var app = angular.module('toodleApp', [
     'ui.bootstrap'
 ]);
 
-app.config(function ($routeProvider, $locationProvider, $httpProvider, $translateProvider) {
+app.config(function ($routeProvider, $locationProvider, $httpProvider, $translateProvider, $translatePartialLoaderProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'partials/main',
@@ -59,14 +59,13 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
 
     $locationProvider.html5Mode(true);
 
-    // Initialize angular-translate
-    $translateProvider.useStaticFilesLoader({
-        prefix: 'i18n/',
-        suffix: '.json'
+    $translatePartialLoaderProvider.addPart('app/general');
+    $translateProvider.useLoader('$translatePartialLoader', {
+        urlTemplate:'/i18n/{part}/{lang}.json'
     });
 
     $translateProvider.preferredLanguage('en');
-    $translateProvider.useCookieStorage();
+    $translateProvider.useSanitizeValueStrategy('escaped');
 
     // Intercept 401s and redirect you to login
     $httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {

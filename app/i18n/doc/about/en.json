@@ -1,0 +1,19 @@
+{
+  "about": {
+    "team": "The team",
+    "who": "Who's that guy ?",
+    "role": "Role in the project",
+    "people": {
+      "evain": {
+        "name": "Alexandre \"Bri0che\" Evain",
+        "who": "I'm an IT / network security consultant that loves e-sports in general",
+        "role": "I bring new ideas, and try and bring structures to use our app for their tournaments."
+      },
+      "martin": {
+        "name": "Martin \"Hoshin\" Bahier",
+        "who": "I'm an IT consultant / software craftsman that happens to be quite Starcraft 2 addicted even though my skills are kinda sub par in that area ^^'.",
+        "role": "I develop most of what you see in the app. I'm also in charge of the more \"operations\" oriented aspects of the project (deployment on www.toodle.it & such) and part of QA (i.e : checking nothing is broken)."
+      }
+    }
+  }
+}

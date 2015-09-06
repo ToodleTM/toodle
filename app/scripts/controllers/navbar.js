@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('toodleApp')
-    .controller('NavbarCtrl', function ($scope, $location, $translate, $cookieStore, $http, $window) {
+    .controller('NavbarCtrl', function ($scope, $location, $translate, $cookieStore, $http, $window, $translatePartialLoader) {
+        $translatePartialLoader.addPart('app/navbar');
+        $translatePartialLoader.addPart('doc/about');
+        $translate.refresh();
         $scope.selectedLanguage = $cookieStore.get('toodle-lang') ? $cookieStore.get('toodle-lang') : 'en';
         $scope.userName ='';
         $scope.userIcon = '';

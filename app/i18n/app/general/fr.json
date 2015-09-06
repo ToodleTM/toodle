@@ -1,0 +1,20 @@
+{
+  "footer": {
+    "love": "♥ de l'équipe Toodle",
+    "news": "Quoi de neuf ?",
+    "why": "Pourquoi Toodle?",
+    "about": "L'équipe",
+    "privacy": "Politique de confidentialité",
+    "tos": "Conditions d'utilisation"
+  },
+  "header": {
+    "title": "oodle",
+    "login": "Connexion",
+    "welcome":"Salut",
+    "logout":"Se déconnecter"
+  },
+  "common": {
+    "errorFindingMatchesToReport": "Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer.",
+    "chooseFaction": "-- Choisis une faction --"
+  }
+}
