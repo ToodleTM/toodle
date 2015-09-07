@@ -10,11 +10,75 @@
   "header": {
     "title": "oodle",
     "login": "Connexion",
-    "welcome":"Salut",
-    "logout":"Se déconnecter"
+    "welcome": "Salut",
+    "logout": "Se déconnecter"
+  },
+  "admin": {
+    "header": {
+      "tournament": "Tournoi",
+      "adminPage": " : page d'administration"
+    },
+    "actions":{
+      "addPlayer": "Ajoutes les joueurs un par un ...",
+      "addMultiplePlayers": "... ou tous d'un coup avec un fichier",
+      "run":{
+        "notRunning": "Démarrer l'arbre",
+        "runDefault": "Démarrer avec les réglages par défaut",
+        "preconfigure": "Me laisser configurer l'arbre",
+        "confirm": "Go!",
+        "configure": "Configurer",
+        "cancel": "Annuler",
+        "willStop": "Ceci va arrêter le tournoi et permettre à de nouveaux joueurs de s'inscrire. ATTENTION: Ceci _détruira_ l'arbre tel qu'il a été créé.",
+        "willStart": "Ceci va démarrer le tournoi et empêcher de nouveaux joueurs de s'inscrire",
+        "willConfigure": "Le bouton 'configurer' permet de configurer d'autres aspects de ton tournoi avant de le démarrer.",
+        "modalTitle": "Démarrer / Arrêter le tournoi"
+      },
+      "playerNickPlaceholder": "Pseudo du joueur",
+      "multipleRegistrationSuccessful": "Les nouveaux joueurs ont été ajoutés",
+      "removePlayer": "Retirer le joueur de ce tournoi"
+    },
+    "misc":{
+      "fileMustBeCSV": "le fichier doit être au format CSV"
+    },
+    "form":{
+      "description": "Courte description",
+      "engine": "Règles à utiliser",
+      "startDate": "Date de début",
+      "generalSettingsTab": "Réglages généraux",
+      "playerManagementTab": "Gestion des joueurs"
+    },
+    "error": {
+      "noSuchTournament": "Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi.",
+      "serverError": "Une erreur server s'est produite. Attends un peu avant de ré-essayer et si rien ne change contactes un admin.",
+      "notACSVFile": "Le fichier ne semble pas être au format CSV",
+      "noNameField": "Pas de colonne spécifiée pour les pseudos. N'oublies pas que dans le fichier CSV à fournir la première ligne doit définir les colonnes. Par exemple : 'name, faction'"
+    }
+  },
+  "play":{
+    "enter":{
+      "go": "Go!"
+    },
+    "register": {
+      "registeredPlayers": "Joueurs inscrits",
+      "noPlayers": "Aucun joueur inscrit pour l'instant",
+      "fail": "Impossible de s'enregistrer",
+      "errors": {
+        "noDuplicateNick": "Un joueur avec ce nom là s'est déjà enregistré pour ce tournoi",
+        "noEmptyNick": "Le pseudo ne doit ni être vide, ni ne contenir que des espaces.",
+        "registrationLocked": "Les inscriptions sont désactivées pour ce tournoi.",
+        "noSuchTournament": "Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi.",
+        "tournamentAlreadyRunning": "Le tournoi a déjà commencé"
+      }
+    }
   },
   "common": {
     "errorFindingMatchesToReport": "Une erreur s'est produite lors de la récupération de la liste des matches à enregistrer.",
     "chooseFaction": "-- Choisis une faction --"
+  },
+  "preconfigure":{
+    "modalTitle": "Préconfigurer le tournoi"
+  },
+  "bracket":{
+    "tournamentNotRunningWarning": "Le tournoi n'a pas encore commencé, reviens plus tard!"
   }
 }

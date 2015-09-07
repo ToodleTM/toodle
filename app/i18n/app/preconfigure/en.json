@@ -1,6 +1,5 @@
 {
   "preconfigure": {
-    "modalTitle": "Preconfigure tournament and start",
     "title": "Preconfiguring bracket ",
     "cancel": "Cancel",
     "reset": "Reset",

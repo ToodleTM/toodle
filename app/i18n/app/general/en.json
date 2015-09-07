@@ -14,8 +14,72 @@
     "logout":"Logout",
     "tos":"Terms of service"
   },
+  "admin":{
+    "header": {
+      "tournament": "Tournament",
+      "adminPage": "admin page"
+    },
+    "actions": {
+      "addPlayer": "Add new players once at a time ...",
+      "addMultiplePlayers": "... or a group of players using a file",
+      "run":{
+        "notRunning": "Start brackets",
+        "runDefault": "Start w/ default parameters",
+        "preconfigure": "Let me configure players",
+        "confirm": "Go!",
+        "configure": "Configure",
+        "cancel": "Cancel",
+        "willStop": "This will stop the current tournament and allow users to register again. WARNING: This _will_ destroy the current bracket",
+        "willStart": "This will start the tournament and prevent users from registering.",
+        "willConfigure": "The 'configure' button will allow you to configure your tournament further before starting it.",
+        "modalTitle": "Start / stop tournament"
+      },
+      "playerNickPlaceholder": "Player nick",
+      "multipleRegistrationSuccessful": "All new players added",
+      "removePlayer": "Remove player from this tournament"
+    },
+    "misc":{
+      "fileMustBeCSV": "file needs to be a CSV file"
+    },
+    "form":{
+      "description": "Short description",
+      "engine": "Tournament engine",
+      "startDate": "Start date",
+      "generalSettingsTab": "General settings",
+      "playerManagementTab": "Player management"
+    },
+    "error": {
+      "noSuchTournament": "No such tournament has been registered, check your URL or go back to the main page to create a new tournament.",
+      "serverError": "A server error has occurred, wait for a bit to retry and if nothing gets better, get in touch with the admin",
+      "notACSVFile": "File does not seem to be a CSV file",
+      "noNameField": "No Column for player nicks in this file. Remember that the 1st line of your CSV should define the columns. A valid 1st line here is : 'name, faction'"
+    }
+  },
+  "play":{
+    "enter":{
+      "go": "Go!"
+    },
+    "register":{
+      "registeredPlayers": "Registered players",
+      "noPlayers": "No registered players at the moment",
+      "fail": "Player registration failed",
+      "errors": {
+        "noDuplicateNick": "A player with that name is already registered",
+        "noEmptyNick": "Empty nicks are not allowed",
+        "registrationLocked": "You can't enter this tournament, registration is locked",
+        "noSuchTournament": "No such tournament has been registered, check your URL or go back to the main page to create a new tournament.",
+        "tournamentAlreadyRunning": "Tournament is already running"
+      }
+    }
+  },
   "common": {
     "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported.",
     "chooseFaction":"-- Choose a faction --"
+  },
+  "preconfigure":{
+    "modalTitle": "Preconfigure tournament and start"
+  },
+  "bracket":{
+    "tournamentNotRunningWarning": "Tournament is not currently running, please come back later!"
   }
 }

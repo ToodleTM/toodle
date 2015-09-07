@@ -1,6 +1,5 @@
 {
   "preconfigure": {
-    "modalTitle": "Préconfigurer le tournoi",
     "title": "Préconfiguration du bracket ",
     "cancel": "Annuler",
     "reset": "Remise à zéro",

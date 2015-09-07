@@ -1,7 +1,6 @@
 {
   "bracket": {
     "header": "This is the current state of tournament",
-    "tournamentNotRunningWarning": "Tournament is not currently running, please come back later!",
     "playerToHighlight": "Player actually highlighted ",
     "group": "Group"
   }

@@ -1,23 +1,14 @@
 {
   "admin": {
     "intro": "Cliques ici pour consulter les détails de ce tournoi.",
-    "header": {
-      "tournament": "Tournoi",
-      "adminPage": " : page d'administration"
-    },
     "form": {
-      "generalSettingsTab": "Réglages généraux",
-      "playerManagementTab": "Gestion des joueurs",
       "configure": "Configure ton tournoi",
       "pickGame": "-- Choisis un jeu --",
       "other": "Autre",
-      "engine": "Règles à utiliser",
-      "description": "Courte description",
       "roundFormats": "Format des rounds",
       "numberOfPlayers": "Nombre de joueurs",
       "submit": "Valider les changements",
       "game": "Jeu",
-      "startDate": "Date de début",
       "userPrivileges": {
         "title": "Privilèges pour les non-administrateurs",
         "atWill": "Report / unreport",
@@ -35,18 +26,8 @@
       "adminOptions": "Show admin options",
       "run": {
         "running": "Arrêter l'arbre",
-        "notRunning": "Démarrer l'arbre",
-        "runDefaults": "Démarrer avec les réglages par défaut",
-        "preconfigure": "Me laisser configurer l'arbre",
         "runningTooltip": "Démarrer le tournoi. Les joueurs ne pourront plus s'inscrire",
         "notRunningTooltip": "Arrêter le tournoi, les joueurs pourront a nouveau s'inscrire",
-        "confirm": "Go!",
-        "configure": "Configurer",
-        "cancel": "Annuler",
-        "willStop": "Ceci va arrêter le tournoi et permettre à de nouveaux joueurs de s'inscrire. ATTENTION: Ceci _détruira_ l'arbre tel qu'il a été créé.",
-        "willStart": "Ceci va démarrer le tournoi et empêcher de nouveaux joueurs de s'inscrire",
-        "willConfigure": "Le bouton 'configurer' permet de configurer d'autres aspects de ton tournoi avant de le démarrer.",
-        "modalTitle": "Démarrer / Arrêter le tournoi",
         "tournamentAlreadyRunning": "Le tournoi a déjà commencé",
         "tournamentAlreadyStopped": "Le tournoi est déjà arrêté",
         "noEngineSpecified": "Aucun moteur de jeu n'est spécifié, impossible de démarrer le tournoi tant que cela n'est pas fait",
@@ -93,12 +74,7 @@
         "secondPlayer": "2nd joueur",
         "doSwap": "Échanger!"
       },
-      "addPlayer": "Ajoutes les joueurs un par un ...",
-      "addMultiplePlayers": "... ou tous d'un coup avec un fichier",
-      "playerNickPlaceholder": "Pseudo du joueur",
-      "multipleRegistrationSuccessful": "Les nouveaux joueurs ont été ajoutés",
       "multipleSeedTooltip": "Ici, tu peux utiliser un fichier CSV (avec des virgules comme séparateurs). La première ligne est un entête et doit contenir les noms des propriétés (ex : 'name, faction') désignées par les colonnes. L'ordre des colonnes n'importe pas mais il devrait toujours y avoir la colonne 'name'.",
-      "removePlayer": "Retirer le joueur de ce tournoi",
       "cantRemovePlayerWhileRunning": "Impossible de retirer un joueur d'un tournoi actif!",
       "unableToChangeOrderWhileTournamentIsLive": "Impossible de changer l'ordre quand le tournoi est en cours."
     },
@@ -106,18 +82,11 @@
       "links": "Liens vers d'autres pages concernant le tournoi",
       "playLink": "Le formulaire d'inscription des joueurs",
       "brackets": "L'arbre du tournoi",
-      "fileMustBeCSV": "le fichier doit être au format CSV",
       "winners": "Liste des gagnants (export CSV)"
     },
     "update": {
       "success": "Les détails du tournoi ont été mis à jour",
       "fail": "Un problème est survenu en mettant à jour les détails du tournoi."
-    },
-    "error": {
-      "noSuchTournament": "Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi.",
-      "serverError": "Une erreur server s'est produite. Attends un peu avant de ré-essayer et si rien ne change contactes un admin.",
-      "notACSVFile": "Le fichier ne semble pas être au format CSV",
-      "noNameField": "Pas de colonne spécifiée pour les pseudos. N'oublies pas que dans le fichier CSV à fournir la première ligne doit définir les colonnes. Par exemple : 'name, faction'"
     }
   }
 }

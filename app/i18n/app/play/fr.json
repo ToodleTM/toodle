@@ -7,23 +7,12 @@
       "playPage": "page publique"
     },
     "enter": {
-      "go": "Go!",
       "nick": "Pseudo",
       "nickPlaceholder": "Ton pseudo",
       "register": "S'inscrire au tournoi!"
     },
     "register": {
-      "registeredPlayers": "Joueurs inscrits",
-      "noPlayers": "Aucun joueur inscrit pour l'instant",
-      "success": "Enregistrement OK",
-      "fail": "Impossible de s'enregistrer",
-      "errors": {
-        "noDuplicateNick": "Un joueur avec ce nom là s'est déjà enregistré pour ce tournoi",
-        "noEmptyNick": "Le pseudo ne doit ni être vide, ni ne contenir que des espaces.",
-        "registrationLocked": "Les inscriptions sont désactivées pour ce tournoi.",
-        "noSuchTournament": "Aucun tournoi avec cet identifiant n'existe ici. Vérifies ton URL ou retournes à la page principale pour créer un nouveau tournoi.",
-        "tournamentAlreadyRunning": "Le tournoi a déjà commencé"
-      }
+      "success": "Enregistrement OK"
     },
     "report": {
       "success": "Match enregistré",
