@@ -48,8 +48,8 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
   border-right: 6px solid transparent;
   border-left: 6px solid transparent;
   position:absolute;
-  top:17px;
-  right:-20px;
+  top: 50%;
+  //right: -200%;
 }
 
 .caret-right {
@@ -62,8 +62,8 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
   position: absolute;
-  top: 17px;
-  right: -20px;
+  top: 50%;
+  //right: -200%;
 }
 
 .full button span {
