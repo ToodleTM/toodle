@@ -1,0 +1,55 @@
+{
+  "privacy": {
+    "general":{
+      "title":"Politique de confidentialité",
+      "paragraph1":"Toodle prend grand soin de protéger vos données privées et de sécuriser les données stockées sur les serveurs Toodle.",
+      "paragraph2":"Ce document décrit comment Toodle gère les données auxquelles elle accède."
+    },
+    "overview": {
+      "title":"Apperçu",
+      "paragraph1": "Quand vous utilisez Toodle, vous lui envoyez des données (informations de tournoi, pseudos...). D'autres données sont créées par ailleurs par votre usage de Toodle, comme des logs techniques."
+    },
+    "logData": {
+      "title": "Logs",
+      "paragraph1": "Toodle enregistre certaines requêtes et transactions dans des fichiers de logs. Ces logs sont utilisés pour du debug, des statistiques, du contrôle qualité et s'assurer de la sécurité du système. Si Toodle est ammené à publier des statistiques faites à partir de ces logs, elles seront anonymisées de sorte à ne pouvoir identifier personne.",
+      "paragraph2": "Toodle utilise Piwik pour ses statistiques d'usage."
+    },
+    "cookies": {
+      "title": "Cookies",
+      "paragraph1": "Quand vous utilisez Toodle, le service peut stocker sur votre ordinateur des cookies. Les cookies sont des informations propres à votre navigateur qui permettent de vous identifier et de stocker des informations telles que des réglages que vous auriez faits. Toodle utilise les cookies pour suivre l'usage, apporter de nouvelles fonctionnalités et améliorer l'expérience générale.",
+      "paragraph2": "Il est à noter que Toodle est utilisable sans cookies."
+    },
+    "outdated": {
+      "title": "Tournois hors-date ou terminés",
+      "paragraph1": "Vous pouvez effacer les tournois créés manuellement par le lien d'administration. Effacer un tournoi en supprime toutes les donnés des bases de données Toodle. De plus, les tournois hors-date sont périodiquement effacés, mais pas avant 30 jours après la date de fin, ou 30 jours après le dernier accès à un tournoi ne disposant pas de date de fin."
+    },
+    "inactive": {
+      "title": "Comptes inactifs",
+      "paragraph1": "Toodle se réserve le droit d'effacer les comptes inactifs (i.e: sans accès) vieux de 6 mois ou plus"
+    },
+    "unauthorized": {
+      "title": "Accès non autorisés",
+      "paragraph1": "Toodle implémente plusieurs moyens pour éviter un accès non autorisé aux tournois, comptes, ou autres données",
+      "paragraph2": "Pour accéder à un tournoi, vous utilisez un lien de participation unique que Toodle fournit et qui contient une clef d'accès aléatoire. Ce lien est important pour ce qui est d'empêcher un accès non autorisé à un tournoi. Vous ne devriez le diffuser qu'à des personnes que vous souhaitez voir participer au tournoi. Vous devrez aussi faire attention au lien d'administration, qui est généré d'une manière similaire au lien de participation, mais permet aux personnes le possédant de modifier les paramètres du tournoi.",
+      "paragraph3": "Pour émuler la notion de compte utilisateur, Toodle repose sur des fournisseurs d'identité tels que Google et Twitter. Si vous utilisez cette fonctionnalité, Toodle stocke alors votre identifiant pour ce fournisseur. Les données demandées sont les plus basiques (données simples de profil, lecture seule). Tout ce qui serait récupéré en plus (ex:lien vers l'image de profil) est, au plus, conservé en session (qui sera détruite dès son expiration ou si vous vous déconnectez)."
+    },
+    "communication": {
+      "title": "Communication entre vous et Toodle",
+      "paragraph1": "Si vous envoyez un message à Toodle, il pourra être stocké pour le traiter, en extraire des informations statistiques, améliorer notre service et le support, ou vous recontacter"
+    },
+    "location": {
+      "title": "Emplacement géographique des données",
+      "paragraph1": "Les bases de données de Toodle sont situées en Irelande"
+    },
+    "sharing": {
+      "title": "Communication des données personnelles",
+      "paragraph1": "Toodle utilise les informations personnelles en se basant sur les modalités des conditions d'utilisation et de la politique de confidentialité.",
+      "paragraph2": "Toodle pourra communiquer des informations personnelles avec d'autres sociétés ou individus si et seulement si: (i) Toodle a votre consentement; (ii) Toodle a de bonnes raisons de penser qu'il a une obligation légale de communiquer ces données; (iii) Toodle a besoin d'accéder ou de partager ces données pour assurer la sécurité du service ou des autres utilisateurs; (iv) Toodle a besoin d'accéder ou de communiquerr les données pour protéger les droits de Toodle ou de faire respecter les conditions d'utilisation."
+    },
+    "changes": {
+      "title": "Changements",
+      "paragraph1": "Toodle se réserve le droit de mettre à jour cette politique de confidentialité à tout moment."
+    }
+  },
+  "lastMod": "Le 8 Sept. 2015"
+}

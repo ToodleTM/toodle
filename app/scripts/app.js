@@ -36,21 +36,27 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
             controller:'MyTournamentsCtrl'
         })
         .when('/why', {
+            controller:'DocumentsCtrl',
             templateUrl:'partials/pages/why.html'
         })
         .when('/about', {
+            controller: 'DocumentsCtrl',
             templateUrl:'partials/pages/about.html'
         })
         .when('/privacy', {
+            controller: 'DocumentsCtrl',
             templateUrl:'partials/pages/privacy.html'
         })
         .when('/tos', {
+            controller: 'DocumentsCtrl',
             templateUrl:'partials/pages/tos.html'
         })
         .when('/whats-new', {
+            controller: 'DocumentsCtrl',
             templateUrl: 'partials/pages/whatsNew.html'
         })
         .when('/csv-howto', {
+            controller: 'DocumentsCtrl',
             templateUrl:'partials/pages/csv.html'
         })
         .otherwise({

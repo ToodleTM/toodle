@@ -1,0 +1,55 @@
+{
+  "privacy":{
+    "general":{
+      "title":"Privacy Policy",
+      "paragraph1":"Toodle takes great care to protect your privacy and to secure the data that is stored on the Toodle servers.",
+      "paragraph2":"This Privacy Policy describes how Toodle handles the data it has access to."
+    },
+    "overview":{
+      "title":"Overview",
+      "paragraph1":"When you use Toodle, you send pieces of data to Toodle; this can be information about a tournament, nicks... Other data is generated implicitly by your use of Toodle, e.g. log data."
+    },
+    "logData":{
+      "title":"Log data",
+      "paragraph1":"Toodle records certain requests and transactions in log files. This log data is used for troubleshooting, statistics, quality assurance, and to monitor system security and can be analyzed to that end. Toodle can publish anonymous statistics under the condition that no personally identifiable information can be derived from such statistics.",
+      "paragraph2":"Toodle also uses Piwik to compile usage statistics."
+    },
+    "cookies":{
+      "title":"Cookies",
+      "paragraph1":"When you use Toodle, the service can store cookies on your computer. Cookies are little pieces of information that can help identify your browser and that can store information, e.g. application settings. Toodle uses cookies to track usage, to improve ease-of-use and the overall user experience.",
+      "paragraph2":"Although the use of cookies is enabled, Toodle works without them."
+    },
+    "outdated":{
+      "title":"Outdated and completed tournaments",
+      "paragraph1":"You can delete outdated or completed (or, in fact, any) tournaments manually at any time using the admin link. When deleting a tournament, that tournament’s information will be deleted from the Toodle databases. Furthermore, outdated tournaments are automatically deleted from time to time, but no earlier than 30 days after the last date in the tournament, or 30 days after the last access to a tournament without dates."
+    },
+    "inactive":{
+      "title": "Inactive accounts",
+      "paragraph1":"Toodle can delete user-accounts if they remain inactive (i.e. not accessed) for 6 months or longer."
+    },
+    "unauthorized":{
+      "title":"Unauthorized access",
+      "paragraph1":"Toodle implements several mechanisms to prevent unauthorized access to tournaments, accounts, or other data.",
+      "paragraph2":"To access a tournament, you use the unique signup link which Toodle provides and which contains a random access key. This link is an important element to prevent unauthorized access to a tournament. You should send this link only to authorized people, i.e., the people you wish to participate in your tournament. You must also be careful with the administration link that is generated on a similar way but allows people with it to modify your tournament parameters.",
+      "paragraph3":"To emulate user accounts, Toodle relies on already existing identity providers such as Google or Twitter. Should you choose to use that feature, Toodle then stores your identifier. No other data is requested than the most basic those providers give (basic profile, readonly). Anything that'd be sent by the identity providers (such as your profile picture link) might be stored in your session (that will be deleted as soon as it expires or logout)"
+    },
+    "communication":{
+      "title":"Commnunication between you and Toodle",
+      "paragraph1":"If you send Toodle a message, this message can be stored to process it, to compile statistical information, to improve our services and support, or to get in touch with you."
+    },
+    "location":{
+      "title":"Location of data",
+      "paragraph1":"The Toodle databases are located in Ireland."
+    },
+    "sharing":{
+      "title":"Sharing personal information",
+      "paragraph1":"Toodle uses personal information according to the Terms of Service and this Privacy Policy.",
+      "paragraph2":"Toodle may share personal information with other companies or individuals only in the following limited circumstances: (i) Toodle has your consent; (ii) Toodle has good faith that there is a legal obligation to share the data; (iii) Toodle needs to access or share the data to protect the security of the service or of others users’ data; (iv) Toodle needs to access or share the data to protect Toodle’s rights and property or to enforce the Terms of Service."
+    },
+    "changes":{
+      "title":"Changes",
+      "paragraph1":"Toodle reserves the right to update this Privacy Policy at any time."
+    }
+  },
+  "lastMod":"Sept. 8 2015"
+}

@@ -1,0 +1,7 @@
+{
+  "why":{
+    "title":"Why Toodle?",
+    "intro":"Once upon a time, we organized SC2 tournaments at our local e-spors bar. At first, this was very amateur-ish and then we got the opportunity to get a little more serious. This implied (much) more players to handle and too few manpower to do it efficiently without any help.",
+    "explain":"We started using an already available app, then we wrapped its API into an app of our own ... but it wasn't quite what we wanted. Most tools we used had their advantages but when it came to configuring a tournament, it was often a hassle and not always very clear. Toodle aims to change this."
+  }
+}
