@@ -32,7 +32,8 @@
         "willStop": "This will stop the current tournament and allow users to register again. WARNING: This _will_ destroy the current bracket",
         "willStart": "This will start the tournament and prevent users from registering.",
         "willConfigure": "The 'configure' button will allow you to configure your tournament further before starting it.",
-        "modalTitle": "Start / stop tournament"
+        "modalTitle": "Start / stop tournament",
+        "noPlayers": "No players registered, there's no point in initiating the bracket"
       },
       "playerNickPlaceholder": "Player nick",
       "multipleRegistrationSuccessful": "All new players added",
@@ -53,6 +54,10 @@
       "serverError": "A server error has occurred, wait for a bit to retry and if nothing gets better, get in touch with the admin",
       "notACSVFile": "File does not seem to be a CSV file",
       "noNameField": "No Column for player nicks in this file. Remember that the 1st line of your CSV should define the columns. A valid 1st line here is : 'name, faction'"
+    },
+    "update": {
+      "success": "Tournament specs successfully updated",
+      "fail": "Something went wrong updating this tournament."
     }
   },
   "play":{
@@ -60,6 +65,7 @@
       "go": "Go!"
     },
     "register":{
+      "success": "Successfully registered",
       "registeredPlayers": "Registered players",
       "noPlayers": "No registered players at the moment",
       "fail": "Player registration failed",

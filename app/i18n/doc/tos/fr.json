@@ -1,0 +1,42 @@
+{
+  "tos": {
+    "title": "Conditions d'utilisation",
+    "general": {
+      "title": "Général",
+      "item1": "En utilisant un produit, logiciel ou service disponible sur *.toodle.it (appelés \"Services\") fourni par Toodle, vous acceptez être lié aux conditions d'utilisation suivantes (\"Conditions d'utilisation\").",
+      "item2": "Toodle se réserve le droit de mettre à jour et de changer les Conditions d'utilisation sans notification préalable. Vous pouvez consulter la version la plus récente des Conditions d'utilisation ici : http://www.toodle.it/tos",
+      "item3": "Le fait que Toodle manque à exercer ou imposer tout droit ou provision des Conditions d'utilisation ne constitue pas un renoncement à de tels droits ou provisions.",
+      "item4": "Vous acceptez que le code source de Toodle est distribué sous la licence GPLv3 (https://www.gnu.org/licenses/gpl.html) et que si vous choisissez de produire un service se basant sur Toodle, il devra être partagé sous la même licence, ou sa version mise à jour. Les resources graphiques de Toodle (logos) sont sous license Creative Commons CC-BY-NC-SA (https://creativecommons.org/)",
+      "item5": "Contrevenir aux conditions suivantes pourra avoir pour conséquence l'effacement de votre compte utilisateur ou l'arrêt de l'accès aux Services. Contrevenir aux conditions peut aussi entraîner la fin de vos droits d'utilisation des Services.",
+      "item6": "Si l'une des mesures de cet accord devient illégale, invalide ou inapplicable dans une juridiction donnée, cela n'affectera pas: (i) la validité ou l'applicabilité dans la même juridiction des autres dispositions de cet accord; ou (ii) la validité ou l'applicabilité dans d'autres juridictions de la même disposition de cet accord.",
+      "item7": "Ces Conditions d'utilisation constituent l'accord complet entre vous et Toodle et remplacent toutes les dispositions précédentes concernant les Conditions d'utilisation. Il n'y a aucune disposition verbale complémentaire."
+    },
+    "provision": {
+      "title": "Les Services fournis par Toodle",
+      "item1": "Votre utilisation des services de Toodle est à vos propres risques. Les Services fournis le sont sur une base de \"tels quels\" et \"selon la disponibilité\".",
+      "item2": "Toodle ne garantit pas que (i) les Services seront conformes à vos besoins ou spécifications, (ii) les Services seront rendus de manière initerrompue, dans les temps, sécurisés, ou sans erreur, (iii) les résultats obtenus par l'utilisation des Services seront exacts et fiables, (iv) toutes les erreurs des Services seront corrigées.",
+      "item3": "Vous comprenez et acceptez que Toodle ne pourra être tenu pour responsable de quelque dommage qu'il soit direct, indirect, accidentel, exceptionnel, consécutif ou exemplaire, ceci incluant, mais sans se limiter à toute perte de profit, perte de réputation, perte de données, ou toute autre perte intangible, résultant de: (i) l'utilisation ou l'incapacité à utiliser les Services; (ii) N'importe quel changement que Toodle pourrait apporter aux Services, ou toute interruption permanente ou temporaire dans les dispositions des Services; (iii) l'accès non autorisé ou l'altération de vos transmissions ou vos données; (iv) l'effacement, la corruption, l'impossibilité d'enregistrer, tout contenu ou données de communication maintenues ou transmises par ou à travers des Services; (v) ou tout autre sujet relatif aux Services.",
+      "item4": "L'assistance technique est fournie sur la base du meilleur effort et exclusivement par e-mail",
+      "item5": "Vous comprenez que Toodle peut avoir recours à des tierces parties (ex: des hébergeurs) afin de fournir les ressources nécessaires (ex: matériel, logiciels, réseau, stockage, etc.) pour le fonctionnement des Services.",
+      "item6": "Toodle peut mettre fin, enlever, modifier ou ajouter (de manière permanente ou temporaire) des Services (ou des fonctionnalités au sein de Services) à la seule discrétion de Toodle. Toute fonctionnalité nouvelle, changée ou enlevée est sujette aux Conditions d'utilisation. L'utilisation de telles fonctionnalités après de tel changements constitue votre accord concernant ces changements."
+    },
+    "use": {
+      "title": "Votre utilisation des Services",
+      "item1": "Vous acceptez l'utilisation des Services exclusivement pour des applications autorisées par (i) les Conditions d'utilisation et (ii) toute loi en application, réglementation ou pratiques et règles de conduite généralement acceptées dans les juridictions appropriées.",
+      "item2": "Pour certains services, Toodle peut vous demander d'enregistrer un compte d'utilisateur. Vous êtes responsable de la sécurité de votre compte utilisateur et de son mot de passe. Les comptes créés par des bots ou d'autres moyens automatisés ne sont pas permis.",
+      "item3": "Vous acceptez de ne pas usurper l'identité d'une autre personne",
+      "item4": "Vous acceptez de ne pas vous lancer dans une activité qui interférerait ou perturberait les Services (ou les serveurs et réseaux connectés à ces Services).",
+      "item5": "",
+      "item6": "Vous acceptez que vous êtes le seul responsable (et que Toodle n'a aucune responsabilité envers vous ou n'importe quelle tierce partie) de tout manquement de votre part à vos obligations vis à vis des Conditions d'utilisation et de leurs conséquences (en incluant toute perte ou dommage que Toodle pourrait subir) d'un tel manquement.",
+      "item7": "Vous acceptez la Politique de Confidentialité Toodle, telle que disponible ici http://www.toodle.it/privacy.",
+      "item8": "Toodle se réserve le droit (mais n'en a pas l'obligation) de viser, revoir, marquer, filtrer, modifier, refuser ou enlever tout ou partie d'un contenu ou compte utilisateur des Services de Toodle à la seule discrétion de Toodle. Vous comprenez qu'en utilisant les Services vous pourrez vous retrouver face a du contenu que vous pourriez trouver inapproprié, indécent ou répréhensible et que, à cet égard, vous utilisez les Services à vos propres risques."
+    },
+    "api": {
+      "title": "Utilisation de l'API",
+      "description":"Toute utilisation de l'interface de programmation applicative (API) est liée aux conditions de cet accord, plus les dispositions spécifiques suivantes:",
+      "item1": "L'abus ou les requêtes excessivement fréquentes de l'API pourront donner lieu à une suspension temporaire ou permanente de l'accès à l'API. Toodle décide d'un abus ou d'une utilisation excessive de l'API à sa seule discrétion.",
+      "item2": "Toodle se réserve à tout moment le droit de modifier ou interrompre, de manière temporaire ou permanente, votre accès à l'API (ou toute partie) avec ou sans notification. Toodle se réserve en particulier le droit de limiter le nombre de requêtes vers l'API à une certaine limite haute pour une plage de temps donnée.",
+      "item3": "En tant qu'utilisateur de l'API, vous pourrez, au travers de votre produit, indiquer qu'il utilise l'API Toodle."
+    }
+  }
+}

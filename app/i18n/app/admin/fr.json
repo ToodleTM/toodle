@@ -31,7 +31,6 @@
         "tournamentAlreadyRunning": "Le tournoi a déjà commencé",
         "tournamentAlreadyStopped": "Le tournoi est déjà arrêté",
         "noEngineSpecified": "Aucun moteur de jeu n'est spécifié, impossible de démarrer le tournoi tant que cela n'est pas fait",
-        "noPlayers": "Aucun joueur enregistré. Aucun intérêt à démarrer le tournoi.",
         "invalidTournamentEngine": "le moteur de règles demandé n'est pas dsponible",
         "notFound": "Tournament does not exist",
         "cantUnlockRunningTournament": "Il n'est pas possible d'accepter de nouveaux joueurs une fois le tournoi commencé."
@@ -83,10 +82,6 @@
       "playLink": "Le formulaire d'inscription des joueurs",
       "brackets": "L'arbre du tournoi",
       "winners": "Liste des gagnants (export CSV)"
-    },
-    "update": {
-      "success": "Les détails du tournoi ont été mis à jour",
-      "fail": "Un problème est survenu en mettant à jour les détails du tournoi."
     }
   }
 }

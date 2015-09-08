@@ -1,0 +1,14 @@
+{
+  "csv": {
+    "title": "Comment faire un fichier d'import CSV pour Toodle?",
+    "paragraph1": "Faire un fichier d'import CSV pour Toodle est assez simple aujourd'hui.",
+    "paragraph2": "La première ligne doit définir les colonnes afin que Toodle sache quoi faire du fichier. Ensuite, chaque ligne va représenter un joueur en fonction de cette description. Par exemple :",
+    "legend1": "exemple de 'import.csv'",
+    "paragraph3": "définit une liste de 8 joueurs dont les noms sont sur la première colonne et leurs factions sur la seconde.",
+    "paragraph4": "Seuls les noms des joueurs sont obligatoires. Il est donc possible d'écrire :",
+    "legend2": "exemple de 'import2.csv'",
+    "paragraph5": "ce qui va créer la même liste qu'au dessus, au détail près que les joueurs \"player 1\" et \"player 5\" qui n'auront pas de faction attitrée.",
+    "paragraph6": "Il est aussi possible de complètement ignorer la colonne de faction :",
+    "legend3": "Ceci est un autre exemple valide"
+  }
+}

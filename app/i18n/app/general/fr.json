@@ -31,7 +31,8 @@
         "willStop": "Ceci va arrêter le tournoi et permettre à de nouveaux joueurs de s'inscrire. ATTENTION: Ceci _détruira_ l'arbre tel qu'il a été créé.",
         "willStart": "Ceci va démarrer le tournoi et empêcher de nouveaux joueurs de s'inscrire",
         "willConfigure": "Le bouton 'configurer' permet de configurer d'autres aspects de ton tournoi avant de le démarrer.",
-        "modalTitle": "Démarrer / Arrêter le tournoi"
+        "modalTitle": "Démarrer / Arrêter le tournoi",
+        "noPlayers": "Aucun joueur enregistré. Aucun intérêt à démarrer le tournoi."
       },
       "playerNickPlaceholder": "Pseudo du joueur",
       "multipleRegistrationSuccessful": "Les nouveaux joueurs ont été ajoutés",
@@ -52,6 +53,10 @@
       "serverError": "Une erreur server s'est produite. Attends un peu avant de ré-essayer et si rien ne change contactes un admin.",
       "notACSVFile": "Le fichier ne semble pas être au format CSV",
       "noNameField": "Pas de colonne spécifiée pour les pseudos. N'oublies pas que dans le fichier CSV à fournir la première ligne doit définir les colonnes. Par exemple : 'name, faction'"
+    },
+    "update": {
+      "success": "Les détails du tournoi ont été mis à jour",
+      "fail": "Un problème est survenu en mettant à jour les détails du tournoi."
     }
   },
   "play":{
@@ -59,6 +64,7 @@
       "go": "Go!"
     },
     "register": {
+      "success": "Enregistrement OK",
       "registeredPlayers": "Joueurs inscrits",
       "noPlayers": "Aucun joueur inscrit pour l'instant",
       "fail": "Impossible de s'enregistrer",

@@ -11,9 +11,6 @@
       "nickPlaceholder": "Your nick here",
       "register": "Enter the tournament!"
     },
-    "register": {
-      "success": "Successfully registered"
-    },
     "report": {
       "success": "Match reported",
       "fail": "An error occurred when reporting match",

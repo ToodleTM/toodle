@@ -57,7 +57,7 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
         })
         .when('/csv-howto', {
             controller: 'DocumentsCtrl',
-            templateUrl:'partials/pages/csv.html'
+            templateUrl:'partials/pages/csv-howto.html'
         })
         .otherwise({
             redirectTo: '/'

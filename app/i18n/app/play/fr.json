@@ -11,9 +11,6 @@
       "nickPlaceholder": "Ton pseudo",
       "register": "S'inscrire au tournoi!"
     },
-    "register": {
-      "success": "Enregistrement OK"
-    },
     "report": {
       "success": "Match enregistré",
       "fail": "Une erreur s'est produite en enregistrant le match",
