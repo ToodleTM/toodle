@@ -9,71 +9,72 @@
     <div class="well clearwell">
 
 
-
-    <div class="row" style="position:relative">
-        <div class="form-group col-sm-11">
-            <h1><a href="#"
-                   ng-click="toggleCollapse()" id="displaySettings"><span translate="admin.header.tournament"></span> : <span
-                    id="tournamentName">{{tournamentInfo.tournamentName}}</span></a>
-            </h1>
+        <div class="row" style="position:relative">
+            <div class="form-group col-sm-11">
+                <h1><a href="#"
+                       ng-click="toggleCollapse()" id="displaySettings"><span
+                        translate="admin.header.tournament"></span> : <span
+                        id="tournamentName">{{tournamentInfo.tournamentName}}</span></a>
+                </h1>
+            </div>
+            <div class="form-group col-sm-1">
+                <h1>&nbsp; <a href="#"
+                              ng-click="toggleCollapse()"><span
+                        class="{{isCollapsed ? 'caret-right': 'caret-big'}}"></span></a></h1>
+            </div>
         </div>
-        <div class="form-group col-sm-1">
-            <h1>&nbsp; <a href="#"
-                          ng-click="toggleCollapse()"><span class="{{isCollapsed ? 'caret-right': 'caret-big'}}"></span></a> </h1>
-        </div>
-    </div>
 
-    <a class="btn btn-info" target="_blank" ng-href="/play/{{tournamentInfo.signupID}}" id="playerSignupPageLink">
-        <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <span
-            translate="admin.misc.playLink"></span>
+        <a class="btn btn-info" target="_blank" ng-href="/play/{{tournamentInfo.signupID}}" id="playerSignupPageLink">
+            <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <span
+                translate="admin.misc.playLink"></span>
 
-    </a>
+        </a>
 
-    <button ng-if="tournamentInfo.running" id="runTournament" ng-click="openRunDialog()"
-            class="btn btn-danger"
-            title="{{ 'admin.actions.run.runningTooltip' | translate }}">
-        <span class="glyphicon glyphicon-stop" aria-hidden="true"></span> <span
-            translate="admin.actions.run.running"></span>
-    </button>
-
-    <div class="btn-group" dropdown ng-if="!tournamentInfo.running">
-        <button type="button" class="btn btn-success" id="runTournament" ng-click="openRunDialog()"
+        <button ng-if="tournamentInfo.running" id="runTournament" ng-click="openRunDialog()"
                 class="btn btn-danger"
-                title="{{'admin.actions.run.notRunningTooltip' | translate }}">
-            <span class="glyphicon glyphicon-play" aria-hidden="true"></span> <span
-                translate="admin.actions.run.notRunning"></span>
+                title="{{ 'admin.actions.run.runningTooltip' | translate }}">
+            <span class="glyphicon glyphicon-stop" aria-hidden="true"></span> <span
+                translate="admin.actions.run.running"></span>
         </button>
-        <button type="button" class="btn btn-success dropdown-toggle" dropdown-toggle>
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#" ng-click="openRunDialog()" translate="admin.actions.run.runDefault"></a></li>
-            <li class="divider"></li>
-            <li ng-if="canSwapPlayers"><a href="#" ng-click="openPreconfigureDialog()"
-                                          translate="admin.actions.run.preconfigure"></a></li>
-        </ul>
-    </div>
-    <br/>
 
-    <div class="row">
-        <div class="form-group col-sm-6">
-            <label style="width:100%;" class="control-label"
-                   ng-show="!gamesToReport.length">&nbsp;</label>
-            <a class="btn btn-info" ng-show="tournamentInfo.running && !gamesToReport.length"
-               href="#"
-               ng-click="downloadTournamentWinners()"><span class="glyphicon glyphicon-save-file"
-                                                            aria-hidden="true"></span> <span
-                    translate="admin.misc.winners"></span></a>
+        <div class="btn-group" dropdown ng-if="!tournamentInfo.running">
+            <button type="button" class="btn btn-success" id="runTournament" ng-click="openRunDialog()"
+                    class="btn btn-danger"
+                    title="{{'admin.actions.run.notRunningTooltip' | translate }}">
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> <span
+                    translate="admin.actions.run.notRunning"></span>
+            </button>
+            <button type="button" class="btn btn-success dropdown-toggle" dropdown-toggle>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#" ng-click="openRunDialog()" translate="admin.actions.run.runDefault"></a></li>
+                <li class="divider"></li>
+                <li ng-if="canSwapPlayers"><a href="#" ng-click="openPreconfigureDialog()"
+                                              translate="admin.actions.run.preconfigure"></a></li>
+            </ul>
         </div>
-    </div>
-        <div collapse="isCollapsed">
+        <br/>
 
-            <tabset >
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label style="width:100%;" class="control-label"
+                       ng-show="!gamesToReport.length">&nbsp;</label>
+                <a class="btn btn-info" ng-show="tournamentInfo.running && !gamesToReport.length"
+                   href="#"
+                   ng-click="downloadTournamentWinners()"><span class="glyphicon glyphicon-save-file"
+                                                                aria-hidden="true"></span> <span
+                        translate="admin.misc.winners"></span></a>
+            </div>
+        </div>
+        <div collapse="isCollapsed" style="min-width:355px;">
+
+            <tabset>
                 <alert collapse="!errorMessage" type="danger" close="hideUpdateAlert()" style="margin-top:25px;">
                     <span translate="{{alertMessage}}">{{alertMessage |translate}}</span><br/>
                     <span translate="{{errorMessage}}">{{errorMessage |translate}}</span>
                 </alert>
-                <tab >
+                <tab>
                     <tab-heading>
                         <span translate="admin.form.generalSettingsTab"></span>
                     </tab-heading>
@@ -155,7 +156,8 @@
                     <tab-heading>
                         <span id="playerManagement" translate="admin.form.playerManagementTab"></span>
                     </tab-heading>
-                    <fieldset ng-show="!tournamentInfo.running" class="expandedtabs expandedtabs-content expandedtabs-middle">
+                    <fieldset ng-show="!tournamentInfo.running"
+                              class="expandedtabs expandedtabs-content expandedtabs-middle">
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <legend translate="admin.actions.addPlayer"></legend>
@@ -200,22 +202,24 @@
                     </fieldset>
                     <fieldset id="playersList" ng-model="playerList" class="expandedtabs expandedtabs-content">
                         <div class="row">
-                        <legend class="expandedtabs expandedtabs-title"><span translate="play.register.registeredPlayers"></span> (Total : {{playerList.length}})
-                        </legend>
-                        <ul id="sortablePlayerList">
-                            <li ng-repeat="player in playerList" class="playerInList">
+                            <legend class="expandedtabs expandedtabs-title"><span
+                                    translate="play.register.registeredPlayers"></span> (Total : {{playerList.length}})
+                            </legend>
+                            <ul id="sortablePlayerList">
+                                <li ng-repeat="player in playerList" class="playerInList">
                 <span style="float:left"><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png"
                                                                            height="20px"></span>{{player.name}} </span>
                             <span ng-if="'notes-'+stripped(player.name)" class="playerInListInfo"
                                   id="notes-{{stripped(player.name)}}" translate="{{errorMessage}}"></span><i
-                                    ng-hide="tournamentInfo.running" title="{{'admin.actions.removePlayer'|translate}}"
-                                    class="glyphicon glyphicon-trash"
-                                    ng-click="removePlayer(player.name)"></i>
-                            </li>
-                        </ul>
-                        <div ng-show="playerList.length == 0">
-                            <span translate="play.register.noPlayers"> </span>
-                        </div>
+                                        ng-hide="tournamentInfo.running"
+                                        title="{{'admin.actions.removePlayer'|translate}}"
+                                        class="glyphicon glyphicon-trash"
+                                        ng-click="removePlayer(player.name)"></i>
+                                </li>
+                            </ul>
+                            <div ng-show="playerList.length == 0">
+                                <span translate="play.register.noPlayers"> </span>
+                            </div>
                         </div>
                     </fieldset>
                 </tab>
