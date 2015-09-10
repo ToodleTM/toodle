@@ -1,8 +1,6 @@
 'use strict';
-var homeAddress = 'http://localhost';
-
 beforeEach(function () {
-    browser.driver.get(homeAddress);
+    browser.get('');
     browser.waitForAngular();
 });
 

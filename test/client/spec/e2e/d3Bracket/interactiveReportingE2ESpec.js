@@ -1,12 +1,11 @@
 'use strict';
-var homeAddress = 'http://localhost';
 var e2eUtils = require('./../e2eUtils.js');
 var path = require('path');
 
 
 describe('Match reporting through the interactive bracket', function () {
     beforeEach(function () {
-        browser.driver.get(homeAddress);
+        browser.get('');
         browser.waitForAngular();
     });
     function setupTournamentWith4Players() {

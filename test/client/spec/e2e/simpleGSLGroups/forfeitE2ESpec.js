@@ -1,11 +1,10 @@
 'use strict';
-var homeAddress = 'http://localhost';
 var path = require('path');
 
 
 describe('Player forfeits while bracket is ongoing', function () {
     beforeEach(function () {
-        browser.driver.get(homeAddress);
+        browser.get('');
         browser.waitForAngular();
     });
     function setupTournamentWith4Players() {

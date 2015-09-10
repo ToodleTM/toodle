@@ -1,8 +1,7 @@
 'use strict';
-var homeAddress = 'http://localhost';
 describe('User having the admin link of a tournament', function () {
     beforeEach(function () {
-        browser.driver.get(homeAddress);
+        browser.get('');
         browser.waitForAngular();
     });
     it('should be able to edit all fields', function () {

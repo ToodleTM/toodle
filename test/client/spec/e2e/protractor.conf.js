@@ -1,5 +1,6 @@
 exports.config = {
-    specs: ['*E2ESpec.js', 'd3Bracket/*E2ESpec.js', 'simpleGSLGroups/*E2ESpec.js'],
+    baseUrl: 'http://localhost:9042',
+    specs: [ 'simpleGSLGroups/interactiveReportingE2ESpec.js'],
     capabilities:{
         'browserName':'firefox',
         'shardTestFiles':true,

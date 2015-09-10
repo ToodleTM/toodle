@@ -1,9 +1,8 @@
 'use strict';
-var homeAddress = 'http://localhost';
 var e2eUtils = require('./e2eUtils.js');
 describe('Start tournament', function () {
     beforeEach(function(){
-        browser.driver.get(homeAddress);
+        browser.get('');
         browser.waitForAngular();
     });
 
