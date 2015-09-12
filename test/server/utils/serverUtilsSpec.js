@@ -47,18 +47,24 @@ describe('Server Utils', function () {
     describe('Multiseed handling', function () {
         it('should return an error if not all the parsed CSV items do not contain a "name" attribute', function () {
             //setup
+            var jsonSpy = sinon.spy();
             var res = {
-                json: function () {
+                status: function () {
+                    var status = function () {
+                    };
+                    status.json = jsonSpy;
+                    return status;
                 }
             };
-            sinon.spy(res, 'json');
+            sinon.spy(res, 'status');
             //action
             //parsedCSV, TournamentModel, req, res, tournamentService, next
             serverUtils.handleMultipleSeeding([{}], null, null, res, null, null);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 400);
-            assert.equal(res.json.getCall(0).args[1].message, 'noNameField');
-            assert.equal(res.json.calledOnce, true);
+            assert.equal(res.status.calledOnce, true);
+            assert.equal(res.status.getCall(0).args[0], 400);
+            assert.equal(jsonSpy.calledOnce, true);
+            assert.deepEqual(jsonSpy.getCall(0).args, [{message:'noNameField'}]);
         });
 
         it('should call multipleSeed if parsed players have a name', function () {
@@ -95,22 +101,28 @@ describe('Server Utils', function () {
         it('should return a 404 error if no tournament was found', function () {
             //setup
             var req = {query: {tournamentId: 1}};
+            var jsonSpy = sinon.spy();
             var res = {
-                json: function () {
+                status: function () {
+                    var status = function () {
+                    };
+                    status.json = jsonSpy;
+                    return status;
                 }
             };
+            sinon.spy(res, 'status');
             var model = {
                 findById: function (criteria, callback) {
                     callback(true);
                 }
             };
-            sinon.spy(res, 'json');
             //action
             serverUtils.handleMultipleSeeding([{name: 'BillyBob'}], model, req, res, null);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 404);
-            assert.equal(res.json.getCall(0).args[1].message, 'noSuchTournament');
-            assert.equal(res.json.calledOnce, true);
+            assert.equal(res.status.calledOnce, true);
+            assert.equal(res.status.getCall(0).args[0], 404);
+            assert.equal(jsonSpy.calledOnce, true);
+            assert.deepEqual(jsonSpy.getCall(0).args, [{message:'noSuchTournament'}]);
         });
 
         it('should treat an exception from tournamentService.multipleSeed as the fact that the parsed file was not a CSV', function () {
@@ -118,10 +130,16 @@ describe('Server Utils', function () {
 
             //setup
             var req = {query: {tournamentId: 1}};
+            var jsonSpy = sinon.spy();
             var res = {
-                json: function () {
+                status: function () {
+                    var status = function () {
+                    };
+                    status.json = jsonSpy;
+                    return status;
                 }
             };
+            sinon.spy(res, 'status');
             var model = {
                 findById: function (criteria, callback) {
                     callback(null, {});
@@ -135,14 +153,33 @@ describe('Server Utils', function () {
                     return res.json({});
                 }
             };
-            sinon.spy(res, 'json');
             //action
             serverUtils.handleMultipleSeeding([{name: 'BillyBob'}], model, req, res, tournamentService);
             //assert
-            assert.equal(res.json.getCall(0).args[0], 400);
-            assert.equal(res.json.getCall(0).args[1].message, 'notACSVFile');
-            assert.equal(res.json.calledOnce, true);
+            assert.equal(res.status.calledOnce, true);
+            assert.equal(res.status.getCall(0).args[0], 400);
+            assert.equal(jsonSpy.calledOnce, true);
+            assert.deepEqual(jsonSpy.getCall(0).args, [{message:'notACSVFile'}]);
+        });
 
+        it('should return an error if parsed CSV data is empty', function(){
+            //setup
+            var jsonSpy = sinon.spy();
+            var res = {
+                status:function(){
+                    var status = function(){};
+                    status.json = jsonSpy;
+                    return status;
+                }
+            };
+            sinon.spy(res, 'status');
+            //action
+            serverUtils.handleMultipleSeeding(null, null, null, res, null);
+            //assert
+            assert.equal(res.status.calledOnce, true);
+            assert.deepEqual(res.status.getCall(0).args, [400]);
+            assert.equal(jsonSpy.calledOnce, true);
+            assert.deepEqual(jsonSpy.getCall(0).args, [{message:'noNameField'}]);
         });
     });
 

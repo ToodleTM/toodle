@@ -33,6 +33,23 @@ describe('TournamentService - Player registration', function () {
         assert.equal(res.json.calledOnce, true);
     });
 
+    it('should reject a player registration w/ an undefined player name', function () {
+        //setup
+        var tournamentService = new TournamentService();
+        var req = {body: {}};
+        var res = {
+            json: function () {
+            }
+        };
+        sinon.spy(res, 'json');
+        //action
+        tournamentService.registerPlayer(req, res, {players: []});
+        //assert
+        assert.equal(res.json.getCall(0).args[0], 400);
+        assert.equal(res.json.getCall(0).args[1].message, 'noEmptyNick');
+        assert.equal(res.json.calledOnce, true);
+    });
+
     it('should reject a player registration if tournament is locked', function () {
         //setup
         var tournamentService = new TournamentService();
