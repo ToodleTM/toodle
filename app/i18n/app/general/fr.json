@@ -36,7 +36,37 @@
       },
       "playerNickPlaceholder": "Pseudo du joueur",
       "multipleRegistrationSuccessful": "Les nouveaux joueurs ont été ajoutés",
-      "removePlayer": "Retirer le joueur de ce tournoi"
+      "removePlayer": "Retirer le joueur de ce tournoi",
+      "reporting": {
+        "title": "Enregistrer",
+        "closeMatch": "Ceci est le score final",
+        "forfeit": "(forfait)",
+        "reportMatch": "Enregistrer un résultat",
+        "unreportMatch": "Annuler un enregistrement",
+        "reportButton": "Formulaire",
+        "unreportButton": "Annuler le match!",
+        "describeReport": "Remplis le formulaire pour enregistrer le résultat.",
+        "playerScore": " score",
+        "unreportTitle": "Annuler un enregistrement",
+        "warning": "En cliquant sur le bouton de confirmation tu vas valider l'annulation, ce qui aura pour effet d'effacer le résultat du match (score, replay ...). Cette action ne peut être annulée.",
+        "errorUnreportingMatch": "Une erreur s'est produite en annulant ce match",
+        "reportingOk": "Reporting complet",
+        "reportingKo": "Échec du reporting",
+        "errors": {
+          "cantUnreportUnknownMatch": "Impossible de report un match qui n'existe pas pour ce tournoi",
+          "cannotUnreportIncompleteMatch": "Impossible d'annuler un match qui n'a pas encore été joué",
+          "nextMatchAlreadyReported": "Le match suivant a déjà été joué, tu dois d'abord l'annuler pour pouvoir annuler le match qui t'intéresse.",
+          "notAllPreviousMatchesAreComplete": "Certains matchs menant à celui là doivent être enregistrés avant de pouvoir enregistrer celui là!",
+          "alreadyReported": "Ce match a déjà été enregistré. Pour pouvoir l'éditer, tu dois d'abord unreport le match puis le ré-enregistrer.",
+          "numberlessMatchNotAllowed": "Aucun numéro de match fourni, impossible d'effectuer l'opération.",
+          "invalidScores": "Utilises des entiers pour inscrire le score.",
+          "nextMatchDoesNotExist": "Impossible de trouver le match suivant",
+          "winnerMustHaveHigherScore": "Le gagnant doit avoir un meilleur score que le perdant",
+          "insufficientPrivileges": "Tu n'as pas le droit de faire ça",
+          "defWinCantBeUnreported": "Tu ne peux pas annuler une defwin !",
+          "errorUnreportingMatch": "Erreur du service. C'est peut être temporaire, ré-essayes dans quelques minutes et si ća ne fonctionne toujours pas essayes de contacter l'admin ou, à défaut, le dev principal sur Twitter (@ToodleTM)"
+        }
+      }
     },
     "misc":{
       "fileMustBeCSV": "le fichier doit être au format CSV"
@@ -85,6 +115,8 @@
     "modalTitle": "Préconfigurer le tournoi"
   },
   "bracket":{
+    "header": "Voici l'état actuel du tournoi",
+    "group": "Groupe",
     "tournamentNotRunningWarning": "Le tournoi n'a pas encore commencé, reviens plus tard!"
   }
 }

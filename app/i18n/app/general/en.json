@@ -37,7 +37,37 @@
       },
       "playerNickPlaceholder": "Player nick",
       "multipleRegistrationSuccessful": "All new players added",
-      "removePlayer": "Remove player from this tournament"
+      "removePlayer": "Remove player from this tournament",
+      "reporting": {
+        "title": "Reporting",
+        "closeMatch": "This is the final score",
+        "forfeit": "(forfeit)",
+        "reportMatch": "Report a game",
+        "unreportMatch": "Unreport a game",
+        "reportButton": "Go to the form",
+        "unreportButton": "Unreport !",
+        "describeReport": "Please fill in the form and validate it in order to report the match.",
+        "playerScore": "'s score",
+        "unreportTitle": "Unreporting",
+        "warning": "Clicking the confirmation button will unreport the match, permanently deleting any content (score, replays ...) related. This action can't be undone.",
+        "errorUnreportingMatch": "An error has occurred when unreporting last match",
+        "reportingOk": "Reporting successful",
+        "reportingKo": "Reporting failed",
+        "errors": {
+          "cantUnreportUnknownMatch": "Can't report a match that does not exist for this bracket",
+          "cannotUnreportIncompleteMatch": "Unable to unreport a match that has not been played yet",
+          "nextMatchAlreadyReported": "The next match has already been played, you need to unreport it first in order to be able to unreport this one",
+          "notAllPreviousMatchesAreComplete": "There are matches before this one that need to be reported before you can report this one",
+          "alreadyReported": "This match has already been reported. If you want to edit it you must unreport and then report it again",
+          "numberlessMatchNotAllowed": "No match number was provided, unable to report.",
+          "invalidScores": "Please use integers when reporting score",
+          "nextMatchDoesNotExist": "Could not find the next match",
+          "winnerMustHaveHigherScore": "Winning player must have a higher score",
+          "insufficientPrivileges": "You are not allowed do that",
+          "defWinCantBeUnreported": "You can't unreport a defwin !",
+          "errorUnreportingMatch": "Service error. It can be temporary, try again in a few minutes and if the problem is still there you should get in touch w/ your admin or, if none is present, tweet the main dev (@ToodleTM)."
+        }
+      }
     },
     "misc":{
       "fileMustBeCSV": "file needs to be a CSV file"
@@ -86,6 +116,8 @@
     "modalTitle": "Preconfigure tournament and start"
   },
   "bracket":{
+    "header": "This is the current state of tournament",
+    "group": "Group",
     "tournamentNotRunningWarning": "Tournament is not currently running, please come back later!"
   }
 }
