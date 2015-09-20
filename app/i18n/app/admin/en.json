@@ -52,7 +52,8 @@
       "links": "Links to other related pages for your tournament",
       "playLink": "Player's signup form",
       "brackets": "Tournament's bracket",
-      "winners": "Tournament winners (CSV export)"
+      "winners": "Tournament winners (CSV export)",
+      "embedLink":"Embed in another page"
     }
   }
 }

@@ -30,6 +30,11 @@
 
         </a>
 
+        <a class="btn btn-info" target="_blank" ng-href="/embed/{{tournamentInfo.signupID}}" id="embedPageLink">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span
+                translate="admin.misc.embedLink"></span>
+        </a>
+
         <button ng-if="tournamentInfo.running" id="runTournament" ng-click="openRunDialog()"
                 class="btn btn-danger"
                 title="{{ 'admin.actions.run.runningTooltip' | translate }}">

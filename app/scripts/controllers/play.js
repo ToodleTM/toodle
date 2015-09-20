@@ -36,47 +36,10 @@ angular.module('toodleApp')
                 }
                 $scope.factions = factionsArray;
             });
-            updateMatchesToReport();
-            updateMatchesToUnreport();
         }).error(function(){
             $scope.hideContent = true;
             $scope.notFound = true;
         });
-
-        function updateMatchesToReport() {
-            $http.get('/api/tournament/matchesToReport?id=' + $scope.tournamentInfo.signupID)
-                .success(function (data) {
-                    $scope.gamesToReport = data;
-                    if (data.length > 0) {
-                        $scope.firstGameToReport = $scope.gamesToReport[0];
-                        $scope.number = $scope.firstGameToReport.number;
-                        $scope.score1 = 0;
-                        $scope.score2 = 0;
-                    }
-                })
-                .error(function () {
-                });
-        }
-
-        function updateMatchesToUnreport() {
-            $http.get('/api/tournament/matchesToUnreport?id=' + $scope.tournamentInfo.signupID)
-                .success(function (data) {
-                    $scope.gamesToUnreport = data;
-                    if (data.length > 0) {
-                        $scope.gameToUnreport = $scope.gamesToUnreport[0];
-                        $scope.unreportNumber = $scope.gameToUnreport.number;
-                    }
-                })
-                .error(function () {});
-        }
-
-        $scope.playerCanReport = function(){
-            return $scope.tournamentInfo.userPrivileges > 1;
-        };
-
-        $scope.playerCanUnreport = function(){
-            return $scope.tournamentInfo.userPrivileges > 2;
-        };
 
         $scope.enterTournament = function () {
             $scope.registrationOkDisplay = false;
@@ -97,71 +60,6 @@ angular.module('toodleApp')
                     $scope.errorMessage = 'play.register.errors.'+error.message;
                     $scope.registrationKoDisplay = true;
                 });
-        };
-
-        $scope.report = function () {
-            var modalInstance = $modal.open({
-                templateUrl: '/views/partials/popinTemplates/reportTemplate.html',
-                controller: 'ModalReportCtrl',
-                resolve: {
-                    firstGameToReport: function () {
-                        return $scope.firstGameToReport;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function (scores) {
-                $scope.score1 = scores[0];
-                $scope.score2 = scores[1];
-                $scope.reportMatch();
-            }, function () {
-            });
-        };
-
-        $scope.unreport = function () {
-            var modalInstance = $modal.open({
-                templateUrl: '/views/partials/popinTemplates/unreportTemplate.html',
-                controller: 'ModalUnreportCtrl',
-                resolve: {
-                    gameToUnreport: function () {
-                        return $scope.gameToUnreport;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function () {
-
-                $scope.unreportMatch();
-            }, function () {
-            });
-        };
-
-        $scope.reportMatch = function () {
-            $http.post('/api/tournament/reportMatch/', {
-                signupID: $scope.tournamentInfo.signupID,
-                number: $scope.firstGameToReport.number,
-                score1: $scope.score1,
-                score2: $scope.score2
-            }).success(function (data) {
-                updateMatchesToReport();
-                updateMatchesToUnreport();
-                $scope.tournamentInfo = data;
-            }).error(function (data) {
-                $scope.errorMessage = 'admin.actions.reporting.errors.'+data.message;
-            });
-        };
-
-        $scope.unreportMatch = function () {
-            $http.post('/api/tournament/unreportMatch/', {
-                signupID: $scope.tournamentInfo.signupID,
-                number: $scope.gameToUnreport.number
-            }).success(function (data) {
-                updateMatchesToReport();
-                updateMatchesToUnreport();
-                $scope.tournamentInfo = data;
-            }).error(function (data) {
-                $scope.errorMessage = data;
-            });
         };
 
         $scope.toggleCollapse = function () {

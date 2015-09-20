@@ -85,8 +85,6 @@ angular.module('toodleApp')
 
                     $scope.factions = factionsArray;
                 });
-                updateMatchesToReport();
-                updateMatchesToUnreport();
             })
             .error(function (error, status) {
                 if (status === 404) {
@@ -145,34 +143,6 @@ angular.module('toodleApp')
                 });
         };
 
-        function updateMatchesToReport() {
-            $http.get('/api/tournament/matchesToReport?id=' + $scope.tournamentInfo.signupID)
-                .success(function (data) {
-                    $scope.gamesToReport = data;
-                    if (data.length > 0) {
-                        $scope.firstGameToReport = $scope.gamesToReport[0];
-                        $scope.number = $scope.firstGameToReport.number;
-                        $scope.score1 = 0;
-                        $scope.score2 = 0;
-                    }
-                })
-                .error(function () {
-                });
-        }
-
-        function updateMatchesToUnreport() {
-            $http.get('/api/tournament/matchesToUnreport?id=' + $scope.tournamentInfo.signupID)
-                .success(function (data) {
-                    $scope.gamesToUnreport = data;
-                    if (data.length > 0) {
-                        $scope.gameToUnreport = $scope.gamesToUnreport[0];
-                        $scope.unreportNumber = $scope.gameToUnreport.number;
-                    }
-                })
-                .error(function () {
-                });
-        }
-
         $scope.toggleStart = function () {
             $scope.hideUpdateAlert();
             var originalValue = $scope.tournamentInfo.running;
@@ -194,8 +164,6 @@ angular.module('toodleApp')
                             $scope.canSwapPlayers = $scope.tournamentInfo.engineObject.compatible.indexOf('playerSwap') !== -1;
                         }
                     });
-                    updateMatchesToReport();
-                    updateMatchesToUnreport();
                     $rootScope.$emit('toggledStart', tournamentInfo);
                 })
                 .error(function (data) {
@@ -236,41 +204,6 @@ angular.module('toodleApp')
                 $scope.alertMessage = 'play.register.fail';
                 $scope.updateKo = true;
             }
-        };
-
-        $scope.reportMatch = function () {
-            $scope.hideUpdateAlert();
-            $http.post('/api/tournament/reportMatch/', {
-                tournamentId: $scope.tournamentInfo._id,
-                number: $scope.firstGameToReport.number,
-                score1: $scope.score1,
-                score2: $scope.score2,
-                matchIsComplete: $scope.matchIsComplete
-            }).success(function (data) {
-                updateMatchesToReport();
-                updateMatchesToUnreport();
-                $scope.alertMessage = 'admin.actions.reporting.reportingOk';
-                $scope.tournamentInfo = data;
-            }).error(function (data) {
-                $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
-                $scope.alertMessage = 'admin.actions.reporting.reportingKo';
-                $scope.updateKo = true;
-            });
-        };
-
-        $scope.unreportMatch = function () {
-            $scope.hideUpdateAlert();
-            $http.post('/api/tournament/unreportMatch/', {
-                tournamentId: $scope.tournamentInfo._id,
-                number: $scope.gameToUnreport.number
-            }).success(function (data) {
-                updateMatchesToReport();
-                updateMatchesToUnreport();
-                $scope.tournamentInfo = data;
-            }).error(function (data) {
-                $scope.errorMessage = data;
-                $scope.updateKo = true;
-            });
         };
 
         $scope.removePlayer = function (playerNick) {
@@ -338,44 +271,6 @@ angular.module('toodleApp')
             });
         };
 
-        $scope.report = function () {
-            var modalInstance = $modal.open({
-                templateUrl: '/views/partials/popinTemplates/reportTemplate.html',
-                controller: 'ModalReportCtrl',
-                resolve: {
-                    firstGameToReport: function () {
-                        return $scope.firstGameToReport;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function (scores) {
-                $scope.score1 = scores[0];
-                $scope.score2 = scores[1];
-                $scope.matchComplete = scores[2];
-                $scope.reportMatch();
-            }, function () {
-            });
-        };
-
-        $scope.unreport = function () {
-            var modalInstance = $modal.open({
-                templateUrl: '/views/partials/popinTemplates/unreportTemplate.html',
-                controller: 'ModalUnreportCtrl',
-                resolve: {
-                    gameToUnreport: function () {
-                        return $scope.gameToUnreport;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function () {
-
-                $scope.unreportMatch();
-            }, function () {
-            });
-        };
-
         $scope.today = function () {
             $scope.tournamentInfo.formStartDate = new Date();
         };
@@ -418,9 +313,5 @@ angular.module('toodleApp')
             }
             return '';
         };
-
-        $rootScope.$on('updatedMatch', function () {
-            updateMatchesToReport();
-        });
     }
 );

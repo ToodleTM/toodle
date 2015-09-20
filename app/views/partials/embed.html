@@ -1,0 +1,20 @@
+<div ng-show="notFound" id="notFound" class="alert alert-danger ng-binding" role="alert" hidden=""
+     style="display: none;">
+    <button type="button" class="close alert-fix-close" ng-click="hideAlerts()" style="display: none;"><span
+            aria-hidden="true" style="display: none;">×</span><span class="sr-only" style="display: none;">Close</span>
+    </button>
+    <span translate="play.notFound"></span>
+</div>
+<div id="content" ng-show="!hideContent">
+    <div class="well clearwell">
+        <div class="row" style="position:relative">
+            <div class="form-group col-sm-11">
+                <h1> <span translate="play.header.tournamentStandings"></span> "<span>{{tournamentInfo.tournamentName}}</span>"
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div ng-controller="BracketCtrl" name="publicBracket">
+        <div ng-include="'partials/bracket.html'"></div>
+    </div>
+</div>

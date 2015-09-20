@@ -5,7 +5,7 @@ angular.module('toodleApp')
         $translate.refresh();
         var tournamentId = $location.$$path.split('/')[2];
         var displayMode = $location.$$path.split('/')[1];
-        var endpoint = displayMode === 'play'? 'api/play' : 'api/tournament/admin';
+        var endpoint = ['play', 'embed'].indexOf(displayMode) > -1? 'api/play' : 'api/tournament/admin';
         $scope.nick = '';
         $scope.playerList = null;
         $scope.score1 = 0;
@@ -35,6 +35,14 @@ angular.module('toodleApp')
             }
         };
 
+        function definedUserPrivilegesForDisplay() {
+            if(displayMode === 'embed'){
+                $scope.tournamentInfo.userPrivileges = 0;
+            } else {
+                $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
+            }
+        }
+
         $http.get( endpoint+'/' + tournamentId).success(function (data) {
             $scope.content = true;
             $scope.tournamentInfo = data;
@@ -43,7 +51,7 @@ angular.module('toodleApp')
             $scope.renderer = availableRenderers[$scope.tournamentInfo.engine];
             $scope.groups = [];
             $scope.tournamentId = $location.$$path.split('/')[1] === 'admin' ? $location.$$path.split('/')[2] : null;
-            $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
+            definedUserPrivilegesForDisplay();
             $scope.controllerReferencesForRenderer = {
                 togglePlayerHighlight: $scope.togglePlayerHighlight,
                 report: $scope.report,
@@ -117,10 +125,8 @@ angular.module('toodleApp')
                 $scope.tournamentInfo = data;
                 $scope.score1 = 0;
                 $scope.score2 = 0;
-                $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
+                definedUserPrivilegesForDisplay();
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
-                //updateSwapPlayersForm(data);
-                $rootScope.$emit('updatedMatch', data);
             }).error(function (data) {
                 $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
                 $scope.tourneyReportingKo = true;
@@ -140,9 +146,8 @@ angular.module('toodleApp')
                 $scope.tournamentInfo = data;
                 $scope.score1 = 0;
                 $scope.score2 = 0;
-                $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
+                definedUserPrivilegesForDisplay();
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
-                $rootScope.$emit('updatedMatch', data);
             }).error(function (data) {
                 $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
                 $scope.tourneyReportingKo = true;
@@ -166,9 +171,8 @@ angular.module('toodleApp')
                 number: $scope.gameToUnreport.name
             }).success(function (data) {
                 $scope.tournamentInfo = data;
-                $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
+                definedUserPrivilegesForDisplay();
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
-                $rootScope.$emit('updatedMatch', data);
             }).error(function (data) {
                 $scope.errorMessage = data;
                 $scope.tourneyReportingKo = true;

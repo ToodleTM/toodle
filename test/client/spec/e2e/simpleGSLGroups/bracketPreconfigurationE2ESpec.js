@@ -1,7 +1,6 @@
 'use strict';
 var path = require('path');
 
-
 describe('Bracket preconfiguration', function () {
     beforeEach(function () {
         browser.get('');

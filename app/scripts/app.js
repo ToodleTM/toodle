@@ -31,6 +31,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $translat
             templateUrl: 'partials/play',
             controller: 'PlayCtrl'
         })
+        .when('/embed/:id', {
+            templateUrl: 'partials/embed',
+            controller: 'PlayCtrl'
+        })
         .when('/tournaments', {
             templateUrl:'partials/tournamentListing',
             controller:'MyTournamentsCtrl'

@@ -4,7 +4,8 @@
     "intro": "This the tournament page. You can enter the tournament and watch the players list until it's started. Then you can go back here to report your games and look at the tournament status.",
     "header": {
       "tournament": "Tournament",
-      "playPage": "public page"
+      "playPage": "public page",
+      "tournamentStandings":"Tournament standings so far for tournament "
     },
     "enter": {
       "nick": "Nick",
