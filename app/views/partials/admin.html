@@ -65,7 +65,7 @@
             <div class="form-group col-sm-6">
                 <label style="width:100%;" class="control-label"
                        ng-show="!gamesToReport.length">&nbsp;</label>
-                <a class="btn btn-info" ng-show="tournamentInfo.running && !gamesToReport.length"
+                <a id="downloadWinnersLink" class="btn btn-info" ng-show="tournamentInfo.running && !gamesToReport.length"
                    href="#"
                    ng-click="downloadTournamentWinners()"><span class="glyphicon glyphicon-save-file"
                                                                 aria-hidden="true"></span> <span

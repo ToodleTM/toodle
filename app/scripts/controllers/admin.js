@@ -85,6 +85,7 @@ angular.module('toodleApp')
 
                     $scope.factions = factionsArray;
                 });
+               updateMatchesToReport();
             })
             .error(function (error, status) {
                 if (status === 404) {
@@ -143,6 +144,21 @@ angular.module('toodleApp')
                 });
         };
 
+        function updateMatchesToReport() {
+            $http.get('/api/tournament/matchesToReport?id=' + $scope.tournamentInfo.signupID)
+                .success(function (data) {
+                    $scope.gamesToReport = data;
+                    if (data.length > 0) {
+                        $scope.firstGameToReport = $scope.gamesToReport[0];
+                        $scope.number = $scope.firstGameToReport.number;
+                        $scope.score1 = 0;
+                        $scope.score2 = 0;
+                    }
+                })
+                .error(function () {
+                });
+        }
+
         $scope.toggleStart = function () {
             $scope.hideUpdateAlert();
             var originalValue = $scope.tournamentInfo.running;
@@ -164,6 +180,7 @@ angular.module('toodleApp')
                             $scope.canSwapPlayers = $scope.tournamentInfo.engineObject.compatible.indexOf('playerSwap') !== -1;
                         }
                     });
+                    updateMatchesToReport();
                     $rootScope.$emit('toggledStart', tournamentInfo);
                 })
                 .error(function (data) {
@@ -313,5 +330,9 @@ angular.module('toodleApp')
             }
             return '';
         };
+
+        $rootScope.$on('updatedMatch', function () {
+            updateMatchesToReport();
+        });
     }
 );

@@ -127,6 +127,7 @@ angular.module('toodleApp')
                 $scope.score2 = 0;
                 definedUserPrivilegesForDisplay();
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
+                $rootScope.$emit('updatedMatch', data);
             }).error(function (data) {
                 $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
                 $scope.tourneyReportingKo = true;
@@ -148,6 +149,7 @@ angular.module('toodleApp')
                 $scope.score2 = 0;
                 definedUserPrivilegesForDisplay();
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
+                $rootScope.$emit('updatedMatch', data);
             }).error(function (data) {
                 $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
                 $scope.tourneyReportingKo = true;
@@ -173,6 +175,7 @@ angular.module('toodleApp')
                 $scope.tournamentInfo = data;
                 definedUserPrivilegesForDisplay();
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
+                $rootScope.$emit('updatedMatch', data);
             }).error(function (data) {
                 $scope.errorMessage = data;
                 $scope.tourneyReportingKo = true;
