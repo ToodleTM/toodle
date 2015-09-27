@@ -6,14 +6,6 @@
     <span translate="play.notFound"></span>
 </div>
 <div id="content" ng-show="!hideContent">
-    <div class="well clearwell">
-        <div class="row" style="position:relative">
-            <div class="form-group col-sm-11">
-                <h1> <span translate="play.header.tournamentStandings"></span> "<span>{{tournamentInfo.tournamentName}}</span>"
-                </h1>
-            </div>
-        </div>
-    </div>
     <div ng-controller="BracketCtrl" name="publicBracket">
         <div ng-include="'partials/bracket.html'"></div>
     </div>
