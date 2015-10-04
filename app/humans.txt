@@ -1,5 +1,5 @@
 /* TEAM */
-Founder / Lead designer / Developer / Deployment guy : Martin Bahier
+Founder / Lead designer / Developer / "Deployment guy" : Martin Bahier
 Site : http://martinbahier.fr
 Twitter : @MartinBahier
 Location : Paris, France
@@ -14,5 +14,5 @@ Beer
 Long nights
 
 /* SITE */
-Components : Bootstrap / AngularJS
-Software : Intellij's WebStorm,  Bash,  VIM,  TeamCity, protractor / phantomjs
+Components : Bootstrap (angular-ui) / AngularJS
+Software : Intellij's WebStorm,  Bash,  VIM,  TeamCity, protractor / phantomjs ...
