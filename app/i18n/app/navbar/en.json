@@ -4,6 +4,8 @@
       "created": "What I created",
       "admin": "What I admin",
       "disconnect": "Logout",
+      "menu":"Menu",
+      "tournamentList":"Tournaments List",
       "languages": {
         "french": "French",
         "english": "English"

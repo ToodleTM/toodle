@@ -6,6 +6,20 @@
                 <a href="/" class="toodle-title text-muted hide-if-small" translate="header.title"></a>
             </div>
             <nav class="navbar-language-select">
+                <div class="btn-group" dropdown is-open="false">
+                    <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle
+                            ng-disabled="disabled">
+                        <span translate="tournaments.navbar.menu"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="/list-tournaments" id="menu-tournamentList">
+                                <span style="margin-left:10px;" translate="tournaments.navbar.tournamentList"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <div ng-show="!userName" class="btn-group" dropdown is-open="false">
                     <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle
                             ng-disabled="disabled">
@@ -36,8 +50,8 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="/tournaments?type=created" translate="tournaments.navbar.created"></a></li>
-                        <li><a href="/tournaments?type=admin" translate="tournaments.navbar.admin"></a></li>
+                        <li><a href="/my-tournaments?type=created" translate="tournaments.navbar.created"></a></li>
+                        <li><a href="/my-tournaments?type=admin" translate="tournaments.navbar.admin"></a></li>
                         <li class="divider"></li>
                         <li>
                             <a ng-click="logout()" title="{{'header.logout'|translate}}">

@@ -1,0 +1,22 @@
+{
+  "tournamentsList": {
+    "tournamentName": "Tournament name",
+    "running": {
+      "title": "Running ?",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "creator": {
+      "title": "Creator",
+      "anonymous": "Anonymous"
+    },
+    "type": "Type",
+    "startDate": {
+      "title": "Start date",
+      "none": "None"
+    },
+    "dateCreated":{
+      "title":"Date created"
+    }
+  }
+}

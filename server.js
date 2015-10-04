@@ -30,6 +30,7 @@ var app = express();
 require('./lib/config/express')(app);
 app.use('/api/tournament/admin/', require('./lib/routes/api/tournamentAdminRouter.js'));
 app.use('/api/tournament/', require('./lib/routes/api/tournamentRouter.js'));
+app.use('/api/tournament-list', require('./lib/routes/api/tournamentListRouter.js'));
 app.use('/api/', require('./lib/routes/api/miscRouter.js'));
 app.use('/', require('./lib/routes/socialLogin/socialRouter.js'));
 

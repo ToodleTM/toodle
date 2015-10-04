@@ -1,0 +1,10 @@
+<ul class="pager ng-isolate-scope ng-valid" total-items="maxPages" items-per-page="20"
+    ng-change="updateTournamentsList()">
+    <li ng-class="{disabled: noPrevious()||ngDisabled, previous: align}" class="disabled previous"><a href=""
+                                                                                                      ng-click="selectPage(page - 1, $event)"
+                                                                                                      class="ng-binding">
+        &lt;&lt; </a></li>
+    <li ng-class="{disabled: noNext()||ngDisabled, next: align}" class="next"><a href=""
+                                                                                 ng-click="selectPage(page + 1, $event)"
+                                                                                 class="ng-binding"> &gt;&gt; </a></li>
+</ul>

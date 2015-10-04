@@ -28,6 +28,7 @@
     <script src="config/piwik.config.js"></script>
     <script type="text/javascript">
         var _paq = _paq || [];
+        _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
             var u= piwik_config.url;
@@ -67,6 +68,7 @@
 <script src="bower_components/ng-file-upload-shim/angular-file-upload-shim.min.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/moment/min/moment.min.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -81,6 +83,7 @@
 <script src="scripts/controllers/myTournaments.js"></script>
 <script src="scripts/controllers/preconfigureTournament.js"></script>
 <script src="scripts/controllers/playersRegistration.js"></script>
+<script src="scripts/controllers/tournamentsList.js"></script>
 <!-- endbuild -->
 </body>
 </html>

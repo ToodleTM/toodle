@@ -4,6 +4,8 @@
       "created": "Tournois créés",
       "admin": "Tournois administrés",
       "disconnect": "Déconnexion",
+      "menu":"Menu",
+      "tournamentList":"Liste des tournois",
       "languages": {
         "french": "Français",
         "english": "Anglais"
