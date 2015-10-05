@@ -14,6 +14,7 @@ angular.module('toodleApp')
         _paq.push(['trackPageView']);
         $http.get('api/play/' + tournamentId).success(function (data) {
             $scope.tournamentInfo = data;
+            $scope.tournamentInfo.startDate = moment($scope.tournamentInfo.startDate).format('YYYY-MM-DD');
             $scope.playerList = data.players;
             $http.get('api/available-engines').success(function(engines){
                 $scope.availableEngines = engines;
