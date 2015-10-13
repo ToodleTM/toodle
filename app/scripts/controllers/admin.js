@@ -5,7 +5,7 @@ angular.module('toodleApp')
         $translatePartialLoader.addPart('app/admin');
         $translate.refresh();
         $scope.tournamentId = $location.$$path.split('/')[2];
-        $scope.inputs = {nick : '', faction:null};
+        $scope.inputs = {nick: '', faction: null};
         $scope.playerList = null;
         $scope.isCollapsed = true;
         _paq.push(['setDocumentTitle', 'Admin Page']);
@@ -85,7 +85,7 @@ angular.module('toodleApp')
 
                     $scope.factions = factionsArray;
                 });
-               updateMatchesToReport();
+                updateMatchesToReport();
             })
             .error(function (error, status) {
                 if (status === 404) {
@@ -254,7 +254,7 @@ angular.module('toodleApp')
                     tournamentInfo: function () {
                         return $scope.tournamentInfo;
                     },
-                    allowConfigureBeforeStart:function(){
+                    allowConfigureBeforeStart: function () {
                         return false;
                     }
                 }
@@ -262,6 +262,59 @@ angular.module('toodleApp')
 
             modalInstance.result.then(function () {
                 $scope.toggleStart();
+            }, function () {
+            });
+        };
+
+        $scope.openCreateFollowingTournamentDialog = function (size) {
+            var modalInstance = $modal.open({
+                templateUrl: '/views/partials/popinTemplates/createFollowingTournamentTemplate.html',
+                controller: 'ModalCreateFollowingTournamentCtrl',
+                size: size,
+                resolve: {
+                    availableEngines: function () {
+                        return $scope.availableEngines;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (data) {
+                var configureOnly = data[0];
+                var name = data[1];
+                var engine = data[2];
+                var description = data[3];
+                var startDate = data[4];
+
+                if (configureOnly) {
+                    //create new tournament and do not start it
+                    $http.post('/api/tournament', {
+                        tournamentName: name,
+                        engine: engine.name,
+                        description: description,
+                        startDate: startDate,
+                        parentTournament: $scope.tournamentInfo._id,
+                        parentTournamentPublicId: $scope.tournamentInfo.signupID
+                    })
+                        .success(function () {
+                            //console.log('yay \\o/');
+                        }).error(function () {
+                            //console.log('oh noez /o\\');
+                        });
+                } else {
+                    $http.post('/api/tournament', {
+                        tournamentName: name,
+                        engine: engine.name,
+                        description: description,
+                        startDate: startDate,
+                        parentTournament: $scope.tournamentInfo._id,
+                        parentTournamentPublicId: $scope.tournamentInfo.signupID
+                    })
+                        .success(function () {
+                            //console.log('yay \\o/');
+                        }).error(function () {
+                            //console.log('oh noez /o\\');
+                        });
+                }
             }, function () {
             });
         };

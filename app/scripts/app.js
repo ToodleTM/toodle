@@ -231,3 +231,44 @@ angular.module('toodleApp').controller('ModalUnreportCtrl', function ($scope, $m
         $modalInstance.dismiss('cancel');
     };
 });
+
+angular.module('toodleApp').controller('ModalCreateFollowingTournamentCtrl', function($scope, $modalInstance, availableEngines){
+    $scope.availableEngines = availableEngines;
+    $scope.engine = availableEngines[0];
+    $scope.tournamentName = '';
+    $scope.tournamentDescription = '';
+    $scope.createFollowingTournament = function(configureOnly){
+        $modalInstance.close([configureOnly, $scope.tournamentName, $scope.engine, $scope.tournamentDescription, $scope.tournamentStartDate]);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.today = function () {
+        $scope.tournamentStartDate = new Date();
+    };
+    $scope.today();
+
+    $scope.clear = function () {
+        $scope.tournamentStartDate = null;
+    };
+
+    $scope.toggleMin = function () {
+        $scope.minDate = $scope.minDate ? null : new Date();
+    };
+
+    $scope.openDatePicker = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.opened = true;
+    };
+
+    $scope.dateOptions = {
+        formatYear: 'yyyy',
+        startingDay: 1
+    };
+
+    $scope.format = 'yyyy-MM-dd';
+});
