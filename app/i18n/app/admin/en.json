@@ -24,6 +24,11 @@
       "open": "Open registrations",
       "openTooltip": "Allow more people to enter the tournament",
       "adminOptions": "Show admin options",
+      "followup":{
+        "modalTitle":"Configure your follow-up tournament",
+        "buttonCaption":"Create follow-up tournament",
+        "modalDescription":"A follow-up tournament allows you to pick the winners from your current tournament and immediately integrate them in a subsequent tournament. Both tournaments (initial and follow-up) will present links to the other when this is done."
+      },
       "run": {
         "running": "Stop brackets",
         "notRunning": "Start brackets",

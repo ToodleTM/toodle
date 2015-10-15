@@ -285,36 +285,35 @@ angular.module('toodleApp')
                 var description = data[3];
                 var startDate = data[4];
 
-                if (configureOnly) {
-                    //create new tournament and do not start it
-                    $http.post('/api/tournament', {
-                        tournamentName: name,
-                        engine: engine.name,
-                        description: description,
-                        startDate: startDate,
-                        parentTournament: $scope.tournamentInfo._id,
-                        parentTournamentPublicId: $scope.tournamentInfo.signupID
-                    })
-                        .success(function () {
-                            //console.log('yay \\o/');
-                        }).error(function () {
-                            //console.log('oh noez /o\\');
-                        });
-                } else {
-                    $http.post('/api/tournament', {
-                        tournamentName: name,
-                        engine: engine.name,
-                        description: description,
-                        startDate: startDate,
-                        parentTournament: $scope.tournamentInfo._id,
-                        parentTournamentPublicId: $scope.tournamentInfo.signupID
-                    })
-                        .success(function () {
-                            //console.log('yay \\o/');
-                        }).error(function () {
-                            //console.log('oh noez /o\\');
-                        });
-                }
+
+                $http.post('/api/tournament', {
+                    tournamentName: name,
+                    engine: engine.name,
+                    description: description,
+                    startDate: startDate,
+                    parentTournament: $scope.tournamentInfo._id,
+                    parentTournamentPublicId: $scope.tournamentInfo.signupID
+                })
+                    .success(function (newTournamentData) {
+                        if (!configureOnly) {
+                            $http.patch('/api/tournament/start', {tournamentId: newTournamentData._id})
+                                .success(function () {
+                                    window.location = '/admin/'+newTournamentData._id;
+                                })
+                                .error(function (err) {
+                                    //si on conserve ca, il faut prévenir l'utilisateur après le chargement de page (=> query param ?)
+                                    console.log('Cannot start tournament, redirecting to admin page without starting');
+                                    console.error(err);
+                                    window.location = '/admin/' + newTournamentData._id;
+                                });
+                        } else {
+                            window.location = '/admin/' + newTournamentData._id;
+                        }
+                    }).error(function (err) {
+                        console.error('Could not create follow-up tournament');
+                        console.error(err);
+                    });
+
             }, function () {
             });
         };

@@ -24,6 +24,11 @@
       "open": "Ouvrir les inscriptions",
       "openTooltip": "Autoriser de nouvelles personnes à s'inscrire au tournoi",
       "adminOptions": "Show admin options",
+      "followup": {
+        "modalTitle": "Configures le tournoi suivant",
+        "buttonCaption": "Créer un tournoi à la suite de celui ci",
+        "modalDescription":"Un tournoi qui est la suite d'un autre est un tournoi qui est créé avec les gagnants du tournoi initial directement ajoutés à la liste des joueurs du tournoi 'suite'. Chaque tournoi (initial comme suite) possède des liens vers l'autre."
+      },
       "run": {
         "running": "Arrêter l'arbre",
         "runningTooltip": "Démarrer le tournoi. Les joueurs ne pourront plus s'inscrire",

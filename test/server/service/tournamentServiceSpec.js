@@ -97,7 +97,7 @@ describe('TournamentService - General purpose stuff', function () {
         //assert
         assert.equal(newTournament.parentTournament, '1234');
         assert.equal(tournamentModel.update.calledOnce, true);
-        assert.deepEqual(tournamentModel.update.getCall(0).args[0], {_id: '1234'});
+        assert.deepEqual(tournamentModel.update.getCall(0).args[0], {_id: '1234', followingTournament:null});
         assert.deepEqual(tournamentModel.update.getCall(0).args[1], {
             followingTournament: '1235',
             followingTournamentPublicId: '1236'
@@ -214,23 +214,18 @@ describe('TournamentService - General purpose stuff', function () {
         }]);
     });
 
-    it('should return an error if parent tournament engine can\'t get a winners list (tournament is most likely not over yet)', function () {
+    it('should return an error if parent tournament already has a follow-up tournament', function () {
         //setup
         var req = {body: {parentTournament: '1234', engine: 'someEngine'}}, newTournament = {
             _id: '1235', save: function (callback) {
                 callback(null);
             }
         };
-        var parentTournament = {followingTournament: '12389'};
         var tournamentModel = {
             update: function (id, fields, options, callback) {
-                callback(null, {});
-            },
-            findById: function (criteria, projection, callback) {
-                callback(null, parentTournament);
+                callback({code: 11000}, {});
             }
         };
-        sinon.spy(tournamentModel, 'findById');
         var mockEngine = {
             winners: function (tournament, callback) {
                 callback(null, []);
@@ -246,8 +241,7 @@ describe('TournamentService - General purpose stuff', function () {
         //action
         tournamentService.saveTournament(req, res, newTournament, null);
         //assert
-        assert.equal(tournamentService.getTournament.calledTwice, true);
-        assert.equal(tournamentModel.findById.calledOnce, true);
+        assert.equal(tournamentService.getTournament.calledOnce, true);
         assert.equal(mockEngine.winners.called, false);
         assert.equal(res.json.calledOnce, true);
         assert.deepEqual(res.json.getCall(0).args, [400, {

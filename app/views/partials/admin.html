@@ -65,11 +65,11 @@
             <div class="form-group col-sm-6">
                 <label style="width:100%;" class="control-label"
                        ng-show="!gamesToReport.length">&nbsp;</label>
-                <a id="downloadWinnersLink" class="btn btn-info" ng-show="tournamentInfo.running && !gamesToReport.length"
+                <a id="createFollowupTournamentLink" class="btn btn-info" ng-show="tournamentInfo.running && !gamesToReport.length"
                    href="#"
                    ng-click="openCreateFollowingTournamentDialog()"><span class="glyphicon glyphicon-forward"
                                                                 aria-hidden="true"></span> <span
-                        translate="admin.misc.winners"></span></a>
+                        translate="admin.actions.followup.buttonCaption"></span></a>
             </div>
         </div>
         <div collapse="isCollapsed" style="min-width:355px;">
