@@ -7,8 +7,6 @@
         {{ 'admin.error.'+error | translate}}
     </div>
     <div class="well clearwell">
-
-
         <div class="row" style="position:relative">
             <div class="form-group col-sm-11">
                 <h1><a href="#"
@@ -29,6 +27,42 @@
                 translate="admin.misc.playLink"></span>
 
         </a>
+
+
+        <div class="btn-group" dropdown ng-if="tournamentInfo.followingTournament || tournamentInfo.parentTournament">
+            <button type="button" class="btn btn-info">
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> <span
+                    translate="admin.actions.followup.links"></span>
+            </button>
+            <button type="button" class="btn btn-info dropdown-toggle" dropdown-toggle>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li ng-show="tournamentInfo.followingTournament"> <a target="_blank"
+                       ng-href="/play/{{tournamentInfo.followingTournamentPublicId}}" id="followupPublicLink">
+                    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <span
+                        translate="admin.actions.followup.followingPublicButtonCaption"></span>
+
+                </a></li>
+                <li ng-show="tournamentInfo.parentTournament"><a target="_blank"
+                       ng-href="/play/{{tournamentInfo.parentTournamentPublicId}}" id="parentPublicLink">
+                    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <span
+                        translate="admin.actions.followup.parentPublicButtonCaption"></span>
+
+                </a></li>
+                <li ng-show="tournamentInfo.parentTournamentPublicId"><a target="_blank"
+                       ng-href="/admin/{{tournamentInfo.parentTournament}}" id="parentAdminLink">
+                    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <span
+                        translate="admin.actions.followup.parentAdminButtonCaption"></span>
+
+                </a></li>
+                <li ng-show="tournamentInfo.followingTournament"><a id="followupAdminLink"
+
+                       href="/admin/{{tournamentInfo.followingTournament}}"><span class="glyphicon glyphicon-forward"
+                                                                                  aria-hidden="true"></span> <span
+                        translate="admin.actions.followup.adminButtonCaption"></span></a></li>
+            </ul>
+        </div>
 
         <a class="btn btn-info" target="_blank" ng-href="/embed/{{tournamentInfo.signupID}}" id="embedPageLink">
             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span
@@ -65,10 +99,11 @@
             <div class="form-group col-sm-6">
                 <label style="width:100%;" class="control-label"
                        ng-show="!gamesToReport.length">&nbsp;</label>
-                <a id="createFollowupTournamentLink" class="btn btn-info" ng-show="tournamentInfo.running && !gamesToReport.length"
+                <a id="createFollowupTournamentLink" class="btn btn-info"
+                   ng-show="tournamentInfo.running && !tournamentInfo.followingTournament && !gamesToReport.length"
                    href="#"
                    ng-click="openCreateFollowingTournamentDialog()"><span class="glyphicon glyphicon-forward"
-                                                                aria-hidden="true"></span> <span
+                                                                          aria-hidden="true"></span> <span
                         translate="admin.actions.followup.buttonCaption"></span></a>
             </div>
         </div>

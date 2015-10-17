@@ -27,7 +27,12 @@
       "followup": {
         "modalTitle": "Configures le tournoi suivant",
         "buttonCaption": "Créer un tournoi à la suite de celui ci",
-        "modalDescription":"Un tournoi qui est la suite d'un autre est un tournoi qui est créé avec les gagnants du tournoi initial directement ajoutés à la liste des joueurs du tournoi 'suite'. Chaque tournoi (initial comme suite) possède des liens vers l'autre."
+        "modalDescription":"Un tournoi qui est la suite d'un autre est un tournoi qui est créé avec les gagnants du tournoi initial directement ajoutés à la liste des joueurs du tournoi 'suite'. Chaque tournoi (initial comme suite) possède des liens vers l'autre.",
+        "adminButtonCaption": "Vers la page d'administration du prochain tournoi",
+        "followingPublicButtonCaption": "Vers la page publique du prochain tournoi",
+        "parentPublicButtonCaption": "Vers la page publique du tournoi parent",
+        "parentAdminButtonCaption": "Vers la page d'administration du tournoi parent",
+        "links": "Tournois en rapport"
       },
       "run": {
         "running": "Arrêter l'arbre",

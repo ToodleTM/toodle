@@ -22,6 +22,10 @@
     "noGameType": "Pas de type d'arbre renseigné",
     "infos": "Voici les infos de ce tournoi",
     "bracket": "L'arbre",
-    "notFound": "Aucun tournoi avec cet identifiant n'a été trouvé. Est-ce bien la bonne URL?"
+    "notFound": "Aucun tournoi avec cet identifiant n'a été trouvé. Est-ce bien la bonne URL?",
+    "followup":{
+      "followingPublicButtonCaption": "Vers la page publique du prochain tournoi",
+      "parentPublicButtonCaption": "Vers la page publique du tournoi parent"
+    }
   }
 }

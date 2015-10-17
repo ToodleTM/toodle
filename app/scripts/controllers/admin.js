@@ -298,16 +298,15 @@ angular.module('toodleApp')
                         if (!configureOnly) {
                             $http.patch('/api/tournament/start', {tournamentId: newTournamentData._id})
                                 .success(function () {
-                                    window.location = '/admin/'+newTournamentData._id;
+                                    $location.path('/admin/' + newTournamentData._id);
                                 })
                                 .error(function (err) {
-                                    //si on conserve ca, il faut prévenir l'utilisateur après le chargement de page (=> query param ?)
                                     console.log('Cannot start tournament, redirecting to admin page without starting');
                                     console.error(err);
-                                    window.location = '/admin/' + newTournamentData._id;
+                                    $location.path('/admin/' + newTournamentData._id);
                                 });
                         } else {
-                            window.location = '/admin/' + newTournamentData._id;
+                            $location.path('/admin/' + newTournamentData._id);
                         }
                     }).error(function (err) {
                         console.error('Could not create follow-up tournament');

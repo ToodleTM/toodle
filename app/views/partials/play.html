@@ -118,6 +118,19 @@
             </tabset>
         </div>
     </div>
+    <a class="btn btn-info" target="_blank" ng-show="tournamentInfo.followingTournamentPublicId"
+       ng-href="/play/{{tournamentInfo.followingTournamentPublicId}}" id="followupPublicLink">
+        <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <span
+            translate="play.followup.followingPublicButtonCaption"></span>
+
+    </a>
+
+    <a class="btn btn-info" target="_blank" ng-show="tournamentInfo.parentTournamentPublicId"
+       ng-href="/play/{{tournamentInfo.parentTournamentPublicId}}" id="parentPublicLink">
+        <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <span
+            translate="play.followup.parentPublicButtonCaption"></span>
+
+    </a>
     <div ng-controller="BracketCtrl" name="publicBracket">
         <div ng-include="'partials/bracket.html'"></div>
     </div>

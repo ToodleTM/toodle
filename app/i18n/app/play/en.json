@@ -22,6 +22,10 @@
     "noGameType": "No game type specified",
     "infos": "Info about this tournament",
     "bracket": "The bracket",
-    "notFound": "No such tournament seems to exist, are you sure it's the right URL ?"
+    "notFound": "No such tournament seems to exist, are you sure it's the right URL ?",
+    "followup":{
+      "followingPublicButtonCaption": "To follow-up tournament's public page",
+      "parentPublicButtonCaption": "To parent tournament's public page"
+    }
   }
 }
