@@ -29,13 +29,11 @@ describe('Embedding tournament info in another page', function () {
 
         it('should not display a button to create a follow-up match if tournament has ended _and_ tournament already has a follow up match, it should display buttons to admin & public pages of the followup tournament instead', function () {
             createAndStartA2PlayerTournament();
-            var followupLink = element(by.id('createFollowupTournamentLink'));
+            var createFollowupLink = element(by.id('createFollowupTournamentLink'));
             var followupAdminLink = element(by.id('followupAdminLink'));
             var followupPublicLink = element(by.id('followupPublicLink'));
 
             var parentTournamentURL = '';
-            expect(followupAdminLink.isDisplayed()).toBe(false);
-            expect(followupPublicLink.isDisplayed()).toBe(false);
             browser.getCurrentUrl().then(function (url) {
                 parentTournamentURL = url;
             }).then(function () {
@@ -43,16 +41,14 @@ describe('Embedding tournament info in another page', function () {
                 element(by.id('forfeit-1')).click();
                 element(by.id('doReport')).click();
 
-                followupLink.click();
+                createFollowupLink.click();
 
                 element(by.id('tournamentName')).sendKeys('protractor next');
                 element(by.id('doConfigure')).click();
 
-                //expect(element(by.id('parentAdminLink')).isDisplayed()).toBe(true);
-                //expect(element(by.id('parentPublicLink')).isDisplayed()).toBe(true);
-
                 browser.get(parentTournamentURL).then(function () {
-                    expect(followupLink.isDisplayed()).toBe(false);
+                    expect(createFollowupLink.isDisplayed()).toBe(false);
+                    element(by.id('relatedLinks')).click();
                     expect(followupAdminLink.isDisplayed()).toBe(true);
                     expect(followupPublicLink.isDisplayed()).toBe(true);
                 });
