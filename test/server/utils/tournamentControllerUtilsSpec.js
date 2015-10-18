@@ -12,15 +12,15 @@ describe('TournamentControllerUtils', function () {
         }
     };
     beforeEach(function () {
-        tournamentModel.find = function () {
+        tournamentModel.findOne = function () {
         };
         sinon.spy(serverUtils, 'isThisTournamentIdValid');
-        sinon.spy(tournamentModel, 'find');
+        sinon.spy(tournamentModel, 'findOne');
         sinon.spy(tournamentModel, 'findById');
     });
     afterEach(function () {
         serverUtils.isThisTournamentIdValid.restore();
-        tournamentModel.find.restore();
+        tournamentModel.findOne.restore();
         tournamentModel.findById.restore();
     });
     describe('Reporting helper', function () {
@@ -32,7 +32,7 @@ describe('TournamentControllerUtils', function () {
             //assert
             assert.equal(serverUtils.isThisTournamentIdValid.calledOnce, true);
             assert.equal(tournamentModel.findById.calledOnce, true);
-            assert.equal(tournamentModel.find.called, false);
+            assert.equal(tournamentModel.findOne.called, false);
         });
 
         it('should return a 404 if tournamentId is given but not valid', function () {
@@ -65,7 +65,7 @@ describe('TournamentControllerUtils', function () {
             //assert
             assert.equal(serverUtils.isThisTournamentIdValid.called, false);
             assert.equal(tournamentModel.findById.called, false);
-            assert.equal(tournamentModel.find.calledOnce, true);
+            assert.equal(tournamentModel.findOne.calledOnce, true);
         });
 
         it('should return a 404 if neither tournamentId or signupID were used to report a match', function () {
@@ -86,7 +86,7 @@ describe('TournamentControllerUtils', function () {
             //assert
             assert.equal(serverUtils.isThisTournamentIdValid.calledOnce, false);
             assert.equal(tournamentModel.findById.called, false);
-            assert.equal(tournamentModel.find.called, false);
+            assert.equal(tournamentModel.findOne.called, false);
             assert.equal(res.status.calledOnce, true);
             assert.equal(res.status.getCall(0).args[0], 404);
             assert.equal(jsonSpy.calledOnce, true);
@@ -96,10 +96,10 @@ describe('TournamentControllerUtils', function () {
         it('should not allow reporting through the signupID if tournament has userPrivileges of 1', function () {
             //setup
             var req = {body: {signupID: 'asdfasfdasdf5452d71103aec670587bea44'}};
-            tournamentModel.find = function (params, callback) {
-                callback(null, [{userPrivileges: 1}]);
+            tournamentModel.findOne = function (params, callback) {
+                callback(null, {userPrivileges: 1});
             };
-            sinon.spy(tournamentModel, 'find');
+            sinon.spy(tournamentModel, 'findOne');
             var tournamentService = {
                 reportMatch: sinon.spy()
             };
@@ -118,10 +118,10 @@ describe('TournamentControllerUtils', function () {
         it('should allow reporting through the signupID if tournament has userPrivileges superior to 1', function () {
             //setup
             var req = {body: {signupID: 'asdfasfdasdf5452d71103aec670587bea44'}};
-            tournamentModel.find = function (params, callback) {
-                callback(null, [{userPrivileges: 2}]);
+            tournamentModel.findOne = function (params, callback) {
+                callback(null, {userPrivileges: 2});
             };
-            sinon.spy(tournamentModel, 'find');
+            sinon.spy(tournamentModel, 'findOne');
             var tournamentService = {
                 reportMatch: sinon.spy()
             };
@@ -142,7 +142,7 @@ describe('TournamentControllerUtils', function () {
             //action
             tournamentControllerUtils.unreportMatchHelper(req, null, serverUtils, tournamentModel, null);
             //assert
-            assert.equal(tournamentModel.find.called, false);
+            assert.equal(tournamentModel.findOne.called, false);
             assert.equal(tournamentModel.findById.calledOnce, true);
         });
 
@@ -162,7 +162,7 @@ describe('TournamentControllerUtils', function () {
             //action
             tournamentControllerUtils.unreportMatchHelper(req, res, serverUtils, tournamentModel, null);
             //assert
-            assert.equal(tournamentModel.find.called, false);
+            assert.equal(tournamentModel.findOne.called, false);
             assert.equal(tournamentModel.findById.called, false);
             assert.equal(res.status.calledOnce, true);
             assert.equal(res.status.getCall(0).args[0], 404);
@@ -176,7 +176,7 @@ describe('TournamentControllerUtils', function () {
             //action
             tournamentControllerUtils.unreportMatchHelper(req, null, serverUtils, tournamentModel, null);
             //assert
-            assert.equal(tournamentModel.find.calledOnce, true);
+            assert.equal(tournamentModel.findOne.calledOnce, true);
             assert.equal(tournamentModel.findById.calledOnce, false);
         });
 
@@ -196,7 +196,7 @@ describe('TournamentControllerUtils', function () {
             //action
             tournamentControllerUtils.unreportMatchHelper(req, res, serverUtils, tournamentModel, null);
             //assert
-            assert.equal(tournamentModel.find.called, false);
+            assert.equal(tournamentModel.findOne.called, false);
             assert.equal(tournamentModel.findById.called, false);
             assert.equal(res.status.calledOnce, true);
             assert.equal(res.status.getCall(0).args[0], 404);
@@ -207,10 +207,10 @@ describe('TournamentControllerUtils', function () {
         it('should not allow unreporting with a signupID for user privileges inferior to 3', function () {
             //setup
             var req = {body: {signupID: '5452d71103aec670587bea44'}};
-            tournamentModel.find = function (params, callback) {
+            tournamentModel.findOne = function (params, callback) {
                 callback(null, [{userPrivileges: 1}]);
             };
-            sinon.spy(tournamentModel, 'find');
+            sinon.spy(tournamentModel, 'findOne');
             var tournamentService = {
                 unreportMatch: sinon.spy()
             };
@@ -218,7 +218,7 @@ describe('TournamentControllerUtils', function () {
             //action
             tournamentControllerUtils.unreportMatchHelper(req, res, serverUtils, tournamentModel, tournamentService);
             //assert
-            assert.equal(tournamentModel.find.calledOnce, true);
+            assert.equal(tournamentModel.findOne.calledOnce, true);
             assert.equal(tournamentModel.findById.calledOnce, false);
             assert.equal(tournamentService.unreportMatch.called, false);
             assert.equal(res.json.calledOnce, true);
@@ -254,7 +254,7 @@ describe('TournamentControllerUtils', function () {
                 }
             };
             //action
-            tournamentControllerUtils.updateTournament(null, res, serverUtils, newData, tournamentService, tournamentModel, null);
+            tournamentControllerUtils.updateTournament(null, res, serverUtils, tournamentModel, tournamentService, newData, null);
             //assert
             assert.equal(res.json.calledOnce, true);
             assert.equal(res.json.getCall(0).args[0], 400);
@@ -278,7 +278,7 @@ describe('TournamentControllerUtils', function () {
                 }
             };
             //action
-            tournamentControllerUtils.updateTournament(null, res, serverUtils, newData, tournamentService, tournamentModel, null);
+            tournamentControllerUtils.updateTournament(null, res, serverUtils, tournamentModel, tournamentService, newData, null);
             //assert
             assert.equal(res.status.calledOnce, true);
             assert.equal(res.status.getCall(0).args[0], 404);
@@ -301,7 +301,7 @@ describe('TournamentControllerUtils', function () {
                 }
             };
             //action
-            tournamentControllerUtils.updateTournament(null, res, serverUtils, newData, tournamentService, tournamentModel, null);
+            tournamentControllerUtils.updateTournament(null, res, serverUtils, tournamentModel, tournamentService, newData, null);
             //assert
             assert.equal(res.json.called, false);
             assert.equal(tournamentService.updateTournament.calledOnce, true);
@@ -322,10 +322,82 @@ describe('TournamentControllerUtils', function () {
                 }
             };
             //action
-            tournamentControllerUtils.updateTournament(null, res, serverUtils, newData, tournamentService, tournamentModel, null);
+            tournamentControllerUtils.updateTournament(null, res, serverUtils, tournamentModel, tournamentService, newData, null);
             //assert
             assert.equal(res.json.called, false);
             assert.equal(tournamentService.updateTournament.calledOnce, true);
+        });
+    });
+
+    describe('modifications forbidden when tournament has a follow-up', function () {
+        var publicFunctionsToTest = ['reportMatchHelper', 'unreportMatchHelper'];
+        var adminFunctionsToTest = ['updateTournament', 'forfeitMatchHelper'].concat(publicFunctionsToTest);
+
+        adminFunctionsToTest.forEach(function(functionToTest){
+            it('should return an error if the '+functionToTest+' service is called from the admin page', function () {
+                //setup
+                var jsonSpy = sinon.spy();
+                var res = {
+                    status: function () {
+                        var statusFunction = function () {
+                        };
+                        statusFunction.json = jsonSpy;
+                        return statusFunction;
+                    }
+                };
+                var tournamentMock = {
+                    findById: function (criteria, callback) {
+                        callback(null, {followingTournament: 'followingTournamentId'});
+                    }
+                };
+                var serverUtilsMock = {
+                    isThisTournamentIdValid: function () {
+                        return true;
+                    }
+                };
+                sinon.spy(res, 'status');
+                //action
+                tournamentControllerUtils[functionToTest]({body: {tournamentId:'1234'}}, res, serverUtilsMock, tournamentMock, null, {}, null);
+                //assert
+                assert.equal(res.status.calledOnce, true);
+                assert.deepEqual(res.status.getCall(0).args, [400]);
+                assert.equal(jsonSpy.calledOnce, true);
+                assert.deepEqual(jsonSpy.getCall(0).args, [{message: 'tournamentLocked'}]);
+            });
+        });
+
+        publicFunctionsToTest.forEach(function (functionToTest) {
+            it('should return an error if the ' + functionToTest + ' service is called from the admin page', function () {
+                //setup
+                var jsonSpy = sinon.spy();
+                var res = {
+                    status: function () {
+                        var statusFunction = function () {
+                        };
+                        statusFunction.json = jsonSpy;
+                        return statusFunction;
+                    }
+                };
+                var tournamentMock = {
+                    findById: function (criteria, callback) {
+                        callback(null, {followingTournament: 'followingTournamentId', userPrivileges:2});
+                    }
+                };
+                tournamentMock.findOne = tournamentMock.findById;
+                var serverUtilsMock = {
+                    isThisTournamentIdValid: function () {
+                        return true;
+                    }
+                };
+                sinon.spy(res, 'status');
+                //action
+                tournamentControllerUtils[functionToTest]({body: {signupID: '1234'}}, res, serverUtilsMock, tournamentMock, null, {}, null);
+                //assert
+                assert.equal(res.status.calledOnce, true);
+                assert.deepEqual(res.status.getCall(0).args, [400]);
+                assert.equal(jsonSpy.calledOnce, true);
+                assert.deepEqual(jsonSpy.getCall(0).args, [{message: 'tournamentLocked'}]);
+            });
         });
     });
 });
