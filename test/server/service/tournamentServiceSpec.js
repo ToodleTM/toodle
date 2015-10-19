@@ -246,7 +246,7 @@ describe('TournamentService - General purpose stuff', function () {
         assert.equal(res.json.calledOnce, true);
         assert.deepEqual(res.json.getCall(0).args, [400, {
             error: 'creationFailed',
-            message: 'ParentTournamentAlreadyHasAFollowingTournament'
+            message: 'CurrentTournamentAlreadyHasAFollowingTournament'
         }]);
     });
 

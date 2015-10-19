@@ -109,13 +109,13 @@
                         translate="admin.actions.followup.buttonCaption"></span></a>
             </div>
         </div>
+        <alert collapse="!errorMessage" type="danger" close="hideUpdateAlert()" style="margin-top:25px;">
+            <span translate="{{alertMessage}}">{{alertMessage |translate}}</span><br/>
+            <span translate="{{errorMessage}}">{{errorMessage |translate}}</span>
+        </alert>
         <div collapse="isCollapsed" style="min-width:355px;">
 
             <tabset>
-                <alert collapse="!errorMessage" type="danger" close="hideUpdateAlert()" style="margin-top:25px;">
-                    <span translate="{{alertMessage}}">{{alertMessage |translate}}</span><br/>
-                    <span translate="{{errorMessage}}">{{errorMessage |translate}}</span>
-                </alert>
                 <tab>
                     <tab-heading>
                         <span translate="admin.form.generalSettingsTab"></span>

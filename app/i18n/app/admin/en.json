@@ -16,7 +16,8 @@
         "nothing": "Neither report nor unreport"
       },
       "cantUpdateEngineWhileRunning": "You can't update the tournament engine while tournament is live.",
-      "notFound": "Tournament to update not found."
+      "notFound": "Tournament to update not found.",
+      "tournamentLocked":"Tournament is currently locked (it probably has a follow-up tournament set up)"
     },
     "actions": {
       "lock": "Lock registrations",
@@ -32,7 +33,11 @@
         "followingPublicButtonCaption":"To follow-up tournament's public page",
         "parentPublicButtonCaption":"To the parent tournament's public page",
         "parentAdminButtonCaption":"To the parent tournament's admin page",
-        "links":"Related tournaments"
+        "links":"Related tournaments",
+        "errors":{
+          "couldNotCreate":"Could not create folow-up tournament",
+          "CurrentTournamentAlreadyHasAFollowingTournament":"Current tournament already has a follow-up tournament."
+        }
       },
       "run": {
         "running": "Stop brackets",
@@ -44,7 +49,8 @@
         "noEngineSpecified": "No game engine was specified, can't start tournament until it's done",
         "invalidTournamentEngine": "The tournament engine specified is not available.",
         "notFound": "Tournament does not exist",
-        "cantUnlockRunningTournament": "You can't unlock registrations to a running tournament."
+        "cantUnlockRunningTournament": "You can't unlock registrations to a running tournament.",
+        "tournamentLocked":"Tournament is currently locked (it probably has a follow-up tournament set up)"
       },
       "swapPlayers": {
         "errorWhenGettingPlayersToSwap": "You probably forgot to select one of the players to swap. If that's not the case, get in touch with the admin",

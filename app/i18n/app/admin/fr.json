@@ -16,7 +16,8 @@
         "nothing": "Aucun des deux"
       },
       "cantUpdateEngineWhileRunning": "Tu ne peux pas mettre à jour le moteur de tournoi alors que ce dernier a commencé.",
-      "notFound": "Tournoi à mettre à jour introuvable."
+      "notFound": "Tournoi à mettre à jour introuvable.",
+      "tournamentLocked": "Ce tournoi est verrouillé (probablement parce qu'il possède un tournoi suivant)"
     },
     "actions": {
       "lock": "Fermer les inscriptions",
@@ -32,7 +33,11 @@
         "followingPublicButtonCaption": "Vers la page publique du prochain tournoi",
         "parentPublicButtonCaption": "Vers la page publique du tournoi parent",
         "parentAdminButtonCaption": "Vers la page d'administration du tournoi parent",
-        "links": "Tournois en rapport"
+        "links": "Tournois en rapport",
+        "errors": {
+          "couldNotCreate": "Impossible de créer le tournoi suivant.",
+          "CurrentTournamentAlreadyHasAFollowingTournament": "Ce tournoi possède déjà un tournoi suivant."
+        }
       },
       "run": {
         "running": "Arrêter l'arbre",
@@ -43,7 +48,8 @@
         "noEngineSpecified": "Aucun moteur de jeu n'est spécifié, impossible de démarrer le tournoi tant que cela n'est pas fait",
         "invalidTournamentEngine": "le moteur de règles demandé n'est pas dsponible",
         "notFound": "Tournament does not exist",
-        "cantUnlockRunningTournament": "Il n'est pas possible d'accepter de nouveaux joueurs une fois le tournoi commencé."
+        "cantUnlockRunningTournament": "Il n'est pas possible d'accepter de nouveaux joueurs une fois le tournoi commencé.",
+        "tournamentLocked": "Ce tournoi est verrouillé (probablement parce qu'il possède un tournoi suivant)"
       },
 
       "swapPlayers": {

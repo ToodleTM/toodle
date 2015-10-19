@@ -279,6 +279,7 @@ angular.module('toodleApp')
             });
 
             modalInstance.result.then(function (data) {
+                $scope.hideUpdateAlert();
                 var configureOnly = data[0];
                 var name = data[1];
                 var engine = data[2];
@@ -309,8 +310,8 @@ angular.module('toodleApp')
                             $location.path('/admin/' + newTournamentData._id);
                         }
                     }).error(function (err) {
-                        console.error('Could not create follow-up tournament');
-                        console.error(err);
+                        $scope.alertMessage = 'admin.actions.followup.errors.couldNotCreate';
+                        $scope.errorMessage = 'admin.actions.followup.errors.'+err.message;
                     });
 
             }, function () {
