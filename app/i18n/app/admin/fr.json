@@ -36,7 +36,8 @@
         "links": "Tournois en rapport",
         "errors": {
           "couldNotCreate": "Impossible de créer le tournoi suivant.",
-          "CurrentTournamentAlreadyHasAFollowingTournament": "Ce tournoi possède déjà un tournoi suivant."
+          "CurrentTournamentAlreadyHasAFollowingTournament": "Ce tournoi possède déjà un tournoi suivant.",
+          "couldNotStartRightAway": "Impossible de démarrer immédiatement"
         }
       },
       "run": {
@@ -49,7 +50,10 @@
         "invalidTournamentEngine": "le moteur de règles demandé n'est pas dsponible",
         "notFound": "Tournament does not exist",
         "cantUnlockRunningTournament": "Il n'est pas possible d'accepter de nouveaux joueurs une fois le tournoi commencé.",
-        "tournamentLocked": "Ce tournoi est verrouillé (probablement parce qu'il possède un tournoi suivant)"
+        "tournamentLocked": "Ce tournoi est verrouillé (probablement parce qu'il possède un tournoi suivant)",
+        "errors": {
+          "notEnoughPlayers": "Pas assez de joueurs. Enregistres en d'autres pour pouvoir démarrer."
+        }
       },
 
       "swapPlayers": {

@@ -11,7 +11,6 @@ angular.module('toodleApp')
         _paq.push(['setDocumentTitle', 'Admin Page']);
         _paq.push(['trackPageView']);
 
-
         $scope.multipleRegistrationOk = function (data) {
             $scope.tournamentInfo = data;
             $scope.playerList = $scope.tournamentInfo.players;
@@ -35,6 +34,7 @@ angular.module('toodleApp')
             $scope.error = false;
             $scope.alertMessage = null;
             $scope.errorMessage = null;
+            $scope.infoMessage = null;
         };
 
         //using the basic example for ng-file-upload directive (https://www.npmjs.org/package/angular-file-upload),
@@ -86,6 +86,10 @@ angular.module('toodleApp')
                     $scope.factions = factionsArray;
                 });
                 updateMatchesToReport();
+                if($location.search().followUpError){
+                    $scope.alertMessage = 'admin.actions.followup.errors.couldNotStartRightAway';
+                    $scope.infoMessage = 'admin.actions.run.errors.'+ $location.search().followUpError;
+                }
             })
             .error(function (error, status) {
                 if (status === 404) {
@@ -302,9 +306,8 @@ angular.module('toodleApp')
                                     $location.path('/admin/' + newTournamentData._id);
                                 })
                                 .error(function (err) {
-                                    console.log('Cannot start tournament, redirecting to admin page without starting');
-                                    console.error(err);
-                                    $location.path('/admin/' + newTournamentData._id);
+                                    console.info('Cannot start tournament, redirecting to admin page without starting');
+                                    $location.url('/admin/' + newTournamentData._id + '?followUpError=' + err.message);
                                 });
                         } else {
                             $location.path('/admin/' + newTournamentData._id);
