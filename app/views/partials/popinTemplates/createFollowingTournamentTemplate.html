@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()"><span
+            aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+    <h3 class="modal-title" id="myModalLabel" translate="admin.actions.followup.modalTitle"></h3>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <span translate="admin.actions.followup.modalDescription"></span>
+        <div class="row">
+            <div class="col-sm-12">
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"
+                          style="font-size:xx-small;vertical-align:super;color:red;"></span><label
+                    translate="quickAdd.tournamentNamePlaceholder"></label>
+
+                <input type="text" name="tournamentName" id="tournamentName" class="form-control input-center"
+                       ng-model="tournamentName" ng-required="required"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <label class="control-label" for="description" translate="admin.form.description"></label>
+                    <textarea id="description" name="description" class="form-control"
+                              ng-model="tournamentDescription"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="control-label" for="tournamentStart" translate="admin.form.startDate"></label>
+
+                <p class="input-group">
+                    <input type="text" id="tournamentStart" class="form-control" datepicker-popup="{{format}}"
+                           ng-model="tournamentStartDate" is-open="opened" min-date="minDate"
+                           datepicker-options="dateOptions" close-text="Close"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                </p>
+            </div>
+            <div class="form-group col-sm-6">
+                <label class="control-label ng-scope" for="engine" translate="admin.form.engine">Règles à
+                    utiliser</label><span class="glyphicon glyphicon-asterisk" aria-hidden="true"
+                                          style="font-size:xx-small;vertical-align:super;color:red;"></span>
+
+                <select id="engine" name="engine" class="form-control" ng-model="engine"
+                        required="required"
+                        ng-options="engine as engine.description for engine in availableEngines track by engine.name">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <p class="col-sm-12" style="font-size:10px;">
+                <span
+                        class="glyphicon glyphicon-asterisk" aria-hidden="true"
+                        style="font-size:xx-small;color:red;"></span> : <span translate="quickAdd.mandatory"></span>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="cancel()" translate="admin.actions.run.cancel"></button>
+    <button class="btn btn-default" ng-click="createFollowingTournament(true)" id="doConfigure"
+            translate="admin.actions.run.configure"></button>
+    <button class="btn btn-primary" ng-click="createFollowingTournament()" id="doStart"
+            translate="admin.actions.run.confirm"></button>
+</div>

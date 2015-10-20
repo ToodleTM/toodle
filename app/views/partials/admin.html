@@ -7,8 +7,6 @@
         {{ 'admin.error.'+error | translate}}
     </div>
     <div class="well clearwell">
-
-
         <div class="row" style="position:relative">
             <div class="form-group col-sm-11">
                 <h1><a href="#"
@@ -29,6 +27,44 @@
                 translate="admin.misc.playLink"></span>
 
         </a>
+
+
+        <div class="btn-group" dropdown
+             ng-if="tournamentInfo.followingTournament || tournamentInfo.parentTournament">
+            <button type="button" id="relatedLinks" class="btn btn-info" dropdown-toggle>
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> <span
+                    translate="admin.actions.followup.links"></span> <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li ng-show="tournamentInfo.followingTournament"><a target="_blank" id="followupAdminLink"
+
+                                                                    ng-href="/admin/{{tournamentInfo.followingTournament}}"><span
+                        class="glyphicon glyphicon-forward"
+                        aria-hidden="true"></span> <span
+                        translate="admin.actions.followup.adminButtonCaption"></span></a></li>
+                <li ng-show="tournamentInfo.followingTournament"><a target="_blank"
+                                                                    ng-href="/play/{{tournamentInfo.followingTournamentPublicId}}"
+                                                                    id="followupPublicLink">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span
+                        translate="admin.actions.followup.followingPublicButtonCaption"></span>
+
+                </a></li>
+                <li ng-show="tournamentInfo.parentTournamentPublicId"><a target="_blank"
+                                                                         ng-href="/admin/{{tournamentInfo.parentTournament}}"
+                                                                         id="parentAdminLink">
+                    <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> <span
+                        translate="admin.actions.followup.parentAdminButtonCaption"></span>
+
+                </a></li>
+                <li ng-show="tournamentInfo.parentTournament"><a target="_blank"
+                                                                 ng-href="/play/{{tournamentInfo.parentTournamentPublicId}}"
+                                                                 id="parentPublicLink">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span
+                        translate="admin.actions.followup.parentPublicButtonCaption"></span>
+
+                </a></li>
+            </ul>
+        </div>
 
         <a class="btn btn-info" target="_blank" ng-href="/embed/{{tournamentInfo.signupID}}" id="embedPageLink">
             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span
@@ -65,20 +101,25 @@
             <div class="form-group col-sm-6">
                 <label style="width:100%;" class="control-label"
                        ng-show="!gamesToReport.length">&nbsp;</label>
-                <a id="downloadWinnersLink" class="btn btn-info" ng-show="tournamentInfo.running && !gamesToReport.length"
+                <a id="createFollowupTournamentLink" class="btn btn-info"
+                   ng-show="tournamentInfo.running && !tournamentInfo.followingTournament && !gamesToReport.length"
                    href="#"
-                   ng-click="downloadTournamentWinners()"><span class="glyphicon glyphicon-save-file"
-                                                                aria-hidden="true"></span> <span
-                        translate="admin.misc.winners"></span></a>
+                   ng-click="openCreateFollowingTournamentDialog()"><span class="glyphicon glyphicon-forward"
+                                                                          aria-hidden="true"></span> <span
+                        translate="admin.actions.followup.buttonCaption"></span></a>
             </div>
         </div>
+        <alert collapse="!errorMessage" type="danger" close="hideUpdateAlert()" style="margin-top:25px;">
+            <span translate="{{alertMessage}}">{{alertMessage |translate}}</span><br/>
+            <span translate="{{errorMessage}}">{{errorMessage |translate}}</span>
+        </alert>
+        <alert collapse="!infoMessage" type="info" close="hideUpdateAlert()" style="margin-top:25px;">
+            <span translate="{{alertMessage}}">{{alertMessage |translate}}</span><br/>
+            <span translate="{{infoMessage}}">{{infoMessage |translate}}</span>
+        </alert>
         <div collapse="isCollapsed" style="min-width:355px;">
 
             <tabset>
-                <alert collapse="!errorMessage" type="danger" close="hideUpdateAlert()" style="margin-top:25px;">
-                    <span translate="{{alertMessage}}">{{alertMessage |translate}}</span><br/>
-                    <span translate="{{errorMessage}}">{{errorMessage |translate}}</span>
-                </alert>
                 <tab>
                     <tab-heading>
                         <span translate="admin.form.generalSettingsTab"></span>

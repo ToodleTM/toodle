@@ -16,7 +16,8 @@
         "nothing": "Neither report nor unreport"
       },
       "cantUpdateEngineWhileRunning": "You can't update the tournament engine while tournament is live.",
-      "notFound": "Tournament to update not found."
+      "notFound": "Tournament to update not found.",
+      "tournamentLocked":"Tournament is currently locked (it probably has a follow-up tournament set up)"
     },
     "actions": {
       "lock": "Lock registrations",
@@ -24,6 +25,21 @@
       "open": "Open registrations",
       "openTooltip": "Allow more people to enter the tournament",
       "adminOptions": "Show admin options",
+      "followup":{
+        "modalTitle":"Configure your follow-up tournament",
+        "buttonCaption":"Create follow-up tournament",
+        "modalDescription":"A follow-up tournament allows you to pick the winners from your current tournament and immediately integrate them in a subsequent tournament. Both tournaments (initial and follow-up) will present links to the other when this is done.",
+        "adminButtonCaption":"To follow-up tournament's admin page",
+        "followingPublicButtonCaption":"To follow-up tournament's public page",
+        "parentPublicButtonCaption":"To the parent tournament's public page",
+        "parentAdminButtonCaption":"To the parent tournament's admin page",
+        "links":"Related tournaments",
+        "errors":{
+          "couldNotCreate":"Could not create follow-up tournament",
+          "CurrentTournamentAlreadyHasAFollowingTournament":"Current tournament already has a follow-up tournament.",
+          "couldNotStartRightAway":"Could not start following tournament right away"
+        }
+      },
       "run": {
         "running": "Stop brackets",
         "notRunning": "Start brackets",
@@ -34,7 +50,11 @@
         "noEngineSpecified": "No game engine was specified, can't start tournament until it's done",
         "invalidTournamentEngine": "The tournament engine specified is not available.",
         "notFound": "Tournament does not exist",
-        "cantUnlockRunningTournament": "You can't unlock registrations to a running tournament."
+        "cantUnlockRunningTournament": "You can't unlock registrations to a running tournament.",
+        "tournamentLocked":"Tournament is currently locked (it probably has a follow-up tournament set up)",
+        "errors":{
+          "notEnoughPlayers":"Not enough players right now, you need to register more players."
+        }
       },
       "swapPlayers": {
         "errorWhenGettingPlayersToSwap": "You probably forgot to select one of the players to swap. If that's not the case, get in touch with the admin",

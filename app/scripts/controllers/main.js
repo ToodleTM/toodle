@@ -17,9 +17,9 @@ angular.module('toodleApp')
         $scope.createTourney = function () {
             $scope.hideLocalAlerts();
             $http.post('/api/tournament/', {tournamentName: $scope.tournamentName, players: [], description:$scope.tournamentDescription, startDate:$scope.tournamentStartDate})
-                .success(function (res) {
+                .success(function (newTournamentData) {
                     $scope.tournamentName = '';
-                    $window.location = '/playersRegistration/'+res.adminURL;
+                    $window.location = '/playersRegistration/'+newTournamentData._id;
                 })
                 .error(function (err) {
                     $scope.errorMessage = err.errors.tournamentName.message;

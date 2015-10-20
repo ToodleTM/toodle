@@ -5,12 +5,11 @@ angular.module('toodleApp')
         $translatePartialLoader.addPart('app/admin');
         $translate.refresh();
         $scope.tournamentId = $location.$$path.split('/')[2];
-        $scope.inputs = {nick : '', faction:null};
+        $scope.inputs = {nick: '', faction: null};
         $scope.playerList = null;
         $scope.isCollapsed = true;
         _paq.push(['setDocumentTitle', 'Admin Page']);
         _paq.push(['trackPageView']);
-
 
         $scope.multipleRegistrationOk = function (data) {
             $scope.tournamentInfo = data;
@@ -35,6 +34,7 @@ angular.module('toodleApp')
             $scope.error = false;
             $scope.alertMessage = null;
             $scope.errorMessage = null;
+            $scope.infoMessage = null;
         };
 
         //using the basic example for ng-file-upload directive (https://www.npmjs.org/package/angular-file-upload),
@@ -85,7 +85,11 @@ angular.module('toodleApp')
 
                     $scope.factions = factionsArray;
                 });
-               updateMatchesToReport();
+                updateMatchesToReport();
+                if($location.search().followUpError){
+                    $scope.alertMessage = 'admin.actions.followup.errors.couldNotStartRightAway';
+                    $scope.infoMessage = 'admin.actions.run.errors.'+ $location.search().followUpError;
+                }
             })
             .error(function (error, status) {
                 if (status === 404) {
@@ -254,7 +258,7 @@ angular.module('toodleApp')
                     tournamentInfo: function () {
                         return $scope.tournamentInfo;
                     },
-                    allowConfigureBeforeStart:function(){
+                    allowConfigureBeforeStart: function () {
                         return false;
                     }
                 }
@@ -262,6 +266,57 @@ angular.module('toodleApp')
 
             modalInstance.result.then(function () {
                 $scope.toggleStart();
+            }, function () {
+            });
+        };
+
+        $scope.openCreateFollowingTournamentDialog = function (size) {
+            var modalInstance = $modal.open({
+                templateUrl: '/views/partials/popinTemplates/createFollowingTournamentTemplate.html',
+                controller: 'ModalCreateFollowingTournamentCtrl',
+                size: size,
+                resolve: {
+                    availableEngines: function () {
+                        return $scope.availableEngines;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (data) {
+                $scope.hideUpdateAlert();
+                var configureOnly = data[0];
+                var name = data[1];
+                var engine = data[2];
+                var description = data[3];
+                var startDate = data[4];
+
+
+                $http.post('/api/tournament', {
+                    tournamentName: name,
+                    engine: engine.name,
+                    description: description,
+                    startDate: startDate,
+                    parentTournament: $scope.tournamentInfo._id,
+                    parentTournamentPublicId: $scope.tournamentInfo.signupID
+                })
+                    .success(function (newTournamentData) {
+                        if (!configureOnly) {
+                            $http.patch('/api/tournament/start', {tournamentId: newTournamentData._id})
+                                .success(function () {
+                                    $location.path('/admin/' + newTournamentData._id);
+                                })
+                                .error(function (err) {
+                                    console.info('Cannot start tournament, redirecting to admin page without starting');
+                                    $location.url('/admin/' + newTournamentData._id + '?followUpError=' + err.message);
+                                });
+                        } else {
+                            $location.path('/admin/' + newTournamentData._id);
+                        }
+                    }).error(function (err) {
+                        $scope.alertMessage = 'admin.actions.followup.errors.couldNotCreate';
+                        $scope.errorMessage = 'admin.actions.followup.errors.'+err.message;
+                    });
+
             }, function () {
             });
         };
