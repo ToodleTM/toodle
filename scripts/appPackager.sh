@@ -12,6 +12,8 @@ function minifyAppAndGenerateIndex {
     ./scripts/indexGenerator.sh ./app ./.minifyTmp || exit 1
     echo "CSS minification + regrouping"
     ./scripts/cssConcat.sh ./app ./.minifyTmp ./.sass-tmp || exit 1
+    echo "Generate spritesheet + associated SCSS config"
+    ./scripts/spriteGen.sh ./.minifyTmp ./app || exit 1
     rm -rf .minifyTmp
 }
 

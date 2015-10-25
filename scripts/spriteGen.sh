@@ -1,10 +1,13 @@
 #!/bin/bash
 
-rm -rf ../app/images/sprites.png
-gulp sprite
+TMP_DIR=$1
+OUT_ROOT=$2
 
-sed "s/, )/)/" sprites.scss > sprites_corrected
-sed "s/sprites\.png',/\/images\/sprites.png',/" sprites_corrected > ../app/styles/_sprites.scss
+rm -rf ${OUT_ROOT}/images/sprites.png
+SPRITE_TMP=${TMP_DIR} SPRITE_ROOT=${OUT_ROOT} gulp --gulpfile=./scripts/gulpfile.js sprite
 
-mv sprites.png ../app/images/sprites.png
-rm -rf sprites.scss sprites_corrected
+sed "s/, )/)/" ${TMP_DIR}/sprites.scss > ${TMP_DIR}/sprites_corrected
+sed "s/sprites\.png',/\/images\/sprites.png',/" ${TMP_DIR}/sprites_corrected > ${OUT_ROOT}/styles/_sprites.scss
+
+mv ${TMP_DIR}/sprites.png ${OUT_ROOT}/images/sprites.png
+rm -rf ${TMP_DIR}/sprites.scss ${TMP_DIR}/sprites_corrected
