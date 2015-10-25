@@ -7,6 +7,20 @@
   display: inline-block;
 }
 
+.player-icon {
+  margin-top: 2px;
+  &.left {
+    float: right;
+    margin-left: 2px;
+  }
+
+  &.right {
+    float: left;
+    margin-right: 2px;
+  }
+
+}
+
 .group-block {
   min-width: 275px;
   margin-right: 4em;

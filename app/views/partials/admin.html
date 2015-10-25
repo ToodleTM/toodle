@@ -253,8 +253,7 @@
                             </legend>
                             <ul id="sortablePlayerList">
                                 <li ng-repeat="player in playerList" class="playerInList">
-                <span style="float:left"><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png"
-                                                                           height="20px"></span>{{player.name}} </span>
+                <span style="float:left"><span ng-if="player.faction"><div class="icon-{{player.faction}}-16 player-icon right"></div> </span>{{player.name}} </span>
                             <span ng-if="'notes-'+stripped(player.name)" class="playerInListInfo"
                                   id="notes-{{stripped(player.name)}}" translate="{{errorMessage}}"></span><i
                                         ng-hide="tournamentInfo.running"

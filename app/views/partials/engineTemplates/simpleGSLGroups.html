@@ -9,7 +9,7 @@
             <tr ng-repeat="player in group.players" class="group-player-line" style="width:100%;position:relative">
                 <td class="group-rank"> <b>{{$index +1}}.</b></td>
                 <td class="group-player-tag {{ $index == 0 || $index == 1 ? 'group-player-winner' : 'group-player-loser'}}">
-                    <span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px"></span>
+                    <span ng-if="player.faction"><div class="icon-{{player.faction}}-16 player-icon right"></div></span></span>
                     {{ player.name }}
                 </td>
                 <td class="group-player-score">{{player.win ? player.win : 0 }}-{{ player.loss ? player.loss : 0}}
@@ -28,12 +28,14 @@
                 <td colspan="4">
                     <table class="group-matches">
                         <tr ng-repeat="match in group.matches">
-                            <td class="player1{{match.complete && (match.score1 > match.score2 || match.winner && match.winner === 1) ? ' match-winner' : ''}}{{match.winner && match.winner !== 1 ? ' match-forfeiter' : ''}}">{{match.player1.name ? match.player1.name : ''}}<img
-                                    ng-if="match.player1.faction" src="/images/icon-{{match.player1.faction}}.png"></td>
+                            <td class="player1{{match.complete && (match.score1 > match.score2 || match.winner && match.winner === 1) ? ' match-winner' : ''}}{{match.winner && match.winner !== 1 ? ' match-forfeiter' : ''}}">{{match.player1.name ? match.player1.name : ''}}
+                                <div
+                                    ng-if="match.player1.faction" class="icon-{{match.player1.faction}}-16 player-icon left"></div></td>
                             <td class="score1{{match.complete && (match.score1 > match.score2 || match.winner && match.winner === 1) ? ' match-winner' : ''}}{{match.winner && match.winner !== 1 ? ' match-forfeiter' : ''}}">{{match.score1 || match.score1 === 0? match.score1 : '-'}}</td>
                             <td class="score2{{match.complete && (match.score1 < match.score2 || match.winner && match.winner === 2) ? ' match-winner' : ''}}{{match.winner && match.winner !== 2 ? ' match-forfeiter' : ''}}">{{match.score2 || match.score2 === 0 ? match.score2 : '-'}}</td>
-                            <td class="player2{{match.complete && (match.score1 < match.score2 || match.winner && match.winner === 2) ? ' match-winner' : ''}}{{match.winner && match.winner !== 2 ? ' match-forfeiter' : ''}}"><img
-                                    ng-if="match.player2.faction" src="/images/icon-{{match.player2.faction}}.png">{{match.player2.name ? match.player2.name : ''}}
+                            <td class="player2{{match.complete && (match.score1 < match.score2 || match.winner && match.winner === 2) ? ' match-winner' : ''}}{{match.winner && match.winner !== 2 ? ' match-forfeiter' : ''}}">
+                                <div
+                                    ng-if="match.player2.faction" class="icon-{{match.player2.faction}}-16 player-icon right"></div>{{match.player2.name ? match.player2.name : ''}}
                                 <span id="matchNumber-{{match.number}}" ng-if="match.canBeUnreported" ng-click="unreport(match)" style="position:relative;float:right;">
                                     <span id="matchNumber-{{match.number}}-img" class="glyphicon glyphicon-trash match-unreport-button"></span>
                                 </span>
