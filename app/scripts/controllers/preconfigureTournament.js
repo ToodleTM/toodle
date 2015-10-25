@@ -163,10 +163,10 @@ angular.module('toodleApp')
         $scope.selectPlayerToSwap = function (groupNumber, playerName) {
             var playerSlot = $scope.getPlayerSlotInGroup(groupNumber, playerName);
             var currentPlayer = $scope.tournamentInfo.bracket[groupNumber].players[playerSlot];
-            var swapIcon = '/images/swapPlayers.png';
-            var selectedIcon = '/images/selectedPlayer.png';
-            var clickable = '/images/clickable.png';
-            var clicked = '/images/clicked.png';
+            var swapIcon = 'swapPlayers-16';
+            var selectedIcon = 'selectedPlayer-16';
+            var clickable = 'clickable-250-20';
+            var clicked = 'clicked-250-20';
             var strippedPlayerName = playerName.replace(' ', '');
             if (!$scope.firstPlayerToSwapPosition) {
                 $scope.firstPlayerToSwapPosition = {
@@ -175,13 +175,13 @@ angular.module('toodleApp')
                     isPlayer1: playerName,
                     name: currentPlayer ? currentPlayer.name : null
                 };
-                document.getElementById('slot-'+groupNumber+'-'+strippedPlayerName).setAttribute('src', selectedIcon);
-                document.getElementById('clickable-' + groupNumber + '-' + strippedPlayerName).setAttribute('src', clicked);
+                document.getElementById('slot-'+groupNumber+'-'+strippedPlayerName).setAttribute('class', 'preconf-swapIcon '+selectedIcon);
+                document.getElementById('clickable-' + groupNumber + '-' + strippedPlayerName).setAttribute('class', 'group-player-tag preconf '+clicked);
             } else {
                 if ($scope.firstPlayerToSwapPosition.number === groupNumber && $scope.firstPlayerToSwapPosition.isPlayer1 === playerName) {
                     $scope.firstPlayerToSwapPosition = null;
-                    document.getElementById('slot-' + groupNumber + '-' + strippedPlayerName).setAttribute('src', swapIcon);
-                    document.getElementById('clickable-' + groupNumber + '-' + strippedPlayerName).setAttribute('src', clickable);
+                    document.getElementById('slot-' + groupNumber + '-' + strippedPlayerName).setAttribute('class', 'preconf-swapIcon ' +swapIcon);
+                    document.getElementById('clickable-' + groupNumber + '-' + strippedPlayerName).setAttribute('class', 'group-player-tag preconf ' +clickable);
                 } else {
                     var secondPlayerToSwapPosition = {
                         number: groupNumber,

@@ -1,0 +1,14 @@
+.social-login-link {
+  position: relative;
+  height: 25px;
+
+  & .social-login-caption {
+    float: left;
+    margin-right: -15px;
+    margin-left:5px;
+  }
+
+  & .social-login-icon {
+    float:left;
+  }
+}

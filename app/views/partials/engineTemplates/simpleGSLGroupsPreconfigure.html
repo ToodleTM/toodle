@@ -8,11 +8,10 @@
             </tr>
             <tr ng-repeat="player in group.players" class="group-player-line" style="width:100%;position:relative">
                 <td class="group-rank"> <b>{{$index +1}}.</b></td>
-                <td class="group-player-tag preconf" ng-click="selectPlayerToSwap(group.number, player.name)" >
-                    <img id="clickable-{{group.number}}-{{stripPlayerName(player.name)}}" class="preconf-overlay" src="/images/clickable.png">
-                    <span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png" height="20px"></span>
-                    <span>{{ player.name }}</span>
-                    <img class="preconf-swapIcon" id="slot-{{group.number}}-{{stripPlayerName(player.name)}}" src="/images/swapPlayers.png"/>
+                <td class="group-player-tag preconf" id="clickable-{{group.number}}-{{stripPlayerName(player.name)}}" ng-click="selectPlayerToSwap(group.number, player.name)" style="position:relative;">
+                    <span ng-if="player.faction"><div class="icon-{{player.faction}}-16" style="margin-top:2px;float:left"></div></span>
+                    <span style="float:left">{{ player.name }}</span>
+                    <div class="preconf-swapIcon swapPlayers-16" id="slot-{{group.number}}-{{stripPlayerName(player.name)}}"></div>
                 </td>
             </tr>
             <tr>

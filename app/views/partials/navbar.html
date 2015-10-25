@@ -2,8 +2,8 @@
     <div class="row">
         <div class="navbar-container" style="min-width:250px;">
             <div class="form-group col-sm-9 navbar-title" style="position:relative;min-height:32px;">
-                <a href="/"><img style="height:32px;" src="/images/toodle_simple.png"/></a>
-                <a href="/" class="toodle-title text-muted hide-if-small" translate="header.title"></a>
+                <a href="/"><div class="toodle_simple_32" style="float:left"></div></a>
+                <a href="/" class="toodle-title text-muted hide-if-small" style="float:left" translate="header.title"></a>
             </div>
             <nav class="navbar-language-select">
                 <div class="btn-group" dropdown is-open="false">
@@ -28,15 +28,15 @@
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="#" ng-click="login('twitter')" title="Twitter">
-                            <img src="/images/social/twitter.png" width="20"/>
-                            <span style="margin-left:20px" translate="tournaments.navbar.login.twitter"></span>
+                            <a href="#" ng-click="login('twitter')" title="Twitter" class="social-login-link">
+                                <div class="twitter social-login-icon"></div>
+                                <span translate="tournaments.navbar.login.twitter" class="social-login-caption"></span>
                             </a>
                         </li>
                         <li>
-                            <a href="#" ng-click="login('google')" title="Google+">
-                                <img src="/images/social/gplus.jpg" width="20"/>
-                                <span style="margin-left:20px" translate="tournaments.navbar.login.gplus"></span>
+                            <a href="#" ng-click="login('google')" title="Google+" class="social-login-link">
+                                <div class="gplus social-login-icon"></div>
+                                <span translate="tournaments.navbar.login.gplus" class="social-login-caption"></span>
                             </a>
                         </li>
                     </ul>

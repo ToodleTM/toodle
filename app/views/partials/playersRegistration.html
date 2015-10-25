@@ -47,7 +47,9 @@
                         <div class="form-group col-sm-12">
                             <input id="multiSeedInput" type="file" ng-file-select="onFileSelect($files)">
 
-                            <p>* : <span translate="admin.misc.fileMustBeCSV"></span><a href="/csv-howto" target="_blank">  <i class="glyphicon glyphicon-question-sign"></i></a></p>
+                            <p>* : <span translate="admin.misc.fileMustBeCSV"></span><a href="/csv-howto"
+                                                                                        target="_blank"> <i
+                                    class="glyphicon glyphicon-question-sign"></i></a></p>
                         </div>
                     </div>
                 </form>
@@ -58,8 +60,11 @@
         <legend><span translate="play.register.registeredPlayers"></span> (Total : {{playerList.length}})</legend>
         <ul id="sortablePlayerList">
             <li ng-repeat="player in playerList" class="playerInList">
-                <span style="float:left"><span ng-if="player.faction"><img src="/images/icon-{{player.faction}}.png"
-                                                                           height="20px"></span>{{player.name}} </span>
+                <span style="float:left">
+                    <span ng-if="player.faction" class="social-login-link">
+                        <div class="icon-{{player.faction}}-16 social-login-icon"></div> <span class="social-login-caption">{{player.name}}</span>
+                    </span>
+                </span>
                 <span ng-if="'notes-'+stripped(player.name)" class="playerInListInfo"
                       id="notes-{{stripped(player.name)}}" translate="{{errorMessage}}"></span><i
                     ng-hide="tournamentInfo.running" title="{{'admin.actions.removePlayer'|translate}}"

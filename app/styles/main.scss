@@ -4,6 +4,10 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 @import '_singleElim.scss';
 @import '_simpleGSLGroups.scss';
 @import '_whatsNew.scss';
+@import '_sprites.scss';
+@import '_navbar.scss';
+@include sprites($spritesheet-sprites);
+
 .modal.fade {
   opacity: 1;
 }
