@@ -1,0 +1,6 @@
+{
+  "engines": {
+    "singleElim": "Arbre binaire à élimination simple",
+    "simpleGSLGroups": "Poules GSL (format 2015)"
+  }
+}

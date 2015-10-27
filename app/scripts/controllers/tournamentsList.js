@@ -3,6 +3,7 @@
 angular.module('toodleApp')
     .controller('TournamentsListCtrl', function ($scope, $location, $translate, $http, $translatePartialLoader) {
         $translatePartialLoader.addPart('app/tournamentsList');
+        $translatePartialLoader.addPart('app/engines');
         $translate.refresh();
         $scope.currentPage = 1;
         $scope.paginatedTournaments = {};

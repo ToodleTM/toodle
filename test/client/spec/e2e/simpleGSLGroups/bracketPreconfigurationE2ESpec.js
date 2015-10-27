@@ -31,12 +31,9 @@ describe('Bracket preconfiguration', function () {
         element(by.id('preconfigure')).click();
 
         var clickableOverlay = element(by.id('clickable-1-player2'));
-        var swapIndicator = element(by.id('slot-1-player2'));
-        expect(clickableOverlay.getAttribute('src')).toContain('clickable.png');
-        expect(swapIndicator.getAttribute('src')).toContain('swapPlayers.png');
+        expect(clickableOverlay.getAttribute('class')).toBe('group-player-tag preconf');
         clickableOverlay.click();
-        expect(clickableOverlay.getAttribute('src')).toContain('clicked.png');
-        expect(swapIndicator.getAttribute('src')).toContain('selectedPlayer.png');
+        expect(clickableOverlay.getAttribute('class')).toContain('clicked-250-20');
     });
 
     it('should reset highlighting if user clicks twice on the same slot', function () {
@@ -48,16 +45,13 @@ describe('Bracket preconfiguration', function () {
         element(by.id('preconfigure')).click();
 
         var clickableOverlay = element(by.id('clickable-1-player2'));
-        var swapIndicator = element(by.id('slot-1-player2'));
-        expect(clickableOverlay.getAttribute('src')).toContain('clickable.png');
-        expect(swapIndicator.getAttribute('src')).toContain('swapPlayers.png');
+
+        expect(clickableOverlay.getAttribute('class')).toBe('group-player-tag preconf');
         clickableOverlay.click();
-        expect(clickableOverlay.getAttribute('src')).toContain('clicked.png');
-        expect(swapIndicator.getAttribute('src')).toContain('selectedPlayer.png');
+        expect(clickableOverlay.getAttribute('class')).toContain('clicked-250-20');
 
         clickableOverlay.click();
-        expect(clickableOverlay.getAttribute('src')).toContain('clickable.png');
-        expect(swapIndicator.getAttribute('src')).toContain('swapPlayers.png');
+        expect(clickableOverlay.getAttribute('class')).toBe('group-player-tag preconf clickable-250-20');
     });
 
     function goToThePreconfigurationPage() {
@@ -97,23 +91,17 @@ describe('Bracket preconfiguration', function () {
         setupTournamentWith4Players();
         goToThePreconfigurationPage();
         var clickableOverlayForPlayer1 = element(by.id('clickable-1-player2'));
-        var swapIndicatorForPlayer1 = element(by.id('slot-1-player2'));
         var clickableOverlayForPlayer2 = element(by.id('clickable-1-player4'));
-        var swapIndicatorForPlayer2 = element(by.id('slot-1-player4'));
-        expect(clickableOverlayForPlayer1.getAttribute('src')).toContain('clickable.png');
-        expect(swapIndicatorForPlayer1.getAttribute('src')).toContain('swapPlayers.png');
-        expect(clickableOverlayForPlayer2.getAttribute('src')).toContain('clickable.png');
-        expect(swapIndicatorForPlayer2.getAttribute('src')).toContain('swapPlayers.png');
+        expect(clickableOverlayForPlayer1.getAttribute('class')).toBe('group-player-tag preconf');
+        expect(clickableOverlayForPlayer2.getAttribute('class')).toBe('group-player-tag preconf');
         expect(element(by.xpath('//table[@id="group-1"]//tr[3]/td[2]/span[2]')).getText()).toContain('player 2');
         expect(element(by.xpath('//table[@id="group-1"]//tr[5]/td[2]/span[2]')).getText()).toContain('player 4');
 
         clickableOverlayForPlayer1.click();
         clickableOverlayForPlayer2.click();
 
-        expect(clickableOverlayForPlayer1.getAttribute('src')).toContain('clickable.png');
-        expect(swapIndicatorForPlayer1.getAttribute('src')).toContain('swapPlayers.png');
-        expect(clickableOverlayForPlayer2.getAttribute('src')).toContain('clickable.png');
-        expect(swapIndicatorForPlayer2.getAttribute('src')).toContain('swapPlayers.png');
+        expect(clickableOverlayForPlayer1.getAttribute('class')).toBe('group-player-tag preconf');
+        expect(clickableOverlayForPlayer2.getAttribute('class')).toBe('group-player-tag preconf');
         expect(element(by.xpath('//table[@id="group-1"]//tr[3]/td[2]/span[2]')).getText()).toContain('player 4');
         expect(element(by.xpath('//table[@id="group-1"]//tr[5]/td[2]/span[2]')).getText()).toContain('player 2');
     });
@@ -122,26 +110,18 @@ describe('Bracket preconfiguration', function () {
         setupTournamentWith8Players();
         goToThePreconfigurationPage();
         var clickableOverlayForPlayer1 = element(by.id('clickable-1-player2'));
-        var swapIndicatorForPlayer1 = element(by.id('slot-1-player2'));
         var clickableOverlayForPlayer2 = element(by.id('clickable-2-player8'));
-        var swapIndicatorForPlayer2 = element(by.id('slot-2-player8'));
-        expect(clickableOverlayForPlayer1.getAttribute('src')).toContain('clickable.png');
-        expect(swapIndicatorForPlayer1.getAttribute('src')).toContain('swapPlayers.png');
-        expect(clickableOverlayForPlayer2.getAttribute('src')).toContain('clickable.png');
-        expect(swapIndicatorForPlayer2.getAttribute('src')).toContain('swapPlayers.png');
+        expect(clickableOverlayForPlayer1.getAttribute('class')).toBe('group-player-tag preconf');
+        expect(clickableOverlayForPlayer2.getAttribute('class')).toBe('group-player-tag preconf');
         expect(element(by.xpath('//table[@id="group-1"]//tr[3]/td[2]/span[2]')).getText()).toContain('player 2');
         expect(element(by.xpath('//table[@id="group-2"]//tr[5]/td[2]/span[2]')).getText()).toContain('player 8');
         clickableOverlayForPlayer1.click();
         clickableOverlayForPlayer2.click();
 
         clickableOverlayForPlayer1 = element(by.id('clickable-2-player2'));
-        swapIndicatorForPlayer1 = element(by.id('slot-2-player2'));
         clickableOverlayForPlayer2 = element(by.id('clickable-1-player8'));
-        swapIndicatorForPlayer2 = element(by.id('slot-1-player8'));
-        expect(clickableOverlayForPlayer1.getAttribute('src')).toContain('clickable.png');
-        expect(swapIndicatorForPlayer1.getAttribute('src')).toContain('swapPlayers.png');
-        expect(clickableOverlayForPlayer2.getAttribute('src')).toContain('clickable.png');
-        expect(swapIndicatorForPlayer2.getAttribute('src')).toContain('swapPlayers.png');
+        expect(clickableOverlayForPlayer1.getAttribute('class')).toBe('group-player-tag preconf');
+        expect(clickableOverlayForPlayer2.getAttribute('class')).toBe('group-player-tag preconf');
         expect(element(by.xpath('//table[@id="group-1"]//tr[3]/td[2]/span[2]')).getText()).toContain('player 8');
         expect(element(by.xpath('//table[@id="group-2"]//tr[5]/td[2]/span[2]')).getText()).toContain('player 2');
     });
@@ -159,7 +139,7 @@ describe('Bracket preconfiguration', function () {
         slot2.click();
         expect(element(by.xpath('//table[@id="group-1"]//tr[2]/td[2]/span[2]')).getText()).toContain('player 1');
         expect(element(by.xpath('//table[@id="group-1"]//tr[3]/td[2]/span[2]')).getText()).toContain('player 2');
-        expect(slot1.getAttribute('src')).toContain('clickable.png');
-        expect(slot2.getAttribute('src')).toContain('clicked.png');
+        expect(slot1.getAttribute('class')).toBe('group-player-tag preconf');
+        expect(slot2.getAttribute('class')).toContain('clicked-250-20');
     });
 });

@@ -1,0 +1,19 @@
+.tournaments-list-key-item{
+  height:25px;
+  margin-bottom:5px;
+  & .key-item-icon {
+    float:left;
+  }
+
+  & .key-item-caption {
+    float:left;
+  }
+}
+
+.tournaments-list-tournament-name-column{
+  width:200px;
+}
+
+.tournaments-list-table{
+  word-break: break-all;
+}

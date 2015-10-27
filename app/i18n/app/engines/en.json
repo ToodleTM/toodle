@@ -1,0 +1,6 @@
+{
+  "engines":{
+    "singleElim":"Single elimination bracket",
+    "simpleGSLGroups":"GSL groups (2015 format)"
+  }
+}

@@ -1,5 +1,8 @@
 {
   "tournamentsList": {
+    "key":"Key",
+    "title":"All created tournaments",
+    "tournaments":"The tournaments",
     "tournamentName": "Tournament name",
     "running": {
       "title": "Running ?",

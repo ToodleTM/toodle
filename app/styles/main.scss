@@ -6,6 +6,8 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 @import '_whatsNew.scss';
 @import '_sprites.scss';
 @import '_navbar.scss';
+@import '_tournamentsList.scss';
+
 @include sprites($spritesheet-sprites);
 
 .modal.fade {

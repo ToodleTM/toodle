@@ -1,5 +1,8 @@
 {
   "tournamentsList": {
+    "key":"Légende",
+    "title": "Tous les tournois créés",
+    "tournaments": "Les tournois",
     "tournamentName": "Nom du tournoi",
     "running": {
       "title": "En cours ?",

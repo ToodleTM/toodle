@@ -47,7 +47,7 @@ describe('User having the admin link of a tournament', function () {
         element(by.id('inputNick')).sendKeys('player 2');
         element(by.xpath('//select[@name="inputFaction"]')).sendKeys('Starcraft 2 - Zerg');
         element(by.id('registerPlayerGo')).click();
-        expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li[1]/span/span/img')).getAttribute('src')).toContain('/images/icon-terran.png');
-        expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li[2]/span/span/img')).getAttribute('src')).toContain('/images/icon-zerg.png');
+        expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li[1]/span/span/div')).getAttribute('class')).toContain('icon-terran-16 player-icon right');
+        expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li[2]/span/span/div')).getAttribute('class')).toContain('icon-zerg-16 player-icon right');
     });
 });

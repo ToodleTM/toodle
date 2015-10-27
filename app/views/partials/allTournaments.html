@@ -1,12 +1,22 @@
 <div ng-include="'partials/navbar'"></div>
 
 <div id="content">
-
-    <table class="table table-striped">
+    <h1 translate="tournamentsList.title"></h1>
+    <div>
+        <h2 translate="tournamentsList.key"></h2>
+        <div class="tournaments-list-key-item">
+            <div class="engine-logo-simpleGSLGroups key-item-icon"></div>
+            <span class="key-item-caption" translate="engines.simpleGSLGroups"></span>
+        </div>
+        <div class="tournaments-list-key-item">
+            <div class="engine-logo-singleElim key-item-icon"></div>
+            <span class="key-item-caption" translate="engines.singleElim"></span></div>
+    </div>
+    <h2 translate="tournamentsList.tournaments"></h2>
+    <table class="table table-striped tournaments-list-table">
         <tr>
-            <th translate="tournamentsList.tournamentName"></th>
+            <th class="tournaments-list-tournament-name-column" translate="tournamentsList.tournamentName"></th>
             <th translate="tournamentsList.running.title"></th>
-            <!--<th translate="tournamentsList.creator.title"></th>-->
             <th translate="tournamentsList.type"></th>
             <th translate="tournamentsList.startDate.title"></th>
             <th translate="tournamentsList.dateCreated.title"></th>
@@ -16,13 +26,16 @@
             <td><a ng-href="/play/{{tournament.signupID}}">{{tournament.tournamentName}}</a></td>
             <td><span ng-if="tournament.running" translate="tournamentsList.running.yes"></span><span
                     ng-if="!tournament.running" translate="tournamentsList.running.no"></span></td>
-            <td><span>{{tournament.engine}}</span></td>
+            <td>
+                <div class="engine-logo-{{tournament.engine}}"></div>
+            </td>
             <td><span>{{tournament.formattedStartDate}}</span></td>
             <td><span>{{tournament.formattedCreationDate}}</span></td>
         </tr>
     </table>
 
-    <pager template-url="/views/partials/pagerTemplate.html" total-items="maxPages" items-per-page="20" ng-model="currentPage" ng-change="updateTournamentsList()"></pager>
+    <pager template-url="/views/partials/pagerTemplate.html" total-items="maxPages" items-per-page="20"
+           ng-model="currentPage" ng-change="updateTournamentsList()"></pager>
 </div>
 
 <div ng-include="'partials/footer'"></div>

@@ -215,7 +215,7 @@ describe('User having the registration URL', function () {
         element(by.id('inputNick')).sendKeys('player 1');
         element(by.xpath('//select[@name="inputFaction"]')).sendKeys('Starcraft 2 - Terran');
         element(by.id('registerPlayerGo')).click();
-        expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li/span/span/img')).getAttribute('src')).toContain('/images/icon-terran.png');
+        expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li/span/span/div')).getAttribute('class')).toContain('icon-terran-16 social-login-icon');
     });
 
     it('should refocus on the player nick input once user validates - Players registration page', function () {
@@ -291,8 +291,8 @@ describe('User having the registration URL', function () {
             element(by.id('inputNick')).sendKeys('player 2');
             element(by.xpath('//select[@name="inputFaction"]')).sendKeys('Starcraft 2 - Zerg');
             element(by.id('registerPlayerGo')).click();
-            expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li[1]/span/span/img')).getAttribute('src')).toContain('/images/icon-terran.png');
-            expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li[2]/span/span/img')).getAttribute('src')).toContain('/images/icon-zerg.png');
+            expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li[1]/span/span/div')).getAttribute('class')).toContain('icon-terran-16 player-icon right');
+            expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li[2]/span/span/div')).getAttribute('class')).toContain('icon-zerg-16 player-icon right');
             finished();
         });
     });
