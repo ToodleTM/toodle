@@ -24,8 +24,21 @@
 
 .tournaments-list-table tr{
   word-break: break-all;
+  & td.centered {
+    text-align: center;
+  }
 }
 
 .tournaments-list-table th {
   word-break: keep-all;
+}
+
+.key {
+  padding-left:10px;
+  padding-right:10px;
+  margin: 5px;
+  border-radius: 4px;
+  color: #333;
+  background-color: #f9f9f9;
+  border:1px solid #ccc;
 }

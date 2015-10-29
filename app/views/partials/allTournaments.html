@@ -2,8 +2,9 @@
 
 <div id="content">
     <h1 translate="tournamentsList.title"></h1>
-    <div>
+    <div class="key">
         <h2 translate="tournamentsList.key"></h2>
+        <hr/>
         <div class="tournaments-list-key-item">
             <div class="engine-logo-simpleGSLGroups key-item-icon"></div>
             <span class="key-item-caption" translate="engines.simpleGSLGroups"></span>
@@ -28,7 +29,7 @@
 
         <tr ng-repeat="tournament in tournamentsToDisplay">
             <td><a ng-href="/play/{{tournament.signupID}}">{{tournament.tournamentName}}</a></td>
-            <td><span ng-if="tournament.running" translate="tournamentsList.running.yes"></span><span
+            <td class="centered"><span ng-if="tournament.running" translate="tournamentsList.running.yes"></span><span
                     ng-if="!tournament.running" translate="tournamentsList.running.no"></span></td>
             <td class="cup"><i ng-if="tournament.followingTournamentPublicId || tournament.parentTournamentPublicId" class="glyphicon glyphicon-king"></i></td>
             <td>
