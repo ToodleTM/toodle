@@ -1,8 +1,11 @@
 .tournaments-list-key-item{
   height:25px;
   margin-bottom:5px;
+
   & .key-item-icon {
     float:left;
+    width: 43px;
+    margin-right:3px;
   }
 
   & .key-item-caption {
@@ -14,6 +17,15 @@
   width:200px;
 }
 
-.tournaments-list-table{
+.cup {
+  text-align: center;
+  color: #d5c017;
+}
+
+.tournaments-list-table tr{
   word-break: break-all;
+}
+
+.tournaments-list-table th {
+  word-break: keep-all;
 }

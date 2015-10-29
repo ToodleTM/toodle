@@ -11,12 +11,16 @@
         <div class="tournaments-list-key-item">
             <div class="engine-logo-singleElim key-item-icon"></div>
             <span class="key-item-caption" translate="engines.singleElim"></span></div>
+        <div class="tournaments-list-key-item">
+            <i class="glyphicon glyphicon-king key-item-icon cup"></i>
+            <span class="key-item-caption" translate="tournamentsList.partOfACup"></span></div>
     </div>
     <h2 translate="tournamentsList.tournaments"></h2>
     <table class="table table-striped tournaments-list-table">
         <tr>
             <th class="tournaments-list-tournament-name-column" translate="tournamentsList.tournamentName"></th>
             <th translate="tournamentsList.running.title"></th>
+            <th translate="tournamentsList.cup"></th>
             <th translate="tournamentsList.type"></th>
             <th translate="tournamentsList.startDate.title"></th>
             <th translate="tournamentsList.dateCreated.title"></th>
@@ -26,6 +30,7 @@
             <td><a ng-href="/play/{{tournament.signupID}}">{{tournament.tournamentName}}</a></td>
             <td><span ng-if="tournament.running" translate="tournamentsList.running.yes"></span><span
                     ng-if="!tournament.running" translate="tournamentsList.running.no"></span></td>
+            <td class="cup"><i ng-if="tournament.followingTournamentPublicId || tournament.parentTournamentPublicId" class="glyphicon glyphicon-king"></i></td>
             <td>
                 <div class="engine-logo-{{tournament.engine}}"></div>
             </td>

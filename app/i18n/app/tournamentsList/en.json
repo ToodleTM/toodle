@@ -1,6 +1,8 @@
 {
   "tournamentsList": {
     "key":"Key",
+    "partOfACup":"This tournament is part of a cup (several chained tournaments)",
+    "cup":"Part of a cup ?",
     "title":"All created tournaments",
     "tournaments":"The tournaments",
     "tournamentName": "Tournament name",

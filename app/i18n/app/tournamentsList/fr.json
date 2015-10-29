@@ -1,6 +1,8 @@
 {
   "tournamentsList": {
     "key":"Légende",
+    "partOfACup":"Ce tournoi fait partie d'une coupe (plusieurs tournois liés entre eux)",
+    "cup":"Fait partie d'une coupe?",
     "title": "Tous les tournois créés",
     "tournaments": "Les tournois",
     "tournamentName": "Nom du tournoi",
