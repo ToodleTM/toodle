@@ -35,7 +35,7 @@ angular.module('toodleApp')
                         resetPlayerNamesToSwap();
                         $scope.playerList = data.players;
                         $scope.engineTemplate = '/partials/engineTemplates/' + data.engine+'Preconfigure';
-                        $scope.renderer = availableRenderers[$scope.tournamentInfo.engine];
+                        $scope.renderer = utils_availableRenderers[$scope.tournamentInfo.engine];
                         $scope.groups = [];
                         $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
                         $http.post('api/tournament/genBracketForTournament', {tournamentId: $scope.tournamentId}).success(function (data) {
@@ -57,11 +57,11 @@ angular.module('toodleApp')
         });
 
         $scope.getPlayersOrderedByScore = function (group) {
-            if (group.players && lodashForApp.find(group.matches, function (match) {
+            if (group.players && utils_lodashForApp.find(group.matches, function (match) {
                     return match.complete;
                 })) {
                 if (group.players.length === 4) {
-                    var orderedList = lodashForApp.sortBy(group.players, function (player) {
+                    var orderedList = utils_lodashForApp.sortBy(group.players, function (player) {
                         if (!player.win) {
                             player.win = 0;
                         }

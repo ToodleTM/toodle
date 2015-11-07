@@ -132,7 +132,7 @@ angular.module('toodleApp')
         $scope.toggleRegistrationLock = function () {
             $scope.hideUpdateAlert();
             var previousLockedStatus = $scope.tournamentInfo.locked;
-            $scope.tournamentInfo.locked = genericUtils.toggleState($scope.tournamentInfo.locked);
+            $scope.tournamentInfo.locked = utils_genericUtils.toggleState($scope.tournamentInfo.locked);
             $http.patch('/api/tournament/admin/' + (!$scope.tournamentInfo.locked ? 'un' : '') + 'lockTournament?tournamentId=' + $scope.tournamentId, $scope.tournamentInfo)
                 .success(function (code) {
                     if (code === 404) {
@@ -166,7 +166,7 @@ angular.module('toodleApp')
         $scope.toggleStart = function () {
             $scope.hideUpdateAlert();
             var originalValue = $scope.tournamentInfo.running;
-            $scope.tournamentInfo.running = genericUtils.toggleState($scope.tournamentInfo.running);
+            $scope.tournamentInfo.running = utils_genericUtils.toggleState($scope.tournamentInfo.running);
             var urlSuffix = '';
             if ($scope.tournamentInfo.running) {
                 urlSuffix = 'start';

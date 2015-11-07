@@ -15,11 +15,11 @@ angular.module('toodleApp')
         _paq.push(['trackPageView']);
         $scope.tourneyReportingKo = false;
         $scope.getPlayersOrderedByScore = function (group) {
-            if (group.players && lodashForApp.find(group.matches, function (match) {
+            if (group.players && utils_lodashForApp.find(group.matches, function (match) {
                     return match.complete;
                 })) {
                 if (group.players.length === 4) {
-                    var orderedList = lodashForApp.sortBy(group.players, function (player) {
+                    var orderedList = utils_lodashForApp.sortBy(group.players, function (player) {
                         if(!player.win){
                             player.win = 0;
                         }
@@ -48,7 +48,7 @@ angular.module('toodleApp')
             $scope.tournamentInfo = data;
             $scope.playerList = data.players;
             $scope.engineTemplate = '/partials/engineTemplates/' + data.engine;
-            $scope.renderer = availableRenderers[$scope.tournamentInfo.engine];
+            $scope.renderer = utils_availableRenderers[$scope.tournamentInfo.engine];
             $scope.groups = [];
             $scope.tournamentId = $location.$$path.split('/')[1] === 'admin' ? $location.$$path.split('/')[2] : null;
             definedUserPrivilegesForDisplay();
@@ -197,7 +197,7 @@ angular.module('toodleApp')
 
         $rootScope.$on('toggledStart', function(event, tournamentInfo){
             $scope.tournamentInfo = tournamentInfo;
-            $scope.renderer = availableRenderers[tournamentInfo.engine];
+            $scope.renderer = utils_availableRenderers[tournamentInfo.engine];
             $scope.engineTemplate = '/partials/engineTemplates/' + tournamentInfo.engine;
             $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
         });
