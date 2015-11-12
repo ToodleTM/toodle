@@ -13,25 +13,33 @@
     </div>
 </div>
 
-<!--<div ng-if="notFound" id="notFound" class="alert alert-danger ng-binding" role="alert" style="display: none;">-->
-    <!--<button type="button" class="close alert-fix-close" ng-click="hideLocalAlerts()" style="display: none;"><span-->
-            <!--aria-hidden="true" style="display: none;">×</span><span class="sr-only" style="display: none;">Close</span>-->
-    <!--</button>-->
-    <!--<span translate="play.notFound"></span>-->
-<!--</div>-->
 <div ng-if="content" id="content">
 
     <div ng-show="tournamentId" style="position:relative;width:50%;left:25%">
     </div>
 
-    <!--<div style="height:1em"><span id="highlightedPlayerText" ng-show="playerToHighlight">  <span translate="bracket.playerToHighlight"></span> : {{playerToHighlight.name}}</span>-->
-    </div>
+</div>
 
-    <div ng-show="engineTemplate" ng-include="engineTemplate"></div>
+<div ng-show="engineTemplate && tournamentInfo.running" ng-include="engineTemplate"></div>
 
-    <div ng-show="!tournamentInfo.running" id="notRunning">
-        <h3 translate="bracket.tournamentNotRunningWarning"></h3>
-    </div>
+<!--<div ng-show="parentEngineTemplate" ng-include="parentEngineTemplate">-->
+
+    <!--&lt;!&ndash;<iframe src="{{'/embed/'+tournamentInfo.parentTournamentPublicId}}" class="parentTournament"></iframe>&ndash;&gt;-->
+<!--</div>-->
+<!--<div ng-repeat="tournament in relatedTournaments">-->
+    <!--<h2>{{tournament.tournamentData.tournamentName}}</h2>-->
+    <!--<div id="{{tournament.tournamentData.signupID}}" ng-include="tournament.engineTemplate"></div>-->
+    <!--<div ng-show="!tournament.tournamentData.running" id="notRunning">-->
+        <!--<h3 translate="bracket.tournamentNotRunningWarning"></h3>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div id="relatedTournaments">
 
 </div>
+
+
+<a ng-click="showPreviousTournament()" ng-show="hasNext"
+   translate="admin.showParentBracket" class="show-me-more"></a>
+
 

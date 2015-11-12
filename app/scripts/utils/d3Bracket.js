@@ -508,8 +508,8 @@ D3Bracket.prototype.giveAnIdToEachNode = function (svg, nodes) {
         });
     return node;
 };
-D3Bracket.prototype.appendSvgCanvas = function (margin, d3) {
-    var svg = d3.select('#bracket').append('svg')
+D3Bracket.prototype.appendSvgCanvas = function (margin, d3, customBracketId) {
+    var svg = d3.select('#'+customBracketId).append('svg')
         .attr('width', this.WIDTH + margin.right + margin.left)
         .attr('height', this.HEIGHT + margin.top + margin.bottom)
         .append('g')
@@ -532,7 +532,7 @@ D3Bracket.prototype.setViewDimensions = function (bracket) {
     var numberOfSpacesBetweenMatchSlots = Math.floor(numberOfLeaves / 2);
     this.HEIGHT = (numberOfLeaves + numberOfSpacesBetweenMatchSlots) * baseHeight;
 };
-D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playerToHighlight, preconfigureMode) {
+D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playerToHighlight, preconfigureMode, customBracketId) {
     var bracket = data.bracket;
     var d3Nodes = this.convertBracketToD3Tree(bracket);
     var that = this;
@@ -550,7 +550,7 @@ D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playe
     });
 
     var margin = {top: 0, right: 0, bottom: 0, left: 0};
-    var svg = this.appendSvgCanvas(margin, d3);
+    var svg = this.appendSvgCanvas(margin, d3, customBracketId);
     var node = this.translateOrigin(this.giveAnIdToEachNode(svg, nodes));
     if (preconfigureMode) {
         this.drawPreconfigureNode(node, this.drawLine(d3), function (d) {
@@ -569,12 +569,13 @@ D3Bracket.prototype.drawBracket = function (data, d3, controllerReference, playe
     this.drawLinesBetweenNodes(svg, links, playerToHighlight);
 };
 
-D3Bracket.prototype.render = function (tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode) {
-    var bracketHtml = document.getElementById('bracket');
+D3Bracket.prototype.render = function (tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode, customId) {
+    var bracketId = customId || 'bracket';
+    var bracketHtml = document.getElementById(bracketId);
     this.firstPlayerToSwapPosition = null;
     if (bracketHtml) {
-        document.getElementById('bracket').innerHTML = '';
-        this.drawBracket(tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode);
+        document.getElementById(bracketId).innerHTML = '';
+        this.drawBracket(tournamentData, customRenderer, controllerCallbacks, playerToHighlight, preconfigureMode, bracketId);
     }
 };
 

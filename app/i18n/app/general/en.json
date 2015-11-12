@@ -15,6 +15,7 @@
     "tos":"Terms of service"
   },
   "admin":{
+    "showParentBracket":"Show me the parent tournament!",
     "header": {
       "tournament": "Tournament",
       "adminPage": "admin page"

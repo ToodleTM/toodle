@@ -14,6 +14,7 @@
     "logout": "Se déconnecter"
   },
   "admin": {
+    "showParentBracket": "Me montrer le tournoi précédent!",
     "header": {
       "tournament": "Tournoi",
       "adminPage": " : page d'administration"
