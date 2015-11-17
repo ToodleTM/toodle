@@ -400,12 +400,15 @@ nav div {
   margin-bottom: 20px;
 }
 
-.parentTournament{
+.parent-tournament {
   width: 110%;
   height: 500px;
   border: 0;
 }
 
+.parent-tournament-background {
+  border-top:1px solid #d8d8d8;
+}
 .show-me-more {
   text-align:center;
 }

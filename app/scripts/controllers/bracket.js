@@ -51,12 +51,7 @@ angular.module('toodleApp')
                 $scope.playerList = data.players;
                 $scope.engineTemplate = '/partials/engineTemplates/' + data.engine;
                 $scope.renderer = utils_availableRenderers[$scope.tournamentInfo.engine];
-                $scope.groups = [];
                 $scope.tournamentId = $location.$$path.split('/')[1] === 'admin' ? $location.$$path.split('/')[2] : null;
-
-                $scope.relatedTournaments.push({
-                    tournamentData:data
-                });
 
                 $scope.lastLoadedTournament = data;
 
@@ -67,11 +62,8 @@ angular.module('toodleApp')
                     report: $scope.report,
                     unreport: $scope.unreport,
                     getPlayersOrderedByScore: $scope.getPlayersOrderedByScore,
-                    groups: $scope.groups
+                    groups: []
                 };
-                if ($scope.tournamentInfo.running) {
-                    $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer);
-                }
             }).error(function () {
                 $scope.content = false;
                 $scope.notFound = true;
@@ -136,7 +128,7 @@ angular.module('toodleApp')
                     $scope.score1 = 0;
                     $scope.score2 = 0;
                     definedUserPrivilegesForDisplay();
-                    $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
+                    $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, null, 'mainBracket');
                     $rootScope.$emit('updatedMatch', data);
                 }).error(function (data) {
                     $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
@@ -158,7 +150,7 @@ angular.module('toodleApp')
                     $scope.score1 = 0;
                     $scope.score2 = 0;
                     definedUserPrivilegesForDisplay();
-                    $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
+                    $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, null, 'mainBracket');
                     $rootScope.$emit('updatedMatch', data);
                 }).error(function (data) {
                     $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
@@ -167,12 +159,8 @@ angular.module('toodleApp')
             };
 
             $scope.renderBracket = function () {
-                $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
+                $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, null, 'mainBracket');
                 $scope.$apply();
-            };
-
-            $scope.checkIfReady = function () {
-                return true; // we basically just want to ensure the correct DOM element is loaded, once it has been dynamically included, we're basically good ...
             };
 
             $scope.unreportMatch = function () {
@@ -184,7 +172,7 @@ angular.module('toodleApp')
                 }).success(function (data) {
                     $scope.tournamentInfo = data;
                     definedUserPrivilegesForDisplay();
-                    $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
+                    $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, null, 'mainBracket');
                     $rootScope.$emit('updatedMatch', data);
                 }).error(function (data) {
                     $scope.errorMessage = data;
@@ -202,45 +190,22 @@ angular.module('toodleApp')
                 } else {
                     $scope.playerToHighlight = player;
                 }
-                $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
+                $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, null, 'mainBracket');
             };
 
             $scope.showPreviousTournament = function () {
-                $http.get('/api/play/' + $scope.relatedTournaments[$scope.relatedTournaments.length - 1].tournamentData.parentTournamentPublicId).success(function (tournamentData) {
+                $http.get('/api/play/' + $scope.hasNext).success(function (tournamentData) {
 
                     if(tournamentData){
                         var rendererToUse = utils_availableRenderers[tournamentData.engine];
+                        tournamentData.userPrivileges = -1;
                         $scope.relatedTournaments.push({
                             tournamentData: tournamentData,
                             renderer: rendererToUse,
                             engineTemplate: '/partials/engineTemplates/' + tournamentData.engine
                         });
-
-                        var relatedTournaments = document.getElementById('relatedTournaments');
-                        var newTournamentContainer = document.createElement('div');
-                        var tournamentTitle = document.createElement('h2');
-                        tournamentTitle.innerText = tournamentData.tournamentName;
-                        var newTournament = null;
-                        if(tournamentData.engine === 'singleElim'){
-                            //D3 stuff
-                            newTournament = document.createElement('div');
-                            newTournament.setAttribute('id', tournamentData.signupID);
-
-                        } else {
-                            newTournament = document.createElement('iframe');
-                            newTournament.setAttribute('id', tournamentData.signupID);
-                            newTournament.setAttribute('class', 'parentTournament');
-                            newTournament.setAttribute('src', '/embed/'+tournamentData.signupID);
-                        }
-                        newTournamentContainer.appendChild(tournamentTitle);
-                        newTournamentContainer.appendChild(newTournament);
-                        relatedTournaments.appendChild(newTournamentContainer);
-                        if (tournamentData.running) {
-                            rendererToUse.render(tournamentData, d3, $scope.controllerReferencesForRenderer, null, false, tournamentData.signupID);
-                        }
                     }
                     $scope.hasNext = tournamentData.parentTournamentPublicId;
-
                 });
             };
 
@@ -248,8 +213,7 @@ angular.module('toodleApp')
                 $scope.tournamentInfo = tournamentInfo;
                 $scope.renderer = utils_availableRenderers[tournamentInfo.engine];
                 $scope.engineTemplate = '/partials/engineTemplates/' + tournamentInfo.engine;
-                $scope.relatedTournaments[0].tournamentData.running = tournamentInfo.running;
-                $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight);
+                $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, null, 'mainBracket');
             });
         }
     );
