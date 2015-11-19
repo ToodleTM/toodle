@@ -105,17 +105,18 @@ app.directive('simpleGslDisplay', function () {
     return {
         restrict: 'E',
         templateUrl: '/partials/engineTemplates/simpleGSLGroups.html',
-        link:function(scope, elem, attrs){
-            var relatedTournament = null;
-            if(attrs.relatedtournamentkey) {
-                relatedTournament = scope.$parent.$parent.relatedTournaments[attrs.relatedtournamentkey];
-                relatedTournament.renderer.render(relatedTournament.tournamentData, d3, scope.$parent.$parent.controllerReferencesForRenderer, null, false, 'bracketToRender');
-                scope.localGroups = scope.$parent.$parent.controllerReferencesForRenderer.groups.splice(0, scope.$parent.$parent.controllerReferencesForRenderer.groups.length);
-                document.getElementById('bracketToRender').setAttribute('id', relatedTournament.tournamentData.signupID);
+        scope: {
+            relatedTournament:'=',
+            controllerReferencesForRenderer:'='
+        },
+        link: function (scope, elem, attrs) {
+            if (attrs.relatedtournamentkey) {
+                scope.relatedTournament.renderer.render(scope.relatedTournament.tournamentData, d3, scope.controllerReferencesForRenderer, null, false, 'bracketToRender');
+                scope.localGroups = scope.controllerReferencesForRenderer.groups.splice(0, scope.controllerReferencesForRenderer.groups.length);
+                document.getElementById('bracketToRender').setAttribute('id', scope.relatedTournament.tournamentData.signupID);
             } else {
-                relatedTournament = {tournamentData:scope.tournamentInfo, renderer:scope.renderer, engineTemplate:'/partials/engineTemplates/simpleGSLPools'};
-                relatedTournament.renderer.render(relatedTournament.tournamentData, d3, scope.$parent.$parent.controllerReferencesForRenderer, null, false, 'mainBracket');
-                scope.localGroups = scope.controllerReferencesForRenderer.groups;
+                scope.relatedTournament.renderer.render(scope.relatedTournament.tournamentData, d3, scope.controllerReferencesForRenderer, null, false, 'mainBracket');
+                scope.localGroups = scope.controllerReferencesForRenderer.groups.splice(0, scope.controllerReferencesForRenderer.groups.length);
             }
         }
     };
@@ -132,7 +133,11 @@ app.directive('singleElimBracketDisplay', function () {
                 relatedTournament.renderer.render(relatedTournament.tournamentData, d3, scope.$parent.$parent.controllerReferencesForRenderer, null, false, 'bracketToRender');
                 document.getElementById('bracketToRender').setAttribute('id', relatedTournament.tournamentData.signupID);
             } else {
-                relatedTournament = {tournamentData:scope.tournamentInfo, renderer:scope.renderer, engineTemplate:'/partials/engineTemplates/singleElim'};
+                relatedTournament = {
+                    tournamentData: scope.tournamentInfo,
+                    renderer: scope.renderer,
+                    engineTemplate: '/partials/engineTemplates/singleElim'
+                };
                 relatedTournament.renderer.render(relatedTournament.tournamentData, d3, scope.$parent.$parent.controllerReferencesForRenderer, null, false, 'mainBracket');
             }
         }

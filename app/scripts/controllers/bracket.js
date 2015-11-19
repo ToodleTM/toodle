@@ -55,6 +55,12 @@ angular.module('toodleApp')
 
                 $scope.lastLoadedTournament = data;
 
+                $scope.mainTournament = {
+                    tournamentData:$scope.tournamentInfo,
+                    renderer:$scope.renderer,
+                    engineTemplate:$scope.engineTemplate
+                };
+
                 $scope.hasNext = data.parentTournamentPublicId;
                 definedUserPrivilegesForDisplay();
                 $scope.controllerReferencesForRenderer = {
@@ -64,6 +70,8 @@ angular.module('toodleApp')
                     getPlayersOrderedByScore: $scope.getPlayersOrderedByScore,
                     groups: []
                 };
+                $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, null, 'mainBracket');
+                $scope.localGroups = $scope.controllerReferencesForRenderer.groups;
             }).error(function () {
                 $scope.content = false;
                 $scope.notFound = true;

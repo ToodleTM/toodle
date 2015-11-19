@@ -17,20 +17,17 @@
 <single-elim-bracket-display ng-if="tournamentInfo.engine !== 'simpleGSLGroups'"
                              id="mainBracket"
                              mainTournament="true"></single-elim-bracket-display>
-<simple-gsl-display mainTournament="true" ng-if="tournamentInfo.engine === 'simpleGSLGroups'"
-                    id="mainBracket"></simple-gsl-display>
+<!--<simple-gsl-display controller-references-for-renderer="controllerReferencesForRenderer" related-tournament="mainTournament" mainTournament="true" ng-if="tournamentInfo.engine === 'simpleGSLGroups'"-->
+                    <!--id="mainBracket"></simple-gsl-display>-->
 
-
-
-
-
+<div ng-if="tournamentInfo.engine === 'simpleGSLGroups'" ng-show="tournamentInfo.running" ng-include="'/partials/engineTemplates/simpleGSLGroups.html'">
 
 <div ng-repeat="(key, tournament) in relatedTournaments">
     <h2>{{tournament.tournamentData.tournamentName}}</h2>
     <single-elim-bracket-display ng-if="tournament.tournamentData.engine !== 'simpleGSLGroups' && tournament.tournamentData.running"
                                  id="bracketToRender"
                                  relatedtournamentkey="{{key}}" ng-show="tournament.tournamentData.running"></single-elim-bracket-display>
-    <simple-gsl-display relatedtournamentkey="{{key}}" ng-if="tournament.tournamentData.engine === 'simpleGSLGroups'" ng-show="tournament.tournamentData.running" id="bracketToRender"></simple-gsl-display>
+    <simple-gsl-display controller-references-for-renderer="controllerReferencesForRenderer" related-tournament="tournament" relatedtournamentkey="{{key}}" ng-if="tournament.tournamentData.engine === 'simpleGSLGroups'" ng-show="tournament.tournamentData.running" id="bracketToRender"></simple-gsl-display>
 
     <div ng-show="!tournament.tournamentData.running" id="notRunning">
         <h3 translate="bracket.tournamentNotRunningWarning"></h3>

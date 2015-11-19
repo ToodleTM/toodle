@@ -103,10 +103,10 @@ describe('Start tournament', function () {
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
 
         e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
-        expect(element(by.id('bracket')).isDisplayed()).toBe(true);
+        expect(element(by.id('mainBracket')).isDisplayed()).toBe(true);
         element(by.id('playerSignupPageLink')).click();
         e2eUtils.testIntoPopup(function(finished) {
-            expect(element(by.id('bracket')).isDisplayed()).toBe(true);
+            expect(element(by.id('mainBracket')).isDisplayed()).toBe(true);
             finished();
         });
     });
