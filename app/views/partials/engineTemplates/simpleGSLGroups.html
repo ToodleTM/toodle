@@ -1,5 +1,5 @@
 <div class="simple-gsl-global-container">
-    <div class="group-table-container" ng-repeat="group in groups">
+    <div class="group-table-container" ng-repeat="group in localGroups">
         <table class="group-block" id="group-{{group.number}}">
             <tr>
                 <th colspan="4" class="group-title">
@@ -36,10 +36,10 @@
                             <td class="player2{{match.complete && (match.score1 < match.score2 || match.winner && match.winner === 2) ? ' match-winner' : ''}}{{match.winner && match.winner !== 2 ? ' match-forfeiter' : ''}}">
                                 <div
                                     ng-if="match.player2.faction" class="icon-{{match.player2.faction}}-16 player-icon right"></div>{{match.player2.name ? match.player2.name : ''}}
-                                <span id="matchNumber-{{match.number}}" ng-if="match.canBeUnreported" ng-click="unreport(match)" style="position:relative;float:right;">
+                                <span id="matchNumber-{{match.number}}" ng-if="match.canBeUnreported" ng-click="controllerReferencesForRenderer.unreport(match)" style="position:relative;float:right;">
                                     <span id="matchNumber-{{match.number}}-img" class="glyphicon glyphicon-trash match-unreport-button"></span>
                                 </span>
-                                <span id="matchNumber-{{match.number}}" ng-if="match.canBeReported" ng-click="report(match)" style="position:relative;float:right;">
+                                <span id="matchNumber-{{match.number}}" ng-if="match.canBeReported" ng-click="controllerReferencesForRenderer.report(match)" style="position:relative;float:right;">
                                     <span id="matchNumber-{{match.number}}-img" class="glyphicon glyphicon-edit match-report-button"></span>
                                 </span>
                             </td>

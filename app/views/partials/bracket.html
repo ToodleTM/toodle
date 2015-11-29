@@ -13,33 +13,25 @@
     </div>
 </div>
 
-<div ng-if="content" id="content">
+<single-elim-bracket-display ng-if="tournamentInfo.engine !== 'simpleGSLGroups'"
+                             id="mainBracket" original-id="mainBracket"></single-elim-bracket-display>
+<simple-gsl-display ng-if="tournamentInfo.engine === 'simpleGSLGroups'" controller-references-for-renderer="controllerReferencesForRenderer" related-tournament="mainTournament" id="mainBracket" original-id="mainBracket"></simple-gsl-display>
 
-    <div ng-show="tournamentId" style="position:relative;width:50%;left:25%">
+<!--<div ng-if="tournamentInfo.engine === 'simpleGSLGroups'" ng-show="tournamentInfo.running" ng-include="'/partials/engineTemplates/simpleGSLGroups.html'">-->
+
+<div ng-repeat="(key, tournament) in relatedTournaments">
+    <h2>{{tournament.tournamentData.tournamentName}}</h2>
+    <single-elim-bracket-display ng-if="tournament.tournamentData.engine !== 'simpleGSLGroups' && tournament.tournamentData.running"
+                                 id="bracketToRender" original-id="bracketToRender"
+                                 relatedtournamentkey="{{key}}" ng-show="tournament.tournamentData.running"></single-elim-bracket-display>
+    <simple-gsl-display controller-references-for-renderer="controllerReferencesForRenderer"
+                        original-id="bracketToRender" related-tournament="tournament" ng-if="tournament.tournamentData.engine === 'simpleGSLGroups'" ng-show="tournament.tournamentData.running" id="bracketToRender"></simple-gsl-display>
+
+    <div ng-show="!tournament.tournamentData.running" id="notRunning">
+        <h3 translate="bracket.tournamentNotRunningWarning"></h3>
     </div>
-
 </div>
 
-<div ng-show="engineTemplate && tournamentInfo.running" ng-include="engineTemplate"></div>
-
-<!--<div ng-show="parentEngineTemplate" ng-include="parentEngineTemplate">-->
-
-    <!--&lt;!&ndash;<iframe src="{{'/embed/'+tournamentInfo.parentTournamentPublicId}}" class="parentTournament"></iframe>&ndash;&gt;-->
-<!--</div>-->
-<!--<div ng-repeat="tournament in relatedTournaments">-->
-    <!--<h2>{{tournament.tournamentData.tournamentName}}</h2>-->
-    <!--<div id="{{tournament.tournamentData.signupID}}" ng-include="tournament.engineTemplate"></div>-->
-    <!--<div ng-show="!tournament.tournamentData.running" id="notRunning">-->
-        <!--<h3 translate="bracket.tournamentNotRunningWarning"></h3>-->
-    <!--</div>-->
-<!--</div>-->
-
-<div id="relatedTournaments">
-
+<button ng-click="showPreviousTournament()" ng-show="hasNext"
+   translate="admin.showParentBracket" class="show-me-more" id="showTournamentParent"></button>
 </div>
-
-
-<a ng-click="showPreviousTournament()" ng-show="hasNext"
-   translate="admin.showParentBracket" class="show-me-more"></a>
-
-
