@@ -106,17 +106,21 @@ app.directive('simpleGslDisplay', function () {
         restrict: 'E',
         templateUrl: '/partials/engineTemplates/simpleGSLGroups.html',
         scope: {
-            relatedTournament:'=',
-            controllerReferencesForRenderer:'='
+            relatedTournament: '=',
+            controllerReferencesForRenderer: '=',
+            originalId:'@'
         },
-        link: function (scope, elem, attrs) {
-            if (attrs.relatedtournamentkey) {
-                scope.relatedTournament.renderer.render(scope.relatedTournament.tournamentData, d3, scope.controllerReferencesForRenderer, null, false, 'bracketToRender');
+        link: function (scope) {
+            scope.$root.$on('custom', function (event, updatedTournamentData) {
+                scope.relatedTournament.tournamentData = updatedTournamentData;
+                scope.relatedTournament.renderer.render(scope.relatedTournament.tournamentData, d3, scope.controllerReferencesForRenderer, null, false, scope.originalId);
                 scope.localGroups = scope.controllerReferencesForRenderer.groups.splice(0, scope.controllerReferencesForRenderer.groups.length);
+                console.log('event caught');
+            });
+            scope.relatedTournament.renderer.render(scope.relatedTournament.tournamentData, d3, scope.controllerReferencesForRenderer, null, false, scope.originalId);
+            scope.localGroups = scope.controllerReferencesForRenderer.groups.splice(0, scope.controllerReferencesForRenderer.groups.length);
+            if(scope.originalId !== 'mainBracket'){
                 document.getElementById('bracketToRender').setAttribute('id', scope.relatedTournament.tournamentData.signupID);
-            } else {
-                scope.relatedTournament.renderer.render(scope.relatedTournament.tournamentData, d3, scope.controllerReferencesForRenderer, null, false, 'mainBracket');
-                scope.localGroups = scope.controllerReferencesForRenderer.groups.splice(0, scope.controllerReferencesForRenderer.groups.length);
             }
         }
     };

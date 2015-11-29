@@ -56,12 +56,10 @@ angular.module('toodleApp')
                 $scope.lastLoadedTournament = data;
 
                 $scope.mainTournament = {
-                    tournamentData:$scope.tournamentInfo,
-                    renderer:$scope.renderer,
-                    engineTemplate:$scope.engineTemplate
+                    tournamentData: $scope.tournamentInfo,
+                    renderer: $scope.renderer,
+                    engineTemplate: $scope.engineTemplate
                 };
-
-                $scope.hasNext = data.parentTournamentPublicId;
                 definedUserPrivilegesForDisplay();
                 $scope.controllerReferencesForRenderer = {
                     togglePlayerHighlight: $scope.togglePlayerHighlight,
@@ -72,6 +70,7 @@ angular.module('toodleApp')
                 };
                 $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, null, 'mainBracket');
                 $scope.localGroups = $scope.controllerReferencesForRenderer.groups;
+                $scope.hasNext = data.parentTournamentPublicId;
             }).error(function () {
                 $scope.content = false;
                 $scope.notFound = true;
@@ -121,6 +120,20 @@ angular.module('toodleApp')
                 }, function () {
                 });
             };
+            var resetFormDataAndRedrawMainBracket = function (data) {
+                $scope.mainTournament = {
+                    tournamentData: data,
+                    renderer: $scope.renderer,
+                    engineTemplate: $scope.engineTemplate
+                };
+                $scope.tournamentInfo = data;
+                $scope.score1 = 0;
+                $scope.score2 = 0;
+                definedUserPrivilegesForDisplay();
+                $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, null, 'mainBracket');
+                $rootScope.$emit('updatedMatch', data);
+                $rootScope.$emit('custom', data);
+            };
 
             $scope.reportMatch = function () {
                 $scope.tourneyReportingKo = false;
@@ -132,12 +145,7 @@ angular.module('toodleApp')
                     score2: $scope.score2,
                     matchComplete: $scope.matchComplete
                 }).success(function (data) {
-                    $scope.tournamentInfo = data;
-                    $scope.score1 = 0;
-                    $scope.score2 = 0;
-                    definedUserPrivilegesForDisplay();
-                    $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, null, 'mainBracket');
-                    $rootScope.$emit('updatedMatch', data);
+                    resetFormDataAndRedrawMainBracket(data);
                 }).error(function (data) {
                     $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
                     $scope.tourneyReportingKo = true;
@@ -154,12 +162,7 @@ angular.module('toodleApp')
                     score2: $scope.score2,
                     forfeitSlot: $scope.forfeitSlot
                 }).success(function (data) {
-                    $scope.tournamentInfo = data;
-                    $scope.score1 = 0;
-                    $scope.score2 = 0;
-                    definedUserPrivilegesForDisplay();
-                    $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, null, 'mainBracket');
-                    $rootScope.$emit('updatedMatch', data);
+                    resetFormDataAndRedrawMainBracket(data);
                 }).error(function (data) {
                     $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
                     $scope.tourneyReportingKo = true;
@@ -178,10 +181,7 @@ angular.module('toodleApp')
                     signupID: $scope.tournamentInfo.signupID,
                     number: $scope.gameToUnreport.name
                 }).success(function (data) {
-                    $scope.tournamentInfo = data;
-                    definedUserPrivilegesForDisplay();
-                    $scope.renderer.render($scope.tournamentInfo, d3, $scope.controllerReferencesForRenderer, $scope.playerToHighlight, null, 'mainBracket');
-                    $rootScope.$emit('updatedMatch', data);
+                    resetFormDataAndRedrawMainBracket(data);
                 }).error(function (data) {
                     $scope.errorMessage = data;
                     $scope.tourneyReportingKo = true;
@@ -204,7 +204,7 @@ angular.module('toodleApp')
             $scope.showPreviousTournament = function () {
                 $http.get('/api/play/' + $scope.hasNext).success(function (tournamentData) {
 
-                    if(tournamentData){
+                    if (tournamentData) {
                         var rendererToUse = utils_availableRenderers[tournamentData.engine];
                         tournamentData.userPrivileges = -1;
                         $scope.relatedTournaments.push({
