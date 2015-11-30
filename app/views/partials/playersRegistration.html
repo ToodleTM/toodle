@@ -62,8 +62,8 @@
             <li ng-repeat="player in playerList" class="playerInList">
                 <span style="float:left">
                     <span ng-if="player.faction" class="social-login-link">
-                        <div class="icon-{{player.faction}}-16 social-login-icon"></div> <span class="social-login-caption">{{player.name}}</span>
-                    </span>
+                        <div class="icon-{{player.faction}}-16 social-login-icon"></div></span> <span
+                        class="social-login-caption">{{player.name}}</span>
                 </span>
                 <span ng-if="'notes-'+stripped(player.name)" class="playerInListInfo"
                       id="notes-{{stripped(player.name)}}" translate="{{errorMessage}}"></span><i
