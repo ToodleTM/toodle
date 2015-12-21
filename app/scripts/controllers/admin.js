@@ -97,7 +97,6 @@ angular.module('toodleApp')
                 } else {
                     $scope.error = 'serverError';
                 }
-                $scope.error = true;
             });
 
         $scope.updateTourney = function () {

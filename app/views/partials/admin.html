@@ -1,11 +1,12 @@
 <div ng-include="'partials/navbar'"></div>
+<div ng-show="error" id="error" class="alert alert-danger" role="alert">
+    <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
+            aria-hidden="true">&times;</span><span
+            class="sr-only">Close</span></button>
+    {{ 'admin.error.'+error | translate}}
+</div>
 <div id="content" ng-show="!error">
-    <div ng-if="error" id="error" class="alert alert-danger" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" ng-click="hideAlerts()"><span
-                aria-hidden="true">&times;</span><span
-                class="sr-only">Close</span></button>
-        {{ 'admin.error.'+error | translate}}
-    </div>
+
     <div class="well clearwell">
         <div class="row" style="position:relative">
             <div class="form-group col-sm-11">
