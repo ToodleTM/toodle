@@ -1,4 +1,4 @@
 #!/bin/sh
 
-grunt mochaTest:src
+npm test
 npm run jshint
