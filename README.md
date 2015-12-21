@@ -12,7 +12,7 @@ Toodle aims to be a tournament management app that'll be able to get you started
 No login required, you just need to keep the admin URL close to you and send the participation url to the other participants.
 
 # Where are we right now ?
-Right now, this is **v1.2.3**. Release notes can be found [here](https://www.toodle.it/whats-new)
+Right now, this is **v1.4.1**. Release notes can be found [here](https://www.toodle.it/whats-new)
 
 # Which games / tournaments will it be designed for ?
 
@@ -21,9 +21,11 @@ Right now, 2 different engines are available :
 
 * **Simple elimination brackets**. Your standart binary brackets. When a player loses a match he gets eliminated, winner is the last man standing
 * **<a href="http://wiki.teamliquid.net/starcraft2/GOMTV_Global_StarCraft_II_League">GSL</a> Groups (as of early 2015)**. Groups w/ encounter rules like the ones we see for the GSL. Each group consists of 4 players.
-The 1st one fights 4th, 2nd fights the 3rd, both winners fight each other, losers do too, and then there's a tie-breaker match between the winner's match loser and the loser's match winner
+The 1st one fights 4th, 2nd fights the 3rd, both winners fight each other, losers do too, and then there's a tie-breaker match between the winner's match loser and the loser's match winner. With this format, 2 players "win/advance" : the one that has won his 1st and 2nd match, and the winner of the tie breaker match.
 
-In order to, say, have a tournament w/ a 1st phase that consists of groups (for a round of 32 for example) and then it's a straight up bracket w/ the group winners, there's a link that pops up when the tournament seems to be over (no more matches to report) that exports the winners list to the format toodle uses to insert multiple players at a time.
+As of v1.4.x, there is a "Cup" system embeded in Toodle that allows to create a new tournament straight up from a completed one. The new tournament is fed w/ winners from the original tournament.
+* If there are enough players for the tournament format you're shooting for as a follow-up, the tournament can start straight away. If not, you'll need to complete the players list beforehand (just like if it were a regular tournament).
+* You can tell you're on a "folllow-up" tournament page as there is a button at the bottom of the page that allows you to display the next parent tournament that is not still displayed (that button disappears if there are no more parent tournaments to show)
 
 # My tournament format isn't in there! How could you forget it !?
 Chances are, we'll only implement tournament formats we're familiar with. This means we'll focus on various formats that can be seen in Starcraft 2 competitions (or general purpose ones). To fix this, you can let us know about what you need, or better, write your own tournament management module (using the ones available as a reference) and submit us a pull request, we'll be happy to integrate it.
@@ -34,7 +36,7 @@ We'd be more than happy to include new engines. What we advise right now is to f
 The second requirement we ask is that the engine should be unit tested. We won't ask for 100% coverage because that makes no sense but to be added to the Toodle library you'll have to put some effort in testing the engine. We can help a bit if you think we can be of assistance, and there's already plenty of engine testing in the project's tests =).
 
 # What do I need to run this ?
-This is an app based on a MEAN stack, so you'll need a machine with: NodeJS, bower and MongoDB installed globally. If you mean to run the app in "development" mode, I suggest you use grunt (and grunt-cli !) to easily have an up and running server.
+This is an app based on a MEAN stack, so you'll need a machine with: NodeJS, bower (not mandatory, build / deploy scripts should be enough) and MongoDB installed globally.
 If what you're looking for is a packaged application to run I suggest to make the configuration adjustments needed (like mongodb connection settings) and then run the _scripts/appPackager.sh_ script (from the project root), it should package/minify/whatever the server and app in a ready-to-use _dist_ directory.
 To be able to run the packager script you'll first need to download [Google's closure compiler](https://developers.google.com/closure/compiler/) ([link to the latest version](http://dl.google.com/closure-compiler/compiler-latest.zip)) when you've got the Closure Compiler jar, you can pack your application using :
 
@@ -66,14 +68,16 @@ The version that we deploy on our test instance ([http://www.toodle.it](http://w
 # What do I need to run all tests in a CI tool ?
 It's fairly straightforward to run the unit tests, you just need to add a build step that runs :
 
-    grunt mochaTest # will run al unit tests
-    npm test #will run unit and e2e tests (much longer than previous command, will need to have a toodle server running + webdriver driver and protractor)
+    npm test # will run all unit tests
 
 And you should be OK, provided the build fails if the return value of the command is != 0
 
 For E2E tests, it's a little more tricky, as you have to run your server, start a selenium server and have a phantomjs lib installed if you want all the process to be headless and useable in a build.
+Right now, e2e tests are run this way :
 
-Starting the app shouldn't be a problem, unless you have configuration issues that break the CI.
+    cd ./test/client/spec/e2e/runner/ && ./runProtractor.sh
+    
+Note : you should have fairly recent protractor / webdriver versions + tweak the protractor.conf.js file so that the tested instance is the right one (defaults to whatever is running on localhost:9042)
 
 Right now we're using pm2 + some scripting to stop / build / deploy / restart the application we want to test. The e2e tests are then run on the recently deployed app. There are scripts in [https://github.com/hoshin/toodle/tree/master/test/client/spec/e2e/runner](https://github.com/hoshin/toodle/tree/master/test/client/spec/e2e/runner) that allow you to run pretty much everything you might need on your machine. if you want to go a little further and have, say, a CI w/ an ever running webdriver the page linked provides some info about how to do so.
 
@@ -97,8 +101,3 @@ Each Angular controller (besides of the navbar as it doesn't really make sense) 
 ##What if I don't care much about this ?
 
 Then open the app/views/index.html file and remove the code between the "piwik" tags ;) To avoid JS errors you might want to remove the _paq calls you'll find in the angular controllers.
-
-##Some of the things that might come :
-
-* Tournament export / restore
-* "How-to" quickly deploy a standalone server / use toodle as a regular desktop app
