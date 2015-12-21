@@ -12,25 +12,25 @@
                           style="font-size:xx-small;vertical-align:super;color:red;"></span><label
                     translate="quickAdd.tournamentNamePlaceholder"></label>
 
-                <input type="text" name="tournamentName" id="tournamentName" class="form-control input-center"
-                       ng-model="tournamentName" ng-required="required"/>
+                <input type="text" name="tournamentNameModal" id="tournamentNameModal" class="form-control input-center"
+                       ng-model="tournamentNameModal" ng-required="required"/>
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm-12">
-                <label class="control-label" for="description" translate="admin.form.description"></label>
-                    <textarea id="description" name="description" class="form-control"
-                              ng-model="tournamentDescription"></textarea>
+                <label class="control-label" for="descriptionModal" translate="admin.form.description"></label>
+                    <textarea id="descriptionModal" name="description" class="form-control"
+                              ng-model="description"></textarea>
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm-6">
-                <label class="control-label" for="tournamentStart" translate="admin.form.startDate"></label>
+                <label class="control-label" for="tournamentStartModal" translate="admin.form.startDate"></label>
 
                 <p class="input-group">
-                    <input type="text" id="tournamentStart" class="form-control" datepicker-popup="{{format}}"
+                    <input type="text" id="tournamentStartModal" class="form-control" datepicker-popup="{{format}}"
                            ng-model="tournamentStartDate" is-open="opened" min-date="minDate"
                            datepicker-options="dateOptions" close-text="Close"/>
               <span class="input-group-btn">
@@ -40,11 +40,11 @@
                 </p>
             </div>
             <div class="form-group col-sm-6">
-                <label class="control-label ng-scope" for="engine" translate="admin.form.engine">Règles à
+                <label class="control-label ng-scope" for="engineModal" translate="admin.form.engine">Règles à
                     utiliser</label><span class="glyphicon glyphicon-asterisk" aria-hidden="true"
                                           style="font-size:xx-small;vertical-align:super;color:red;"></span>
 
-                <select id="engine" name="engine" class="form-control" ng-model="engine"
+                <select id="engineModal" name="engine" class="form-control" ng-model="engine"
                         required="required"
                         ng-options="engine as engine.description for engine in availableEngines track by engine.name">
                 </select>

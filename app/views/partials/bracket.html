@@ -1,37 +1,35 @@
 <div class="form-group col-sm-12">
-    <div id="tourneyReportingOk" class="alert alert-success alert-dismissible app-alert" role="alert" hidden>
-        <button type="button" class="close alert-fix-close" ng-click="hideLocalAlerts()"><span
-                aria-hidden="true">&times;</span><span
-                class="sr-only">Close</span></button>
-        <span translate="admin.actions.reporting.reportingOk"></span>
-    </div>
-    <div ng-if="tourneyReportingKo" id="tourneyReportingKo" class="alert alert-danger alert-dismissible app-alert" role="alert">
-        <button type="button" class="close alert-fix-close" ng-click="hideLocalAlerts()"><span
-                aria-hidden="true">&times;</span><span
-                class="sr-only">Close</span></button>
-        <span translate="admin.actions.reporting.reportingKo"></span> (<span translate="{{errorMessage}}">{{ errorMessage | translate}}</span>)
-    </div>
+    <alert id="tourneyReportingKo" collapse="!errorMessage" type="danger" close="hideLocalAlerts()" style="margin-top:25px;">
+        <span translate="{{errorMessage}}">{{errorMessage |translate}}</span>
+    </alert>
 </div>
 
 <single-elim-bracket-display ng-if="tournamentInfo.engine !== 'simpleGSLGroups'"
                              id="mainBracket" original-id="mainBracket"></single-elim-bracket-display>
-<simple-gsl-display ng-if="tournamentInfo.engine === 'simpleGSLGroups'" controller-references-for-renderer="controllerReferencesForRenderer" related-tournament="mainTournament" id="mainBracket" original-id="mainBracket"></simple-gsl-display>
+<simple-gsl-display ng-if="tournamentInfo.engine === 'simpleGSLGroups'"
+                    controller-references-for-renderer="controllerReferencesForRenderer"
+                    related-tournament="mainTournament" id="mainBracket" original-id="mainBracket"></simple-gsl-display>
 
 <!--<div ng-if="tournamentInfo.engine === 'simpleGSLGroups'" ng-show="tournamentInfo.running" ng-include="'/partials/engineTemplates/simpleGSLGroups.html'">-->
 
 <div ng-repeat="(key, tournament) in relatedTournaments">
     <h2>{{tournament.tournamentData.tournamentName}}</h2>
-    <single-elim-bracket-display ng-if="tournament.tournamentData.engine !== 'simpleGSLGroups' && tournament.tournamentData.running"
-                                 id="bracketToRender" original-id="bracketToRender"
-                                 relatedtournamentkey="{{key}}" ng-show="tournament.tournamentData.running"></single-elim-bracket-display>
+    <single-elim-bracket-display
+            ng-if="tournament.tournamentData.engine !== 'simpleGSLGroups' && tournament.tournamentData.running"
+            id="bracketToRender" original-id="bracketToRender"
+            relatedtournamentkey="{{key}}" ng-show="tournament.tournamentData.running"></single-elim-bracket-display>
     <simple-gsl-display controller-references-for-renderer="controllerReferencesForRenderer"
-                        original-id="bracketToRender" related-tournament="tournament" ng-if="tournament.tournamentData.engine === 'simpleGSLGroups'" ng-show="tournament.tournamentData.running" id="bracketToRender"></simple-gsl-display>
+                        original-id="bracketToRender" related-tournament="tournament"
+                        ng-if="tournament.tournamentData.engine === 'simpleGSLGroups'"
+                        ng-show="tournament.tournamentData.running" id="bracketToRender"></simple-gsl-display>
 
     <div ng-show="!tournament.tournamentData.running" id="notRunning">
         <h3 translate="bracket.tournamentNotRunningWarning"></h3>
     </div>
 </div>
 
-<button ng-click="showPreviousTournament()" ng-show="hasNext"
-   translate="admin.showParentBracket" class="show-me-more" id="showTournamentParent"></button>
+<div class="show-me-more" ng-click="showPreviousTournament()" ng-show="hasNext" id="showTournamentParent">
+<span
+        translate="admin.showParentBracket"></span>
+</div>
 </div>

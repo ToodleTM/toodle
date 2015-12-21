@@ -38,7 +38,7 @@ angular.module('toodleApp')
             };
 
             function definedUserPrivilegesForDisplay() {
-                if (displayMode === 'embed') {
+                if (displayMode === 'embed' || $scope.tournamentInfo.followingTournament || $scope.tournamentInfo.followingTournamentPublicId) {
                     $scope.tournamentInfo.userPrivileges = 0;
                 } else {
                     $scope.tournamentInfo.userPrivileges = $scope.tournamentId ? 3 : $scope.tournamentInfo.userPrivileges;
@@ -183,13 +183,13 @@ angular.module('toodleApp')
                 }).success(function (data) {
                     resetFormDataAndRedrawMainBracket(data);
                 }).error(function (data) {
-                    $scope.errorMessage = data;
+                    $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
                     $scope.tourneyReportingKo = true;
                 });
             };
             $scope.hideLocalAlerts = function () {
                 $scope.tourneyReportingKo = false;
-                $scope.tourneyReportingOk = false;
+                $scope.errorMessage = null;
             };
 
             $scope.togglePlayerHighlight = function (player) {
@@ -206,7 +206,8 @@ angular.module('toodleApp')
 
                     if (tournamentData) {
                         var rendererToUse = utils_availableRenderers[tournamentData.engine];
-                        tournamentData.userPrivileges = -1;
+                        tournamentData.userPrivileges = 0;
+                        //definedUserPrivilegesForDisplay();
                         $scope.relatedTournaments.push({
                             tournamentData: tournamentData,
                             renderer: rendererToUse,

@@ -286,10 +286,10 @@ angular.module('toodleApp').controller('ModalUnreportCtrl', function ($scope, $m
 angular.module('toodleApp').controller('ModalCreateFollowingTournamentCtrl', function ($scope, $modalInstance, availableEngines) {
     $scope.availableEngines = availableEngines;
     $scope.engine = availableEngines[0];
-    $scope.tournamentName = '';
-    $scope.tournamentDescription = '';
+    $scope.tournamentNameModal = '';
+    $scope.description = '';
     $scope.createFollowingTournament = function (configureOnly) {
-        $modalInstance.close([configureOnly, $scope.tournamentName, $scope.engine, $scope.tournamentDescription, $scope.tournamentStartDate]);
+        $modalInstance.close([configureOnly, $scope.tournamentNameModal, $scope.engine, $scope.description, $scope.tournamentStartDate]);
     };
 
     $scope.cancel = function () {
