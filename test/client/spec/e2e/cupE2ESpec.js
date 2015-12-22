@@ -33,7 +33,7 @@ describe('Embedding tournament info in another page', function () {
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
     };
-    describe('admin page of a tournament', function () {
+    describe('ADMIN page of a tournament', function () {
         it('should display a button to create a follow-up match if tournament has ended _and_ it does not yet have a follow up match', function () {
             createAndStartA2PlayerTournament();
             var followupLink = element(by.id('createFollowupTournamentLink'));
@@ -178,9 +178,24 @@ describe('Embedding tournament info in another page', function () {
             expect(element(by.id('mainBracket')).getText()).toBe('');
             expect(element(by.id('showTournamentParent')).isDisplayed()).toBe(true);
         });
+
+        it('should display an info message if the user tried to start a 1 player SingleElim tournament when creating a follow-up tournament', function () {
+            createAndStartA2PlayerTournament();
+            element(by.id('matchNumber-1')).click();
+            element(by.id('forfeit-1')).click();
+            element(by.id('doReport')).click();
+            var createFollowupLink = element(by.id('createFollowupTournamentLink'));
+            createFollowupLink.click();
+            element(by.id('tournamentNameModal')).sendKeys('protractor next');
+            element(by.id('doStart')).click();
+
+            var infoMessage = element(by.id('infoMessage'));
+            expect(infoMessage.isDisplayed()).toBe(true);
+            expect(infoMessage.getText()).toContain('Not enough players right now, you need to register more players.');
+        });
     });
 
-    describe('public page of a tournament', function () {
+    describe('PUBLIC page of a tournament', function () {
         it('should display a link to the public page of its follow-up tournament if such a tournament exists', function () {
             createAndStartA2PlayerTournament();
             var createFollowupLink = element(by.id('createFollowupTournamentLink'));

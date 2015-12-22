@@ -37,15 +37,27 @@ describe('SingleElim - Bracket init', function () {
         assert.equal(Object.keys(actualBracket).length, expectedBracketLength);
     }
 
+
+
     describe('Create the first matches', function () {
-        it('should return an empty bracket if no players are submitted', function () {
-            initBracketTest(0, null);
+        it('should return an error if no player is available to create the bracket', function () {
+            //setup
+            var callbackSpy = sinon.spy();
+            //action
+            engine.initBracket([], callbackSpy);
+            //assert
+            assert.equal(callbackSpy.calledOnce, true);
+            assert.deepEqual(callbackSpy.getCall(0).args, [{message: 'notEnoughPlayers'}]);
         });
 
-        it('should return a bracket of size 1 if 1 player submitted', function () {
-            initBracketTest(1, [
-                {name: 'john'}
-            ]);
+        it('should return an error if only one player is available to create the bracket', function () {
+            //setup
+            var callbackSpy = sinon.spy();
+            //action
+            engine.initBracket([bob], callbackSpy);
+            //assert
+            assert.equal(callbackSpy.calledOnce, true);
+            assert.deepEqual(callbackSpy.getCall(0).args, [{message: 'notEnoughPlayers'}]);
         });
 
         it('should pair players as they come into as many matches as needed', function () {

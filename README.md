@@ -12,7 +12,7 @@ Toodle aims to be a tournament management app that'll be able to get you started
 No login required, you just need to keep the admin URL close to you and send the participation url to the other participants.
 
 # Where are we right now ?
-Right now, this is **v1.4.1**. Release notes can be found [here](https://www.toodle.it/whats-new)
+Right now, this is **v1.4.2**. Release notes can be found [here](https://www.toodle.it/whats-new)
 
 # Which games / tournaments will it be designed for ?
 
