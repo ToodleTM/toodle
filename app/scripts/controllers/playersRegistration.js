@@ -128,7 +128,7 @@ angular.module('toodleApp')
                     })
                     .error(function (data) {
                         $scope.tournamentInfo.running = false;
-                        $scope.errorMessage = 'admin.actions.run.' + data.message;
+                        $scope.errorMessage = 'admin.actions.run.errors.' + data.message;
                         $scope.alertMessage = 'admin.update.fail';
                         $scope.updateKo = true;
                     });

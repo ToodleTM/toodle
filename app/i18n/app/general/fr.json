@@ -33,7 +33,10 @@
         "willStart": "Ceci va démarrer le tournoi et empêcher de nouveaux joueurs de s'inscrire",
         "willConfigure": "Le bouton 'configurer' permet de configurer d'autres aspects de ton tournoi avant de le démarrer.",
         "modalTitle": "Démarrer / Arrêter le tournoi",
-        "noPlayers": "Aucun joueur enregistré. Aucun intérêt à démarrer le tournoi."
+        "errors": {
+          "notEnoughPlayers": "Pas assez de joueurs. Enregistres en d'autres pour pouvoir démarrer.",
+          "noPlayers": "Aucun joueur enregistré. Aucun intérêt à démarrer le tournoi."
+        }
       },
       "playerNickPlaceholder": "Pseudo du joueur",
       "multipleRegistrationSuccessful": "Les nouveaux joueurs ont été ajoutés",

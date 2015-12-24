@@ -1,21 +1,21 @@
 {
   "footer": {
     "love": "♥ from the Toodle team",
-    "news":"What's new ?",
-    "why":"Why Toodle?",
-    "about":"About the team",
-    "privacy":"Privacy",
-    "tos":"Terms of service"
+    "news": "What's new ?",
+    "why": "Why Toodle?",
+    "about": "About the team",
+    "privacy": "Privacy",
+    "tos": "Terms of service"
   },
   "header": {
     "title": "oodle",
     "login": "Login",
-    "welcome":"Hello",
-    "logout":"Logout",
-    "tos":"Terms of service"
+    "welcome": "Hello",
+    "logout": "Logout",
+    "tos": "Terms of service"
   },
-  "admin":{
-    "showParentBracket":"Show me the parent tournament!",
+  "admin": {
+    "showParentBracket": "Show me the parent tournament!",
     "header": {
       "tournament": "Tournament",
       "adminPage": "admin page"
@@ -23,7 +23,7 @@
     "actions": {
       "addPlayer": "Add new players once at a time ...",
       "addMultiplePlayers": "... or a group of players using a file",
-      "run":{
+      "run": {
         "notRunning": "Start brackets",
         "runDefault": "Start w/ default parameters",
         "preconfigure": "Let me configure players",
@@ -34,7 +34,10 @@
         "willStart": "This will start the tournament and prevent users from registering.",
         "willConfigure": "The 'configure' button will allow you to configure your tournament further before starting it.",
         "modalTitle": "Start / stop tournament",
-        "noPlayers": "No players registered, there's no point in initiating the bracket"
+        "errors": {
+          "notEnoughPlayers": "Not enough players right now, you need to register more players.",
+          "noPlayers": "No players registered, there's no point in initiating the bracket"
+        }
       },
       "playerNickPlaceholder": "Player nick",
       "multipleRegistrationSuccessful": "All new players added",
@@ -71,10 +74,10 @@
         }
       }
     },
-    "misc":{
+    "misc": {
       "fileMustBeCSV": "file needs to be a CSV file"
     },
-    "form":{
+    "form": {
       "description": "Short description",
       "engine": "Tournament engine",
       "startDate": "Start date",
@@ -92,11 +95,11 @@
       "fail": "Something went wrong updating this tournament."
     }
   },
-  "play":{
-    "enter":{
+  "play": {
+    "enter": {
       "go": "Go!"
     },
-    "register":{
+    "register": {
       "success": "Successfully registered",
       "registeredPlayers": "Registered players",
       "noPlayers": "No registered players at the moment",
@@ -112,12 +115,12 @@
   },
   "common": {
     "errorFindingMatchesToReport": "An error occurred while looking up matches to be reported.",
-    "chooseFaction":"-- Choose a faction --"
+    "chooseFaction": "-- Choose a faction --"
   },
-  "preconfigure":{
+  "preconfigure": {
     "modalTitle": "Preconfigure tournament and start"
   },
-  "bracket":{
+  "bracket": {
     "header": "This is the current state of tournament",
     "group": "Group",
     "tournamentNotRunningWarning": "Tournament is not currently running, please come back later!"

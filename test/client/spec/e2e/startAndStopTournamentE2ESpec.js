@@ -1,7 +1,7 @@
 'use strict';
 var e2eUtils = require('./e2eUtils.js');
 describe('Start tournament', function () {
-    beforeEach(function(){
+    beforeEach(function () {
         browser.get('');
         browser.waitForAngular();
     });
@@ -72,6 +72,8 @@ describe('Start tournament', function () {
 
         element(by.id('inputNick')).sendKeys('player 1');
         element(by.id('registerPlayerGo')).click();
+        element(by.id('inputNick')).sendKeys('player 2');
+        element(by.id('registerPlayerGo')).click();
 
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
@@ -97,6 +99,20 @@ describe('Start tournament', function () {
         element(by.id('playerManagement')).click();
         expect(element(by.id('inputNick')).isDisplayed()).toBe(true);
         expect(element(by.id('multiSeedInput')).isDisplayed()).toBe(true);
+    });
+
+    it('should display an error if we try to start the tournament right away but the minimum number of players is not met', function () {
+        element(by.id('tournamentName')).sendKeys('protractor');
+        element(by.id('registerTournamentButton')).click();
+
+        element(by.id('inputNick')).sendKeys('player 1');
+        element(by.id('registerPlayerGo')).click();
+
+        element(by.id('runTournament')).click();
+        element(by.id('doStart')).click();
+        var updateKo = element(by.id('updateKo'));
+        expect(updateKo.isDisplayed()).toBe(true);
+        expect(updateKo.getText()).toContain('Something went wrong updating this tournament. (Not enough players right now, you need to register more players.)');
     });
 
     it('should correctly display the bracket if tournament has started', function(){

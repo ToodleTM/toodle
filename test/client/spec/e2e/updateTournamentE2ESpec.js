@@ -11,6 +11,8 @@ describe('User having the admin link of a tournament', function () {
         element(by.id('registerTournamentButton')).click();
         element(by.id('inputNick')).sendKeys('player 1');
         element(by.id('registerPlayerGo')).click();
+        element(by.id('inputNick')).sendKeys('player 2');
+        element(by.id('registerPlayerGo')).click();
 
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();

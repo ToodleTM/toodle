@@ -1,7 +1,7 @@
 'use strict';
 var e2eUtils = require('./e2eUtils.js');
 
-describe('User having the registration URL', function () {
+describe('Tournament creation process', function () {
     beforeEach(function(){
         browser.get('');
         browser.waitForAngular();
@@ -57,6 +57,8 @@ describe('User having the registration URL', function () {
 
         element(by.id('inputNick')).sendKeys('player 1');
         element(by.id('registerPlayerGo')).click();
+        element(by.id('inputNick')).sendKeys('player 2');
+        element(by.id('registerPlayerGo')).click();
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
 
@@ -66,10 +68,10 @@ describe('User having the registration URL', function () {
         element(by.id('displaySettings')).click();
         element(by.id('playerManagement')).click();
 
-        element(by.id('inputNick')).sendKeys('player 2');
+        element(by.id('inputNick')).sendKeys('player 3');
         element(by.id('registerPlayerGo')).click();
 
-        expect(playersList.getText()).toEqual('Registered players (Total : 2)\nplayer 1\nplayer 2');
+        expect(playersList.getText()).toEqual('Registered players (Total : 3)\nplayer 1\nplayer 2\nplayer 3');
     });
 
     it('should allow normal players to register if tournament has not started', function(){
@@ -104,6 +106,8 @@ describe('User having the registration URL', function () {
 
         element(by.id('inputNick')).sendKeys('player 1');
         element(by.id('registerPlayerGo')).click();
+        element(by.id('inputNick')).sendKeys('player 2');
+        element(by.id('registerPlayerGo')).click();
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
 
@@ -120,6 +124,8 @@ describe('User having the registration URL', function () {
         expect(playersList.getText()).toEqual('Registered players (Total : 0)\nNo registered players at the moment');
 
         element(by.id('inputNick')).sendKeys('player 1');
+        element(by.id('registerPlayerGo')).click();
+        element(by.id('inputNick')).sendKeys('player 2');
         element(by.id('registerPlayerGo')).click();
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
