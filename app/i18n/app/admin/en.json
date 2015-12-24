@@ -41,8 +41,7 @@
         }
       },
       "run": {
-        "running": "Stop brackets",
-        "notRunning": "Start brackets",
+        "running": "Stop",
         "runningTooltip": "Start tournament, users won't be able to register anymore",
         "notRunningTooltip": "Stop tournament, users will be able to register again",
         "tournamentAlreadyRunning": "Tournament is already running",
@@ -70,10 +69,13 @@
     },
     "misc": {
       "links": "Links to other related pages for your tournament",
-      "playLink": "Player's signup form",
+      "relatedPages":"Related pages",
+      "playLink": "Public page",
       "brackets": "Tournament's bracket",
       "winners": "Tournament winners (CSV export)",
-      "embedLink":"Embed in another page"
+      "embedLink":"Embed",
+      "current":"Current standings",
+      "parent":"Parent"
     }
   }
 }

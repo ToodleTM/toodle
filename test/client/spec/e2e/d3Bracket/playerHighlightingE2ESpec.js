@@ -151,6 +151,7 @@ describe('Player highlighting - PUBLIC page', function () {
         setupTournamentWith4Players();
         var match1 = element(by.id('matchNumber-1'));
         report2NilForPlayer1(match1);
+        element(by.id('relatedPages')).click();
         element(by.id('playerSignupPageLink')).click();
 
         e2eUtils.testIntoPopup(function (finished) {
@@ -163,6 +164,7 @@ describe('Player highlighting - PUBLIC page', function () {
         setupTournamentWith4Players();
         var match1 = element(by.id('matchNumber-1'));
         report2NilForPlayer1(match1);
+        element(by.id('relatedPages')).click();
         element(by.id('playerSignupPageLink')).click();
 
         e2eUtils.testIntoPopup(function (finished) {
@@ -181,6 +183,7 @@ describe('Player highlighting - PUBLIC page', function () {
         var match2 = element(by.id('matchNumber-2'));
         report2NilForPlayer1(match2);
 
+        element(by.id('relatedPages')).click();
         element(by.id('playerSignupPageLink')).click();
 
         e2eUtils.testIntoPopup(function (finished) {
@@ -200,6 +203,7 @@ describe('Player highlighting - PUBLIC page', function () {
         element(by.id('clickable-5-1')).click();
         expect(element(by.id('linkfrom-5-to-1')).getAttribute('class')).toEqual('bracket-highlight');
         expect(element(by.id('linkfrom-7-to-5')).getAttribute('class')).toEqual('bracket-highlight');
+        element(by.id('relatedPages')).click();
         element(by.id('playerSignupPageLink')).click();
 
         e2eUtils.testIntoPopup(function (finished) {
@@ -219,6 +223,7 @@ describe('Player highlighting - PUBLIC page', function () {
         element(by.id('clickable-5-1')).click();
         expect(element(by.id('linkfrom-5-to-1')).getAttribute('class')).toEqual('bracket-highlight');
         expect(element(by.id('linkfrom-7-to-5')).getAttribute('class')).toEqual('bracket-highlight');
+        element(by.id('relatedPages')).click();
         element(by.id('playerSignupPageLink')).click();
 
         e2eUtils.testIntoPopup(function (finished) {
@@ -232,6 +237,7 @@ describe('Player highlighting - PUBLIC page', function () {
 
     it('should keep active highlighting even if user unreports a match', function () {
         setupPlayerTournamentReport2FirstMatches();
+        element(by.id('relatedPages')).click();
         element(by.id('playerSignupPageLink')).click();
         e2eUtils.testIntoPopup(function (finished) {
             element(by.id('clickable-5-1')).click();
@@ -247,6 +253,7 @@ describe('Player highlighting - PUBLIC page', function () {
 
     it('should keep active highlighting even if user reports a match', function () {
         setupPlayerTournamentReport2FirstMatches();
+        element(by.id('relatedPages')).click();
         element(by.id('playerSignupPageLink')).click();
         e2eUtils.testIntoPopup(function (finished) {
             element(by.id('clickable-5-1')).click();

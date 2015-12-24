@@ -16,7 +16,7 @@ describe('Tournament creation process', function () {
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
         expect(element(by.id('alertMessage')).getText()).toEqual('Something went wrong updating this tournament.');
-        expect(element(by.id('alertDetails')).getText()).toEqual('No players registered, there\'s no point in initiating the bracket');
+        expect(element(by.id('alertDetails')).getText()).toEqual('No players registered, there\'s no point in initiating the tournament');
     });
 
     it('should not allow the user to register a player w/ the same nick twice', function () {
@@ -85,6 +85,7 @@ describe('Tournament creation process', function () {
         element(by.id('runTournament')).click();
         element(by.id('doConfigure')).click();
 
+        element(by.id('relatedPages')).click();
         element(by.id('playerSignupPageLink')).click();
         e2eUtils.testIntoPopup(function(finished){
             element(by.id('displaySettings')).click();
@@ -130,6 +131,7 @@ describe('Tournament creation process', function () {
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
 
+        element(by.id('relatedPages')).click();
         element(by.id('playerSignupPageLink')).click();
         e2eUtils.testIntoPopup(function (finished) {
             element(by.id('displaySettings')).click();
@@ -201,7 +203,7 @@ describe('Tournament creation process', function () {
         expect(element(by.id('extraStartOptionsMenu')).getText()).toEqual('Start w/ default parameters\nLet me configure players');
     });
 
-    it('should show an option to go to the configuration page without actually starting the bracket', function(){
+    it('should show an option to go to the configuration page without actually starting the tournament', function(){
         element(by.id('tournamentName')).sendKeys('protractor');
         element(by.id('registerTournamentButton')).click();
 
@@ -211,7 +213,7 @@ describe('Tournament creation process', function () {
         element(by.id('runTournament')).click();
         element(by.id('doConfigure')).click();
 
-        expect(element(by.id('runTournament')).getText()).toEqual('Start brackets');
+        expect(element(by.id('runTournament')).getText()).toEqual('Start');
     });
 
     it('should display a factions list and allow to register a player with a specific faction - ADMIN page', function(){
@@ -263,6 +265,7 @@ describe('Tournament creation process', function () {
         element(by.id('runTournament')).click();
         element(by.id('doConfigure')).click();
 
+        element(by.id('relatedPages')).click();
         element(by.id('playerSignupPageLink')).click();
 
         e2eUtils.testIntoPopup(function (finished) {
@@ -288,7 +291,7 @@ describe('Tournament creation process', function () {
         element(by.id('runTournament')).click();
         element(by.id('doConfigure')).click();
 
-
+        element(by.id('relatedPages')).click();
         element(by.id('playerSignupPageLink')).click();
         e2eUtils.testIntoPopup(function (finished) {
             element(by.id('displaySettings')).click();

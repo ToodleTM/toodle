@@ -213,6 +213,7 @@ describe('Match reporting through the interactive bracket', function () {
     describe('In USER section', function () {
         function setup4PlayerTournamentAndGoToPublicPage() {
             setupTournamentWith4Players();
+            element(by.id('relatedPages')).click();
             element(by.id('playerSignupPageLink')).click();
         }
 
@@ -244,6 +245,7 @@ describe('Match reporting through the interactive bracket', function () {
         it('should not be able to unreport a match if reporting rights are set to "only report"', function () {
             setupTournamentWith4Players();
             element(by.id('reportRights-1')).click();
+            element(by.id('relatedPages')).click();
             element(by.id('playerSignupPageLink')).click();
             e2eUtils.testIntoPopup(function (finished) {
                 var match1 = element(by.id('matchNumber-1'));
@@ -256,6 +258,7 @@ describe('Match reporting through the interactive bracket', function () {
         it('should not be able to report (or unreport) a match if reporting rights are set to "nothing"', function () {
             setupTournamentWith4Players();
             element(by.id('reportRights-2')).click();
+            element(by.id('relatedPages')).click();
             element(by.id('playerSignupPageLink')).click();
 
             e2eUtils.testIntoPopup(function (finished) {
@@ -268,6 +271,7 @@ describe('Match reporting through the interactive bracket', function () {
         describe('continuous reporting', function () {
             it('should allow to report a partial score (1-1) if user does not check the "final score" box', function () {
                 setupTournamentWith4Players();
+                element(by.id('relatedPages')).click();
                 element(by.id('playerSignupPageLink')).click();
                 e2eUtils.testIntoPopup(function (finished) {
                     var reportingButton = element(by.id('matchNumber-1'));
@@ -294,6 +298,7 @@ describe('Match reporting through the interactive bracket', function () {
 
             it('should be able to report a first time and then get the current score when reporting for a second time', function () {
                 setupTournamentWith4Players();
+                element(by.id('relatedPages')).click();
                 element(by.id('playerSignupPageLink')).click();
                 e2eUtils.testIntoPopup(function (finished) {
                     var reportingButton = element(by.id('matchNumber-1'));
@@ -333,6 +338,7 @@ describe('Match reporting through the interactive bracket', function () {
             //erreur si score invalide pour une fermeture : report continu
             it('should not close a match w/ equal scores even if the close box was checked when score was valid', function () {
                 setupTournamentWith4Players();
+                element(by.id('relatedPages')).click();
                 element(by.id('playerSignupPageLink')).click();
                 e2eUtils.testIntoPopup(function (finished) {
                     var reportingButton = element(by.id('matchNumber-1'));

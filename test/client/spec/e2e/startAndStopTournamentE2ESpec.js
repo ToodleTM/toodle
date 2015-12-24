@@ -14,7 +14,7 @@ describe('Start tournament', function () {
         element(by.id('doStart')).click();
 
         var tourneyRunBox = element(by.id('updateKo'));
-        expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(No players registered, there's no point in initiating the bracket\)/g);
+        expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(No players registered, there's no point in initiating the tournament\)/g);
     });
 
     it('should correctly update the buttons classes and form state when tournament starts', function(){
@@ -22,7 +22,7 @@ describe('Start tournament', function () {
 
         e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
 
-        expect(element(by.id('runTournament')).getText()).toBe('Stop brackets');
+        expect(element(by.id('runTournament')).getText()).toBe('Stop');
         expect(element(by.id('runTournament')).getAttribute('class')).toMatch('btn btn-danger ng-scope');
 
         element(by.id('displaySettings')).click();
@@ -49,7 +49,7 @@ describe('Start tournament', function () {
         element(by.id('runTournament')).click();
         element(by.id('doConfigure')).click();
 
-        expect(element(by.id('runTournament')).getText()).toBe('Start brackets');
+        expect(element(by.id('runTournament')).getText()).toBe('Start');
         expect(element(by.id('runTournament')).getAttribute('class')).toMatch('btn btn-success');
 
         element(by.id('displaySettings')).click();
@@ -78,13 +78,13 @@ describe('Start tournament', function () {
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
 
-        expect(element(by.id('runTournament')).getText()).toBe('Stop brackets');
+        expect(element(by.id('runTournament')).getText()).toBe('Stop');
         expect(element(by.id('runTournament')).getAttribute('class')).toMatch('btn btn-danger ng-scope');
 
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
 
-        expect(element(by.id('runTournament')).getText()).toBe('Start brackets');
+        expect(element(by.id('runTournament')).getText()).toBe('Start');
         expect(element(by.id('runTournament')).getAttribute('class')).toMatch('btn btn-success');
 
         element(by.id('displaySettings')).click();
@@ -120,6 +120,8 @@ describe('Start tournament', function () {
 
         e2eUtils.configureTheTournamentAndStartIt(browser, element, by);
         expect(element(by.id('mainBracket')).isDisplayed()).toBe(true);
+
+        element(by.id('relatedPages')).click();
         element(by.id('playerSignupPageLink')).click();
         e2eUtils.testIntoPopup(function(finished) {
             expect(element(by.id('mainBracket')).isDisplayed()).toBe(true);

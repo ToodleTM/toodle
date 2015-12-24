@@ -41,7 +41,7 @@
         }
       },
       "run": {
-        "running": "Arrêter l'arbre",
+        "running": "Arrêter",
         "runningTooltip": "Démarrer le tournoi. Les joueurs ne pourront plus s'inscrire",
         "notRunningTooltip": "Arrêter le tournoi, les joueurs pourront a nouveau s'inscrire",
         "tournamentAlreadyRunning": "Le tournoi a déjà commencé",
@@ -70,10 +70,13 @@
     },
     "misc": {
       "links": "Liens vers d'autres pages concernant le tournoi",
-      "playLink": "Le formulaire d'inscription des joueurs",
+      "relatedPages": "Pages liées",
+      "playLink": "Page publique",
       "brackets": "L'arbre du tournoi",
       "winners": "Liste des gagnants (export CSV)",
-      "embedLink": "Intégrer dans une autre page"
+      "embedLink": "Intégrer",
+      "current":"État du tournoi courant",
+      "parent": "Parent"
     }
   }
 }

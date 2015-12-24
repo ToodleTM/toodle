@@ -24,19 +24,19 @@
       "addPlayer": "Add new players once at a time ...",
       "addMultiplePlayers": "... or a group of players using a file",
       "run": {
-        "notRunning": "Start brackets",
+        "notRunning": "Start",
         "runDefault": "Start w/ default parameters",
         "preconfigure": "Let me configure players",
         "confirm": "Go!",
         "configure": "Configure",
         "cancel": "Cancel",
-        "willStop": "This will stop the current tournament and allow users to register again. WARNING: This _will_ destroy the current bracket",
+        "willStop": "This will stop the current tournament and allow users to register again. WARNING: This _will_ destroy the current bracket / groups",
         "willStart": "This will start the tournament and prevent users from registering.",
         "willConfigure": "The 'configure' button will allow you to configure your tournament further before starting it.",
         "modalTitle": "Start / stop tournament",
         "errors": {
           "notEnoughPlayers": "Not enough players right now, you need to register more players.",
-          "noPlayers": "No players registered, there's no point in initiating the bracket"
+          "noPlayers": "No players registered, there's no point in initiating the tournament"
         }
       },
       "playerNickPlaceholder": "Player nick",

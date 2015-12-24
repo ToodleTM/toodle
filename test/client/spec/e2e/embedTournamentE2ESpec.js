@@ -18,6 +18,7 @@ describe('Embedding tournament info in another page', function () {
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
 
+        element(by.id('relatedPages')).click();
         element(by.id('embedPageLink')).click();
 
         e2eUtils.testIntoPopup(function(finished){
@@ -36,6 +37,7 @@ describe('Embedding tournament info in another page', function () {
         element(by.id('runTournament')).click();
         element(by.id('doStart')).click();
 
+        element(by.id('relatedPages')).click();
         element(by.id('embedPageLink')).click();
 
         e2eUtils.testIntoPopup(function (finished) {

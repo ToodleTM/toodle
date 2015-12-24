@@ -247,6 +247,7 @@ describe('Embedding tournament info in another page', function () {
             element(by.id('tournamentNameModal')).sendKeys('protractor next');
             element(by.id('doConfigure')).click();
 
+            element(by.id('relatedPages')).click();
             element(by.id('playerSignupPageLink')).click();
             e2eUtils.testIntoPopup(function (finished) {
                 element(by.id('showTournamentParent')).click();
