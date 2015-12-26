@@ -67,7 +67,7 @@
           "invalidScores": "Please use integers when reporting score",
           "nextMatchDoesNotExist": "Could not find the next match",
           "winnerMustHaveHigherScore": "Winning player must have a higher score",
-          "insufficientPrivileges": "You are not allowed do that",
+          "insufficientPrivileges": "You are not allowed to do that",
           "defWinCantBeUnreported": "You can't unreport a defwin !",
           "errorUnreportingMatch": "Service error. It can be temporary, try again in a few minutes and if the problem is still there you should get in touch w/ your admin or, if none is present, tweet the main dev (@ToodleTM).",
           "tournamentLocked": "Tournament is currently locked (it probably has a follow-up tournament set up)"
@@ -75,7 +75,8 @@
       }
     },
     "misc": {
-      "fileMustBeCSV": "file needs to be a CSV file"
+      "fileMustBeCSV": "file needs to be a CSV file",
+      "current": "Current standings"
     },
     "form": {
       "description": "Short description",

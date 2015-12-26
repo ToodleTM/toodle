@@ -74,7 +74,8 @@
       }
     },
     "misc":{
-      "fileMustBeCSV": "le fichier doit être au format CSV"
+      "fileMustBeCSV": "le fichier doit être au format CSV",
+      "current": "État du tournoi courant"
     },
     "form":{
       "description": "Courte description",

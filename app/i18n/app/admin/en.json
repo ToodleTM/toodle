@@ -74,7 +74,6 @@
       "brackets": "Tournament's bracket",
       "winners": "Tournament winners (CSV export)",
       "embedLink":"Embed",
-      "current":"Current standings",
       "parent":"Parent"
     }
   }
