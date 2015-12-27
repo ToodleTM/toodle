@@ -305,4 +305,35 @@ describe('Tournament creation process', function () {
             finished();
         });
     });
+
+
+    describe('404 errors handling', function () {
+        it('should get a 404 message if ID is valid but tournament does not exist', function () {
+            browser.get('/playersRegistration/123456789012345678901234');
+            var errorElement = element(by.id('error'));
+            expect(errorElement.isDisplayed()).toBe(true);
+            expect(errorElement.getText(), 'No such tournament has been registered, check your URL or go back to the main page to create a new tournament.');
+        });
+
+        it('should get a 404 message if ID is too long', function () {
+            browser.get('/playersRegistration/123456789012345678901234asdfasdf');
+            var errorElement = element(by.id('error'));
+            expect(errorElement.isDisplayed()).toBe(true);
+            expect(errorElement.getText(), 'No such tournament has been registered, check your URL or go back to the main page to create a new tournament.');
+        });
+
+        it('should get a 404 message if ID is too short', function () {
+            browser.get('/playersRegistration/1234567890123');
+            var errorElement = element(by.id('error'));
+            expect(errorElement.isDisplayed()).toBe(true);
+            expect(errorElement.getText(), 'No such tournament has been registered, check your URL or go back to the main page to create a new tournament.');
+        });
+
+        it('should get a 404 message if ID contains invalid characters', function () {
+            browser.get('/playersRegistration/1234567890123456789012zz');
+            var errorElement = element(by.id('error'));
+            expect(errorElement.isDisplayed()).toBe(true);
+            expect(errorElement.getText(), 'No such tournament has been registered, check your URL or go back to the main page to create a new tournament.');
+        });
+    });
 });
