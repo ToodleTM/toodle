@@ -44,32 +44,6 @@ describe('Player forfeits while bracket is ongoing', function () {
             expect(match1.getAttribute('href')).toEqual('/images/delete.png');
         });
 
-        it('should switch from 1 player to another when forfeiting if user clicks on player1\'s button, then on player2\'s', function () {
-            setupTournamentWith4Players();
-            var match1 = element(by.id('matchNumber-1'));
-            expect(match1.getAttribute('href')).toEqual('/images/edit.png');
-            match1.click();
-
-            element(by.id('score1')).sendKeys('');
-            element(by.id('score1')).sendKeys(2);
-
-            element(by.id('score2')).sendKeys('');
-            element(by.id('score2')).sendKeys(0);
-
-            element(by.id('forfeit-1')).click();
-
-            expect(element(by.id('closeMatch')).isDisplayed()).toEqual(false);
-
-            expect(element(by.id('score1')).isEnabled()).toEqual(false);
-            expect(element(by.id('score2')).isEnabled()).toEqual(false);
-            expect(element(by.xpath('//input[@id="score1"]/../..')).getAttribute('class')).toContain('forfeitPlayer');
-            expect(element(by.xpath('//input[@id="score2"]/../..')).getAttribute('class')).toEqual('form-group col-sm-6');
-            element(by.id('forfeit-2')).click();
-            expect(element(by.xpath('//input[@id="score1"]/../..')).getAttribute('class')).toEqual('form-group col-sm-6');
-            expect(element(by.xpath('//input[@id="score2"]/../..')).getAttribute('class')).toContain('forfeitPlayer');
-
-        });
-
         it('should disable forfeit mode if user clicks twice on the same forfeit button', function () {
             setupTournamentWith4Players();
             var match1 = element(by.id('matchNumber-1'));

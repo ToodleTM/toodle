@@ -9,10 +9,6 @@ describe('Start tournament', function () {
     it('Should not allow tournament start if tournament contains no players', function () {
         e2eUtils.createTournamentAndGoToPage(browser, element, by, 'adminLink');
 
-        element(by.id('runTournament')).click();
-        e2eUtils.waitForElementToBeVisible(browser, element, by, 'doStart');
-        element(by.id('doStart')).click();
-
         var tourneyRunBox = element(by.id('updateKo'));
         expect(tourneyRunBox.getText()).toMatch(/×\nClose\nSomething went wrong updating this tournament. \(No players registered, there's no point in initiating the tournament\)/g);
     });

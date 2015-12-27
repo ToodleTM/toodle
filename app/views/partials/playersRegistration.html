@@ -77,12 +77,6 @@
         </div>
     </fieldset>
 
-    <div ng-if="updateOk" id="updateOk" class="alert alert-success alert-dismissible app-alert" role="alert">
-        <button type="button" class="close alert-fix-close" id="dismissAlertOk" ng-click="hideUpdateAlert()"><span
-                aria-hidden="true">&times;</span><span
-                class="sr-only">Close</span></button>
-        <p translate="{{alertMessage}}">{{alertMessage |translate}}</p>
-    </div>
     <div ng-if="updateKo" id="updateKo" class="alert alert-danger alert-dismissible app-alert" role="alert">
         <button type="button" class="close alert-fix-close" id="dismissAlertKo" ng-click="hideUpdateAlert()"><span
                 aria-hidden="true">&times;</span><span
@@ -106,8 +100,7 @@
                 <label class="control-label" for="engine">&nbsp;</label><br/>
 
                 <div class="btn-group" dropdown ng-if="!tournamentInfo.running" style="float:right">
-                    <button type="button" class="btn btn-danger" id="runTournament" ng-click="openRunDialog()"
-                            class="btn btn-danger"
+                    <button class="btn btn-danger" id="runTournament" ng-click="openRunDialog()"
                             title="{{'admin.actions.run.notRunningTooltip' | translate }}"
                             translate="admin.actions.run.notRunning">
                         {{'admin.actions.run.notRunning' | translate}}
