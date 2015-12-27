@@ -44,15 +44,15 @@
         "running": "Stop",
         "runningTooltip": "Start tournament, users won't be able to register anymore",
         "notRunningTooltip": "Stop tournament, users will be able to register again",
-        "tournamentAlreadyRunning": "Tournament is already running",
-        "tournamentAlreadyStopped": "Tournament is already stopped",
-        "noEngineSpecified": "No game engine was specified, can't start tournament until it's done",
-        "invalidTournamentEngine": "The tournament engine specified is not available.",
-        "notFound": "Tournament does not exist",
-        "cantUnlockRunningTournament": "You can't unlock registrations to a running tournament.",
-        "tournamentLocked":"Tournament is currently locked (it probably has a follow-up tournament set up)",
         "errors":{
-          "notEnoughPlayers":"Not enough players right now, you need to register more players."
+          "notEnoughPlayers":"Not enough players right now, you need to register more players.",
+          "tournamentAlreadyRunning": "Tournament is already running",
+          "tournamentAlreadyStopped": "Tournament is already stopped",
+          "noEngineSpecified": "No game engine was specified, can't start tournament until it's done",
+          "invalidTournamentEngine": "The tournament engine specified is not available.",
+          "notFound": "Tournament does not exist",
+          "cantUnlockRunningTournament": "You can't unlock registrations to a running tournament.",
+          "tournamentLocked": "Tournament is currently locked (it probably has a follow-up tournament set up)"
         }
       },
       "swapPlayers": {
@@ -74,6 +74,7 @@
       "brackets": "Tournament's bracket",
       "winners": "Tournament winners (CSV export)",
       "embedLink":"Embed",
+      "current":"Current standings",
       "parent":"Parent"
     }
   }

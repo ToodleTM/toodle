@@ -1,6 +1,6 @@
 <div class="form-group col-sm-12">
-    <alert id="tourneyReportingKo" collapse="!errorMessage" type="danger" close="hideLocalAlerts()" style="margin-top:25px;">
-        <span translate="{{errorMessage}}">{{errorMessage |translate}}</span>
+    <alert id="tourneyReportingKo" collapse="!bracketErrorMessage" type="danger" close="hideLocalAlerts()" style="margin-top:25px;">
+        <span translate="{{bracketErrorMessage}}">{{bracketErrorMessage |translate}}</span>
     </alert>
 </div>
 <h2><span translate="admin.misc.current"></span> :</h2>
@@ -9,8 +9,6 @@
 <simple-gsl-display ng-if="tournamentInfo.engine === 'simpleGSLGroups'"
                     controller-references-for-renderer="controllerReferencesForRenderer"
                     related-tournament="mainTournament" id="mainBracket" original-id="mainBracket"></simple-gsl-display>
-
-<!--<div ng-if="tournamentInfo.engine === 'simpleGSLGroups'" ng-show="tournamentInfo.running" ng-include="'/partials/engineTemplates/simpleGSLGroups.html'">-->
 
 <div ng-repeat="(key, tournament) in relatedTournaments">
     <h2><span translate="admin.misc.parent"></span> : {{tournament.tournamentData.tournamentName}}</h2>

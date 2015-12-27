@@ -44,15 +44,15 @@
         "running": "Arrêter",
         "runningTooltip": "Démarrer le tournoi. Les joueurs ne pourront plus s'inscrire",
         "notRunningTooltip": "Arrêter le tournoi, les joueurs pourront a nouveau s'inscrire",
-        "tournamentAlreadyRunning": "Le tournoi a déjà commencé",
-        "tournamentAlreadyStopped": "Le tournoi est déjà arrêté",
-        "noEngineSpecified": "Aucun moteur de jeu n'est spécifié, impossible de démarrer le tournoi tant que cela n'est pas fait",
-        "invalidTournamentEngine": "le moteur de règles demandé n'est pas dsponible",
-        "notFound": "Tournament does not exist",
-        "cantUnlockRunningTournament": "Il n'est pas possible d'accepter de nouveaux joueurs une fois le tournoi commencé.",
-        "tournamentLocked": "Ce tournoi est verrouillé (probablement parce qu'il possède un tournoi suivant)",
         "errors": {
-          "notEnoughPlayers": "Pas assez de joueurs. Enregistres en d'autres pour pouvoir démarrer."
+          "notEnoughPlayers": "Pas assez de joueurs. Enregistres en d'autres pour pouvoir démarrer.",
+          "tournamentAlreadyRunning": "Le tournoi a déjà commencé",
+          "tournamentAlreadyStopped": "Le tournoi est déjà arrêté",
+          "noEngineSpecified": "Aucun moteur de jeu n'est spécifié, impossible de démarrer le tournoi tant que cela n'est pas fait",
+          "invalidTournamentEngine": "le moteur de règles demandé n'est pas dsponible",
+          "notFound": "Tournament does not exist",
+          "cantUnlockRunningTournament": "Il n'est pas possible d'accepter de nouveaux joueurs une fois le tournoi commencé.",
+          "tournamentLocked": "Ce tournoi est verrouillé (probablement parce qu'il possède un tournoi suivant)"
         }
       },
 

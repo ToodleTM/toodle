@@ -147,7 +147,7 @@ angular.module('toodleApp')
                 }).success(function (data) {
                     resetFormDataAndRedrawMainBracket(data);
                 }).error(function (data) {
-                    $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
+                    $scope.bracketErrorMessage = 'admin.actions.reporting.errors.' + data.message;
                     $scope.tourneyReportingKo = true;
                 });
             };
@@ -164,7 +164,7 @@ angular.module('toodleApp')
                 }).success(function (data) {
                     resetFormDataAndRedrawMainBracket(data);
                 }).error(function (data) {
-                    $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
+                    $scope.bracketErrorMessage = 'admin.actions.reporting.errors.' + data.message;
                     $scope.tourneyReportingKo = true;
                 });
             };
@@ -183,13 +183,13 @@ angular.module('toodleApp')
                 }).success(function (data) {
                     resetFormDataAndRedrawMainBracket(data);
                 }).error(function (data) {
-                    $scope.errorMessage = 'admin.actions.reporting.errors.' + data.message;
+                    $scope.bracketErrorMessage = 'admin.actions.reporting.errors.' + data.message;
                     $scope.tourneyReportingKo = true;
                 });
             };
             $scope.hideLocalAlerts = function () {
                 $scope.tourneyReportingKo = false;
-                $scope.errorMessage = null;
+                $scope.bracketErrorMessage = null;
             };
 
             $scope.togglePlayerHighlight = function (player) {
@@ -207,7 +207,6 @@ angular.module('toodleApp')
                     if (tournamentData) {
                         var rendererToUse = utils_availableRenderers[tournamentData.engine];
                         tournamentData.userPrivileges = 0;
-                        //definedUserPrivilegesForDisplay();
                         $scope.relatedTournaments.push({
                             tournamentData: tournamentData,
                             renderer: rendererToUse,

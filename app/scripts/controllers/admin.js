@@ -136,13 +136,13 @@ angular.module('toodleApp')
                 .success(function (code) {
                     if (code === 404) {
                         $scope.tournamentInfo.locked = previousLockedStatus;
-                        $scope.errorMessage = 'admin.actions.run.notFound';
+                        $scope.errorMessage = 'admin.actions.run.errors.notFound';
                         $scope.updateKo = true;
                     }
                 })
                 .error(function (error) {
                     $scope.tournamentInfo.locked = previousLockedStatus;
-                    $scope.errorMessage = 'admin.actions.run.' + error.message;
+                    $scope.errorMessage = 'admin.actions.run.errors.' + error.message;
                     $scope.updateKo = true;
                 });
         };
@@ -188,7 +188,7 @@ angular.module('toodleApp')
                 })
                 .error(function (data) {
                     $scope.tournamentInfo.running = originalValue;
-                    $scope.errorMessage = 'admin.actions.run.' + data.message;
+                    $scope.errorMessage = 'admin.actions.run.errors.' + data.message;
                     $scope.alertMessage = 'admin.update.fail';
                     $scope.updateKo = true;
                 });

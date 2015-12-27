@@ -34,7 +34,6 @@ describe('Player forfeits while bracket is ongoing', function () {
                 expect(element(by.id('tourneyReportingKo')).getText()).toContain('You are not allowed to do that');
                 done();
             });
-
         });
     });
 
