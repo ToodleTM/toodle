@@ -3,9 +3,81 @@
     <div class="form-horizontal">
         <div class="row">
             <h1 class="col-sm-12">What's new ?</h1>
+            <h2>Dec. 28th 2015 (v1.4.7)</h2>
+
+            <h3>New features</h3>
+
+            <h4>Slight GUI revamp (again)</h4>
+            <p>The interface buttons are now more "menu" like. It seems to be less messy (all buttons are now in one
+                clean line that does not move around)</p>
+            <p>Related functions have been regrouped under the same menus. For example, links to get to the public or embed pages are now regrouped under the "related pages" menu.</p>
+            <div class="image-container">
+                <img src="images/whatsnew/12282015/00_regrouped_menus.png"/>
+                <span class="legend">Regrouped functions look & feel.</span>
+            </div>
+            <h4>"Real" new feature : The Cup Management</h4>
+            <p>Cup Management allows you to create follow-up tournaments once a tournament you've run has ended (i.e:
+                winners are known). The cup system is embedded into the app and does not require you to choose a
+                particular tournament at the beginning.</p>
+            <p>The features : </p>
+            <ul>
+                <li>Once a tournament has ended, you can choose to follow it up with another tournament (the most
+                    straightforward example would be to inject winners from group stages into a bracket).
+                    <div class="image-container">
+                        <img src="images/whatsnew/12282015/01_new_button.png"/>
+                        <span class="legend">The button to create follow-up tournaments will appear on the right of the menu bar once a tournament has ended.</span>
+                    </div>
+                </li>
+                <li>If you choose to do so, Toodle will ask you for details about the new tournament (name, start date,
+                    description ... as it would when creating a normal tournament)
+                    <div class="image-container">
+                        <img src="images/whatsnew/12282015/02_form.png"/>
+                        <span class="legend">The form is like the standard one. Just input a title, select your engine, and you're good to go =)</span>
+                    </div>
+                </li>
+                <li>Depending on the number of winners and the nature of the follow-up tournament, you'll be able to
+                    start right away if you do so desire, but you'll also have all the normal options (as rearranging
+                    players in the follow up tournament). If it's not possible to start right away, you'll still be
+                    taken to the admin page of the follow-up tournament and asked to fix what needs to be fixed before
+                    starting.
+                </li>
+                <li>Once a follow-up tournament has started, the initial tournament is locked (cannot edit it in any way
+                    that'd change the winners anymore)
+                </li>
+                <li>In the follow-up tournament page, there is a button that allows you to display the previous
+                    tournament (aka: parent tournament) and its parent's parent, and so on until you move all the way up
+                    to the initial tournament.
+                    <div class="image-container">
+                        <img src="images/whatsnew/12282015/05_button_off.png"/>
+                        <span class="legend">Button to show parent tournaments is always shown at the bottom</span>
+                    </div>
+                    <div class="image-container">
+                        <img src="images/whatsnew/12282015/05_button_on.png"/>
+                        <span class="legend">Once clicked, the parent tournament is displayed. If that parent tournament also has a parent, the button stays visible and allows you to display the parent's parent.</span>
+                    </div>
+                </li>
+                <li>There is no fixed limit on how many tournaments can be chained this way</li>
+                <li>On each tournament in a cup, you have menus to help you navigate between tournaments.
+                    <div class="image-container">
+                        <img src="images/whatsnew/12282015/07_nav_menus.png"/>
+                        <span class="legend">Menus allow to access nearest parent / son tournament. Similar menus are displayed in the public page (just not showing admin links).</span>
+                    </div>
+                </li>
+                <li>This was made to be able to mix tournaments of any engines (existing, of course, but also & kinda
+                    more importantly, upcoming). We don't want any limitations put on this so that a complete tournament
+                    going through different phases will be possible as long as tournament engines individually support
+                    what you're shooting for.
+                </li>
+            </ul>
+            <p>As a consequence, the "export winners" button once a tournament has finished has disappeared (for now, at
+                least).</p>
+
             <h2>Sept. 20th 2015 (v1.2.3)</h2>
-            <p>Not much to say about this version, some tweaks and fixes for the most part, plus one interesting feature : embedding.</p>
-            <p>Embedding is a feature that allows you to link to a tournament bracket from another site using iframes. The page to include is different from admin / play pages in a way that only the core information is available (current tournament standings, read-only).</p>
+            <p>Not much to say about this version, some tweaks and fixes for the most part, plus one interesting feature
+                : embedding.</p>
+            <p>Embedding is a feature that allows you to link to a tournament bracket from another site using iframes.
+                The page to include is different from admin / play pages in a way that only the core information is
+                available (current tournament standings, read-only).</p>
 
             <h2>August 24th 2015(v1.2.1)</h2>
 

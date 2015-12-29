@@ -1,6 +1,6 @@
 {
   "name": "toodle",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "dependencies": {
     "async": "^1.2.0",
     "body-parser": "^1.10.2",
