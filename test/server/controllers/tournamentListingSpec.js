@@ -24,7 +24,7 @@ describe('Tournament Listing controller', function () {
         controller.listTournaments(req, res);
         //assert
         assert.equal(tournamentModelMock.find.calledOnce, true);
-        assert.deepEqual(tournamentModelMock.find.getCall(0).args[0], {});
+        assert.deepEqual(tournamentModelMock.find.getCall(0).args[0], {public: true});
         assert.deepEqual(tournamentModelMock.find.getCall(0).args[1], {});
         assert.deepEqual(tournamentModelMock.find.getCall(0).args[2], {
             skip: 20 * (0),
