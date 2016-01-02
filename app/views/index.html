@@ -25,17 +25,17 @@
     <!-- endbuild -->
 
     <!-- Piwik -->
-    <script src="config/piwik.config.js"></script>
+    <script>piwik-config-placeholder</script>
     <script type="text/javascript">
         var _paq = _paq || [];
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
             var u= piwik_config.url;
-            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setTrackerUrl', u+'statphp']);
             _paq.push(['setSiteId', piwik_config.site_id]);
             var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'statjs'; s.parentNode.insertBefore(g,s);
         })();
     </script>
     <noscript>piwik-noscript-placeholder</noscript>
