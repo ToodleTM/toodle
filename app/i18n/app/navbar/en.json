@@ -12,7 +12,10 @@
       },
       "login": {
         "twitter": "Login with Twitter",
-        "gplus": "Login with G+"
+        "gplus": "Login with G+",
+        "errors":{
+          "genericError":"Login with selected service failed"
+        }
       }
     }
   }

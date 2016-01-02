@@ -12,7 +12,10 @@
       },
       "login": {
         "twitter": "Se connecter avec Twitter",
-        "gplus": "Se connecter avec G+"
+        "gplus": "Se connecter avec G+",
+        "errors":{
+          "genericError":"Impossible de se connecter avec le service sélectionné"
+        }
       }
     }
   }

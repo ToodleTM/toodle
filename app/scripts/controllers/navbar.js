@@ -8,6 +8,15 @@ angular.module('toodleApp')
         $scope.selectedLanguage = $cookieStore.get('toodle-lang') ? $cookieStore.get('toodle-lang') : 'en';
         $scope.userName ='';
         $scope.userIcon = '';
+
+        if($location.$$search.loginError){
+            $scope.navbarError = 'tournaments.navbar.login.errors.genericError';
+        }
+
+        $scope.hideNavbarNotifications = function(){
+            delete $scope.navbarError;
+        };
+
         $scope.login = function(provider){
             $window.location = '/login?type='+provider+'&returnUrl='+$location.$$absUrl;
         };
