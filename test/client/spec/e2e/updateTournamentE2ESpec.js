@@ -53,7 +53,7 @@ describe('User having the admin link of a tournament', function () {
         expect(element(by.xpath('//ul[@id="sortablePlayerList"]/li[2]/span/span/div')).getAttribute('class')).toContain('icon-zerg-16 player-icon right');
     });
 
-    it('should be able to unpublish a tournament', function(){
+    it('should be able to unpublish a tournament (tournament not started)', function(){
         let time = (new Date()).getTime();
         element(by.id('tournamentName')).sendKeys('protractor_public_test_'+time);
         element(by.id('registerTournamentButton')).click();
@@ -77,6 +77,44 @@ describe('User having the admin link of a tournament', function () {
         element(by.id('menu-tournamentList')).click();
 
         expect(element(by.id('tournamentsList')).getText()).not.toContain('protractor_public_test_'+time);
+
+        browser.navigate().back();
+
+        element(by.id('displaySettings')).click();
+        element(by.id('public_yes')).click();
+
+        element(by.id('menuButton')).click();
+        element(by.id('menu-tournamentList')).click();
+
+        expect(element(by.id('tournamentsList')).getText()).toContain('protractor_public_test_' + time);
+    });
+
+    it('should be able to unpublish a tournament (tournament started)', function () {
+        let time = (new Date()).getTime();
+        element(by.id('tournamentName')).sendKeys('protractor_public_test_' + time);
+        element(by.id('registerTournamentButton')).click();
+
+        element(by.id('inputNick')).sendKeys('player 1');
+        element(by.id('registerPlayerGo')).click();
+        element(by.id('inputNick')).sendKeys('player 2');
+        element(by.id('registerPlayerGo')).click();
+
+        element(by.id('runTournament')).click();
+        element(by.id('doStart')).click();
+
+        element(by.id('menuButton')).click();
+        element(by.id('menu-tournamentList')).click();
+
+        expect(element(by.id('tournamentsList')).getText()).toContain('protractor_public_test_' + time);
+        browser.navigate().back();
+
+        element(by.id('displaySettings')).click();
+        element(by.id('public_no')).click();
+
+        element(by.id('menuButton')).click();
+        element(by.id('menu-tournamentList')).click();
+
+        expect(element(by.id('tournamentsList')).getText()).not.toContain('protractor_public_test_' + time);
 
         browser.navigate().back();
 
