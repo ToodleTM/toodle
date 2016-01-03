@@ -147,6 +147,17 @@
                                         ng-options="engine as engine.description for engine in availableEngines track by engine.name">
                                 </select>
                             </div>
+
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" for="public" translate="admin.form.public.label"></label>
+                                <br/>
+                                <div class="btn-group" id="public">
+                                    <label class="btn btn-primary" ng-model="tournamentInfo.public" id="public_yes"
+                                           btn-radio="true" translate="admin.form.public.public" ng-change="updateTourney()"></label>
+                                    <label class="btn btn-primary" ng-model="tournamentInfo.public" id="public_no"
+                                           btn-radio="false" translate="admin.form.public.notPublic" ng-change="updateTourney()"></label>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-12">

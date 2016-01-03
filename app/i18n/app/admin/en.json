@@ -15,6 +15,11 @@
         "reportOnly": "Report only",
         "nothing": "Neither report nor unreport"
       },
+      "public":{
+        "label":"Public tournament?",
+        "public":"Yes",
+        "notPublic":"No"
+      },
       "cantUpdateEngineWhileRunning": "You can't update the tournament engine while tournament is live.",
       "notFound": "Tournament to update not found.",
       "tournamentLocked":"Tournament is currently locked (it probably has a follow-up tournament set up)"

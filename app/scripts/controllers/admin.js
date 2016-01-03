@@ -108,7 +108,8 @@ angular.module('toodleApp')
                 engine: $scope.tournamentInfo.engine,
                 description: $scope.tournamentInfo.description,
                 startDate: $scope.tournamentInfo.formStartDate,
-                userPrivileges: $scope.tournamentInfo.userPrivileges
+                userPrivileges: $scope.tournamentInfo.userPrivileges,
+                public:$scope.tournamentInfo.public
             })
                 .success(function (data) {
                     $scope.tournamentInfo = data;

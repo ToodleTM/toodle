@@ -15,6 +15,11 @@
         "reportOnly": "Seulement report",
         "nothing": "Aucun des deux"
       },
+      "public": {
+        "label": "Tournoi public?",
+        "public": "Oui",
+        "notPublic": "Non"
+      },
       "cantUpdateEngineWhileRunning": "Tu ne peux pas mettre à jour le moteur de tournoi alors que ce dernier a commencé.",
       "notFound": "Tournoi à mettre à jour introuvable.",
       "tournamentLocked": "Ce tournoi est verrouillé (probablement parce qu'il possède un tournoi suivant)"
