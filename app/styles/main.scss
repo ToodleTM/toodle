@@ -7,6 +7,7 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 @import '_sprites.scss';
 @import '_navbar.scss';
 @import '_tournamentsList.scss';
+@import '_popins.scss';
 
 @include sprites($spritesheet-sprites);
 
@@ -416,4 +417,10 @@ nav div {
   border-top:1px solid #ccc;
   background-color: #fafafa;
   cursor: pointer;
+}
+
+.ellipsis{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

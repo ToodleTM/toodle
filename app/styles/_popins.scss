@@ -1,0 +1,20 @@
+.custom-title{
+  position: relative;
+  height: 1em;
+
+  & * {
+    float: left;
+    &.dash {
+      width: 5%;
+      text-align: center;
+    }
+    &.versus-separator {
+      width: 10%;
+      text-align: center;
+    }
+    &.player-name {
+      cursor:help;
+      max-width: 25%;
+    }
+  }
+}

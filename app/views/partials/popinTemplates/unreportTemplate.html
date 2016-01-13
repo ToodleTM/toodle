@@ -1,8 +1,17 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span
             aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <h3 class="modal-title" id="unreportModalLabel"><span translate="admin.actions.reporting.unreportTitle"></span> - {{
-        gameToUnreport.player1.name }} VS {{gameToUnreport.player2.name}}</h3>
+    <h3 class="modal-title custom-title" id="unreportModalLabel">
+        <span translate="admin.actions.reporting.unreportTitle"></span>
+        <div class="dash">-</div>
+        <div class="player-name ellipsis" title="{{ gameToUnreport.player1.name }}">
+            {{ gameToUnreport.player1.name }}
+        </div>
+        <div class="versus-separator">VS</div>
+        <div class="player-name ellipsis" title="{{ gameToUnreport.player2.name }}">
+            {{ gameToUnreport.player2.name }}
+        </div>
+    </h3>
 </div>
 <div class="modal-body">
     <form class="form-horizontal">
