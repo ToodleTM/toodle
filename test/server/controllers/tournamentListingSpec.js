@@ -63,4 +63,34 @@ describe('Tournament Listing controller', function () {
         assert.equal(jsonSpy.calledOnce, true);
         assert.deepEqual(jsonSpy.getCall(0).args, [{message: 'lookupError'}]);
     });
+
+    it('should not return complete mongo result set but a set of documents without the _id attribute', function(){
+        //setup
+        var jsonSpy = sinon.spy();
+        var req = {query: {pageNumber: 1}},
+            res = {
+                status: function () {
+                    var status = function () {
+                    };
+                    status.json = jsonSpy;
+                    return status;
+                },
+                json:sinon.spy()
+            };
+        var tournamentModelMock = {
+            find: function (criteria, projection, options, callback) {
+                callback(null, [{_doc:{tournamentName:'tournament name', _id:1234}}]);
+            }
+        };
+        sinon.spy(res, 'status');
+        sinon.spy(tournamentModelMock, 'find');
+        sinon.stub(controller, 'tournamentModel').returns(tournamentModelMock);
+        //action
+        controller.listTournaments(req, res);
+        //assert
+        assert.equal(tournamentModelMock.find.calledOnce, true);
+        assert.equal(res.status.called, false);
+        assert.equal(res.json.calledOnce, true);
+        assert.deepEqual(res.json.getCall(0).args[0], [{tournamentName: 'tournament name'}]);
+    });
 });
