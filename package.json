@@ -3,7 +3,7 @@
   "version": "1.4.8",
   "dependencies": {
     "async": "^1.2.0",
-    "body-parser": "^1.10.2",
+    "body-parser": "^1.15.0",
     "bower": "^1.3.9",
     "compression": "^1.3.1",
     "connect-mongo": "^1.1.0",
@@ -20,6 +20,7 @@
     "method-override": "~2.3.0",
     "mongoose": "~4.3.4",
     "morgan": "~1.6.0",
+    "oauth2-server": "^2.4.1",
     "passport": "~0.3.0",
     "passport-google-plus": "^0.5.1",
     "passport-local": "~1.0.0",

@@ -1,0 +1,69 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="/">
+    <title>Toodle</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(app) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+    <!-- Piwik -->
+    <script>piwik - config - placeholder</script>
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+            var u = piwik_config.url;
+            _paq.push(['setTrackerUrl', u + 'statphp']);
+            _paq.push(['setSiteId', piwik_config.site_id]);
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+            g.type = 'text/javascript';
+            g.async = true;
+            g.defer = true;
+            g.src = u + 'statjs';
+            s.parentNode.insertBefore(g, s);
+        })();
+    </script>
+    <noscript>piwik-noscript-placeholder</noscript>
+    <!-- End Piwik Code -->
+</head>
+<body ng-app="toodleApp">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+<!-- Add your site or application content here -->
+<div class="container">
+    <form action="/login-user" method="POST" class="form">
+
+        <div class="row">
+            <label class="col-sm-3" for="username">User name : </label><input class="col-sm-3" id="username" type="text" name="username"/>
+        </div>
+        <div class="row">
+            <label class="col-sm-3" for="password">Password : </label><input class="col-sm-3" id="password" type="password" name="password"/>
+
+        </div>
+        <input type="submit" value="Go!"/>
+    </form>
+
+</div>
+</body>
+</html>
