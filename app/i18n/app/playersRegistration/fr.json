@@ -2,5 +2,10 @@
   "playersRegistration": {
     "selectEngineAndGo": "Sélectionne un format et démarres le tournoi",
     "whosPlaying": "Qui joue?"
+  },
+  "admin":{
+    "form":{
+      "randomizePlayers": "Répartir les joueurs aléatoirement"
+    }
   }
 }

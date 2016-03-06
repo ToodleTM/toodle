@@ -2,5 +2,10 @@
   "playersRegistration": {
     "selectEngineAndGo": "Select an engine and start the tournament",
     "whosPlaying": "Who's playing?"
+  },
+  "admin": {
+    "form": {
+      "randomizePlayers": "Seed players randomly"
+    }
   }
 }

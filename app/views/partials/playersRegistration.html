@@ -58,7 +58,7 @@
         </div>
     </fieldset>
     <fieldset id="playersList" ng-model="playerList">
-        <legend><span translate="play.register.registeredPlayers"></span> (Total : {{playerList.length}})</legend>
+        <legend><span translate="play.register.registeredPlayers"></span> (Total : {{playerList.length}}) <button class="btn-xs btn-primary" ng-click="randomizePlayers()" translate="admin.form.randomizePlayers"></button></legend>
         <ul id="sortablePlayerList">
             <li ng-repeat="player in playerList" class="playerInList">
                 <span style="float:left">

@@ -92,14 +92,19 @@ angular.module('toodleApp')
                 }
             });
 
-        $scope.updateTourney = function () {
+        $scope.randomizePlayers = function(){
+            $scope.updateTourney('random');
+        };
+
+        $scope.updateTourney = function (seed) {
             $scope.hideUpdateAlert();
             $scope.tournamentInfo.engine = $scope.engine.name;
-            $http.patch('/api/tournament/admin/update/?id=' + $scope.tournamentId, {_id:$scope.tournamentInfo._id, engine:$scope.tournamentInfo.engine})
+            $http.patch('/api/tournament/admin/update/?id=' + $scope.tournamentId, {_id:$scope.tournamentInfo._id, engine:$scope.tournamentInfo.engine, seed:seed})
                 .success(function (data) {
                     $scope.tournamentInfo = data;
                     $scope.alertMessage = 'admin.update.success';
                     $scope.updateOk = true;
+                    $scope.playerList = data.players;
                     $scope.availableEngines.forEach(function (item) {
                         if (item.name === $scope.tournamentInfo.engine) {
                             $scope.engine = item;

@@ -97,7 +97,7 @@ describe('TournamentService - General purpose stuff', function () {
         //assert
         assert.equal(newTournament.parentTournament, '1234');
         assert.equal(tournamentModel.update.calledOnce, true);
-        assert.deepEqual(tournamentModel.update.getCall(0).args[0], {_id: '1234', followingTournament:null});
+        assert.deepEqual(tournamentModel.update.getCall(0).args[0], {_id: '1234', followingTournament: null});
         assert.deepEqual(tournamentModel.update.getCall(0).args[1], {
             followingTournament: '1235',
             followingTournamentPublicId: '1236'
@@ -551,7 +551,7 @@ describe('TournamentService - General purpose stuff', function () {
         var tournament = {running: true, locked: true, save: sinon.spy()};
         sinon.spy(tournamentService, 'updateTournament');
         //action
-        tournamentService.stopTournament(null, null, tournament, function () {
+        tournamentService.stopTournament({body:{}}, null, tournament, function () {
         });
         //assert
         assert.equal(tournamentService.updateTournament.calledOnce, true);
@@ -575,9 +575,35 @@ describe('TournamentService - General purpose stuff', function () {
         };
         sinon.spy(tournamentService, 'updateTournament');
         //action
-        tournamentService.startTournament(null, {json: sinon.spy()}, tournament);
+        tournamentService.startTournament({body: {}}, {json: sinon.spy()}, tournament);
         //assert
         assert.equal(tournamentService.updateTournament.calledOnce, true);
         assert.equal(tournamentService.updateTournament.getCall(0).args[2].locked, true);
+    });
+
+    it('should randomize players list if form body has a seed property that is set to "random"', function () {
+        //setup
+        var req = {body:{seed:'random'}}, res = {json:sinon.spy()}, tournamentModel = {players:[{name:'john'}], save:sinon.spy()};
+        sinon.stub(tournamentService, 'randomizePlayersList').returns([]);
+        //action
+        tournamentService.updateTournament(req, res, tournamentModel);
+        //assert
+        assert.equal(tournamentModel.save.calledOnce, true);
+        assert.equal(tournamentService.randomizePlayersList.calledOnce, true);
+        assert.deepEqual(tournamentService.randomizePlayersList.getCall(0).args, [[{name: 'john'}]]);
+    });
+
+    it('should not change players ordering if form body does not have a seed property set to "random"', function(){
+        //setup
+        var req = {body: {}}, res = {json: sinon.spy()}, tournamentModel = {
+            players: [{name: 'john'}],
+            save: sinon.spy()
+        };
+        sinon.stub(tournamentService, 'randomizePlayersList').returns([]);
+        //action
+        tournamentService.updateTournament(req, res, tournamentModel);
+        //assert
+        assert.equal(tournamentModel.save.calledOnce, true);
+        assert.equal(tournamentService.randomizePlayersList.called, false);
     });
 });
