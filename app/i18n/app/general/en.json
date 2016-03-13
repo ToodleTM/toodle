@@ -107,7 +107,7 @@
       "fail": "Player registration failed",
       "errors": {
         "noDuplicateNick": "A player with that name is already registered",
-        "noEmptyNick": "Empty nicks are not allowed",
+        "incorrectNick": "Invalid nick (either empty or more than 19 characters long)",
         "registrationLocked": "You can't enter this tournament, registration is locked",
         "noSuchTournament": "No such tournament has been registered, check your URL or go back to the main page to create a new tournament.",
         "tournamentAlreadyRunning": "Tournament is already running"

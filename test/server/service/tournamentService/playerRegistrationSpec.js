@@ -14,7 +14,24 @@ describe('TournamentService - Player registration', function () {
         tournamentService.registerPlayer(req, res, {players: []});
         //assert
         assert.equal(res.json.getCall(0).args[0], 400);
-        assert.equal(res.json.getCall(0).args[1].message, 'noEmptyNick');
+        assert.equal(res.json.getCall(0).args[1].message, 'incorrectNick');
+        assert.equal(res.json.calledOnce, true);
+    });
+
+    it('should reject a nick that is more than 19 characters long', function(){
+        //setup
+        var tournamentService = new TournamentService();
+        var req = {body: {nick: '12345678901234567890'}};
+        var res = {
+            json: function () {
+            }
+        };
+        sinon.spy(res, 'json');
+        //action
+        tournamentService.registerPlayer(req, res, {players: []});
+        //assert
+        assert.equal(res.json.getCall(0).args[0], 400);
+        assert.equal(res.json.getCall(0).args[1].message, 'incorrectNick');
         assert.equal(res.json.calledOnce, true);
     });
 
@@ -29,7 +46,7 @@ describe('TournamentService - Player registration', function () {
         tournamentService.registerPlayer(req, res, {players: []});
         //assert
         assert.equal(res.json.getCall(0).args[0], 400);
-        assert.equal(res.json.getCall(0).args[1].message, 'noEmptyNick');
+        assert.equal(res.json.getCall(0).args[1].message, 'incorrectNick');
         assert.equal(res.json.calledOnce, true);
     });
 
@@ -46,7 +63,7 @@ describe('TournamentService - Player registration', function () {
         tournamentService.registerPlayer(req, res, {players: []});
         //assert
         assert.equal(res.json.getCall(0).args[0], 400);
-        assert.equal(res.json.getCall(0).args[1].message, 'noEmptyNick');
+        assert.equal(res.json.getCall(0).args[1].message, 'incorrectNick');
         assert.equal(res.json.calledOnce, true);
     });
 

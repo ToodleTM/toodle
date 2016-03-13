@@ -168,7 +168,7 @@ angular.module('toodleApp')
                     });
                 $scope.inputs.nick = '';
             } else {
-                $scope.errorMessage = 'play.register.errors.noEmptyNick';
+                $scope.errorMessage = 'play.register.errors.incorrectNick';
                 $scope.alertMessage = 'play.register.fail';
                 $scope.updateKo = true;
             }
