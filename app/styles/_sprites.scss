@@ -1,0 +1,433 @@
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
+
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet: width height image $spritesheet-sprites;
+*/
+$arrow-left-red-name: 'arrow-left-red';
+$arrow-left-red-x: 0px;
+$arrow-left-red-y: 270px;
+$arrow-left-red-offset-x: 0px;
+$arrow-left-red-offset-y: -270px;
+$arrow-left-red-width: 64px;
+$arrow-left-red-height: 64px;
+$arrow-left-red-total-width: 396px;
+$arrow-left-red-total-height: 334px;
+$arrow-left-red-image: 'sprites.png';
+$arrow-left-red: (0px, 270px, 0px, -270px, 64px, 64px, 396px, 334px, '/images/sprites.png', 'arrow-left-red');
+$arrow-right-green-name: 'arrow-right-green';
+$arrow-right-green-x: 64px;
+$arrow-right-green-y: 270px;
+$arrow-right-green-offset-x: -64px;
+$arrow-right-green-offset-y: -270px;
+$arrow-right-green-width: 64px;
+$arrow-right-green-height: 64px;
+$arrow-right-green-total-width: 396px;
+$arrow-right-green-total-height: 334px;
+$arrow-right-green-image: 'sprites.png';
+$arrow-right-green: (64px, 270px, -64px, -270px, 64px, 64px, 396px, 334px, '/images/sprites.png', 'arrow-right-green');
+$circle-green-name: 'circle-green';
+$circle-green-x: 364px;
+$circle-green-y: 65px;
+$circle-green-offset-x: -364px;
+$circle-green-offset-y: -65px;
+$circle-green-width: 25px;
+$circle-green-height: 25px;
+$circle-green-total-width: 396px;
+$circle-green-total-height: 334px;
+$circle-green-image: 'sprites.png';
+$circle-green: (364px, 65px, -364px, -65px, 25px, 25px, 396px, 334px, '/images/sprites.png', 'circle-green');
+$circle-red-name: 'circle-red';
+$circle-red-x: 364px;
+$circle-red-y: 90px;
+$circle-red-offset-x: -364px;
+$circle-red-offset-y: -90px;
+$circle-red-width: 25px;
+$circle-red-height: 25px;
+$circle-red-total-width: 396px;
+$circle-red-total-height: 334px;
+$circle-red-image: 'sprites.png';
+$circle-red: (364px, 90px, -364px, -90px, 25px, 25px, 396px, 334px, '/images/sprites.png', 'circle-red');
+$clickable-name: 'clickable';
+$clickable-x: 150px;
+$clickable-y: 131px;
+$clickable-offset-x: -150px;
+$clickable-offset-y: -131px;
+$clickable-width: 150px;
+$clickable-height: 18px;
+$clickable-total-width: 396px;
+$clickable-total-height: 334px;
+$clickable-image: 'sprites.png';
+$clickable: (150px, 131px, -150px, -131px, 150px, 18px, 396px, 334px, '/images/sprites.png', 'clickable');
+$clickable250-20-name: 'clickable250-20';
+$clickable250-20-x: 0px;
+$clickable250-20-y: 230px;
+$clickable250-20-offset-x: 0px;
+$clickable250-20-offset-y: -230px;
+$clickable250-20-width: 250px;
+$clickable250-20-height: 20px;
+$clickable250-20-total-width: 396px;
+$clickable250-20-total-height: 334px;
+$clickable250-20-image: 'sprites.png';
+$clickable250-20: (0px, 230px, 0px, -230px, 250px, 20px, 396px, 334px, '/images/sprites.png', 'clickable250-20');
+$clicked-250-20-name: 'clicked-250-20';
+$clicked-250-20-x: 0px;
+$clicked-250-20-y: 250px;
+$clicked-250-20-offset-x: 0px;
+$clicked-250-20-offset-y: -250px;
+$clicked-250-20-width: 244px;
+$clicked-250-20-height: 20px;
+$clicked-250-20-total-width: 396px;
+$clicked-250-20-total-height: 334px;
+$clicked-250-20-image: 'sprites.png';
+$clicked-250-20: (0px, 250px, 0px, -250px, 244px, 20px, 396px, 334px, '/images/sprites.png', 'clicked-250-20');
+$clicked-name: 'clicked';
+$clicked-x: 150px;
+$clicked-y: 113px;
+$clicked-offset-x: -150px;
+$clicked-offset-y: -113px;
+$clicked-width: 150px;
+$clicked-height: 18px;
+$clicked-total-width: 396px;
+$clicked-total-height: 334px;
+$clicked-image: 'sprites.png';
+$clicked: (150px, 113px, -150px, -113px, 150px, 18px, 396px, 334px, '/images/sprites.png', 'clicked');
+$delete-name: 'delete';
+$delete-x: 364px;
+$delete-y: 32px;
+$delete-offset-x: -364px;
+$delete-offset-y: -32px;
+$delete-width: 28px;
+$delete-height: 33px;
+$delete-total-width: 396px;
+$delete-total-height: 334px;
+$delete-image: 'sprites.png';
+$delete: (364px, 32px, -364px, -32px, 28px, 33px, 396px, 334px, '/images/sprites.png', 'delete');
+$edit-name: 'edit';
+$edit-x: 188px;
+$edit-y: 270px;
+$edit-offset-x: -188px;
+$edit-offset-y: -270px;
+$edit-width: 50px;
+$edit-height: 46px;
+$edit-total-width: 396px;
+$edit-total-height: 334px;
+$edit-image: 'sprites.png';
+$edit: (188px, 270px, -188px, -270px, 50px, 46px, 396px, 334px, '/images/sprites.png', 'edit');
+$engine-logo-simple-g-s-l-groups-name: 'engine-logo-simpleGSLGroups';
+$engine-logo-simple-g-s-l-groups-x: 238px;
+$engine-logo-simple-g-s-l-groups-y: 270px;
+$engine-logo-simple-g-s-l-groups-offset-x: -238px;
+$engine-logo-simple-g-s-l-groups-offset-y: -270px;
+$engine-logo-simple-g-s-l-groups-width: 43px;
+$engine-logo-simple-g-s-l-groups-height: 25px;
+$engine-logo-simple-g-s-l-groups-total-width: 396px;
+$engine-logo-simple-g-s-l-groups-total-height: 334px;
+$engine-logo-simple-g-s-l-groups-image: 'sprites.png';
+$engine-logo-simple-g-s-l-groups: (238px, 270px, -238px, -270px, 43px, 25px, 396px, 334px, '/images/sprites.png', 'engine-logo-simpleGSLGroups');
+$engine-logo-single-elim-name: 'engine-logo-singleElim';
+$engine-logo-single-elim-x: 281px;
+$engine-logo-single-elim-y: 270px;
+$engine-logo-single-elim-offset-x: -281px;
+$engine-logo-single-elim-offset-y: -270px;
+$engine-logo-single-elim-width: 43px;
+$engine-logo-single-elim-height: 25px;
+$engine-logo-single-elim-total-width: 396px;
+$engine-logo-single-elim-total-height: 334px;
+$engine-logo-single-elim-image: 'sprites.png';
+$engine-logo-single-elim: (281px, 270px, -281px, -270px, 43px, 25px, 396px, 334px, '/images/sprites.png', 'engine-logo-singleElim');
+$icon-default-16-name: 'icon-default-16';
+$icon-default-16-x: 364px;
+$icon-default-16-y: 115px;
+$icon-default-16-offset-x: -364px;
+$icon-default-16-offset-y: -115px;
+$icon-default-16-width: 17px;
+$icon-default-16-height: 16px;
+$icon-default-16-total-width: 396px;
+$icon-default-16-total-height: 334px;
+$icon-default-16-image: 'sprites.png';
+$icon-default-16: (364px, 115px, -364px, -115px, 17px, 16px, 396px, 334px, '/images/sprites.png', 'icon-default-16');
+$icon-default-name: 'icon-default';
+$icon-default-x: 224px;
+$icon-default-y: 150px;
+$icon-default-offset-x: -224px;
+$icon-default-offset-y: -150px;
+$icon-default-width: 75px;
+$icon-default-height: 75px;
+$icon-default-total-width: 396px;
+$icon-default-total-height: 334px;
+$icon-default-image: 'sprites.png';
+$icon-default: (224px, 150px, -224px, -150px, 75px, 75px, 396px, 334px, '/images/sprites.png', 'icon-default');
+$icon-protoss-16-name: 'icon-protoss-16';
+$icon-protoss-16-x: 364px;
+$icon-protoss-16-y: 131px;
+$icon-protoss-16-offset-x: -364px;
+$icon-protoss-16-offset-y: -131px;
+$icon-protoss-16-width: 16px;
+$icon-protoss-16-height: 16px;
+$icon-protoss-16-total-width: 396px;
+$icon-protoss-16-total-height: 334px;
+$icon-protoss-16-image: 'sprites.png';
+$icon-protoss-16: (364px, 131px, -364px, -131px, 16px, 16px, 396px, 334px, '/images/sprites.png', 'icon-protoss-16');
+$icon-protoss-name: 'icon-protoss';
+$icon-protoss-x: 128px;
+$icon-protoss-y: 270px;
+$icon-protoss-offset-x: -128px;
+$icon-protoss-offset-y: -270px;
+$icon-protoss-width: 60px;
+$icon-protoss-height: 60px;
+$icon-protoss-total-width: 396px;
+$icon-protoss-total-height: 334px;
+$icon-protoss-image: 'sprites.png';
+$icon-protoss: (128px, 270px, -128px, -270px, 60px, 60px, 396px, 334px, '/images/sprites.png', 'icon-protoss');
+$icon-random-16-name: 'icon-random-16';
+$icon-random-16-x: 364px;
+$icon-random-16-y: 147px;
+$icon-random-16-offset-x: -364px;
+$icon-random-16-offset-y: -147px;
+$icon-random-16-width: 16px;
+$icon-random-16-height: 16px;
+$icon-random-16-total-width: 396px;
+$icon-random-16-total-height: 334px;
+$icon-random-16-image: 'sprites.png';
+$icon-random-16: (364px, 147px, -364px, -147px, 16px, 16px, 396px, 334px, '/images/sprites.png', 'icon-random-16');
+$icon-random-name: 'icon-random';
+$icon-random-x: 80px;
+$icon-random-y: 150px;
+$icon-random-offset-x: -80px;
+$icon-random-offset-y: -150px;
+$icon-random-width: 73px;
+$icon-random-height: 80px;
+$icon-random-total-width: 396px;
+$icon-random-total-height: 334px;
+$icon-random-image: 'sprites.png';
+$icon-random: (80px, 150px, -80px, -150px, 73px, 80px, 396px, 334px, '/images/sprites.png', 'icon-random');
+$icon-terran-16-name: 'icon-terran-16';
+$icon-terran-16-x: 364px;
+$icon-terran-16-y: 163px;
+$icon-terran-16-offset-x: -364px;
+$icon-terran-16-offset-y: -163px;
+$icon-terran-16-width: 16px;
+$icon-terran-16-height: 16px;
+$icon-terran-16-total-width: 396px;
+$icon-terran-16-total-height: 334px;
+$icon-terran-16-image: 'sprites.png';
+$icon-terran-16: (364px, 163px, -364px, -163px, 16px, 16px, 396px, 334px, '/images/sprites.png', 'icon-terran-16');
+$icon-terran-name: 'icon-terran';
+$icon-terran-x: 0px;
+$icon-terran-y: 150px;
+$icon-terran-offset-x: 0px;
+$icon-terran-offset-y: -150px;
+$icon-terran-width: 80px;
+$icon-terran-height: 80px;
+$icon-terran-total-width: 396px;
+$icon-terran-total-height: 334px;
+$icon-terran-image: 'sprites.png';
+$icon-terran: (0px, 150px, 0px, -150px, 80px, 80px, 396px, 334px, '/images/sprites.png', 'icon-terran');
+$icon-zerg-16-name: 'icon-zerg-16';
+$icon-zerg-16-x: 380px;
+$icon-zerg-16-y: 131px;
+$icon-zerg-16-offset-x: -380px;
+$icon-zerg-16-offset-y: -131px;
+$icon-zerg-16-width: 16px;
+$icon-zerg-16-height: 16px;
+$icon-zerg-16-total-width: 396px;
+$icon-zerg-16-total-height: 334px;
+$icon-zerg-16-image: 'sprites.png';
+$icon-zerg-16: (380px, 131px, -380px, -131px, 16px, 16px, 396px, 334px, '/images/sprites.png', 'icon-zerg-16');
+$icon-zerg-name: 'icon-zerg';
+$icon-zerg-x: 153px;
+$icon-zerg-y: 150px;
+$icon-zerg-offset-x: -153px;
+$icon-zerg-offset-y: -150px;
+$icon-zerg-width: 71px;
+$icon-zerg-height: 80px;
+$icon-zerg-total-width: 396px;
+$icon-zerg-total-height: 334px;
+$icon-zerg-image: 'sprites.png';
+$icon-zerg: (153px, 150px, -153px, -150px, 71px, 80px, 396px, 334px, '/images/sprites.png', 'icon-zerg');
+$brioche-name: 'brioche';
+$brioche-x: 0px;
+$brioche-y: 0px;
+$brioche-offset-x: 0px;
+$brioche-offset-y: 0px;
+$brioche-width: 150px;
+$brioche-height: 150px;
+$brioche-total-width: 396px;
+$brioche-total-height: 334px;
+$brioche-image: 'sprites.png';
+$brioche: (0px, 0px, 0px, 0px, 150px, 150px, 396px, 334px, '/images/sprites.png', 'brioche');
+$hoshin-name: 'hoshin';
+$hoshin-x: 150px;
+$hoshin-y: 0px;
+$hoshin-offset-x: -150px;
+$hoshin-offset-y: 0px;
+$hoshin-width: 150px;
+$hoshin-height: 113px;
+$hoshin-total-width: 396px;
+$hoshin-total-height: 334px;
+$hoshin-image: 'sprites.png';
+$hoshin: (150px, 0px, -150px, 0px, 150px, 113px, 396px, 334px, '/images/sprites.png', 'hoshin');
+$selected-player-16-name: 'selectedPlayer-16';
+$selected-player-16-x: 380px;
+$selected-player-16-y: 147px;
+$selected-player-16-offset-x: -380px;
+$selected-player-16-offset-y: -147px;
+$selected-player-16-width: 16px;
+$selected-player-16-height: 16px;
+$selected-player-16-total-width: 396px;
+$selected-player-16-total-height: 334px;
+$selected-player-16-image: 'sprites.png';
+$selected-player-16: (380px, 147px, -380px, -147px, 16px, 16px, 396px, 334px, '/images/sprites.png', 'selectedPlayer-16');
+$selected-player-name: 'selectedPlayer';
+$selected-player-x: 300px;
+$selected-player-y: 192px;
+$selected-player-offset-x: -300px;
+$selected-player-offset-y: -192px;
+$selected-player-width: 64px;
+$selected-player-height: 64px;
+$selected-player-total-width: 396px;
+$selected-player-total-height: 334px;
+$selected-player-image: 'sprites.png';
+$selected-player: (300px, 192px, -300px, -192px, 64px, 64px, 396px, 334px, '/images/sprites.png', 'selectedPlayer');
+$gplus-name: 'gplus';
+$gplus-x: 381px;
+$gplus-y: 115px;
+$gplus-offset-x: -381px;
+$gplus-offset-y: -115px;
+$gplus-width: 15px;
+$gplus-height: 15px;
+$gplus-total-width: 396px;
+$gplus-total-height: 334px;
+$gplus-image: 'sprites.png';
+$gplus: (381px, 115px, -381px, -115px, 15px, 15px, 396px, 334px, '/images/sprites.png', 'gplus');
+$twitter-name: 'twitter';
+$twitter-x: 364px;
+$twitter-y: 179px;
+$twitter-offset-x: -364px;
+$twitter-offset-y: -179px;
+$twitter-width: 15px;
+$twitter-height: 15px;
+$twitter-total-width: 396px;
+$twitter-total-height: 334px;
+$twitter-image: 'sprites.png';
+$twitter: (364px, 179px, -364px, -179px, 15px, 15px, 396px, 334px, '/images/sprites.png', 'twitter');
+$swap-players-16-name: 'swapPlayers-16';
+$swap-players-16-x: 380px;
+$swap-players-16-y: 163px;
+$swap-players-16-offset-x: -380px;
+$swap-players-16-offset-y: -163px;
+$swap-players-16-width: 16px;
+$swap-players-16-height: 16px;
+$swap-players-16-total-width: 396px;
+$swap-players-16-total-height: 334px;
+$swap-players-16-image: 'sprites.png';
+$swap-players-16: (380px, 163px, -380px, -163px, 16px, 16px, 396px, 334px, '/images/sprites.png', 'swapPlayers-16');
+$swap-players-name: 'swapPlayers';
+$swap-players-x: 300px;
+$swap-players-y: 128px;
+$swap-players-offset-x: -300px;
+$swap-players-offset-y: -128px;
+$swap-players-width: 64px;
+$swap-players-height: 64px;
+$swap-players-total-width: 396px;
+$swap-players-total-height: 334px;
+$swap-players-image: 'sprites.png';
+$swap-players: (300px, 128px, -300px, -128px, 64px, 64px, 396px, 334px, '/images/sprites.png', 'swapPlayers');
+$toodle-name: 'toodle';
+$toodle-x: 300px;
+$toodle-y: 64px;
+$toodle-offset-x: -300px;
+$toodle-offset-y: -64px;
+$toodle-width: 64px;
+$toodle-height: 64px;
+$toodle-total-width: 396px;
+$toodle-total-height: 334px;
+$toodle-image: 'sprites.png';
+$toodle: (300px, 64px, -300px, -64px, 64px, 64px, 396px, 334px, '/images/sprites.png', 'toodle');
+$toodle-simple-name: 'toodle_simple';
+$toodle-simple-x: 300px;
+$toodle-simple-y: 0px;
+$toodle-simple-offset-x: -300px;
+$toodle-simple-offset-y: 0px;
+$toodle-simple-width: 64px;
+$toodle-simple-height: 64px;
+$toodle-simple-total-width: 396px;
+$toodle-simple-total-height: 334px;
+$toodle-simple-image: 'sprites.png';
+$toodle-simple: (300px, 0px, -300px, 0px, 64px, 64px, 396px, 334px, '/images/sprites.png', 'toodle_simple');
+$toodle-simple-32-name: 'toodle_simple_32';
+$toodle-simple-32-x: 364px;
+$toodle-simple-32-y: 0px;
+$toodle-simple-32-offset-x: -364px;
+$toodle-simple-32-offset-y: 0px;
+$toodle-simple-32-width: 32px;
+$toodle-simple-32-height: 32px;
+$toodle-simple-32-total-width: 396px;
+$toodle-simple-32-total-height: 334px;
+$toodle-simple-32-image: 'sprites.png';
+$toodle-simple-32: (364px, 0px, -364px, 0px, 32px, 32px, 396px, 334px, '/images/sprites.png', 'toodle_simple_32');
+$spritesheet-width: 396px;
+$spritesheet-height: 334px;
+$spritesheet-image: 'sprites.png';
+$spritesheet-sprites: ($arrow-left-red, $arrow-right-green, $circle-green, $circle-red, $clickable, $clickable250-20, $clicked-250-20, $clicked, $delete, $edit, $engine-logo-simple-g-s-l-groups, $engine-logo-single-elim, $icon-default-16, $icon-default, $icon-protoss-16, $icon-protoss, $icon-random-16, $icon-random, $icon-terran-16, $icon-terran, $icon-zerg-16, $icon-zerg, $brioche, $hoshin, $selected-player-16, $selected-player, $gplus, $twitter, $swap-players-16, $swap-players, $toodle, $toodle-simple, $toodle-simple-32);
+$spritesheet: (396px, 334px, '/images/sprites.png', $spritesheet-sprites);
+
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+*/
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of SCSS
+
+@include sprites($spritesheet-sprites);
+*/
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}
