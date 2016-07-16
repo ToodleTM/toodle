@@ -1,0 +1,38 @@
+---
+
+- name: Configure web server
+  hosts: web
+  tasks:
+      - name: Update Apt data
+        command: apt-get update
+        become: true
+      - name: Install GIT
+        apt: name=git state=present
+        become: true
+      - name: Install HTOP
+        apt: name=htop state=present
+        become: true
+      - name: install NodeJS 5.X
+        shell: curl -sL https://deb.nodesource.com/setup_5.x | bash -
+        become: true
+      - name: Install APT NodeJS
+        apt: name=nodejs state=present
+        become: true
+      - name: Install build-essential
+        apt: name=build-essential state=present
+        become: true
+      - name: Install PM2
+        command: npm i -g pm2
+        become: true
+      - name: Install NGINX
+        apt: name=nginx state=present
+        become: true
+- name: Configure mongo server
+  hosts: mongo
+  tasks:
+      - name: Update Apt data
+        command: apt-get update
+        become: true
+      - name: Install MongoDB
+        apt: name=mongodb state=present
+        become: true

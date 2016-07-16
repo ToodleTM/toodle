@@ -1,0 +1,35 @@
+---
+
+- name: Configure web server
+  hosts: web
+  tasks:
+      - name: Update Apt data
+        command: apt-get update
+        become: true
+      - name: Install GIT
+        apt: name=git state=absent
+        become: true
+      - name: Install HTOP
+        apt: name=htop state=absent
+        become: true
+      - name: Install APT NodeJS
+        apt: name=nodejs state=absent
+        become: true
+      - name: Install NPM
+        apt: name=npm state=absent
+        become: true
+      - name: Install PM2
+        command: npm remove -g pm2
+        become: true
+      - name: Install NGINX
+        apt: name=nginx state=absent
+        become: true
+- name: Configure mongo
+  hosts: mongo
+  tasks:
+      - name: Update Apt data
+        command: apt-get update
+        become: true
+      - name: Install MongoDB
+        apt: name=mongodb state=absent
+        become: true

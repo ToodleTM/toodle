@@ -1,0 +1,34 @@
+---
+
+- name: Deploy app onto web server & update available apps
+  hosts: web
+  tasks:
+      - name: Copy /dist repo
+        copy: src=../../dist dst=~/
+      - name: Copy pm2 prod config
+        copy: src=~/pm2-production.json dest=~/
+      - name: Copy pm2 maintenance config 
+        copy: src=~/pm2-mainenance.json dest=~/
+     
+      - name: Copy tar-ed node modules
+        copy: src=~/node_modules.tgz dest=~/
+
+      - name: Un-tar node modules
+        shell: tar -xzf node_modules.tgz
+
+      - name: Copy tar-ed bower components
+        copy: src=~/bower_components.tgz dest=~/
+
+      - name: Un-tar bower components
+        shell: tar -xzf bower_components.tgz
+
+      - name: Switch to maintenance mode
+        shell: rm -rf maintenance && cp -r dist ./maintenance && pm2 delete all && pm2 start pm2-maintenance.json
+
+      - name: Save old version and replace it by new one
+        shell: mkdir -p oldDists && rm -rf ./oldDists/oldVersion && mv dist ./oldDists/oldVersion && rm -rf ./oldDists/oldVersion/node_modules && rm -rf ./oldDists/oldVersion/app/bower_components && mv newDist dist && cd ./dist && mv ~/node_modules ./node_modules && mv ~/app/bower_components ~/dist/app/bower_components 
+      - name: Switch back to live mode
+        shell: pm2 stop maintenance && pm2 start -f pm2-production.json 
+
+      - name: Run update script
+        shell: cd dist/lib && NODE_ENV=production node updateEnginesFromFiles
